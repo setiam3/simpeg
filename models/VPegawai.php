@@ -26,8 +26,9 @@ use Yii;
  * @property string $gelarDepan
  * @property string $gelarBelakang
  * @property string $nik
- * @property string $npwp
+ * @property string $fotoNik
  * @property string $foto
+ * @property string $golonganDarah
  */
 class VPegawai extends \yii\db\ActiveRecord
 {
@@ -48,10 +49,11 @@ class VPegawai extends \yii\db\ActiveRecord
             [['id', 'status'], 'integer'],
             [['nip', 'statusPegawai', 'status', 'nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
             [['tanggalLahir'], 'safe'],
-            [['nip', 'telp', 'nik', 'npwp'], 'string', 'max' => 20],
-            [['statusPegawai', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto'], 'string', 'max' => 255],
+            [['nip', 'telp', 'nik'], 'string', 'max' => 20],
+            [['statusPegawai', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'fotoNik', 'foto'], 'string', 'max' => 255],
             [['tempatLahir', 'agama'], 'string', 'max' => 200],
             [['statusPerkawinan', 'gelarDepan', 'gelarBelakang'], 'string', 'max' => 100],
+            [['golonganDarah'], 'string', 'max' => 2],
         ];
     }
 
@@ -80,8 +82,12 @@ class VPegawai extends \yii\db\ActiveRecord
             'gelarDepan' => 'Gelar Depan',
             'gelarBelakang' => 'Gelar Belakang',
             'nik' => 'Nik',
-            'npwp' => 'Npwp',
+            'fotoNik' => 'Foto Nik',
             'foto' => 'Foto',
+            'golonganDarah' => 'Golongan Darah',
         ];
+    }
+    public function getDesanya(){
+        return $this->hasOne(Kelurahan::className(), ['id' => 'kelurahan']);
     }
 }

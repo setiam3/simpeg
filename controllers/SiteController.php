@@ -53,6 +53,9 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function actionDashboard(){
+        return $this->render('dashboard');
+    }
 
     /**
      * Displays homepage.
@@ -124,5 +127,44 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    
+    public function actionChild($model) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $id = end($_POST['depdrop_parents']);
+            $list = $model=='Kecamatan'?$this->findModelAll(['regency_id'=> $id],$model):$this->findModelAll(['district_id'=> $id],$model);
+            $selected  = null;
+            if ($id != null && count($list) > 0) {
+                $selected = '';
+                foreach ($list as $i => $account) {
+                    $out[] = ['id' => $account['id'], 'name' => $account['name']];
+                    if ($i == 0) {
+                        $selected = $account['id'];
+                    }
+                }
+                return ['output' => $out, 'selected' => $selected];
+            }
+        }
+        return ['output' => '', 'selected' => ''];
+    }
+    protected function findModel($id,$models){
+        $modelx=Yii::createObject([
+          'class' => "app\models\\".$models,
+         ]);
+        if (($model = $modelx::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    protected function findModelAll($id,$models){
+        $modelx=Yii::createObject([
+          'class' => "app\models\\".$models,
+         ]);
+        if (($model = $modelx::findAll($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

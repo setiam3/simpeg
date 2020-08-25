@@ -9,7 +9,11 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+$js=<<< JS
+     $(".alert").animate({opacity: 1.0}, 3000).fadeOut("slow");
+JS;
 
+$this->registerJs($js, yii\web\View::POS_READY);
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -37,23 +41,24 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items'=>\app\models\Menu::getMenu(),
+        // 'items' => [
+        //     ['label' => 'Home', 'url' => ['/site/index']],
+        //     ['label' => 'About', 'url' => ['/site/about']],
+        //     ['label' => 'Contact', 'url' => ['/site/contact']],
+        //     Yii::$app->user->isGuest ? (
+        //         ['label' => 'Login', 'url' => ['/site/login']]
+        //     ) : (
+        //         '<li>'
+        //         . Html::beginForm(['/site/logout'], 'post')
+        //         . Html::submitButton(
+        //             'Logout (' . Yii::$app->user->identity->username . ')',
+        //             ['class' => 'btn btn-link logout']
+        //         )
+        //         . Html::endForm()
+        //         . '</li>'
+        //     )
+        // ],
     ]);
     NavBar::end();
     ?>

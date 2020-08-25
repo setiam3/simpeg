@@ -1,6 +1,6 @@
 <?php
-namespace app\controllers;
-use Yii;
+namespace app\controllers;//lokasi files
+use Yii; //use panggil library
 use app\models\VPegawai;
 use app\models\PegawaiSearch;
 use app\models\MPegawai;
@@ -9,6 +9,7 @@ use app\models\MBiodata;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
+use \yii\web\Response;
 
 class PegawaiController extends \yii\web\Controller
 {
@@ -30,26 +31,67 @@ class PegawaiController extends \yii\web\Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionInfo($id){
+        $searchModel = new PegawaiSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('infopegawai',[
+            'model'=>$this->findModel(['nip'=>$id],'VPegawai'),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     public function actionView($id){
-        return $this->render('view',['model'=>$this->findModel(['nip'=>$id],'VPegawai')]);
+        $request = Yii::$app->request;
+        if($request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                    'title'=> "MPegawai #".$id,
+                    'content'=>$this->renderAjax('view', [
+                        'model' => $this->findModel(['nip'=>$id],'VPegawai'),
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                ];    
+        }else{
+            return $this->render('view',[
+                'model'=>$this->findModel(['id'=>$id],'VPegawai'),
+            ]);
+        }
     }
     public function actionCreate(){
         $mpegawai=new MPegawai;
         $mbiodata=new MBiodata;
         if(Yii::$app->request->post()){
-            $mbiodata->attributes=$_POST['MBiodata'];
-            if($mbiodata->save(false)){
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $mbiodata->attributes=$_POST['MBiodata'];
+              if ($mbiodata->save(false)) {
                 $mpegawai->attributes=$_POST['MPegawai'];
                 $mpegawai->fk_biodata=$mbiodata->id;
                 if($mpegawai->save(false)){
                     if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                        $ext=$this->upload('MBiodata[foto]',realpath(Yii::$app->basePath).'/web/uploads/foto/'.$mpegawai->nip);
+                        $ext=$this->upload('MBiodata[foto]',Yii::getAlias('@uploads').$mpegawai->nip);
                         $biodata=MBiodata::findOne(['id'=>$mpegawai->fk_biodata]);
                         $biodata->foto=$mpegawai->nip.'.'.$ext;
-                        $biodata->save(false);
+                        $biodata->save();
                     }
+                    if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
+                        $ext=$this->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$mbiodata->nik);
+                        $biodata=MBiodata::findOne(['id'=>$mpegawai->fk_biodata]);
+                        $biodata->fotoNik=$mbiodata->nik.'.'.$ext;
+                        $biodata->save();
+                    }
+                    $transaction->commit();
+                    Yii::$app->session->setFlash('success',' data berhasil disimpan');
                     return $this->redirect(['index']);
                 }
+
+              }
+              $transaction->rollBack();
+            } catch (\Exception $ecx) {
+              $transaction->rollBack();
+              throw $ecx;
             }
         }
         return $this->render('create',[
@@ -57,23 +99,39 @@ class PegawaiController extends \yii\web\Controller
             'mbiodata'=>$mbiodata
         ]);
     }
+
     public function actionUpdate($id){
-        $mpegawai=MPegawai::findOne(['nip'=>$id]);
+        $mpegawai=MPegawai::findOne(['nip'=>$id]);//cari nip = id. select * from mpegawai where nip=id
         $mbiodata=MBiodata::findOne(['id'=>$mpegawai->fk_biodata]);
         $lastfoto=$mbiodata->foto;
+        $lastfotoNik=$mbiodata->fotoNik;
         if(Yii::$app->request->post()){
-            $mbiodata->attributes=$_POST['MBiodata'];
+            $mbiodata->attributes=$_POST['MBiodata'];//ambil semua attribute 
             $mbiodata->foto=$lastfoto;
-            if($mbiodata->save(false)){
+            $mbiodata->fotoNik=$lastfotoNik;
+            if($mbiodata->save(false)){//tanpa validasi
                 $mpegawai->attributes=$_POST['MPegawai'];
                 $mpegawai->fk_biodata=$mbiodata->id;
                 if($mpegawai->save(false)){
                     if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                        $ext=$this->upload('MBiodata[foto]',realpath(Yii::$app->basePath).'/web/uploads/foto/'.$mpegawai->nip);
+                        if(file_exists($filename=Yii::getAlias('@uploads').$lastfoto)){
+                            unlink($filename);
+                         }
+                        $ext=$this->upload('MBiodata[foto]',Yii::getAlias('@uploads').$mpegawai->nip);
                         $biodata=MBiodata::findOne(['id'=>$mpegawai->fk_biodata]);
                         $biodata->foto=$mpegawai->nip.'.'.$ext;
                         $biodata->save(false);
                     }
+                    if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
+                        if(file_exists($filename=Yii::getAlias('@uploads').$lastfoto)){
+                            unlink($filename);
+                         }
+                        $ext=$this->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$mbiodata->nik);
+                        $biodata=MBiodata::findOne(['id'=>$mpegawai->fk_biodata]);
+                        $biodata->fotoNik=$mbiodata->nik.'.'.$ext;
+                        $biodata->save(false);
+                    }
+                    Yii::$app->session->setFlash('success',' data berhasil diupdate');
                     return $this->redirect(['index']);
                 }
             }
@@ -99,10 +157,8 @@ class PegawaiController extends \yii\web\Controller
             return $ext;
     }
     public function actionDelete($id){
-        $mpegawai=MPegawai::findOne(['nip'=>$id]);
-        $mpegawai->delete();
-        $mbiodata=MBiodata::findOne(['id'=>$mpegawai->fk_biodata]);
-        $filename=realpath(Yii::$app->basePath).'/web/uploads/foto/'.$mbiodata->foto;
+        $mbiodata=MBiodata::findOne(['id'=>$id]);
+        $filename=Yii::getAlias('@uploads').$mbiodata->foto;
         if(!empty($mbiodata->foto)){
             if(file_exists($filename)){
                unlink($filename);

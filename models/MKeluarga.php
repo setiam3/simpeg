@@ -29,8 +29,7 @@ class MKeluarga extends \yii\db\ActiveRecord
     {
         return [
             [['fk_biodata', 'hubunganKeluarga', 'nip'], 'required'],
-            [['fk_biodata', 'hubunganKeluarga'], 'string', 'max' => 255],
-            [['nip'], 'string', 'max' => 20],
+            [['fk_biodata', 'hubunganKeluarga', 'nip'], 'string', 'max' => 255],
         ];
     }
 

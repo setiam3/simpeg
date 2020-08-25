@@ -4,13 +4,19 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'SIMPEG',
+    'id' => 'basic',
+    'name'=>'SIMPEG',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@uploads' => '@app/web/uploads/foto/',
+    ],
+    'modules'=>[
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ],
     ],
     'components' => [
         'request' => [
@@ -42,6 +48,21 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'tools'=>[
+            'class'=>'app\widgets\Tools'
+        ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+            'locale'=>'id_ID',
+            'defaultTimeZone'=>'Asia/Jakarta',
+        ],
+        'pdf' => [
+            'class' => 'kartik\mpdf\Pdf',
+            'format' => 'A4',
+            'orientation' => 'P',
+            'destination' => 'I',
         ],
         'db' => $db,
         

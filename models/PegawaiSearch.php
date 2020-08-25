@@ -23,7 +23,7 @@ class PegawaiSearch extends VPegawai
         $query = VPegawai::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'key'=>'nip',
+            'key'=>'id',
         ]);
 
         $this->load($params);

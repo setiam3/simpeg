@@ -5,13 +5,9 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tertanggung".
+ * This is the model class for table "hubungankeluarga".
  *
  * @property int $id
- * @property string $nip
- * @property string $statusPegawai
- * @property int $status
- * @property string $hubunganKeluarga
  * @property string $nama
  * @property string $tempatLahir
  * @property string $tanggalLahir
@@ -27,18 +23,20 @@ use Yii;
  * @property string $gelarDepan
  * @property string $gelarBelakang
  * @property string $nik
- * @property string $fotoNik
  * @property string $foto
+ * @property string $fotoNik
  * @property string $golonganDarah
+ * @property string $hubunganKeluarga
+ * @property string $nip
  */
-class VTertanggung extends \yii\db\ActiveRecord
+class Hubungankeluarga extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tertanggung';
+        return 'hubungankeluarga';
     }
 
     /**
@@ -47,12 +45,12 @@ class VTertanggung extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['nip', 'statusPegawai', 'status', 'hubunganKeluarga', 'nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
+            [['id'], 'integer'],
+            [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik', 'hubunganKeluarga', 'nip'], 'required'],
             [['tanggalLahir'], 'safe'],
-            [['nip', 'telp', 'nik'], 'string', 'max' => 20],
-            [['statusPegawai', 'hubunganKeluarga', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'fotoNik', 'foto'], 'string', 'max' => 255],
+            [['nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik', 'hubunganKeluarga', 'nip'], 'string', 'max' => 255],
             [['tempatLahir', 'agama'], 'string', 'max' => 200],
+            [['telp', 'nik'], 'string', 'max' => 20],
             [['statusPerkawinan', 'gelarDepan', 'gelarBelakang'], 'string', 'max' => 100],
             [['golonganDarah'], 'string', 'max' => 2],
         ];
@@ -65,10 +63,6 @@ class VTertanggung extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nip' => 'Nip',
-            'statusPegawai' => 'Status Pegawai',
-            'status' => 'Status',
-            'hubunganKeluarga' => 'Hubungan Keluarga',
             'nama' => 'Nama',
             'tempatLahir' => 'Tempat Lahir',
             'tanggalLahir' => 'Tanggal Lahir',
@@ -84,9 +78,11 @@ class VTertanggung extends \yii\db\ActiveRecord
             'gelarDepan' => 'Gelar Depan',
             'gelarBelakang' => 'Gelar Belakang',
             'nik' => 'Nik',
-            'fotoNik' => 'Foto Nik',
             'foto' => 'Foto',
+            'fotoNik' => 'Foto Nik',
             'golonganDarah' => 'Golongan Darah',
+            'hubunganKeluarga' => 'Hubungan Keluarga',
+            'nip' => 'Nip',
         ];
     }
 }

@@ -17,15 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'nip',
             'nama',
-            'nik',
-            'alamat',
-            'jenisKelamin',
-            'status',
+            // 'alamat',
+            // 'jenisKelamin',
+            // 'status',
+            // jabatan
+            // golongan
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); 
-
-    
+    ]);
     ?>
     <?php Pjax::end(); ?>
 </div>

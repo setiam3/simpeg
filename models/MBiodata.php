@@ -23,8 +23,9 @@ use Yii;
  * @property string $gelarDepan
  * @property string $gelarBelakang
  * @property string $nik
- * @property string $npwp
  * @property string $foto
+ * @property string $fotoNik
+ * @property string $golonganDarah
  */
 class MBiodata extends \yii\db\ActiveRecord
 {
@@ -44,10 +45,14 @@ class MBiodata extends \yii\db\ActiveRecord
         return [
             [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
             [['tanggalLahir'], 'safe'],
-            [['nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto'], 'string', 'max' => 255],
+            [['nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik'], 'string', 'max' => 255],
             [['tempatLahir', 'agama'], 'string', 'max' => 200],
-            [['telp', 'nik', 'npwp'], 'string', 'max' => 20],
+            [['telp', 'nik'], 'string', 'max' => 20],
             [['statusPerkawinan', 'gelarDepan', 'gelarBelakang'], 'string', 'max' => 100],
+            [['golonganDarah'], 'string', 'max' => 2],
+            ['email','email'],
+            ['email', 'unique'],
+            [['foto','fotoNik'], 'file', 'extensions' => ['jpeg','png', 'jpg', 'gif'], 'maxSize' => 1024 * 1024 * 1],
         ];
     }
 
@@ -73,8 +78,9 @@ class MBiodata extends \yii\db\ActiveRecord
             'gelarDepan' => 'Gelar Depan',
             'gelarBelakang' => 'Gelar Belakang',
             'nik' => 'Nik',
-            'npwp' => 'Npwp',
             'foto' => 'Foto',
+            'fotoNik' => 'Foto Nik',
+            'golonganDarah' => 'Golongan Darah',
         ];
     }
 }

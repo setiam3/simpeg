@@ -19,21 +19,47 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <div class="col-md-6">
     <?= DetailView::widget([
         'model' => $model,
+        'options'=>['class'=>'th-right table table-striped table-bordered detail-view'],
         'attributes' => [
             [
                 'label'=>'Foto',
                 'format'=>'raw',
                 'value'=>function($data){
-                    return '<img class="col-md-6" src="'.Yii::getAlias('@web').'/uploads/foto/'.$data->foto.'"';
+                    return !empty($data->foto)?'<img class="col-xs-6" src="'.Yii::getAlias('@web').'/uploads/foto/'.$data->foto.'"':'';
                 }
             ],
             'nip',
-            'nama',
-            
+            ['label'=>'nama',
+                'value'=>function($data){
+                    return $data->gelarDepan.' '.$data->nama.' '.$data->gelarBelakang;
+                }
+            ],
+            'statusPegawai',
+            ['label'=>'TTL',
+                'value'=>function($data){
+                    return $data->tempatLahir.', '.$data->tanggalLahir;
+                }
+            ],
+            'alamat',
+            ['attribute'=>'kabupatenKota','value'=>$model->desanya->district->regency->name],
+            ['attribute'=>'kecamatan','value'=>$model->desanya->district->name],
+            ['attribute'=>'kelurahan','value'=>$model->desanya->name],
+            'jenisKelamin',
+            'agama',
+            'telp',
+            'email',
+            'statusPerkawinan',
+            'nik',
+            'fotoNik',
+            'golonganDarah',
         ],
     ]) ?>
+    </div>
+    <div class="col-md-6">
+        
+    </div>
 
 </div>

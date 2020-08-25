@@ -33,6 +33,7 @@ class MPegawai extends \yii\db\ActiveRecord
             [['status'], 'integer'],
             [['nip'], 'string', 'max' => 20],
             [['fk_biodata', 'statusPegawai'], 'string', 'max' => 255],
+            ['nip', 'unique'],
         ];
     }
 

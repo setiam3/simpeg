@@ -1,2 +1,60 @@
 TODO:
 
+- kenaikan gaji berkala (dari masa kerja (tmt) + 2th )
+- unit kerja  (ok)
+- score online (gaji,pangkat, masakerja, pendidikan,diklat,faktor resiko unit kerja,kedaruratan)
+- cuti (ok)
+
+
+list fiture :
+Login Admin dan Pegawai
+Dashboard
+    Infografik pegawai (L/P)
+    Infografik Jenis Pegawai
+    Infografik Golongan
+    Pegawai yang berulang tahun >
+    pegawai yg akan pensiun 
+    STR akan habis
+    SIP akan Habis
+
+Data Pegawai
+    Pencarian
+    Report
+
+Detail pegawai
+    Biodata Pegawai + Foto
+    Daftar Riwayat Jabatan
+    Daftar Riwayat Gaji
+    Daftar Riwayat Pendidikan
+    Data Keluarga
+    Daftar Riwayat Diklat
+    Daftar Riwayat Prestasi
+    Daftar Riwayat Hukuman
+    pengajuan cuti
+    pengajuan ijin 
+    mutasi pegawai
+    rekrutment pegawai
+
+Notifikasi Reminder
+    Kenaikan Jabatan
+    Kenaikan Gaji
+    KGB (Kenaikan Gaji Berkala)
+    Kelengkapan berkas
+
+Arsip digital
+    surat keluar / masuk
+    arsip presentasi
+    notulen rapat
+    nota dinas
+    
+Administratif
+-   Unit Kerja
+-   Users
+-   Backup
+-   Options
+
+dokumen perawat:
+1. STR (surat tanda register perawat)
+2. SIP (surat izin praktek)
+3. SIPP (surat izin praktek perawat)
+

@@ -2,7 +2,17 @@ html,
 body {
     height: 100%;
 }
-
+.th-right > tbody > tr > th {
+    text-align: right !important;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+.file-preview-thumbnails{
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
 .wrap {
     min-height: 100%;
     height: auto;
