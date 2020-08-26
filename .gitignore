@@ -36,5 +36,6 @@ runtime
 db.php
 tests
 vagrant
+params.php
 test.php
 test_db.php
