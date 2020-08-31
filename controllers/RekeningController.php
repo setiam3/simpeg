@@ -68,15 +68,14 @@ class RekeningController extends Controller
         $model = new MRekening();
 
         if ($model->load(Yii::$app->request->post())) {
-            $imageFile = UploadedFile::getInstance($model, 'fotoNpwp', 'fotoRekening');
-            //$imageFile2 = UploadedFile::getInstance($model, 'fotoRekening');
-
-            if (isset($imageFile->size)) {
-                $imageFile->saveAs('upload/' . $imageFile->baseName . '.' . $imageFile->extension);
-                //$imageFile2->saveAs('upload/' . $imageFile->baseName . '.' . $imageFile->extension);
+            if(!empty(UploadedFile::getInstance($model, 'fotoNpwp'))){
+                $ext=Yii::$app->tools->upload('MRekening[fotoNpwp]',Yii::getAlias('@uploads').$model->data->nip.'/'.$model->npwp);
+                $model->fotoNpwp=$model->npwp.'.'.$ext;
             }
-            $model->fotoNpwp = $imageFile->baseName . '.' . $imageFile->extension;
-            $model->fotoRekening = $imageFile->baseName . '.' . $imageFile->extension;
+            if(!empty(UploadedFile::getInstance($model, 'fotoRekening'))){
+                $ext=Yii::$app->tools->upload('MRekening[fotoRekening]',Yii::getAlias('@uploads').$model->data->nip.'/'.$model->nomor_rekening);
+                $model->fotoRekening=$model->nomor_rekening.'.'.$ext;
+            }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
