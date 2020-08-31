@@ -33,6 +33,7 @@ tests/_support/_generated
 /.vagrant
 vendor
 runtime
+uploads/*
 db.php
 tests
 vagrant

@@ -18,7 +18,7 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'tipe_referensi',
         'value'=>function($data){
-            return $data->tipeReferensi->nama_reff_tipe;
+            return $data->tipe_referensi.' => '.$data->tipeReferensi->nama_reff_tipe;
         }
     ],
     [

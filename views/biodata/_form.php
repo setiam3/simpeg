@@ -1,19 +1,21 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\MBiodata */
-/* @var $form yii\widgets\ActiveForm */
+use yii\helpers\ArrayHelper;
+use kartik\date\DatePicker;
+use kartik\widgets\SwitchInput;
+use kartik\depdrop\DepDrop;
+use kartik\select2\Select2;
+use yii\helpers\Url;
+use kartik\file\FileInput;
 ?>
 
 <div class="mbiodata-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_data')->textInput() ?>
 
-    <?= $form->field($model, 'parent_id')->textInput() ?>
+    <?//= $form->field($model, 'parent_id')->textInput() ?>
 
     <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
@@ -25,21 +27,63 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'kabupatenKota')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\Kabupaten::findAll(['province_id'=>'35']), 'id','name'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
 
-    <?= $form->field($model, 'kecamatan')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(),[
+                'data'=>!$model->isNewRecord && isset($model->kecamatan)?[$model->kecamatan=>\app\models\Kecamatan::findOne(['id'=>$model->kecamatan])->name]:[],
+                'type' => DepDrop::TYPE_SELECT2,
+                'options' => ['placeholder' => 'Select ...'],
+                'select2Options' => [
+                    'options'=>['placeholder' => 'Select ...'],
+                    'pluginOptions' => ['allowClear' => true]
+                ],
+                'pluginOptions'=>[
+                    'depends'=>['mbiodata-kabupatenkota'],
+                    'placeholder' => 'Select...',
+                    'url' => Url::to(['/site/child?model=Kecamatan']),
+                    'loadingText' => 'Loading kecamatan ...',
+                ]
+            ]) ?>
+            <?= $form->field($model, 'kelurahan')->widget(DepDrop::classname(),[
+                'data'=>!$model->isNewRecord && isset($model->kelurahan)?[$model->kelurahan=>\app\models\Kelurahan::findOne(['id'=>$model->kelurahan])->name]:[],
+                'type' => DepDrop::TYPE_SELECT2,
+                'options' => ['placeholder' => 'Select ...'],
+                'select2Options' => ['pluginOptions' => ['allowClear' => true]],
+                'pluginOptions'=>[
+                    'depends'=>['mbiodata-kecamatan'],
+                    'placeholder' => 'Select...',
+                    'url' => Url::to(['/site/child?model=Kelurahan']),
+                    'loadingText' => 'Loading kelurahan ...',
+                ]
+            ]) ?>
 
-    <?= $form->field($model, 'kelurahan')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jenisKelamin')->radioList(ArrayHelper::map(Yii::$app->params['jenisKelamin'],'key','value')) ?>
 
-    <?= $form->field($model, 'jenisKelamin')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'agama')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'agama')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'4']), 'reff_id','nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])?>
 
     <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'statusPerkawinan')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'3']), 'reff_id','nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
 
     <?= $form->field($model, 'gelarDepan')->textInput(['maxlength' => true]) ?>
 
@@ -47,15 +91,45 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
+    'options' => ['accept' => 'image/*'],
+    'pluginOptions' => [
+        'maxFileSize' => 2048,
+        'showPreview' => $model->isNewRecord,
+        'showCaption' => false,
+        'showRemove' => false,
+        'showUpload' => false,
+        'browseClass' => 'btn btn-primary btn-block',
+        'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+        'browseLabel' =>  'Select Foto'
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'fotoNik')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'pluginOptions' => [
+            'maxFileSize' => 2048,
+            'showPreview' => $model->isNewRecord,
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+            'browseLabel' =>  'Select Foto'
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status_hubungan_keluarga')->textInput() ?>
+    <?= $form->field($model, 'statusPegawai')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1']), 'reff_id','nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
 
-    <?= $form->field($model, 'is_pegawai')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'is_pegawai')->textInput(['maxlength' => true]) ?>
 
   
 	<?php if (!Yii::$app->request->isAjax){ ?>

@@ -17,6 +17,10 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'name',
+        'format'=>'html',
+        'value'=>function($data){
+            return '<i class="'.$data->icon.'"></i> '.$data->name;
+        },
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -30,10 +34,7 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'order',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'data',
-    ],
+    
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'icon',

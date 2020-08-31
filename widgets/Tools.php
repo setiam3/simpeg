@@ -1,6 +1,7 @@
 <?php 
 namespace app\widgets;
 use DateTime;
+
 class Tools extends \yii\bootstrap\Widget{
 
     public function init(){
@@ -16,6 +17,26 @@ class Tools extends \yii\bootstrap\Widget{
       $diff = $datetime1->diff($datetime2);
 
       return $diff->y." tahun " . $diff->m . " bulan " . $diff->d . " hari";
+    }
+    public function listIcon($typeicons){
+      $icon=[];
+      if($typeicons=='glyphicon'){
+        $path=\Yii::getAlias('@vendor/bower-asset/bootstrap/docs/_data/glyphicons.yml');
+        $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($path));
+        foreach ($array as $k=>$value) {
+            $icon[]=['key'=>$k,'value'=>$typeicons.' '.$value];
+        }
+      }else{
+        //$path=\Yii::getAlias('@webroot/css/fa-4.7.0.yml');
+        $path=\Yii::getAlias('@webroot/css/icons.yml');
+        $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($path));
+
+        foreach ($array as $k=>$value) {
+            $icon[]=['key'=>$k,'value'=>$typeicons.$k];
+        }
+      }
+      
+      return $icon;
     }
 
     public function grafikPopulasi(){// L/P

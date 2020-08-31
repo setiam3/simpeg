@@ -9,11 +9,11 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property int $parent
- * @property string $route
- * @property int $order
- * @property resource $data
- * @property string $icon
+ * @property int|null $parent
+ * @property string|null $route
+ * @property int|null $order
+ * @property resource|null $data
+ * @property string|null $icon
  */
 class Menu extends \yii\db\ActiveRecord
 {
@@ -32,6 +32,7 @@ class Menu extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['parent', 'order'], 'default', 'value' => null],
             [['parent', 'order'], 'integer'],
             [['data'], 'string'],
             [['name'], 'string', 'max' => 128],
@@ -54,43 +55,43 @@ class Menu extends \yii\db\ActiveRecord
             'icon' => 'Icon',
         ];
     }
-    public static function getMenu($cnd=0)
-    {
-        $data2 = array();
-        //$helper=new \mdm\admin\components\Helper;
-        foreach(Menu::find()->where(['parent' => $cnd])->orderby('order')->all() as $haha)
-        {
-            $row=array();
-            $row['id']      = $haha->id;
-            $row['label']   = $haha->name;
-            $row['icon']   = $haha->icon;
-            $row['url']     = [$haha->route];
-            //$row['visible']     = $helper->checkRoute($haha->route);
-            if(count(Menu::getMenu2($haha->id))>0)
-            {
-               $row['items'] = Menu::getMenu2($haha->id);
-            }
-            $data2[] =$row;
-        }
-        return $data2;
-    }
-    
-    public static function getMenu2($cnd=0)
-    {
-        $data2 = array();
-        //$helper=new \mdm\admin\components\Helper;
-       foreach(Menu::find()->where(['parent' => $cnd ])->orderby('order')->all() as $haha)
-        {
-             $row=array();
-             $row['id'] = $haha->id;
-             $row['label']   = $haha->name;
-             $row['icon']   = $haha->icon;
-             $row['url']     = [$haha->route];
-             //$row['visible']     = $helper->checkRoute($haha->route);
-             if(count(Menu::getMenu2($haha->id))>0)
-                   $row['items'] = Menu::getMenu2($haha->id);
-             $data2[] =$row;
-         }
-         return $data2;
-    }
+    public static function getMenu($cnd=0) 
+           { 
+               $data2 = []; 
+               //$helper=new \mdm\admin\components\Helper; 
+               foreach(Menu::find()->where(['parent' => $cnd])->orderby('order')->all() as $haha) 
+               { 
+                   $row=[]; 
+                   $row['id']     = $haha->id; 
+                   $row['label']  = $haha->name; 
+                   $row['icon']  = $haha->icon; 
+                   $row['url']    = [$haha->route]; 
+                   //$row['visible']    = $helper->checkRoute($haha->route); 
+                   if(count(Menu::getMenu2($haha->id))>0) 
+                   { 
+                      $row['items'] = Menu::getMenu2($haha->id); 
+                   } 
+                   $data2[] =$row; 
+               } 
+               return $data2; 
+           } 
+            
+           public static function getMenu2($cnd=0) 
+           { 
+               $data2 = []; 
+               //$helper=new \mdm\admin\components\Helper; 
+              foreach(Menu::find()->where(['parent' => $cnd ])->orderby('order')->all() as $haha) 
+               { 
+                    $row=[]; 
+                    $row['id'] = $haha->id; 
+                    $row['label']  = $haha->name; 
+                    $row['icon']  = $haha->icon; 
+                    $row['url']    = [$haha->route]; 
+                    //$row['visible']    = $helper->checkRoute($haha->route); 
+                    if(count(Menu::getMenu2($haha->id))>0) 
+                          $row['items'] = Menu::getMenu2($haha->id); 
+                    $data2[] =$row; 
+                } 
+                return $data2; 
+           } 
 }

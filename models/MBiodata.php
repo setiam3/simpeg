@@ -30,6 +30,7 @@ use Yii;
  * @property string|null $golonganDarah
  * @property int|null $status_hubungan_keluarga
  * @property string|null $is_pegawai
+ * @property string|null $statusPegawai
  *
  * @property Kepangkatan[] $kepangkatans
  * @property MBiodata $parent
@@ -60,6 +61,7 @@ class MBiodata extends \yii\db\ActiveRecord
             [['parent_id', 'status_hubungan_keluarga'], 'integer'],
             [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
             [['tanggalLahir'], 'safe'],
+            [['statusPegawai'], 'string'],
             [['nip', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik', 'is_pegawai'], 'string', 'max' => 255],
             [['tempatLahir', 'agama'], 'string', 'max' => 200],
             [['telp', 'nik'], 'string', 'max' => 20],
@@ -99,6 +101,7 @@ class MBiodata extends \yii\db\ActiveRecord
             'golonganDarah' => 'Golongan Darah',
             'status_hubungan_keluarga' => 'Status Hubungan Keluarga',
             'is_pegawai' => 'Is Pegawai',
+            'statusPegawai' => 'Status Pegawai',
         ];
     }
 
