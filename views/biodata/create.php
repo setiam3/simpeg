@@ -2,13 +2,14 @@
 
 use yii\helpers\Html;
 
-
-/* @var $this yii\web\View */
-/* @var $model app\models\MBiodata */
-
+$this->title = 'Create M Biodata';
+$this->params['breadcrumbs'][] = ['label' => 'M Biodatas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="mbiodata-create">
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
 </div>

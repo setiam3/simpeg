@@ -30,12 +30,15 @@ use Yii;
  * @property string|null $golonganDarah
  * @property int|null $status_hubungan_keluarga
  * @property string|null $is_pegawai
- * @property string|null $statusPegawai
+ * @property int|null $checklog_id
  *
  * @property Kepangkatan[] $kepangkatans
  * @property MBiodata $parent
  * @property MBiodata[] $mBiodatas
  * @property MReferensi $statusHubunganKeluarga
+ * @property MChecklogPegawai[] $mChecklogPegawais
+ * @property MRekening[] $mRekenings
+ * @property MTunjangan[] $mTunjangans
  * @property Pinjaman[] $pinjamen
  * @property Riwayatdiklat[] $riwayatdiklats
  * @property Riwayatjabatan[] $riwayatjabatans
@@ -57,11 +60,10 @@ class MBiodata extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'status_hubungan_keluarga'], 'default', 'value' => null],
-            [['parent_id', 'status_hubungan_keluarga'], 'integer'],
+            [['parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'default', 'value' => null],
+            [['parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'integer'],
             [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
             [['tanggalLahir'], 'safe'],
-            [['statusPegawai'], 'string'],
             [['nip', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik', 'is_pegawai'], 'string', 'max' => 255],
             [['tempatLahir', 'agama'], 'string', 'max' => 200],
             [['telp', 'nik'], 'string', 'max' => 20],
@@ -101,7 +103,7 @@ class MBiodata extends \yii\db\ActiveRecord
             'golonganDarah' => 'Golongan Darah',
             'status_hubungan_keluarga' => 'Status Hubungan Keluarga',
             'is_pegawai' => 'Is Pegawai',
-            'statusPegawai' => 'Status Pegawai',
+            'checklog_id' => 'Checklog ID',
         ];
     }
 
@@ -143,6 +145,36 @@ class MBiodata extends \yii\db\ActiveRecord
     public function getStatusHubunganKeluarga()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'status_hubungan_keluarga']);
+    }
+
+    /**
+     * Gets query for [[MChecklogPegawais]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMChecklogPegawais()
+    {
+        return $this->hasMany(MChecklogPegawai::className(), ['id_data' => 'id_data']);
+    }
+
+    /**
+     * Gets query for [[MRekenings]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMRekenings()
+    {
+        return $this->hasMany(MRekening::className(), ['id_data' => 'id_data']);
+    }
+
+    /**
+     * Gets query for [[MTunjangans]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMTunjangans()
+    {
+        return $this->hasMany(MTunjangan::className(), ['id_data' => 'id_data']);
     }
 
     /**

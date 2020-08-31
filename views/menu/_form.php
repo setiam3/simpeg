@@ -24,7 +24,16 @@ $this->registerJs($format, $this::POS_HEAD);
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent')->textInput() ?>
+    <?= $form->field($model, 'parent')->widget(Select2::className(),[
+    'data' => ArrayHelper::map($model::find()->all(),'id','name'),
+    'options' => ['placeholder' => 'Select parent ...'],
+    'pluginOptions' => [
+        'templateResult' => new JsExpression('format'),
+        'templateSelection' => new JsExpression('format'),
+        'escapeMarkup' => $escape,
+        'allowClear' => true
+    ],
+])?>
 
     <?= $form->field($model, 'route')->textInput(['maxlength' => true]) ?>
 
