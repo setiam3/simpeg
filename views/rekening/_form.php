@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data ', 'nama'),
+        'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
         'options' => ['placeholder' => 'Select id_data ...'],
         'pluginOptions' => [
             'allowClear' => true
@@ -24,7 +24,6 @@ use yii\helpers\ArrayHelper;
     ?>
 
     <?= $form->field($model, 'bank_id')->widget(Select2::classname(), [
-        // 'data' => ArrayHelper::map(\app\models\MReferensiSearch::find()->all(), 'tipe_referensi', 'nama_referensi'),
         'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '5'])->all(), 'reff_id', 'nama_referensi'),
         'options' => ['placeholder' => 'Select bank id ...'],
         'pluginOptions' => [
