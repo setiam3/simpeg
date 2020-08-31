@@ -13,21 +13,38 @@ use kartik\file\FileInput;
 <div class="mbiodata-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-xs-3">
+        <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'pluginOptions' => [
+            'maxFileSize' => 2048,
+            'showPreview' => $model->isNewRecord,
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+            'browseLabel' =>  'Select Foto'
+            ],
+        ]) ?>
+        <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
+        <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
-    <?//= $form->field($model, 'parent_id')->textInput() ?>
+        <?= $form->field($model, 'jenisKelamin')->radioList(
+            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8']), 'reff_id','nama_referensi')
+        ) ?>
 
-    <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-3">
+        <?= $form->field($model, 'tempatLahir')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'tanggalLahir')->textInput() ?>
 
-    <?= $form->field($model, 'tempatLahir')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggalLahir')->textInput() ?>
-
-    <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
+        <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Kabupaten::findAll(['province_id'=>'35']), 'id','name'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
@@ -35,7 +52,7 @@ use kartik\file\FileInput;
                 ],
             ]) ?>
 
-    <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(),[
+        <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(),[
                 'data'=>!$model->isNewRecord && isset($model->kecamatan)?[$model->kecamatan=>\app\models\Kecamatan::findOne(['id'=>$model->kecamatan])->name]:[],
                 'type' => DepDrop::TYPE_SELECT2,
                 'options' => ['placeholder' => 'Select ...'],
@@ -50,7 +67,7 @@ use kartik\file\FileInput;
                     'loadingText' => 'Loading kecamatan ...',
                 ]
             ]) ?>
-            <?= $form->field($model, 'kelurahan')->widget(DepDrop::classname(),[
+        <?= $form->field($model, 'kelurahan')->widget(DepDrop::classname(),[
                 'data'=>!$model->isNewRecord && isset($model->kelurahan)?[$model->kelurahan=>\app\models\Kelurahan::findOne(['id'=>$model->kelurahan])->name]:[],
                 'type' => DepDrop::TYPE_SELECT2,
                 'options' => ['placeholder' => 'Select ...'],
@@ -61,50 +78,42 @@ use kartik\file\FileInput;
                     'url' => Url::to(['/site/child?model=Kelurahan']),
                     'loadingText' => 'Loading kelurahan ...',
                 ]
-            ]) ?>
+            ]) ?>  
+            <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'jenisKelamin')->radioList(ArrayHelper::map(Yii::$app->params['jenisKelamin'],'key','value')) ?>
-
-    <?= $form->field($model, 'agama')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'4']), 'reff_id','nama_referensi'),
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>  
+        </div>
+        <div class="col-xs-3">
+            <?= $form->field($model, 'agama')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ])?>
 
-    <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'3']), 'reff_id','nama_referensi'),
+        <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9']), 'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ]) ?>
 
-    <?= $form->field($model, 'gelarDepan')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'gelarDepan')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'gelarBelakang')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'gelarBelakang')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
-    'options' => ['accept' => 'image/*'],
-    'pluginOptions' => [
-        'maxFileSize' => 2048,
-        'showPreview' => $model->isNewRecord,
-        'showCaption' => false,
-        'showRemove' => false,
-        'showUpload' => false,
-        'browseClass' => 'btn btn-primary btn-block',
-        'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-        'browseLabel' =>  'Select Foto'
-        ],
-    ]) ?>
+        <?= $form->field($model, 'is_pegawai')->widget(SwitchInput::classname(),['pluginOptions'=>[
+                'handleWidth'=>60,'onText'=>'Ya','offText'=>'Tidak'
+            ]
+        ]) ?>
 
+        <?= $form->field($model, 'checklog_id')->textInput() ?>
+        </div>
+        <div class="col-xs-3">
         <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => [
@@ -117,27 +126,14 @@ use kartik\file\FileInput;
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
             'browseLabel' =>  'Select Foto'
         ],
-    ]) ?>
-
-    <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'statusPegawai')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1']), 'reff_id','nama_referensi'),
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ]) ?>
-
-    <?//= $form->field($model, 'is_pegawai')->textInput(['maxlength' => true]) ?>
-
-  
-	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
-	<?php } ?>
+        ]) ?>
+        <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
+        </div>
+    </div>
 
     <?php ActiveForm::end(); ?>
-    
+
 </div>

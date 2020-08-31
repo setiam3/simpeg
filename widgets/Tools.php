@@ -1,11 +1,25 @@
 <?php 
 namespace app\widgets;
 use DateTime;
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 
 class Tools extends \yii\bootstrap\Widget{
 
     public function init(){
         parent::init();   
+    }
+    public function upload($instancename,$path){
+      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      $file=UploadedFile::getInstanceByName($instancename);
+      $ext=substr($file->name, strrpos($file->name, '.')+1);
+      $exploded = explode('/', $path);
+      $dir=trim($path,end($exploded));
+      if(!file_exists($dir)){
+        FileHelper::createDirectory($dir, $mode = 0775, $recursive = true);
+      }
+      $file->saveAs($path.'.'.$ext);
+      return $ext;
     }
     
     public function getUsia($date){
