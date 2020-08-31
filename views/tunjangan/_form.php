@@ -19,7 +19,7 @@ use kartik\select2\Select2;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]); ?>
+    ])->label('Tunjangan'); ?>
 
     <?= $form->field($model, 'nominal')->textInput() ?>
 
@@ -31,7 +31,7 @@ use kartik\select2\Select2;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]); ?>
+    ])->label('Nama Pegawai'); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
