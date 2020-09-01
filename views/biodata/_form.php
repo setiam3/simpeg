@@ -15,6 +15,10 @@ use kartik\file\FileInput;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-xs-3">
+        <?php $linkFoto=\Yii::getAlias('@web/uploads/foto/'.$model->nip.'/'.$model->foto);
+        if(file_exists(\Yii::getAlias('@uploads').$model->nip.'/'.$model->foto) && !empty($model->foto)){
+                echo Html::a(Html::img($linkFoto,['class'=>'col-xs-12']),$linkFoto);
+        }?>
         <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => [
@@ -40,7 +44,12 @@ use kartik\file\FileInput;
         <div class="col-xs-3">
         <?= $form->field($model, 'tempatLahir')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'tanggalLahir')->textInput() ?>
+        <?= $form->field($model, 'tanggalLahir')->widget(DatePicker::className(),[
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true
+                ]
+            ])?>
 
         <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
 
@@ -114,6 +123,11 @@ use kartik\file\FileInput;
         <?= $form->field($model, 'checklog_id')->textInput() ?>
         </div>
         <div class="col-xs-3">
+        <?php $linkFotoNik=\Yii::getAlias('@web/uploads/foto/'.$model->nip.'/'.$model->fotoNik);
+        if(file_exists(\Yii::getAlias('@uploads').$model->nip.'/'.$model->foto) && !empty($model->foto)){
+                echo Html::a(Html::img($linkFotoNik,['class'=>'col-xs-12']),$linkFotoNik);
+        }?>
+        
         <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => [

@@ -15,7 +15,7 @@ class Tools extends \yii\bootstrap\Widget{
       $ext=substr($file->name, strrpos($file->name, '.')+1);
       $exploded = explode('/', $path);
       $dir=trim($path,end($exploded));
-      if(!file_exists($dir)){
+      if(!file_exists($dir) && !is_dir($dir)){
         FileHelper::createDirectory($dir, $mode = 0775, $recursive = true);
       }
       $file->saveAs($path.'.'.$ext);

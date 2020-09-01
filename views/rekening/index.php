@@ -7,45 +7,34 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MRekeningSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Data Rekeneing';
+$this->title = 'Data Rekening';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mrekening-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create M Rekening', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'id_data',
             [
                 'attribute' => 'id_data',
-                'value' => 'm_biodata.id_data',
+                'value' => 'data.nama',
             ],
-            'bank_id',
             [
-                'attribute' => 'tipe_refrensi',
-                'value' => 'm_referensi.nama_referensi',
+                'attribute' => 'bank_id',
+                'value' => 'bank.nama_referensi',
             ],
             'nomor_rekening',
             'npwp',
-            //'fotoNpwp',
-            //'fotoRekening',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-
 </div>
+<?php 
+    echo app\widgets\Importer::widget(['searchModel'=>$searchModel]);
+?>

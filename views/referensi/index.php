@@ -63,3 +63,6 @@ CrudAsset::register($this);
     "footer"=>"",// always need it for jquery plugin
 ])?>
 <?php Modal::end(); ?>
+<?php 
+    echo app\widgets\Importer::widget(['searchModel'=>$searchModel]);
+?>
