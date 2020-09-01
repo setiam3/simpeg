@@ -16,6 +16,7 @@ use Yii;
  * @property string|null $dokumen
  * @property string|null $no_ijazah
  * @property string|null $tgl_ijazah
+ * @property string|null $thMasuk
  *
  * @property MBiodata $data
  */
@@ -40,7 +41,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
             [['id_data'], 'integer'],
             [['tgl_ijazah'], 'safe'],
             [['tingkatPendidikan', 'jurusan', 'namaSekolah', 'dokumen'], 'string', 'max' => 255],
-            [['thLulus'], 'string', 'max' => 4],
+            [['thLulus', 'thMasuk'], 'string', 'max' => 4],
             [['no_ijazah'], 'string', 'max' => 100],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
         ];
@@ -61,6 +62,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
             'dokumen' => 'Dokumen',
             'no_ijazah' => 'No Ijazah',
             'tgl_ijazah' => 'Tgl Ijazah',
+            'thMasuk' => 'Th Masuk',
         ];
     }
 
@@ -73,8 +75,10 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
+
     public function getPendidikan()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'tingkatPendidikan']);
     }
+
 }

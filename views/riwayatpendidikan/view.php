@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Riwayatpendidikan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Riwayatpendidikan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Riwayatpendidikans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'id_data',
             'tingkatPendidikan',
             'jurusan',
@@ -37,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dokumen',
             'no_ijazah',
             'tgl_ijazah',
+            'thMasuk',
         ],
     ]) ?>
 

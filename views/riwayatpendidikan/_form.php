@@ -37,7 +37,24 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'namaSekolah')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'thLulus')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'thMasuk')->widget(DatePicker::className(),[
+                'pluginOptions' => [
+                    'format' => 'yyyy',
+                    'todayHighlight' => true,
+                    'autoclose'=>true,
+                    'viewMode' => "years", 
+                    'minViewMode' => "years"
+                ]
+            ]) ?>
+    <?= $form->field($model, 'thLulus')->widget(DatePicker::className(),[
+                'pluginOptions' => [
+                    'format' => 'yyyy',
+                    'todayHighlight' => true,
+                    'autoclose'=>true,
+                    'viewMode' => "years", 
+                    'minViewMode' => "years"
+                ]
+            ]) ?>
     <?= $form->field($model, 'no_ijazah')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'tgl_ijazah')->widget(DatePicker::className(),[
                 'pluginOptions' => [
