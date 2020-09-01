@@ -52,7 +52,14 @@ use kartik\file\FileInput;
             'browseLabel' =>  'Select Foto'
             ],
         ]) ?>
-
+    <?php
+        if(!$model->isNewRecord) {
+            $linkdokumen=\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen);
+            if(file_exists(\Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                    echo Html::a(Html::img($linkdokumen,['class'=>'col-xs-12']),$linkdokumen);
+            }
+        }
+    ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

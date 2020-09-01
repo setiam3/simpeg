@@ -26,13 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'id_data',
-            'tingkatPendidikan',
-            'jurusan',
+            // 'id',
+            // 'id_data',
+            [
+                'attribute' => 'Nama Pegawai',
+                'value' => 'data.nama',
+            ],
+            [
+                'attribute' => 'Pendidikan',
+                'value' => 'pendidikan.nama_referensi',
+            ],
             'namaSekolah',
+            'jurusan',
             //'thLulus',
             //'dokumen',
+            'no_ijazah',
+            'tgl_ijazah',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
