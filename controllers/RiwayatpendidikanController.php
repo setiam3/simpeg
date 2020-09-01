@@ -68,16 +68,16 @@ class RiwayatpendidikanController extends Controller
         $model = new Riwayatpendidikan();
 
         if ($model->load(Yii::$app->request->post())) {
-            if(!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))){
-                $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads').$model->data->nip.'/'.$model->pendidikan->nama_referensi.'_'.$model->data->nip);
-                $model->dokumen=$model->pendidikan->nama_referensi.'_'.$model->data->nip.'.'.$ext;
+            if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
+                $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
+                $model->dokumen = $model->pendidikan->nama_referensi . '_' . $model->data->nip . '.' . $ext;
             }
-            if($model->save()) {
-                Yii::$app->session->setFlash('success', ($model->dokumen).' row inserted');
-            }else{
-                Yii::$app->session->setFlash('error',' failed insert row');
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', ($model->dokumen) . ' row inserted');
+            } else {
+                Yii::$app->session->setFlash('error', ' failed insert row');
             }
-            
+
             // return $this->redirect(['create']);
         }
 
@@ -116,8 +116,8 @@ class RiwayatpendidikanController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen;
-        if(file_exists($filename)){
+        $filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen;
+        if (file_exists($filename)) {
             unlink($filename);
         }
         $model->delete();

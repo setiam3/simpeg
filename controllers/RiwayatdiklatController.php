@@ -3,17 +3,18 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MRekening;
-use app\models\MRekeningSearch;
+use app\models\MRiwayatdiklat;
+use app\models\MRiwayatdiklatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+
 /**
- * RekeningController implements the CRUD actions for MRekening model.
+ * RiwayatdiklatController implements the CRUD actions for MRiwayatdiklat model.
  */
-class RekeningController extends Controller
+class RiwayatdiklatController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +32,12 @@ class RekeningController extends Controller
     }
 
     /**
-     * Lists all MRekening models.
+     * Lists all MRiwayatdiklat models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MRekeningSearch();
+        $searchModel = new MRiwayatdiklatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +47,7 @@ class RekeningController extends Controller
     }
 
     /**
-     * Displays a single MRekening model.
+     * Displays a single MRiwayatdiklat model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,23 +60,18 @@ class RekeningController extends Controller
     }
 
     /**
-     * Creates a new MRekening model.
+     * Creates a new MRiwayatdiklat model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MRekening();
+        $model = new MRiwayatdiklat();
 
         if ($model->load(Yii::$app->request->post())) {
-
-            if (!empty(UploadedFile::getInstance($model, 'fotoNpwp'))) {
-                $ext = Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/npwp_' . $model->npwp);
-                $model->fotoNpwp = 'npwp_' . $model->npwp . '.' . $ext;
-            }
-            if (!empty(UploadedFile::getInstance($model, 'fotoRekening'))) {
-                $ext = Yii::$app->tools->upload('MRekening[fotoRekening]', Yii::getAlias('@uploads') . $model->data->nip . '/rek_' . $model->nomor_rekening);
-                $model->fotoRekening = 'rek_' . $model->nomor_rekening . '.' . $ext;
+            if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
+                $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                $model->dokumen = 'ridik_' . $model->data->nip . '_' . time() . '.' . $ext;
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -87,7 +83,7 @@ class RekeningController extends Controller
     }
 
     /**
-     * Updates an existing MRekening model.
+     * Updates an existing MRiwayatdiklat model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,27 +92,16 @@ class RekeningController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $oldNpwp = $model->fotoNpwp;
-        $oldRekening = $model->fotoRekening;
+        $olddokumen = $model->dokumen;
         if ($model->load(Yii::$app->request->post())) {
-
-            if (!empty(UploadedFile::getInstance($model, 'fotoNpwp'))) {
-                if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldNpwp)) {
+            if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
+                if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $olddokumen)) {
                     unlink($filename);
                 }
-                $ext = Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/npwp_' . $model->npwp);
-                $model->fotoNpwp = 'npwp_' . $model->npwp . '.' . $ext;
+                $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                $model->dokumen = 'ridik_' . $model->data->nip . '_' . time() . '.' . $ext;
             } else {
-                $model->fotoNpwp = $oldNpwp;
-            }
-            if (!empty(UploadedFile::getInstance($model, 'fotoRekening'))) {
-                if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldRekening)) {
-                    unlink($filename);
-                }
-                $ext = Yii::$app->tools->upload('MRekening[fotoRekening]', Yii::getAlias('@uploads') . $model->data->nip . '/rek_' . $model->nomor_rekening);
-                $model->fotoRekening = 'rek_' . $model->nomor_rekening . '.' . $ext;
-            } else {
-                $model->fotoRekening = $oldRekening;
+                $model->dokumen = $olddokumen;
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -125,10 +110,14 @@ class RekeningController extends Controller
                 'model' => $model,
             ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing MRekening model.
+     * Deletes an existing MRiwayatdiklat model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -142,15 +131,15 @@ class RekeningController extends Controller
     }
 
     /**
-     * Finds the MRekening model based on its primary key value.
+     * Finds the MRiwayatdiklat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MRekening the loaded model
+     * @return MRiwayatdiklat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MRekening::findOne($id)) !== null) {
+        if (($model = MRiwayatdiklat::findOne($id)) !== null) {
             return $model;
         }
 
