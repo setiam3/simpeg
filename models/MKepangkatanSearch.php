@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Riwayatpendidikan;
+use app\models\MKepangkatan;
 
 /**
- * RiwayatpendidikanSearch represents the model behind the search form of `app\models\Riwayatpendidikan`.
+ * MKepangkatanSearch represents the model behind the search form of `app\models\MKepangkatan`.
  */
-class RiwayatpendidikanSearch extends Riwayatpendidikan
+class MKepangkatanSearch extends MKepangkatan
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
     public function rules()
     {
         return [
-            [['id', 'id_data'], 'integer'],
-            [['tingkatPendidikan', 'jurusan', 'namaSekolah', 'thLulus', 'dokumen', 'no_ijazah', 'tgl_ijazah'], 'safe'],
+            [['id', 'id_data', 'penggolongangaji_id', 'fk_golongan'], 'integer'],
+            [['ditetapkanOleh', 'noSk', 'tglSk', 'tmtPangkat', 'ruang', 'tmt', 'dokumen'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
      */
     public function search($params)
     {
-        $query = Riwayatpendidikan::find();
+        $query = MKepangkatan::find();
 
         // add conditions that should always apply here
 
@@ -60,15 +60,17 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
         $query->andFilterWhere([
             'id' => $this->id,
             'id_data' => $this->id_data,
-            'tgl_ijazah' => $this->tgl_ijazah,
+            'tglSk' => $this->tglSk,
+            'penggolongangaji_id' => $this->penggolongangaji_id,
+            'tmtPangkat' => $this->tmtPangkat,
+            'fk_golongan' => $this->fk_golongan,
         ]);
 
-        $query->andFilterWhere(['ilike', 'tingkatPendidikan', $this->tingkatPendidikan])
-            ->andFilterWhere(['ilike', 'jurusan', $this->jurusan])
-            ->andFilterWhere(['ilike', 'namaSekolah', $this->namaSekolah])
-            ->andFilterWhere(['ilike', 'thLulus', $this->thLulus])
-            ->andFilterWhere(['ilike', 'dokumen', $this->dokumen])
-            ->andFilterWhere(['ilike', 'no_ijazah', $this->no_ijazah]);
+        $query->andFilterWhere(['ilike', 'ditetapkanOleh', $this->ditetapkanOleh])
+            ->andFilterWhere(['ilike', 'noSk', $this->noSk])
+            ->andFilterWhere(['ilike', 'ruang', $this->ruang])
+            ->andFilterWhere(['ilike', 'tmt', $this->tmt])
+            ->andFilterWhere(['ilike', 'dokumen', $this->dokumen]);
 
         return $dataProvider;
     }

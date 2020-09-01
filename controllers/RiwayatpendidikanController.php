@@ -97,8 +97,23 @@ class RiwayatpendidikanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $oldFoto=$model->dokumen;
+            if(!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))){
+                if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldFoto) && !empty($oldFoto)){
+                    unlink($filename);
+                }
+                $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads').$model->data->nip.'/'.$model->pendidikan->nama_referensi.'_'.$model->data->nip);
+                $model->dokumen=$model->pendidikan->nama_referensi.'_'.$model->data->nip.'.'.$ext;
+            }else{
+                $model->dokumen=$oldFoto;
+            }
+            if($model->save()) {
+                Yii::$app->session->setFlash('success', ($model->dokumen).' row inserted');
+            }else{
+                Yii::$app->session->setFlash('error',' failed insert row');
+            }
+            // return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

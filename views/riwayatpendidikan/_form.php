@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Riwayatpendidikan */
@@ -38,7 +39,21 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'namaSekolah')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'thLulus')->textInput(['maxlength' => true]) ?>
-    
+    <?= $form->field($model, 'no_ijazah')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tgl_ijazah')->widget(DatePicker::className(),[
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
+                    'autoclose'=>true
+                ]
+            ]) ?>
+    <?php if(!$model->isNewRecord){
+                $linkFoto=\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen);
+                print_r($linkFoto);
+                if(file_exists(\Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                        echo Html::a(Html::img($linkFoto,['class'=>'col-xs-12']),$linkFoto);
+                }
+        }?>
     <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','application/pdf'],
         'pluginOptions' => [
@@ -52,7 +67,14 @@ use kartik\file\FileInput;
             'browseLabel' =>  'Select Foto'
             ],
         ]) ?>
-
+    <?php
+        if(!$model->isNewRecord) {
+            $linkdokumen=\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen);
+            if(file_exists(\Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                    echo Html::a(Html::img($linkdokumen,['class'=>'col-xs-12']),$linkdokumen);
+            }
+        }
+    ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

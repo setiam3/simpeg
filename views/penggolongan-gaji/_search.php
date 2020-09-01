@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RiwayatpendidikanSearch */
+/* @var $model app\models\MPenggolongangajiSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="riwayatpendidikan-search">
+<div class="mpenggolongangaji-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,21 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'id_data') ?>
+    <?= $form->field($model, 'pangkat_id') ?>
 
-    <?= $form->field($model, 'tingkatPendidikan') ?>
+    <?= $form->field($model, 'masa_kerja') ?>
 
-    <?= $form->field($model, 'jurusan') ?>
+    <?= $form->field($model, 'gaji') ?>
 
-    <?= $form->field($model, 'namaSekolah') ?>
+    <?= $form->field($model, 'status_penggolongan') ?>
 
-    <?php // echo $form->field($model, 'thLulus') ?>
+    <?php // echo $form->field($model, 'ruang') ?>
 
-    <?php // echo $form->field($model, 'dokumen') ?>
-
-    <?php // echo $form->field($model, 'no_ijazah') ?>
-
-    <?php // echo $form->field($model, 'tgl_ijazah') ?>
+    <?php // echo $form->field($model, 'jenis_pegawai') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

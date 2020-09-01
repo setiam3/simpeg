@@ -47,7 +47,8 @@ use kartik\file\FileInput;
         <?= $form->field($model, 'tanggalLahir')->widget(DatePicker::className(),[
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true
+                    'todayHighlight' => true,
+                    'autoclose'=>true
                 ]
             ])?>
 

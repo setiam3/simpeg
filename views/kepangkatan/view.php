@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Riwayatpendidikan */
+/* @var $model app\models\MKepangkatan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Riwayatpendidikans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'M Kepangkatans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="riwayatpendidikan-view">
+<div class="mkepangkatan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,13 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'id_data',
-            'tingkatPendidikan',
-            'jurusan',
-            'namaSekolah',
-            'thLulus',
+            'ditetapkanOleh',
+            'noSk',
+            'tglSk',
+            'penggolongangaji_id',
+            'tmtPangkat',
+            'ruang',
+            'fk_golongan',
+            'tmt',
             'dokumen',
-            'no_ijazah',
-            'tgl_ijazah',
         ],
     ]) ?>
 

@@ -216,4 +216,16 @@ class MBiodata extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Riwayatpendidikan::className(), ['id_data' => 'id_data']);
     }
+    public function getDesanya(){
+        return $this->hasOne(Kelurahan::className(),['id'=>'kelurahan']);
+    }
+    public function getStatuskawin(){
+        return $this->hasOne(MReferensi::className(),['reff_id'=>'statusPerkawinan']);
+    }
+    public function getAgamanya(){
+        return $this->hasOne(MReferensi::className(),['reff_id'=>'agama']);
+    }
+    public function getSex(){
+        return $this->hasOne(MReferensi::className(),['reff_id'=>'jenisKelamin']);
+    }
 }
