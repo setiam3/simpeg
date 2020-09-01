@@ -30,6 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
-<?php 
-    echo app\widgets\Importer::widget(['searchModel'=>$searchModel]);
+<?php
+echo app\widgets\Importer::widget(['searchModel' => $searchModel]);
 ?>
