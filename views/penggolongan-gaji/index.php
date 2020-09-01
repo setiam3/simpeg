@@ -23,18 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'filterRowOptions' => ['class' => 'kartik-sheet-style'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
             [
-                'attribute' => 'pangkat',
+                'attribute' => 'pangkat_id',
                 'value' => 'pangkat.nama_referensi',
             ],
             'masa_kerja',
             'gaji',
             'status_penggolongan',
             [
-                'attribute' => 'pangkat',
+                'attribute' => 'jenis pegawai',
                 'value' => 'jenisPegawai.nama_referensi',
             ],
 
