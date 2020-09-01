@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'namaSekolah',
             //'thLulus',
             //'dokumen',
+            //'no_ijazah',
+            //'tgl_ijazah',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

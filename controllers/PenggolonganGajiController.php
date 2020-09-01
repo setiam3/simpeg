@@ -3,14 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MPenggolonganGaji;
-use app\models\MPenggolonganGajiSearch;
+use app\models\MPenggolongangaji;
+use app\models\MPenggolongangajiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PenggolonganGajiController implements the CRUD actions for MPenggolonganGaji model.
+ * PenggolonganGajiController implements the CRUD actions for MPenggolongangaji model.
  */
 class PenggolonganGajiController extends Controller
 {
@@ -30,12 +30,12 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Lists all MPenggolonganGaji models.
+     * Lists all MPenggolongangaji models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MPenggolonganGajiSearch();
+        $searchModel = new MPenggolongangajiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Displays a single MPenggolonganGaji model.
+     * Displays a single MPenggolongangaji model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Creates a new MPenggolonganGaji model.
+     * Creates a new MPenggolongangaji model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MPenggolonganGaji();
+        $model = new MPenggolongangaji();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Updates an existing MPenggolonganGaji model.
+     * Updates an existing MPenggolongangaji model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Deletes an existing MPenggolonganGaji model.
+     * Deletes an existing MPenggolongangaji model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Finds the MPenggolonganGaji model based on its primary key value.
+     * Finds the MPenggolongangaji model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MPenggolonganGaji the loaded model
+     * @return MPenggolongangaji the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MPenggolonganGaji::findOne($id)) !== null) {
+        if (($model = MPenggolongangaji::findOne($id)) !== null) {
             return $model;
         }
 

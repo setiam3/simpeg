@@ -29,6 +29,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'dokumen') ?>
 
+    <?php // echo $form->field($model, 'no_ijazah') ?>
+
+    <?php // echo $form->field($model, 'tgl_ijazah') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

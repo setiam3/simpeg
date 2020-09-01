@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MPenggolonganGaji;
+use app\models\MPenggolongangaji;
 
 /**
- * MPenggolonganGajiSearch represents the model behind the search form of `app\models\MPenggolonganGaji`.
+ * MPenggolongangajiSearch represents the model behind the search form of `app\models\MPenggolongangaji`.
  */
-class MPenggolonganGajiSearch extends MPenggolonganGaji
+class MPenggolongangajiSearch extends MPenggolongangaji
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class MPenggolonganGajiSearch extends MPenggolonganGaji
     public function rules()
     {
         return [
-            [['id', 'pangkat_id', 'masa_kerja'], 'integer'],
+            [['id', 'pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'integer'],
             [['gaji', 'status_penggolongan', 'ruang'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class MPenggolonganGajiSearch extends MPenggolonganGaji
      */
     public function search($params)
     {
-        $query = MPenggolonganGaji::find();
+        $query = MPenggolongangaji::find();
 
         // add conditions that should always apply here
 
@@ -61,6 +61,7 @@ class MPenggolonganGajiSearch extends MPenggolonganGaji
             'id' => $this->id,
             'pangkat_id' => $this->pangkat_id,
             'masa_kerja' => $this->masa_kerja,
+            'jenis_pegawai' => $this->jenis_pegawai,
         ]);
 
         $query->andFilterWhere(['ilike', 'gaji', $this->gaji])

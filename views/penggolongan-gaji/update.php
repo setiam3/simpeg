@@ -3,14 +3,14 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MPenggolonganGaji */
+/* @var $model app\models\MPenggolongangaji */
 
-$this->title = 'Update M Penggolongan Gaji: ' . $model->pangkat->nama_referensi;
-$this->params['breadcrumbs'][] = ['label' => 'M Penggolongan Gajis', 'url' => ['index']];
+$this->title = 'Update M Penggolongangaji: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'M Penggolongangajis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="mpenggolongan-gaji-update">
+<div class="mpenggolongangaji-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
