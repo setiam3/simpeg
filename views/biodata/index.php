@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'foto',
             'format'=>'html',
             'value' => function ($data) {
-                return Html::img(Yii::getAlias('@web/uploads/foto/'.$data->nip.'/'.$data->foto),
-                    ['width' => '60px']);
+                return Html::a(Html::img(Yii::getAlias('@web/uploads/foto/'.$data->nip.'/'.$data->foto),
+                    ['width' => '60px']),['info','id'=>$data->id_data]);
             },
         ],
         'nip',

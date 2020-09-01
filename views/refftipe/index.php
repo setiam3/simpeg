@@ -10,7 +10,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel app\models\MReffTipeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Reff Tipes';
+$this->title = 'Reff Tipe';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);

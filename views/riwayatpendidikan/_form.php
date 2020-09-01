@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
@@ -47,13 +46,14 @@ use kartik\date\DatePicker;
                     'autoclose'=>true
                 ]
             ]) ?>
-    <?php if(!$model->isNewRecord){
-                $linkFoto=\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen);
-                print_r($linkFoto);
-                if(file_exists(\Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
-                        echo Html::a(Html::img($linkFoto,['class'=>'col-xs-12']),$linkFoto);
-                }
-        }?>
+    <?php
+        if(!$model->isNewRecord) {
+            $linkdokumen=\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen);
+            if(file_exists(\Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                    echo Html::a(Html::img($linkdokumen,['class'=>'col-xs-12']),$linkdokumen);
+            }
+        }
+    ?>
     <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','application/pdf'],
         'pluginOptions' => [
@@ -67,14 +67,7 @@ use kartik\date\DatePicker;
             'browseLabel' =>  'Select Foto'
             ],
         ]) ?>
-    <?php
-        if(!$model->isNewRecord) {
-            $linkdokumen=\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen);
-            if(file_exists(\Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
-                    echo Html::a(Html::img($linkdokumen,['class'=>'col-xs-12']),$linkdokumen);
-            }
-        }
-    ?>
+    
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

@@ -16,7 +16,7 @@ use kartik\widgets\SwitchInput;
 
     <?= $form->field($model, 'pangkat_id')->widget(Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'6']),'reff_id','nama_referensi'),
-        'options' => ['placeholder' => 'Select a state ...'],
+        'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -44,7 +44,7 @@ use kartik\widgets\SwitchInput;
     <?= $form->field($model, 'jenis_pegawai')->widget(Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1']),'reff_id','nama_referensi'),
         'language' => 'de',
-        'options' => ['placeholder' => 'Select a state ...'],
+        'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
