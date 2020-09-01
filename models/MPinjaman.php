@@ -66,4 +66,9 @@ class MPinjaman extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
+
+    public function getJens()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenis']);
+    }
 }

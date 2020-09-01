@@ -24,7 +24,14 @@ use kartik\select2\Select2;
     ])
     ?>
 
-    <?= $form->field($model, 'jenis')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jenis')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '11'])->all(), 'reff_id', 'nama_referensi'),
+        'options' => ['placeholder' => 'Select Jenis ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Bank')
+    ?>
 
     <?= $form->field($model, 'namaBarang')->textInput(['maxlength' => true]) ?>
 

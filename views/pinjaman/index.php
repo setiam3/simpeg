@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'data.nama',
             ],
             'tanggal',
-            'jenis',
+            [
+                'attribute' => 'jenis',
+                'value' => 'jens.nama_referensi',
+            ],
             'namaBarang',
             //'jumlah',
 
