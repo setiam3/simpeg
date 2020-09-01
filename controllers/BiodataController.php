@@ -64,12 +64,12 @@ class BiodataController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip);
-                $model->foto=$model->nip.'.'.$ext;
+                $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip.'/nip_'.$model->nip);
+                $model->foto='nip_'.$model->nip.'.'.$ext;
             }
             if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
-                $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nik);
-                $model->fotoNik=$model->nik.'.'.$ext;
+                $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nip.'/nik_'.$model->nik);
+                $model->fotoNik='nik_'.$model->nik.'.'.$ext;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
