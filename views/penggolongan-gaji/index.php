@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MTunjanganSearch */
+/* @var $searchModel app\models\MPenggolonganGajiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Tunjangans';
+$this->title = 'M Penggolongan Gajis';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mtunjangan-index">
+<div class="mpenggolongan-gaji-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create M Tunjangan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create M Penggolongan Gaji', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,15 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             [
-                'attribute' => 'tunjangan_id',
-                'value' => 'tunjangan.nama_referensi',
+                'attribute' => 'pangkat',
+                'value' => 'pangkat.nama_referensi',
             ],
-            'nominal',
-            'status',
-            [
-                'attribute' => 'nama',
-                'value' => 'data.nama',
-            ],
+            'masa_kerja',
+            'gaji',
+            'status_penggolongan',
+            //'ruang',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
