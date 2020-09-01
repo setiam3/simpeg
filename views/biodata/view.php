@@ -26,28 +26,61 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_data',
-            'parent_id',
             'nip',
             'nama',
             'tempatLahir',
             'tanggalLahir',
             'alamat',
-            'kabupatenKota',
-            'kecamatan',
-            'kelurahan',
-            'jenisKelamin',
-            'agama',
+            [
+                'attribute'=>'KabupatenKota',
+                'value'=>function($data){
+                    return $data->desanya->district->regency->name;
+                }
+            ],
+            [
+                'attribute'=>'kecamatan',
+                'value'=>function($data){
+                    return $data->desanya->district->name;
+                }
+            ],
+            [
+                'attribute'=>'kelurahan',
+                'value'=>function($data){
+                    return $data->desanya->name;
+                }
+            ],
+            [
+                'attribute'=>'jenisKelamin',
+                'value'=>function($data){
+                    return $data->sex->nama_referensi;
+                }
+            ],
+            [
+                'attribute'=>'agama',
+                'value'=>function($data){
+                    return $data->agamanya->nama_referensi;
+                }
+            ],
             'telp',
             'email:email',
-            'statusPerkawinan',
+            [
+                'attribute'=>'statusPerkawinan',
+                'value'=>function($data){
+                    return $data->statuskawin->nama_referensi;
+                }
+            ],
             'gelarDepan',
             'gelarBelakang',
             'nik',
             'foto',
             'fotoNik',
             'golonganDarah',
-            'status_hubungan_keluarga',
+            [
+                'attribute'=>'status_hubungan_keluarga',
+                'value'=>function($data){
+                    return isset($data->status_hubungan_keluarga)?$data->statusHubunganKeluarga->nama_referensi:'';
+                }
+            ],
             'is_pegawai',
             'checklog_id',
         ],

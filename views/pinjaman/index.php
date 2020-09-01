@@ -4,17 +4,22 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MRekeningSearch */
+/* @var $searchModel app\models\MPinjamanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Data Rekening';
+$this->title = 'Data Pinjaman';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mrekening-index">
+<div class="mpinjaman-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create M Rekening', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create M Pinjaman', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,20 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'id_data',
                 'value' => 'data.nama',
             ],
+            'tanggal',
             [
-                'attribute' => 'bank_id',
-                'value' => 'bank.nama_referensi',
+                'attribute' => 'jenis',
+                'value' => 'jens.nama_referensi',
             ],
-            'nomor_rekening',
-            'npwp',
+            'namaBarang',
+            //'jumlah',
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-<<<<<<< HEAD
+
+
 </div>
-=======
-</div>
-<?php 
-    echo app\widgets\Importer::widget(['searchModel'=>$searchModel]);
-?>
->>>>>>> 0b72893f4fcaf6944f9954837b4747c722b1fd05

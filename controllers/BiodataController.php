@@ -52,6 +52,16 @@ class BiodataController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionInfo($id){
+        $searchModel = new MBiodataSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('infopegawai',[
+            'model'=>$this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Creates a new MBiodata model.
@@ -64,12 +74,12 @@ class BiodataController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip);
-                $model->foto=$model->nip.'.'.$ext;
+                $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip.'/nip_'.$model->nip);
+                $model->foto='nip_'.$model->nip.'.'.$ext;
             }
             if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
-                $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nik);
-                $model->fotoNik=$model->nik.'.'.$ext;
+                $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nip.'/nik_'.$model->nik);
+                $model->fotoNik='nik_'.$model->nik.'.'.$ext;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
@@ -94,7 +104,7 @@ class BiodataController extends Controller
         $oldFotoNik=$model->fotoNik;
         if ($model->load(Yii::$app->request->post()) ) {
             if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                if(file_exists($filename=Yii::getAlias('@uploads').$model->nip.'/'.$oldFoto)){
+                if(file_exists($filename=Yii::getAlias('@uploads').$model->nip.'/'.$oldFoto) && !empty($oldFoto)){
                     unlink($filename);
                 }
                 $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip.'/nip_'.$model->nip);
@@ -103,7 +113,7 @@ class BiodataController extends Controller
                 $model->foto=$oldFoto;
             }
             if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
-                if(file_exists($filename=Yii::getAlias('@uploads').$model->nip.'/'.$oldFotoNik)){
+                if(file_exists($filename=Yii::getAlias('@uploads').$model->nip.'/'.$oldFotoNik) && !empty($oldFotoNik)){
                     unlink($filename);
                 }
                 $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nip.'/nik_'.$model->nik);
