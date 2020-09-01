@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MPenggolongangaji */
+/* @var $model app\models\MPinjaman */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'M Penggolongangajis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'M Pinjamen', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="mpenggolongangaji-view">
+<div class="mpinjaman-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,18 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'pangkat_id',
-            'masa_kerja',
-            'gaji',
-            'status_penggolongan',
-
-            [
-                'attribute' => 'jenis_pegawai',
-                'value' => function ($data) {
-                    return $data->jenisPegawai->nama_referensi;
-
-                },
-            ],
+            'id_data',
+            'tanggal',
+            'jenis',
+            'namaBarang',
+            'jumlah',
         ],
     ]) ?>
 

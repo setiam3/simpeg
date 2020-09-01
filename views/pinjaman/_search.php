@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RiwayatpendidikanSearch */
+/* @var $model app\models\MPinjamanSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="riwayatpendidikan-search">
+<div class="mpinjaman-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,19 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_data') ?>
 
-    <?= $form->field($model, 'tingkatPendidikan') ?>
+    <?= $form->field($model, 'tanggal') ?>
 
-    <?= $form->field($model, 'jurusan') ?>
+    <?= $form->field($model, 'jenis') ?>
 
-    <?= $form->field($model, 'namaSekolah') ?>
+    <?= $form->field($model, 'namaBarang') ?>
 
-    <?php // echo $form->field($model, 'thLulus') ?>
-
-    <?php // echo $form->field($model, 'dokumen') ?>
-
-    <?php // echo $form->field($model, 'no_ijazah') ?>
-
-    <?php // echo $form->field($model, 'tgl_ijazah') ?>
+    <?php // echo $form->field($model, 'jumlah') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

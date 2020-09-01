@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MPenggolongangaji;
+use app\models\MPinjaman;
 
 /**
- * MPenggolongangajiSearch represents the model behind the search form of `app\models\MPenggolongangaji`.
+ * MPinjamanSearch represents the model behind the search form of `app\models\MPinjaman`.
  */
-class MPenggolongangajiSearch extends MPenggolongangaji
+class MPinjamanSearch extends MPinjaman
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,9 @@ class MPenggolongangajiSearch extends MPenggolongangaji
     public function rules()
     {
         return [
-            [['id', 'pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'integer'],
-            [['gaji', 'status_penggolongan', 'ruang'], 'safe'],
+            [['id', 'id_data'], 'integer'],
+            [['tanggal', 'jenis', 'namaBarang'], 'safe'],
+            [['jumlah'], 'number'],
         ];
     }
 
@@ -40,7 +41,7 @@ class MPenggolongangajiSearch extends MPenggolongangaji
      */
     public function search($params)
     {
-        $query = MPenggolongangaji::find();
+        $query = MPinjaman::find();
 
         // add conditions that should always apply here
 
@@ -59,14 +60,13 @@ class MPenggolongangajiSearch extends MPenggolongangaji
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'pangkat_id' => $this->pangkat_id,
-            'masa_kerja' => $this->masa_kerja,
-            'jenis_pegawai' => $this->jenis_pegawai,
+            'id_data' => $this->id_data,
+            'tanggal' => $this->tanggal,
+            'jumlah' => $this->jumlah,
         ]);
 
-        $query->andFilterWhere(['ilike', 'gaji', $this->gaji])
-            ->andFilterWhere(['ilike', 'status_penggolongan', $this->status_penggolongan])
-            ->andFilterWhere(['ilike', 'ruang', $this->ruang]);
+        $query->andFilterWhere(['ilike', 'jenis', $this->jenis])
+            ->andFilterWhere(['ilike', 'namaBarang', $this->namaBarang]);
 
         return $dataProvider;
     }

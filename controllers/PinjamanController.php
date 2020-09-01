@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MPenggolongangaji;
-use app\models\MPenggolongangajiSearch;
+use app\models\MPinjaman;
+use app\models\MPinjamanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PenggolonganGajiController implements the CRUD actions for MPenggolongangaji model.
+ * PinjamanController implements the CRUD actions for MPinjaman model.
  */
-class PenggolonganGajiController extends Controller
+class PinjamanController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Lists all MPenggolongangaji models.
+     * Lists all MPinjaman models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MPenggolongangajiSearch();
+        $searchModel = new MPinjamanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Displays a single MPenggolongangaji model.
+     * Displays a single MPinjaman model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Creates a new MPenggolongangaji model.
+     * Creates a new MPinjaman model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MPenggolongangaji();
+        $model = new MPinjaman();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Updates an existing MPenggolongangaji model.
+     * Updates an existing MPinjaman model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Deletes an existing MPenggolongangaji model.
+     * Deletes an existing MPinjaman model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Finds the MPenggolongangaji model based on its primary key value.
+     * Finds the MPinjaman model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MPenggolongangaji the loaded model
+     * @return MPinjaman the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MPenggolongangaji::findOne($id)) !== null) {
+        if (($model = MPinjaman::findOne($id)) !== null) {
             return $model;
         }
 
