@@ -17,7 +17,7 @@ class MPenggolonganGajiSearch extends MPenggolonganGaji
     public function rules()
     {
         return [
-            [['id', 'pangkat_id', 'masa_kerja'], 'integer'],
+            [['id', 'pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'integer'],
             [['gaji', 'status_penggolongan', 'ruang'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class MPenggolonganGajiSearch extends MPenggolonganGaji
             'id' => $this->id,
             'pangkat_id' => $this->pangkat_id,
             'masa_kerja' => $this->masa_kerja,
+            'jenis_pegawai' => $this->jenis_pegawai,
         ]);
 
         $query->andFilterWhere(['ilike', 'gaji', $this->gaji])

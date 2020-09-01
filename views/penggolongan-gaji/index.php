@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
+//            'id',
             [
                 'attribute' => 'pangkat',
                 'value' => 'pangkat.nama_referensi',
@@ -33,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'masa_kerja',
             'gaji',
             'status_penggolongan',
-            //'ruang',
+            [
+                'attribute' => 'pangkat',
+                'value' => 'jenisPegawai.nama_referensi',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

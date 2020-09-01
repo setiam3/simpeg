@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\widgets\SwitchInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MPenggolonganGaji */
@@ -35,7 +36,21 @@ use kartik\select2\Select2;
         ],
     ])?>
 
-    <?= $form->field($model, 'status_penggolongan')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status_penggolongan')->widget(SwitchInput::classname(),['pluginOptions'=>[
+        'handleWidth'=>60,'onText'=>'Aktif','offText'=>'Tidak'
+    ]
+    ]) ?>
+
+    <?= $form->field($model, 'jenis_pegawai')->widget(Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1']),'reff_id','nama_referensi'),
+        'language' => 'de',
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Jenis Pegawai'); ?>
+
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

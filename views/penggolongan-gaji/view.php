@@ -41,7 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'masa_kerja',
             'gaji',
             'status_penggolongan',
-//            'ruang',
+
+            [
+                'attribute' => 'jenis_pegawai',
+                'value' => function ($data) {
+                    return $data->jenisPegawai->nama_referensi;
+
+                },
+            ],
+
         ],
     ]) ?>
 

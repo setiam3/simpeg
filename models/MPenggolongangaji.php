@@ -13,9 +13,11 @@ use Yii;
  * @property string $gaji
  * @property string|null $status_penggolongan
  * @property string|null $ruang
+ * @property int|null $jenis_pegawai
  *
  * @property Kepangkatan[] $kepangkatans
  * @property MReferensi $pangkat
+ * @property MReferensi $jenisPegawai
  */
 class MPenggolongangaji extends \yii\db\ActiveRecord
 {
@@ -34,11 +36,12 @@ class MPenggolongangaji extends \yii\db\ActiveRecord
     {
         return [
             [['pangkat_id', 'gaji'], 'required'],
-            [['pangkat_id', 'masa_kerja'], 'default', 'value' => null],
-            [['pangkat_id', 'masa_kerja'], 'integer'],
+            [['pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'default', 'value' => null],
+            [['pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'integer'],
             [['ruang'], 'string'],
             [['gaji', 'status_penggolongan'], 'string', 'max' => 255],
             [['pangkat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['pangkat_id' => 'reff_id']],
+            [['jenis_pegawai'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['jenis_pegawai' => 'reff_id']],
         ];
     }
 
@@ -54,6 +57,7 @@ class MPenggolongangaji extends \yii\db\ActiveRecord
             'gaji' => 'Gaji',
             'status_penggolongan' => 'Status Penggolongan',
             'ruang' => 'Ruang',
+            'jenis_pegawai' => 'Jenis Pegawai',
         ];
     }
 
@@ -75,5 +79,15 @@ class MPenggolongangaji extends \yii\db\ActiveRecord
     public function getPangkat()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'pangkat_id']);
+    }
+
+    /**
+     * Gets query for [[JenisPegawai]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJenisPegawai()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenis_pegawai']);
     }
 }
