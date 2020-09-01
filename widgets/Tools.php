@@ -10,7 +10,7 @@ class Tools extends \yii\bootstrap\Widget{
         parent::init();   
     }
     public function upload($instancename,$path){
-      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      //\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
       $file=UploadedFile::getInstanceByName($instancename);
       $ext=substr($file->name, strrpos($file->name, '.')+1);
       $exploded = explode('/', $path);
