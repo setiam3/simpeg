@@ -10,12 +10,12 @@ class Tools extends \yii\bootstrap\Widget{
         parent::init();   
     }
     public function upload($instancename,$path){
-      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+      //\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
       $file=UploadedFile::getInstanceByName($instancename);
       $ext=substr($file->name, strrpos($file->name, '.')+1);
       $exploded = explode('/', $path);
       $dir=trim($path,end($exploded));
-      if(!file_exists($dir)){
+      if(!file_exists($dir) && !is_dir($dir)){
         FileHelper::createDirectory($dir, $mode = 0775, $recursive = true);
       }
       $file->saveAs($path.'.'.$ext);

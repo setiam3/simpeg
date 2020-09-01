@@ -7,19 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MRekeningSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Data Rekeneing';
+$this->title = 'Data Rekening';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mrekening-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create M Rekening', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -39,4 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+<?php 
+    echo app\widgets\Importer::widget(['searchModel'=>$searchModel]);
+?>
+>>>>>>> 0b72893f4fcaf6944f9954837b4747c722b1fd05

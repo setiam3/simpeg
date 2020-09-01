@@ -21,7 +21,17 @@ use kartik\select2\Select2;
         ],
     ])->label('Tunjangan'); ?>
 
-    <?= $form->field($model, 'nominal')->textInput() ?>
+    <?= $form->field($model, 'nominal')->widget(\yii\widgets\MaskedInput::className(), [
+     'clientOptions' => [
+        'alias' => 'numeric',
+        'digits' => 2,
+        'digitsOptional' => false,
+        'radixPoint' => '.',
+        'groupSeparator' => ',',
+        'autoGroup' => true,
+        'removeMaskOnSubmit' => true,
+    ],
+  ])?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 

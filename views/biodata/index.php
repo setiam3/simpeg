@@ -9,6 +9,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $gridColumns=[
         ['class' => 'yii\grid\SerialColumn'],
+        [
+            'attribute' => 'foto',
+            'format'=>'html',
+            'value' => function ($data) {
+                return Html::img(Yii::getAlias('@web/uploads/foto/'.$data->nip.'/'.$data->foto),
+                    ['width' => '60px']);
+            },
+        ],
         'nip',
         'nama',
         'tempatLahir',
@@ -29,8 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>',['create'], [
-                        'type'=>'button', 
-                        'title'=>'Add', 
+                        'type'=>'button',
+                        'title'=>'Add',
                         'class'=>'btn btn-success'
                     ]),
             ],
@@ -52,3 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]);?>
 </div>
+<?php
+    echo app\widgets\Importer::widget(['searchModel'=>$searchModel]);
+?>

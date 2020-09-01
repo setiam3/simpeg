@@ -68,6 +68,7 @@ class RekeningController extends Controller
         $model = new MRekening();
 
         if ($model->load(Yii::$app->request->post())) {
+<<<<<<< HEAD
             if (!empty(UploadedFile::getInstance($model, 'fotoNpwp'))) {
                 $ext = Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->npwp);
                 $model->fotoNpwp = $model->npwp . '.' . $ext;
@@ -75,6 +76,15 @@ class RekeningController extends Controller
             if (!empty(UploadedFile::getInstance($model, 'fotoRekening'))) {
                 $ext = Yii::$app->tools->upload('MRekening[fotoRekening]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->nomor_rekening);
                 $model->fotoRekening = $model->nomor_rekening . '.' . $ext;
+=======
+            if(!empty(UploadedFile::getInstance($model, 'fotoNpwp'))){
+                $ext=Yii::$app->tools->upload('MRekening[fotoNpwp]',Yii::getAlias('@uploads').$model->data->nip.'/npwp_'.$model->npwp);
+                $model->fotoNpwp='npwp_'.$model->npwp.'.'.$ext;
+            }
+            if(!empty(UploadedFile::getInstance($model, 'fotoRekening'))){
+                $ext=Yii::$app->tools->upload('MRekening[fotoRekening]',Yii::getAlias('@uploads').$model->data->nip.'/rek_'.$model->nomor_rekening);
+                $model->fotoRekening='rek_'.$model->nomor_rekening.'.'.$ext;
+>>>>>>> 0b72893f4fcaf6944f9954837b4747c722b1fd05
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -95,9 +105,10 @@ class RekeningController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $oldimage = $model->fotoNpwp;
-        $oldimage2 = $model->fotoRekening;
+        $oldNpwp = $model->fotoNpwp;
+        $oldRekening = $model->fotoRekening;
         if ($model->load(Yii::$app->request->post())) {
+<<<<<<< HEAD
             if (!empty(UploadedFile::getInstance($model, 'fotoNpwp'))) {
                 $ext = Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->npwp);
                 $model->fotoNpwp = $model->npwp . '.' . $ext;
@@ -109,6 +120,25 @@ class RekeningController extends Controller
                 $model->fotoRekening = $model->nomor_rekening . '.' . $ext;
             } else {
                 $model->fotoRekening = $oldimage2;
+=======
+            if(!empty(UploadedFile::getInstance($model, 'fotoNpwp'))){
+                if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldNpwp)){
+                    unlink($filename);
+                }
+                $ext=Yii::$app->tools->upload('MRekening[fotoNpwp]',Yii::getAlias('@uploads').$model->data->nip.'/npwp_'.$model->npwp);
+                $model->fotoNpwp='npwp_'.$model->npwp.'.'.$ext;
+            }else{
+                $model->fotoNpwp=$oldNpwp;
+            }
+            if(!empty(UploadedFile::getInstance($model, 'fotoRekening'))){
+                if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldRekening)){
+                    unlink($filename);
+                }
+                $ext=Yii::$app->tools->upload('MRekening[fotoRekening]',Yii::getAlias('@uploads').$model->data->nip.'/rek_'.$model->nomor_rekening);
+                $model->fotoRekening='rek_'.$model->nomor_rekening.'.'.$ext;
+            }else{
+                $model->fotoRekening=$oldRekening;
+>>>>>>> 0b72893f4fcaf6944f9954837b4747c722b1fd05
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);

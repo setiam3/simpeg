@@ -38,6 +38,7 @@ class MTunjangan extends \yii\db\ActiveRecord
             [['status'], 'string'],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
             [['tunjangan_id'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['tunjangan_id' => 'reff_id']],
+            [['nominal'], 'match' ,'pattern'=>'/^[0-9]+$/u', 'message'=> 'Contain only numeric characters.']
         ];
     }
 

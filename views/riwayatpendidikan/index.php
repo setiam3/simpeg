@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MTunjanganSearch */
+/* @var $searchModel app\models\RiwayatpendidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Tunjangans';
+$this->title = 'Riwayatpendidikans';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mtunjangan-index">
+<div class="riwayatpendidikan-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create M Tunjangan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Riwayatpendidikan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,16 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            [
-                'attribute' => 'tunjangan_id',
-                'value' => 'tunjangan.nama_referensi',
-            ],
-            'nominal',
-            'status',
-            [
-                'attribute' => 'nama',
-                'value' => 'data.nama',
-            ],
+            'id_data',
+            'tingkatPendidikan',
+            'jurusan',
+            'namaSekolah',
+            //'thLulus',
+            //'dokumen',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

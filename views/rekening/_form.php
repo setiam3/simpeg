@@ -15,12 +15,12 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
+        'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>1])->all(), 'id_data', 'nama'),
         'options' => ['placeholder' => 'Select id_data ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])
+    ])->label('Nama Pegawai')
     ?>
 
     <?= $form->field($model, 'bank_id')->widget(Select2::classname(), [
@@ -29,12 +29,12 @@ use yii\helpers\ArrayHelper;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])
+    ])->label('Bank')
     ?>
 
-    <?= $form->field($model, 'nomor_rekening')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nomor_rekening')->textInput(['maxlength' => true,'type'=>'number']) ?>
 
-    <?= $form->field($model, 'npwp')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'npwp')->textInput(['maxlength' => true,'type'=>'number']) ?>
 
     <?= $form->field($model, 'fotoNpwp')->fileInput() ?>
 

@@ -7,14 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\MBiodata */
 
 $this->title = $model->id_data;
-$this->params['breadcrumbs'][] = ['label' => 'M Biodatas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Biodata', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="mbiodata-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id_data], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id_data], [
