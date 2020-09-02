@@ -48,20 +48,12 @@ use kartik\file\FileInput;
                 ]
             ]); ?>
         </div>
-        <div class="col-xs-5">
-            <?php
-            if (!$model->isNewRecord) {
-                $linkdokumen = \Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen);
-                if (file_exists(\Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
-                    echo Html::a(Html::img($linkdokumen, ['class' => 'col-xs-12']), $linkdokumen);
-                }
-            }
-            ?>
+        <div class="col-xs-6">
             <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
-                'options' => ['accept' => 'image/*', 'application/pdf'],
+                'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
+                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])],
                     'maxFileSize' => 2048,
-                    'showPreview' => $model->isNewRecord,
                     'showCaption' => false,
                     'showRemove' => false,
                     'showUpload' => false,
@@ -70,6 +62,7 @@ use kartik\file\FileInput;
                     'browseLabel' =>  'Select Foto'
                 ],
             ]) ?>
+
             <?php if (!Yii::$app->request->isAjax) { ?>
                 <div class="form-group">
                     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
