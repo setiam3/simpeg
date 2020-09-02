@@ -7,12 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MRiwayatdiklatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Riwayatdiklats';
+$this->title = 'Data Riwayat Diklat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mriwayatdiklat-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create M Riwayatdiklat', ['create'], ['class' => 'btn btn-success']) ?>

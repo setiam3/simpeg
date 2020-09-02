@@ -15,62 +15,63 @@ use kartik\file\FileInput;
 <div class="mriwayatdiklat-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-xs-5">
+            <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
+                'options' => ['placeholder' => 'Select id_data ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])
+            ?>
 
-    <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
-        'options' => ['placeholder' => 'Select id_data ...'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ])
-    ?>
+            <?= $form->field($model, 'namaDiklat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'namaDiklat')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'tempat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tempat')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'penyelenggara')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'penyelenggara')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'mulai')->widget(DatePicker::classname(), [
+                'options' => ['placeholder' => 'masukan tanggal Mulai'],
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]); ?>
 
-    <?= $form->field($model, 'mulai')->widget(DatePicker::classname(), [
-        'options' => ['placeholder' => 'masukan tanggal Mulai'],
-        'pluginOptions' => [
-            'autoclose' => true,
-            'format' => 'yyyy-mm-dd'
-        ]
-    ]); ?>
-
-    <?= $form->field($model, 'selesai')->widget(DatePicker::classname(), [
-        'options' => ['placeholder' => 'masukan tanggal Selesai'],
-        'pluginOptions' => [
-            'autoclose' => true,
-            'format' => 'yyyy-mm-dd'
-        ]
-    ]); ?>
-
-    <?php
-    if (!$model->isNewRecord) {
-        $linkdokumen = \Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen);
-        if (file_exists(\Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
-            echo Html::a(Html::img($linkdokumen, ['class' => 'col-xs-12']), $linkdokumen);
-        }
-    }
-    ?>
-    <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*', 'application/pdf'],
-        'pluginOptions' => [
-            'maxFileSize' => 2048,
-            'showPreview' => $model->isNewRecord,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
-        ],
-    ]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= $form->field($model, 'selesai')->widget(DatePicker::classname(), [
+                'options' => ['placeholder' => 'masukan tanggal Selesai'],
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]); ?>
+        </div>
+        <div class="col-xs-3">
+            <?php
+            if (!$model->isNewRecord) {
+                $linkdokumen = \Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen);
+                if (file_exists(\Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
+                    echo Html::a(Html::img($linkdokumen, ['class' => 'col-xs-12']), $linkdokumen);
+                }
+            }
+            ?>
+            <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
+                'options' => ['accept' => 'image/*', 'application/pdf'],
+                'pluginOptions' => [
+                    'maxFileSize' => 2048,
+                    'showPreview' => $model->isNewRecord,
+                    'showCaption' => false,
+                    'showRemove' => false,
+                    'showUpload' => false,
+                    'browseClass' => 'btn btn-primary btn-block',
+                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+                    'browseLabel' =>  'Select Foto'
+                ],
+            ]) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

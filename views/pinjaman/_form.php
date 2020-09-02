@@ -43,7 +43,17 @@ use kartik\select2\Select2;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'jumlah')->textInput() ?>
+    <?= $form->field($model, 'jumlah')->widget(\yii\widgets\MaskedInput::className(), [
+        'clientOptions' => [
+            'alias' => 'numeric',
+            'digits' => 2,
+            'digitsOptional' => false,
+            'radixPoint' => '.',
+            'groupSeparator' => ',',
+            'autoGroup' => true,
+            'removeMaskOnSubmit' => true,
+        ],
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
