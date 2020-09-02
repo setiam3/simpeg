@@ -102,8 +102,6 @@ class RiwayatpendidikanController extends Controller
             }else if($model->load($request->post())){
                 
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                    // echo Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip;
-       
                     $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
                     
                     $model->dokumen = $model->pendidikan->nama_referensi . '_' . $model->data->nip . '.' . $ext;
@@ -156,8 +154,8 @@ class RiwayatpendidikanController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
-
+        $model = $this->findModel($id); 
+        $oldFoto=$model->dokumen;
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -172,7 +170,17 @@ class RiwayatpendidikanController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                if(!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))){
+                    if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldFoto) && !empty($oldFoto)){
+                        unlink($filename);
+                    }
+                    $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads'). $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
+                    $model->dokumen = $model->pendidikan->nama_referensi . '_' . $model->data->nip . '.' . $ext;
+                }else{
+                    $model->dokumen=$oldFoto;
+                }
+                $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Riwayatpendidikan #".$id,
