@@ -2,17 +2,18 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MPenggolongangaji;
+use app\models\MPenggolonganGaji;
 
 /**
- * MPenggolongangajiSearch represents the model behind the search form of `app\models\MPenggolongangaji`.
+ * MPenggolonganGajiSearch represents the model behind the search form about `app\models\MPenggolonganGaji`.
  */
-class MPenggolongangajiSearch extends MPenggolongangaji
+class MPenggolonganGajiSearch extends MPenggolonganGaji
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
@@ -23,7 +24,7 @@ class MPenggolongangajiSearch extends MPenggolongangaji
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -40,9 +41,7 @@ class MPenggolongangajiSearch extends MPenggolongangaji
      */
     public function search($params)
     {
-        $query = MPenggolongangaji::find();
-
-        // add conditions that should always apply here
+        $query = MPenggolonganGaji::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,7 +55,6 @@ class MPenggolongangajiSearch extends MPenggolongangaji
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'pangkat_id' => $this->pangkat_id,
@@ -64,9 +62,9 @@ class MPenggolongangajiSearch extends MPenggolongangaji
             'jenis_pegawai' => $this->jenis_pegawai,
         ]);
 
-        $query->andFilterWhere(['ilike', 'gaji', $this->gaji])
-            ->andFilterWhere(['ilike', 'status_penggolongan', $this->status_penggolongan])
-            ->andFilterWhere(['ilike', 'ruang', $this->ruang]);
+        $query->andFilterWhere(['like', 'gaji', $this->gaji])
+            ->andFilterWhere(['like', 'status_penggolongan', $this->status_penggolongan])
+            ->andFilterWhere(['like', 'ruang', $this->ruang]);
 
         return $dataProvider;
     }
