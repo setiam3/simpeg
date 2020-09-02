@@ -40,7 +40,7 @@ class MBiodataSearch extends MBiodata
      */
     public function search($params)
     {
-        $query = MBiodata::find();
+        $query = MBiodata::find()->where(['is_pegawai'=>'1']);
 
         // add conditions that should always apply here
 

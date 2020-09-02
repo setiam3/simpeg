@@ -125,7 +125,7 @@ use kartik\file\FileInput;
         </div>
         <div class="col-xs-3">
         <?php $linkFotoNik=\Yii::getAlias('@web/uploads/foto/'.$model->nip.'/'.$model->fotoNik);
-        if(file_exists(\Yii::getAlias('@uploads').$model->nip.'/'.$model->foto) && !empty($model->foto)){
+        if(file_exists(\Yii::getAlias('@uploads').$model->nip.'/'.$model->fotoNik) && !empty($model->fotoNik)){
                 echo Html::a(Html::img($linkFotoNik,['class'=>'col-xs-12']),$linkFotoNik);
         }?>
         
