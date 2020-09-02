@@ -8,15 +8,16 @@ use app\models\RiwayatpendidikanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \yii\web\Response;
+use yii\helpers\Html;
 use yii\web\UploadedFile;
-
 /**
  * RiwayatpendidikanController implements the CRUD actions for Riwayatpendidikan model.
  */
 class RiwayatpendidikanController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function behaviors()
     {
@@ -24,7 +25,8 @@ class RiwayatpendidikanController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
+                    'bulk-delete' => ['post'],
                 ],
             ],
         ];
@@ -35,7 +37,7 @@ class RiwayatpendidikanController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
+    {    
         $searchModel = new RiwayatpendidikanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -45,98 +47,222 @@ class RiwayatpendidikanController extends Controller
         ]);
     }
 
+
     /**
      * Displays a single Riwayatpendidikan model.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+    {   
+        $request = Yii::$app->request;
+        if($request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                    'title'=> "Riwayatpendidikan #".$id,
+                    'content'=>$this->renderAjax('view', [
+                        'model' => $this->findModel($id),
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                ];    
+        }else{
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
      * Creates a new Riwayatpendidikan model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * For ajax request will return json object
+     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Riwayatpendidikan();
+        $request = Yii::$app->request;
+        $model = new Riwayatpendidikan();  
 
-        if ($model->load(Yii::$app->request->post())) {
-            if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
-                $model->dokumen = $model->pendidikan->nama_referensi . '_' . $model->data->nip . '.' . $ext;
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'title'=> "Create new Riwayatpendidikan",
+                    'content'=>$this->renderAjax('create', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }else if($model->load($request->post())){
+                
+                if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
+                    // echo Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip;
+       
+                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
+                    
+                    $model->dokumen = $model->pendidikan->nama_referensi . '_' . $model->data->nip . '.' . $ext;
+                }
+
+                if($model->save(false)){
+                    return [
+                        'forceReload'=>'#crud-datatable-pjax',
+                        'title'=> "Create new Riwayatpendidikan",
+                        'content'=>'<span class="text-success">Create Riwayatpendidikan success</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+            
+                    ]; 
+                }
+                        
+            }else{           
+                return [
+                    'title'=> "Create new Riwayatpendidikan",
+                    'content'=>$this->renderAjax('create', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
             }
-            if ($model->save()) {
-                Yii::$app->session->setFlash('success', ($model->dokumen) . ' row inserted');
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                Yii::$app->session->setFlash('error', ' failed insert row');
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
             }
-
-            // return $this->redirect(['create']);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+       
     }
 
     /**
      * Updates an existing Riwayatpendidikan model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * For ajax request will return json object
+     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $request = Yii::$app->request;
+        $model = $this->findModel($id);       
 
-        if ($model->load(Yii::$app->request->post())) {
-            $oldFoto=$model->dokumen;
-            if(!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))){
-                if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldFoto) && !empty($oldFoto)){
-                    unlink($filename);
-                }
-                $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads').$model->data->nip.'/'.$model->pendidikan->nama_referensi.'_'.$model->data->nip);
-                $model->dokumen=$model->pendidikan->nama_referensi.'_'.$model->data->nip.'.'.$ext;
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'title'=> "Update Riwayatpendidikan #".$id,
+                    'content'=>$this->renderAjax('update', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];         
+            }else if($model->load($request->post()) && $model->save()){
+                return [
+                    'forceReload'=>'#crud-datatable-pjax',
+                    'title'=> "Riwayatpendidikan #".$id,
+                    'content'=>$this->renderAjax('view', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                ];    
             }else{
-                $model->dokumen=$oldFoto;
+                 return [
+                    'title'=> "Update Riwayatpendidikan #".$id,
+                    'content'=>$this->renderAjax('update', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];        
             }
-            if($model->save()) {
-                Yii::$app->session->setFlash('success', ($model->dokumen).' row inserted');
-            }else{
-                Yii::$app->session->setFlash('error',' failed insert row');
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
             }
-            // return $this->redirect(['view', 'id' => $model->id]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
-     * Deletes an existing Riwayatpendidikan model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Delete an existing Riwayatpendidikan model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        $filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen;
-        if (file_exists($filename)) {
-            unlink($filename);
+        $request = Yii::$app->request;
+        $this->findModel($id)->delete();
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            return $this->redirect(['index']);
         }
-        $model->delete();
-        return $this->redirect(['index']);
+
+
+    }
+
+     /**
+     * Delete multiple existing Riwayatpendidikan model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionBulkDelete()
+    {        
+        $request = Yii::$app->request;
+        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        foreach ( $pks as $pk ) {
+            $model = $this->findModel($pk);
+            $model->delete();
+        }
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            return $this->redirect(['index']);
+        }
+       
     }
 
     /**
@@ -150,8 +276,8 @@ class RiwayatpendidikanController extends Controller
     {
         if (($model = Riwayatpendidikan::findOne($id)) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
