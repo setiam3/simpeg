@@ -98,18 +98,14 @@ use kartik\date\DatePicker;
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
-    <?php if(!$model->isNewRecord){
-        $linkFoto=\Yii::getAlias('@web/uploads/foto/'.$model->parent->nip.'/'.$model->foto);
-        if(file_exists(\Yii::getAlias('@uploads').$model->parent->nip.'/'.$model->foto) && !empty($model->foto)){
-                echo Html::a(Html::img($linkFoto,['class'=>'col-xs-12']),$linkFoto);
-        }
-    }
-    ?>
+    
     <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
+        'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
+            'initialPreview'=>[
+                Html::img(\Yii::getAlias('@web/uploads/foto/'.$model->parent->nip.'/'.$model->foto),['class'=>'col-xs-12'])
+            ],
             'maxFileSize' => 2048,
-            'showPreview' => $model->isNewRecord,
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
@@ -118,18 +114,13 @@ use kartik\date\DatePicker;
             'browseLabel' =>  'Select Foto'
             ],
         ]) ?>
-<?php if(!$model->isNewRecord){
-    $linkFotoNik=\Yii::getAlias('@web/uploads/foto/'.$model->parent->nip.'/'.$model->fotoNik);
-    if(file_exists(\Yii::getAlias('@uploads').$model->parent->nip.'/'.$model->fotoNik) && !empty($model->fotoNik)){
-            echo Html::a(Html::img($linkFotoNik,['class'=>'col-xs-12']),$linkFotoNik);
-    }
-}
-?>
 <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
+        'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
+            'initialPreview'=>[
+                Html::img(\Yii::getAlias('@web/uploads/foto/'.$model->parent->nip.'/'.$model->fotoNik),['class'=>'col-xs-12'])
+            ],
             'maxFileSize' => 2048,
-            'showPreview' => $model->isNewRecord,
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,

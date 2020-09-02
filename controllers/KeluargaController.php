@@ -102,11 +102,11 @@ class KeluargaController extends Controller
             }else if($model->load($request->post()) ){
                 $model->is_pegawai=0;
                 if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                    $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$foto='foto_'.$model->status_hubungan_keluarga.'_'.$model->parent_id.'_'.time());
+                    $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$foto='foto_'.$model->status_hubungan_keluarga.'_'.$model->parent_id);
                     $model->foto=$foto.'.'.$ext;
                 }
                 if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
-                    $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$fotoNik='fotoNik_'.$model->status_hubungan_keluarga.'_'.$model->nik.'_'.time());
+                    $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$fotoNik='fotoNik_'.$model->status_hubungan_keluarga.'_'.$model->nik);
                     $model->fotoNik=$fotoNik.'.'.$ext;
                 }
                 $model->save(false);
@@ -154,7 +154,9 @@ class KeluargaController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);   
+        $oldFoto=$model->foto;    
+        $oldFotoNik=$model->fotoNik;    
 
         if($request->isAjax){
             /*
@@ -163,17 +165,33 @@ class KeluargaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MBiodata #".$id,
+                    'title'=> "Update Data Keluarga #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if( $model->load($request->post()) ){
+                $model->is_pegawai=0;
+                if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
+                    if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$oldFoto) && !empty($oldFoto)){
+                        unlink($filename);
+                    }
+                    $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$foto='foto_'.$model->status_hubungan_keluarga.'_'.$model->parent_id);
+                    $model->foto=$ext;
+                }
+                if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
+                    if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$oldFotoNik) && !empty($oldFotoNik)){
+                        unlink($filename);
+                    }
+                    $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$fotoNik='fotoNik_'.$model->status_hubungan_keluarga.'_'.$model->nik);
+                    $model->fotoNik=$ext;
+                }
+                $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MBiodata #".$id,
+                    'title'=> "Data Keluarga #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -182,7 +200,7 @@ class KeluargaController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update MBiodata #".$id,
+                    'title'=> "Update Data Keluarga #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -214,7 +232,14 @@ class KeluargaController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$model->foto) && !empty($model->foto)){
+            unlink($filename);
+        }
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$model->fotoNik) && !empty($model->fotoNik)){
+            unlink($filename);
+        }
+        $model->delete();
 
         if($request->isAjax){
             /*

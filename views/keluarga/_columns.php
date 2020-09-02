@@ -12,16 +12,13 @@ return [
         'width' => '30px',
     ],
     [
-        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'Nama Pegawai',
         'value'=>function($data){
             return $data->parent->nama;
         }
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'nama',
-    ],
+    'parent_id:html:Nama Pegawai',
+    'nama:raw:Nama Anggota Keluarga',
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'tempatLahir',
@@ -95,14 +92,6 @@ return [
         'attribute'=>'status_hubungan_keluarga',
         'value'=>'statusHubunganKeluarga.nama_referensi'
     ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'is_pegawai',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'checklog_id',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

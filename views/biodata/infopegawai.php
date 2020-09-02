@@ -52,48 +52,25 @@ use yii\helpers\Html;
 </div>
 <div class="col-md-9">
 <?php
-		/*echo Collapse::widget([
-          'items' => [
-            'Jabatan' => 'This is the first collapsable menu',
-            'Gaji' => [
-                'content' => 'This is the second collapsable menu',
-            ],
-            'Pendidikan' => [
-                'content' => 'This is the second collapsable menu',
-            ],'Keluarga' => [
-                'content' => 'This is the second collapsable menu',
-            ],'Diklat' => [
-                'content' => 'This is the second collapsable menu',
-            ],'Prestasi' => [
-                'content' => 'This is the second collapsable menu',
-            ],'Hukuman' => [
-                'content' => 'This is the second collapsable menu',
-            ],
-        ]
-      ]);*/
-
 	echo Tabs::widget([
       'items' => [
           [
               'label' => 'Biodata',
               'content' =>$this->renderAjax('view', ['model' => $model]),
+              'active' => true,
           ],
           [
               'label' => 'Jabatan',
               'content' => $this->renderAjax('index',[
               	'searchModel' => $searchModel,
-            	'dataProvider' => $dataProvider,
-            ]),
+              	'dataProvider' => $dataProvider,
+              ]),
           ],
           [
               'label' => 'Gaji',
               'content' => 'Anim pariatur cliche...',
               'headerOptions' => ['class'],
               'options' => ['id' => 'myveryownID'],
-          ],
-          [
-              'label' => 'Pendidikan',
-              //'url' => 'http://www.example.com',
           ],
           [
               'label' => 'Keluarga',
@@ -107,36 +84,14 @@ use yii\helpers\Html;
               'label' => 'Pendidikan',
               'content' => $this->render('//riwayatpendidikan/index',['searchModel'=>$searchModelpendidikan,'dataProvider'=>$searchModelpendidikan->search(Yii::$app->request->queryParams,['id_data'=>$model->id_data])]),
           ],
-          [
-              'label' => 'Keluarga',
-              'items' => [
-                   [
-                       'label' => 'DropdownA',
-                       'content' => 'DropdownA, Anim pariatur cliche...',
-                   ],
-                   [
-                       'label' => 'DropdownB',
-                       'content' => 'DropdownB, Anim pariatur cliche...',
-                   ],
-                   [
-                       'label' => 'External Link',
-                       'url' => 'http://www.example.com',
-                   ],
-              ],
-          ],
       ],
   ]);
 $this->title= "Biodata Pegawai";
 	Modal::begin([
 	    "id"=>"ajaxCrudModal",
+      'size'=>'modal-lg',
 	    "footer"=>"",
 	]);
-
-	// echo $this->renderAjax('_form',[
- //        'mpegawai' => $mpegawai=\app\models\MPegawai::findOne(['nip'=>$model->id]),
- //        'mbiodata'=>\app\models\MBiodata::findOne(['id'=>$mpegawai->fk_biodata])
- //            ]);
- 
   	Modal::end();
 
     ?>

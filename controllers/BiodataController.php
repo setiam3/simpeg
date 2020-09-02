@@ -112,7 +112,7 @@ class BiodataController extends Controller
                     unlink($filename);
                 }
                 $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip.'/nip_'.$model->nip);
-                $model->foto='nip_'.$model->nip.'.'.$ext;
+                $model->foto=$ext;
             }else{
                 $model->foto=$oldFoto;
             }
@@ -121,7 +121,7 @@ class BiodataController extends Controller
                     unlink($filename);
                 }
                 $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nip.'/nik_'.$model->nik);
-                $model->fotoNik='nik_'.$model->nik.'.'.$ext;
+                $model->fotoNik=$ext;
             }else{
                 $model->fotoNik=$oldFotoNik;
             }
