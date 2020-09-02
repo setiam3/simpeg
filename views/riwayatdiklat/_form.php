@@ -47,6 +47,14 @@ use kartik\file\FileInput;
         ]
     ]); ?>
 
+    <?php
+    if (!$model->isNewRecord) {
+        $linkdokumen = \Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen);
+        if (file_exists(\Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
+            echo Html::a(Html::img($linkdokumen, ['class' => 'col-xs-12']), $linkdokumen);
+        }
+    }
+    ?>
     <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'application/pdf'],
         'pluginOptions' => [
