@@ -102,9 +102,7 @@ use kartik\date\DatePicker;
     <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
-            'initialPreview'=>[
-                Html::img(\Yii::getAlias('@web/uploads/foto/'.$model->parent->nip.'/'.$model->foto),['class'=>'col-xs-12'])
-            ],
+            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->foto), ['class' => 'col-xs-12'])],
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,
@@ -117,9 +115,7 @@ use kartik\date\DatePicker;
 <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
-            'initialPreview'=>[
-                Html::img(\Yii::getAlias('@web/uploads/foto/'.$model->parent->nip.'/'.$model->fotoNik),['class'=>'col-xs-12'])
-            ],
+            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])],
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,

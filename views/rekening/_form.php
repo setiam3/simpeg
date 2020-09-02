@@ -39,15 +39,10 @@ use kartik\file\FileInput;
 
     <?= $form->field($model, 'npwp')->textInput(['maxlength' => true, 'type' => 'number']) ?>
 
-
-
-
     <?= $form->field($model, 'fotoNpwp')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
         'pluginOptions' => [
-            'initialPreview' => [
-                Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])
-            ],
+            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])],
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,
@@ -62,9 +57,8 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'fotoRekening')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
         'pluginOptions' => [
-            'initialPreview' => [
-                Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoRekening), ['class' => 'col-xs-12'])
-            ],
+            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoRekening), ['class' => 'col-xs-12'])],
+            'showPreview'=>true,
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,
