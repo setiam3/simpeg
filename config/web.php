@@ -79,7 +79,6 @@ $config = [
             'destination' => 'I',
         ],
         'db' => $db,
-        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

@@ -6,7 +6,7 @@
  */
 
 namespace app\commands;
-
+use app\models\MUnit;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -29,6 +29,23 @@ class HelloController extends Controller
     {
         echo $message . "\n";
 
+        return ExitCode::OK;
+    }
+    public function actionTransfermsunit(){
+        $start_time = microtime(true); 
+        $col=((new MUnit)->getTableSchema()->getColumnNames());
+        //$col=array_diff($col,array('id',''));
+        $result=\Yii::$app->db_live->createCommand("select * from m_unit")->queryAll();
+        if(\Yii::$app->db->createCommand()->batchInsert('m_unit',$col,$result)->execute()){
+            return true;
+            echo 'transfer sukses';
+        }else{
+            return false;
+            echo 'transfer gagal';
+        }   
+        $end_time = microtime(true);
+        $execution_time = ($end_time - $start_time)/60;
+        echo $execution_time."\n";
         return ExitCode::OK;
     }
 }

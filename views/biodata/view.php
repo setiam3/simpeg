@@ -72,8 +72,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'gelarDepan',
             'gelarBelakang',
             'nik',
-            'foto',
-            'fotoNik',
+            [
+                'attribute'=>'Foto',
+                'format'=>'html',
+                'value'=>function($data){
+                    return isset($data->foto) && file_exists(\Yii::getAlias('@uploads').$data->nip.'/'.$data->foto)?Html::a($data->foto,\Yii::getAlias('@web/uploads/foto/'.$data->nip.'/'.$data->foto)):'';
+                }
+            ],
+            [
+                'attribute'=>'Foto NIK',
+                'format'=>'html',
+                'value'=>function($data){
+                    return isset($data->fotoNik) && file_exists(\Yii::getAlias('@uploads').$data->nip.'/'.$data->fotoNik)?Html::a($data->fotoNik,\Yii::getAlias('@web/uploads/foto/'.$data->nip.'/'.$data->fotoNik)):'';
+                }
+            ],
             'golonganDarah',
             [
                 'attribute'=>'status_hubungan_keluarga',
