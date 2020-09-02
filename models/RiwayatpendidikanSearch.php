@@ -38,9 +38,9 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$where=null)
     {
-        $query = Riwayatpendidikan::find();
+        $query = Riwayatpendidikan::find()->where($where);
 
         // add conditions that should always apply here
 

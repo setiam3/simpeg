@@ -76,7 +76,7 @@ use yii\helpers\Html;
       'items' => [
           [
               'label' => 'Biodata',
-              'content' =>$this->render('view', ['model' => $model]),
+              'content' =>$this->renderAjax('view', ['model' => $model]),
           ],
           [
               'label' => 'Jabatan',
@@ -97,15 +97,15 @@ use yii\helpers\Html;
           ],
           [
               'label' => 'Keluarga',
-              'content' => 'Anim pariatur cliche...',
+              'content' => $this->render('//keluarga/index', ['searchModel' => $searchModelKeluarga,'dataProvider'=>$searchModelKeluarga->search(Yii::$app->request->queryParams,['parent_id'=>$model->id_data])]),
           ],
           [
               'label' => 'Diklat',
               'content' => 'Anim pariatur cliche...',
           ],
           [
-              'label' => 'Prestasi',
-              'content' => 'Anim pariatur cliche...',
+              'label' => 'Pendidikan',
+              'content' => $this->render('//riwayatpendidikan/index',['searchModel'=>$searchModelpendidikan,'dataProvider'=>$searchModelpendidikan->search(Yii::$app->request->queryParams,['id_data'=>$model->id_data])]),
           ],
           [
               'label' => 'Keluarga',
@@ -126,7 +126,7 @@ use yii\helpers\Html;
           ],
       ],
   ]);
-
+$this->title= "Biodata Pegawai";
 	Modal::begin([
 	    "id"=>"ajaxCrudModal",
 	    "footer"=>"",
