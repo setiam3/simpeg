@@ -2,14 +2,13 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Membuat Data Rekening Baru';
-$this->params['breadcrumbs'][] = ['label' => 'M Rekenings', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\MRekening */
+
 ?>
 <div class="mrekening-create">
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>
