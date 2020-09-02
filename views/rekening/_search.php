@@ -25,9 +25,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'npwp') ?>
 
-    <?php // echo $form->field($model, 'fotoNpwp') ?>
+    <?php // echo $form->field($model, 'fotoNpwp') 
+    ?>
 
-    <?php // echo $form->field($model, 'fotoRekening') ?>
+    <?php // echo $form->field($model, 'fotoRekening') 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

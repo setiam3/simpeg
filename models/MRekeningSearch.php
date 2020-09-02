@@ -17,8 +17,8 @@ class MRekeningSearch extends MRekening
     public function rules()
     {
         return [
-            [['id', 'id_data', 'bank_id'], 'integer'],
-            [['nomor_rekening', 'npwp', 'fotoNpwp', 'fotoRekening'], 'safe'],
+            [['id'], 'integer'],
+            [['nomor_rekening',  'id_data', 'bank_id', 'npwp', 'fotoNpwp', 'fotoRekening'], 'safe'],
         ];
     }
 
@@ -56,17 +56,23 @@ class MRekeningSearch extends MRekening
             return $dataProvider;
         }
 
+        $query->joinWith('data');
+        $query->joinWith('bank');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_data' => $this->id_data,
-            'bank_id' => $this->bank_id,
+            //'id_data' => $this->id_data,
+            //'bank_id' => $this->bank_id,
         ]);
 
         $query->andFilterWhere(['ilike', 'nomor_rekening', $this->nomor_rekening])
             ->andFilterWhere(['ilike', 'npwp', $this->npwp])
             ->andFilterWhere(['ilike', 'fotoNpwp', $this->fotoNpwp])
-            ->andFilterWhere(['ilike', 'fotoRekening', $this->fotoRekening]);
+            ->andFilterWhere(['ilike', 'fotoRekening', $this->fotoRekening])
+            ->andFilterWhere(['ilike', 'data.nama', $this->id_data])
+            ->andFilterWhere(['ilike', 'm_referensi.nama_referensi', $this->bank_id]);
+
 
         return $dataProvider;
     }

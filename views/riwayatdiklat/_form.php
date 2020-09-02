@@ -16,7 +16,7 @@ use kartik\file\FileInput;
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-        <div class="col-xs-5">
+        <div class="col-xs-6">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
                 'options' => ['placeholder' => 'Select id_data ...'],
@@ -48,7 +48,7 @@ use kartik\file\FileInput;
                 ]
             ]); ?>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-5">
             <?php
             if (!$model->isNewRecord) {
                 $linkdokumen = \Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen);
@@ -70,7 +70,12 @@ use kartik\file\FileInput;
                     'browseLabel' =>  'Select Foto'
                 ],
             ]) ?>
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?php if (!Yii::$app->request->isAjax) { ?>
+                <div class="form-group">
+                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                </div>
+            <?php } ?>
+
         </div>
     </div>
 

@@ -2,28 +2,29 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\MRiwayatdiklat;
 
 /**
- * MRiwayatdiklatSearch represents the model behind the search form of `app\models\MRiwayatdiklat`.
+ * MRiwayatdiklatSearch represents the model behind the search form about `app\models\MRiwayatdiklat`.
  */
 class MRiwayatdiklatSearch extends MRiwayatdiklat
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'id_data'], 'integer'],
-            [['namaDiklat', 'tempat', 'penyelenggara', 'mulai', 'selesai', 'dokumen'], 'safe'],
+            [['id'], 'integer'],
+            [['namaDiklat', 'id_data', 'tempat', 'penyelenggara', 'mulai', 'selesai', 'dokumen'], 'safe'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -42,8 +43,6 @@ class MRiwayatdiklatSearch extends MRiwayatdiklat
     {
         $query = MRiwayatdiklat::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,18 +55,20 @@ class MRiwayatdiklatSearch extends MRiwayatdiklat
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        $query->joinWith('data');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_data' => $this->id_data,
+            //'id_data' => $this->id_data,
             'mulai' => $this->mulai,
             'selesai' => $this->selesai,
         ]);
 
-        $query->andFilterWhere(['ilike', 'namaDiklat', $this->namaDiklat])
-            ->andFilterWhere(['ilike', 'tempat', $this->tempat])
-            ->andFilterWhere(['ilike', 'penyelenggara', $this->penyelenggara])
-            ->andFilterWhere(['ilike', 'dokumen', $this->dokumen]);
+        $query->andFilterWhere(['like', 'namaDiklat', $this->namaDiklat])
+            ->andFilterWhere(['like', 'tempat', $this->tempat])
+            ->andFilterWhere(['like', 'penyelenggara', $this->penyelenggara])
+            ->andFilterWhere(['like', 'dokumen', $this->dokumen])
+            ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data]);
 
         return $dataProvider;
     }
