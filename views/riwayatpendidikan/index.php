@@ -10,16 +10,16 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel app\models\RiwayatpendidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Riwayatpendidikans';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->title = 'Riwayatpendidikans';
+//$this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
 
 ?>
 <div class="riwayatpendidikan-index">
-    <div id="ajaxCrudDatatable">
+    <div id="ajaxCrudDatatablePendidikan">
         <?=GridView::widget([
-            'id'=>'crud-datatable',
+            'id'=>'crud-datatablePendidikan',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
@@ -59,7 +59,7 @@ CrudAsset::register($this);
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModal",
+    "id"=>"ajaxCrudModalPendidikan",
     'size'=>'modal-lg',
     "footer"=>"",// always need it for jquery plugin
 ])?>

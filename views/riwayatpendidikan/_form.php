@@ -10,7 +10,7 @@ use kartik\date\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="riwayatpendidikan-form">
+<div class="riwayatpendidikan-forms">
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="col-sm-6">

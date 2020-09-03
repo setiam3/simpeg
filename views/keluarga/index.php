@@ -17,9 +17,9 @@ CrudAsset::register($this);
 
 ?>
 <div class="mbiodata-index">
-    <div id="ajaxCrudDatatable">
+    <div id="ajaxCrudDatatableKeluarga">
         <?=GridView::widget([
-            'id'=>'crud-datatable',
+            'id'=>'crud-datatableKeluarga',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
@@ -59,7 +59,7 @@ CrudAsset::register($this);
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModal",
+    "id"=>"ajaxCrudModalKeluarga",
     'size'=>'modal-lg',
     "footer"=>"",// always need it for jquery plugin
 ])?>

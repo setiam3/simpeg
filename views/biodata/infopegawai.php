@@ -6,7 +6,6 @@ use yii\widgets\DetailView;
 use yii\helpers\Html;
 ?>
 <div class="row">
-  
 
 <div class="col-md-3">
   <?php $linkFoto=\Yii::getAlias('@web/uploads/foto/'.$model->nip.'/'.$model->foto);
@@ -56,15 +55,12 @@ use yii\helpers\Html;
       'items' => [
           [
               'label' => 'Biodata',
-              'content' =>$this->renderAjax('view', ['model' => $model]),
+              //'content' =>$this->renderAjax('view', ['model' => $model]),
               'active' => true,
           ],
           [
               'label' => 'Jabatan',
-              'content' => $this->renderAjax('index',[
-              	'searchModel' => $searchModel,
-              	'dataProvider' => $dataProvider,
-              ]),
+              //'content' => $this->renderAjax('index',['searchModel' => $searchModel,'dataProvider' => $dataProvider]),
           ],
           [
               'label' => 'Gaji',
@@ -74,7 +70,10 @@ use yii\helpers\Html;
           ],
           [
               'label' => 'Keluarga',
-              'content' => $this->render('//keluarga/index', ['searchModel' => $searchModelKeluarga,'dataProvider'=>$searchModelKeluarga->search(Yii::$app->request->queryParams,['parent_id'=>$model->id_data])]),
+              'content' => $this->render('//keluarga/index', [
+                  'searchModel' => $searchModelKeluarga,
+                  'dataProvider'=>$searchModelKeluarga->search(Yii::$app->request->queryParams,['parent_id'=>$model->id_data])
+                ]),
           ],
           [
               'label' => 'Diklat',
@@ -86,14 +85,15 @@ use yii\helpers\Html;
           ],
       ],
   ]);
-$this->title= "Biodata Pegawai";
+    $this->title= "Biodata Pegawai";
+    $this->params['breadcrumbs'][] = ['label' => 'Biodata', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
 	Modal::begin([
 	    "id"=>"ajaxCrudModal",
       'size'=>'modal-lg',
 	    "footer"=>"",
 	]);
-  	Modal::end();
-
+    Modal::end();
     ?>
 </div>
 </div>
