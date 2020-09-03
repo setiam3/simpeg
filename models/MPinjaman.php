@@ -34,10 +34,10 @@ class MPinjaman extends \yii\db\ActiveRecord
         return [
             [['id_data', 'tanggal', 'jenis', 'namaBarang', 'jumlah'], 'required'],
             [['id_data'], 'default', 'value' => null],
-            [['id_data'], 'integer'],
+            [['id_data', 'jenis'], 'integer'],
             [['tanggal'], 'safe'],
             [['jumlah'], 'number'],
-            [['jenis', 'namaBarang'], 'string', 'max' => 255],
+            [['namaBarang'], 'string', 'max' => 255],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
         ];
     }

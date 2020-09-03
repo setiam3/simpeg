@@ -103,7 +103,7 @@ class RiwayatdiklatController extends Controller
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
                     $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
-                    $model->dokumen = 'ridik_' . $model->data->nip . '_' . time() . '.' . $ext;
+                    $model->dokumen =  $ext;
                 }
                 $model->save(false);
                 return [
@@ -173,7 +173,7 @@ class RiwayatdiklatController extends Controller
                         unlink($filename);
                     }
                     $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
-                    $model->dokumen = 'ridik_' . $model->data->nip . '_' . time() . '.' . $ext;
+                    $model->dokumen = $ext;
                 } else {
                     $model->dokumen = $olddokumen;
                 }

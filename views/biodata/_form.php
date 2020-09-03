@@ -15,15 +15,12 @@ use kartik\file\FileInput;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-xs-3">
-        <?php $linkFoto=\Yii::getAlias('@web/uploads/foto/'.$model->nip.'/'.$model->foto);
-        if(file_exists(\Yii::getAlias('@uploads').$model->nip.'/'.$model->foto) && !empty($model->foto)){
-                echo Html::a(Html::img($linkFoto,['class'=>'col-xs-12']),$linkFoto);
-        }?>
+        
         <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
+        'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
+            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->nip . '/' . $model->foto), ['class' => 'col-xs-12'])],
             'maxFileSize' => 2048,
-            'showPreview' => $model->isNewRecord,
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
@@ -124,24 +121,20 @@ use kartik\file\FileInput;
         <?= $form->field($model, 'checklog_id')->textInput() ?>
         </div>
         <div class="col-xs-3">
-        <?php $linkFotoNik=\Yii::getAlias('@web/uploads/foto/'.$model->nip.'/'.$model->fotoNik);
-        if(file_exists(\Yii::getAlias('@uploads').$model->nip.'/'.$model->fotoNik) && !empty($model->fotoNik)){
-                echo Html::a(Html::img($linkFotoNik,['class'=>'col-xs-12']),$linkFotoNik);
-        }?>
-        
         <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
+        'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
+            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])],
             'maxFileSize' => 2048,
-            'showPreview' => $model->isNewRecord,
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
-        ],
+            'browseLabel' =>  'Select FotoNik'
+            ],
         ]) ?>
+        
         <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

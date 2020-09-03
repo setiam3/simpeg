@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\MPinjaman */
 /* @var $form yii\widgets\ActiveForm */
@@ -43,21 +44,13 @@ use kartik\select2\Select2;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'jumlah')->widget(\yii\widgets\MaskedInput::className(), [
-        'clientOptions' => [
-            'alias' => 'numeric',
-            'digits' => 2,
-            'digitsOptional' => false,
-            'radixPoint' => '.',
-            'groupSeparator' => ',',
-            'autoGroup' => true,
-            'removeMaskOnSubmit' => true,
-        ],
-    ]) ?>
+    <?= $form->field($model, 'jumlah')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
+    <?php if (!Yii::$app->request->isAjax) { ?>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    <?php } ?>
 
     <?php ActiveForm::end(); ?>
 

@@ -176,6 +176,7 @@ class RiwayatpendidikanController extends Controller
                     }
                     $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads'). $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
                     $model->dokumen = $ext;
+
                 }else{
                     $model->dokumen=$oldFoto;
                 }
