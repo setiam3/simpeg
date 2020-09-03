@@ -27,7 +27,7 @@ CrudAsset::register($this);
             'toolbar'=> [
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatpendidikan/create'],
-                    ['role'=>'modal-remote','title'=> 'Create new Riwayatpendidikans','class'=>'btn btn-default']).
+                    ['role'=>'modal-remote','data-target'=>'#ajaxCrudModalPendidikan','title'=> 'Create new Riwayatpendidikans','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
                     '{toggleData}'.

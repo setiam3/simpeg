@@ -5,21 +5,17 @@ use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
 use johnitvn\ajaxcrud\BulkButtonWidget;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MBiodataSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 //$this->title = 'Data Keluarga';
 //$this->params['breadcrumbs'][] = $this->title;
-
 CrudAsset::register($this);
-
 ?>
 <div class="mbiodata-index">
-    <div id="ajaxCrudDatatableKeluarga">
+    <div id="ajaxCrudDatatableKel">
         <?=GridView::widget([
-            'id'=>'crud-datatableKeluarga',
+            'id'=>'crud-datatableKel',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
@@ -27,7 +23,7 @@ CrudAsset::register($this);
             'toolbar'=> [
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['keluarga/create'],
-                    ['role'=>'modal-remote','title'=> 'Add Keluarga','class'=>'btn btn-default']).
+                    ['role'=>'modal-remote','data-target'=>'#ajaxCrudModalKel','title'=> 'Add Keluarga','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
                     '{toggleData}'.
@@ -59,7 +55,7 @@ CrudAsset::register($this);
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModalKeluarga",
+    "id"=>"ajaxCrudModalKel",
     'size'=>'modal-lg',
     "footer"=>"",// always need it for jquery plugin
 ])?>

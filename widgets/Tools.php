@@ -11,7 +11,7 @@ class Tools extends \yii\bootstrap\Widget{
     }
     public function upload($instancename,$path){
       $file=UploadedFile::getInstanceByName($instancename);
-      $ext=substr($file->name, strrpos($file->name, '.')+1);
+      $ext= substr($file->name, strrpos($file->name, '.')+1);
       $path.='_'.time();
       $exploded = explode('/', $path);
       $dir=trim($path,end($exploded));
