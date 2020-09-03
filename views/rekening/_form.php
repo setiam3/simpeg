@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
@@ -10,14 +9,12 @@ use kartik\file\FileInput;
 /* @var $model app\models\MRekening */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="mrekening-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-
-
-    <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
+    <div class="row">
+    <div class="col-sm-4">
+        <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => 1])->all(), 'id_data', 'nama'),
         'options' => ['placeholder' => 'Select id_data ...'],
         'pluginOptions' => [
@@ -34,12 +31,12 @@ use kartik\file\FileInput;
         ],
     ])->label('Bank')
     ?>
-
     <?= $form->field($model, 'nomor_rekening')->textInput(['maxlength' => true, 'type' => 'number']) ?>
 
     <?= $form->field($model, 'npwp')->textInput(['maxlength' => true, 'type' => 'number']) ?>
-
-    <?= $form->field($model, 'fotoNpwp')->widget(FileInput::classname(), [
+    </div>
+    <div class="col-sm-4">
+        <?= $form->field($model, 'fotoNpwp')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
         'pluginOptions' => [
             'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])],
@@ -52,8 +49,8 @@ use kartik\file\FileInput;
             'browseLabel' =>  'Select Foto'
         ],
     ]) ?>
-
-
+    </div>
+    <div class="col-sm-4">
     <?= $form->field($model, 'fotoRekening')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
         'pluginOptions' => [
@@ -68,15 +65,13 @@ use kartik\file\FileInput;
             'browseLabel' =>  'Select Foto'
         ],
     ]) ?>
-
-
+    </div>
+    </div>
+    
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     <?php } ?>
-
-
     <?php ActiveForm::end(); ?>
-
 </div>

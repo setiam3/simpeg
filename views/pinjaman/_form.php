@@ -17,7 +17,7 @@ use kartik\select2\Select2;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
+        'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>'1'])->all(), 'id_data', 'nama'),
         'options' => ['placeholder' => 'Select id_data ...'],
         'pluginOptions' => [
             'allowClear' => true
@@ -31,7 +31,7 @@ use kartik\select2\Select2;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label('Bank')
+    ])->label('Jenis Pinjaman')
     ?>
 
     <?= $form->field($model, 'namaBarang')->textInput(['maxlength' => true]) ?>
@@ -44,7 +44,7 @@ use kartik\select2\Select2;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'jumlah')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jumlah')->textInput(['maxlength' => true,'type'=>'number']) ?>
 
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">

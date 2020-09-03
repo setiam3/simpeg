@@ -14,7 +14,7 @@ $this->title = 'Menus';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
-
+$idmodal=md5($dataProvider->query->modelClass);
 ?>
 <div class="menu-index">
     <div id="ajaxCrudDatatable">
@@ -27,7 +27,7 @@ CrudAsset::register($this);
             'toolbar'=> [
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
-                    ['role'=>'modal-remote','title'=> 'Create new Menus','class'=>'btn btn-default']).
+                    ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Menus','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
                     '{toggleData}'.
@@ -59,7 +59,8 @@ CrudAsset::register($this);
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModal",
+    "id"=>$idmodal,
+    "size"=>"modal-lg",
     "footer"=>"",// always need it for jquery plugin
 ])?>
 <?php Modal::end(); ?>

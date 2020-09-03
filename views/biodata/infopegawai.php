@@ -55,38 +55,41 @@ use yii\helpers\Html;
     <div class="col-md-9">
     <?php
 	echo Tabs::widget([
-      'items' => [
-          [
-              'label' => 'Biodata',
-              'content' =>$this->renderAjax('view', ['model' => $model]),
-              'active' => true,
-          ],
-          [
-              'label' => 'Jabatan',
-              'content' => $this->renderAjax('index',['searchModel' => $searchModel,'dataProvider' => $dataProvider]),
-          ],
-          [
-              'label' => 'Gaji',
-              'content' => 'Anim pariatur cliche...',
-              'headerOptions' => ['class'],
-              'options' => ['id' => 'myveryownID'],
-          ],
-          [
-              'label' => 'Keluarga',
-              'content' => $this->render('//keluarga/index', [
-                  'searchModel' => $searchModelKeluarga,
-                  'dataProvider'=>$searchModelKeluarga->search(Yii::$app->request->queryParams,['parent_id'=>$model->id_data])
-                ]),
-          ],
-          [
-              'label' => 'Diklat',
-              'content' => 'Anim pariatur cliche...',
-          ],
-          [
-              'label' => 'Pendidikan',
-              'content' => $this->render('//riwayatpendidikan/index',['searchModel'=>$searchModelpendidikan,'dataProvider'=>$searchModelpendidikan->search(Yii::$app->request->queryParams,['id_data'=>$model->id_data])]),
-          ],
-      ],
+        'items' => [
+            [
+                'label' => 'Biodata',
+                'content' =>$this->renderAjax('view', ['model' => $model]),
+                'active' => true,
+            ],
+            [
+                'label' => 'Jabatan',
+                'content' => $this->renderAjax('index',['searchModel' => $searchModel,'dataProvider' => $dataProvider]),
+            ],
+            [
+                'label' => 'Gaji',
+                'content' => 'Anim pariatur cliche...',
+                'headerOptions' => ['class'],
+                'options' => ['id' => 'myveryownID'],
+            ],
+            [
+                'label' => 'Keluarga',
+                'content' => $this->render('//keluarga/index', [
+                    'searchModel' => $searchModelKeluarga,
+                    'dataProvider'=>$searchModelKeluarga->search(Yii::$app->request->queryParams,['parent_id'=>$model->id_data])
+                    ]),
+            ],
+            [
+                'label' => 'Diklat',
+                'content' => 'Anim pariatur cliche...',
+            ],
+            [
+                'label' => 'Pendidikan',
+                'content' => $this->render('//riwayatpendidikan/index',[
+                    'searchModel'=>$searchModelpendidikan,
+                    'dataProvider'=>$searchModelpendidikan->search(Yii::$app->request->queryParams,['id_data'=>$model->id_data])
+                    ]),
+            ],
+        ],
     ]);
     $this->title= "Biodata Pegawai";
     $this->params['breadcrumbs'][] = ['label' => 'Biodata', 'url' => ['index']];

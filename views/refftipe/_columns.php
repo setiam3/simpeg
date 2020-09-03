@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Url;
-
+use yii\helpers\Html;
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
@@ -18,6 +18,14 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'status',
     ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'refftipe_code',
+    // ],
+    // [
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'parent_refftipe',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
@@ -25,14 +33,30 @@ return [
         'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);
         },
-        'viewOptions'=>['role'=>'modal-remote','title'=>'View','data-toggle'=>'tooltip'],
-        'updateOptions'=>['role'=>'modal-remote','title'=>'Update', 'data-toggle'=>'tooltip'],
-        'deleteOptions'=>['role'=>'modal-remote','title'=>'Delete', 
-                          'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
-                          'data-request-method'=>'post',
-                          'data-toggle'=>'tooltip',
-                          'data-confirm-title'=>'Are you sure?',
-                          'data-confirm-message'=>'Are you sure want to delete this item'], 
+        'buttons' => [
+            'view' => function ($url, $model) {
+                $idmodal=md5($model::className());
+                $t = '@web/refftipe/view?id=' . $model->tipereff_id;
+                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote','data-target'=>'#'.$idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
+            },
+            'update' => function ($url, $model) {
+                $idmodal=md5($model::className());
+                $t = '@web/refftipe/update?id=' . $model->tipereff_id;
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Update', 'data-toggle' => 'tooltip']);
+            },
+            'delete' => function ($url, $model) {
+                $idmodal=md5($model::className());
+                $t = '@web/refftipe/delete?id=' . $model->tipereff_id;
+                return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
+                    'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
+                    'data-confirm' => false, 'data-method' => false,
+                    'data-request-method' => 'post',
+                    'data-toggle' => 'tooltip',
+                    'data-confirm-title' => 'Are you sure?',
+                    'data-confirm-message' => 'Are you sure want to delete this item'
+                ]);
+            },
+        ],
     ],
 
 ];   

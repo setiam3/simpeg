@@ -13,7 +13,7 @@ use kartik\date\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-4">
     <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>1]), 'id_data','nama'),
                 'options' => ['placeholder' => 'Select  ...'],
@@ -34,7 +34,27 @@ use kartik\date\DatePicker;
                 ]
             ])?>
 
-    <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
+    
+
+<?= $form->field($model, 'jenisKelamin')->radioList(
+            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8']), 'reff_id','nama_referensi')
+        ) ?>
+
+    <?= $form->field($model, 'agama')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])?>
+
+    <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <div class="col-xs-4">
+        <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Kabupaten::findAll(['province_id'=>'35']), 'id','name'),
@@ -71,33 +91,28 @@ use kartik\date\DatePicker;
                     'loadingText' => 'Loading kelurahan ...',
                 ]
             ]) ?>  
+        <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
+            'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9']), 'reff_id','nama_referensi'),
+            'options' => ['placeholder' => 'Select  ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]) ?>
+        <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
+        
+        <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($model, 'jenisKelamin')->radioList(
-            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8']), 'reff_id','nama_referensi')
-        ) ?>
-
-    <?= $form->field($model, 'agama')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ])?>
-
-    <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9']), 'reff_id','nama_referensi'),
+        <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>2]), 'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ]) ?>
     </div>
-    <div class="col-xs-6">
-    <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
+    
+    <div class="col-xs-4">
+   
     
     <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
@@ -126,15 +141,7 @@ use kartik\date\DatePicker;
             ],
         ]) ?>
 
-    <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>2]), 'reff_id','nama_referensi'),
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ]) ?>
+    
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

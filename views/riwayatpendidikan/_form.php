@@ -13,7 +13,7 @@ use kartik\date\DatePicker;
 <div class="riwayatpendidikan-forms">
 
     <?php $form = ActiveForm::begin(); ?>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
             'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>1])->all(), 'id_data', 'nama'),
             'options' => ['placeholder' => 'Select id_data ...'],
@@ -33,7 +33,7 @@ use kartik\date\DatePicker;
         <?= $form->field($model, 'namaSekolah')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'jurusan')->textInput(['maxlength' => true]) ?>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <?= $form->field($model, 'thMasuk')->widget(DatePicker::className(),[
             'pluginOptions' => [
                 'format' => 'yyyy',
@@ -61,14 +61,12 @@ use kartik\date\DatePicker;
                     ]
                 ]) ?>
     </div>
-    
-    <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
+    <div class="col-sm-4">
+        <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
             'options' => ['accept' => 'image/*','application/pdf','autoReplace'=>true],
             'pluginOptions' => [
                 'maxFileSize' => 2048,
-                'initialPreview'=>[
-                    isset($model->data->nip)?Html::img(\Yii::getAlias('@web/uploads/foto/'.$model->data->nip.'/'.$model->dokumen),['class'=>'col-xs-12']):""
-                ],
+                'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])],
                 'showCaption' => false,
                 'showRemove' => false,
                 'showUpload' => false,
@@ -77,6 +75,8 @@ use kartik\date\DatePicker;
                 'browseLabel' =>  'Select Foto'
                 ],
             ]) ?>
+    </div>
+    
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">
 	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
