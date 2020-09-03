@@ -1,8 +1,8 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\number\NumberControl;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MTunjangan */
@@ -15,37 +15,33 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'tunjangan_id')->widget(Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'4']),'reff_id','nama_referensi'),
+        'language' => 'de',
         'options' => ['placeholder' => 'Select a state ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label('Tunjangan'); ?>
-
-    <?= $form->field($model, 'nominal')->widget(\yii\widgets\MaskedInput::className(), [
-     'clientOptions' => [
-        'alias' => 'numeric',
-        'digits' => 2,
-        'digitsOptional' => false,
-        'radixPoint' => '.',
-        'groupSeparator' => ',',
-        'autoGroup' => true,
-        'removeMaskOnSubmit' => true,
-    ],
-  ])?>
+    ])->label('Tunjangan');
+    ?>
+    <?= $form->field($model, 'nominal')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 
     <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']),'id_data','nama'),
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->all(),'id_data','nama'),
+        'language' => 'de',
         'options' => ['placeholder' => 'Select a state ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label('Nama Pegawai'); ?>
+    ])->label('Nama');
+    ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
+
+	<?php if (!Yii::$app->request->isAjax){ ?>
+	  	<div class="form-group">
+	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	    </div>
+	<?php } ?>
 
     <?php ActiveForm::end(); ?>
 

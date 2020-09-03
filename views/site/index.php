@@ -1,52 +1,368 @@
 <?php
-
+use miloschuman\highcharts\Highcharts;
+use yii\web\JsExpression;
+use dosamigos\chartjs\ChartJs;
 $this->title =Yii::$app->name;
 //echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 ?>
+<section class="content">
+    <div class="row">
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
+    <section class="col-lg-7 connectedSortable">
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <?= Highcharts::widget([
+                            'options' => [
+                                'title' => ['text' => 'Golongan'],
+                                'xAxis' => [
+                                    'categories' => [
+                                            'Juru Muda	I/a',
+                                        'Juru Muda Tingkat I I/b',
+                                        'Juru	I/c',
+                                        'Juru Tingkat I I/d',
+                                        'Pengatur Muda	II/a',
+                                        'Pengatur Muda Tingkat I II/b',
+                                        'Pengatur II/c',
+                                        'Pengatur Tingkat I II/d',
+                                        'Penata III/c',
+                                        'Penata Tingkat I III/d',
+                                        'Pembina IV/a',
+                                        'Pembina Tingkat I IV/b',
+                                        'Pembina Utama Muda IV/c',
+                                        'Pembina Utama Madya IV/d',
+                                        'Pembina Utama IV/e',
+                                        ]
+                                ],
+                                'yAxis' => [
+                                    'title' => ['text' => 'Jumlah']
+                                ],
+                                'series' => [
+                                    [
+                                        'type' => 'column',
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+//                                        'data' => [3, 2, 1, 3, 4],
+                                        'data' => [
+                                                ['name'=>'Juru Muda	I/a',
+                                                'y'=>3,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[0]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>2,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[1]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>1,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[2]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>5,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[3]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>9,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[4]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>2,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[5]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>3,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[6]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>4,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[7]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>7,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[8]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>7,
+                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[9]'),],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>6,
+                                                    'color'=>'#2f7ed8',],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>3,
+                                                    'color'=>'#0d233a',],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>1,
+                                                    'color'=>'#8bbc21',],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>7,
+                                                    'color'=>'#910000',],
+                                            ['name'=>'Juru Muda	I/a',
+                                                'y'=>4,
+                                                    'color'=>'#1aadce',],
+                                        ],
+                                    ],
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                                ]
+                            ]
+                        ]); ?>
+
+                    </div>
+                </div>
+
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-md-12">
+                <div class="box box-warning direct-chat direct-chat-warning">
+                    <div class="box-header with-border">
+                        <p class="text-center">
+                            <strong>Pegawai Ulang Tahun</strong>
+                        </p>
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>nama</th>
+                                    <th>tanggal</th>
+                                    <th>tahun</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Pijar</td>
+                                    <td>12-09-2020</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>Pijar</td>
+                                    <td>12-09-2020</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>Pijar</td>
+                                    <td>12-09-2020</td>
+                                    <td>25</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                    </div>
+                </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
+    </section>
 
-    </div>
+    <section class="col-lg-5 connectedSortable">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <p class="text-center">
+                            <strong>Pegawai</strong>
+                        </p>
+                        <div class="box-footer no-border">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <?=
+                                ChartJs::widget([
+                                    'type' => 'doughnut',
+                                    'id' => 'structurePie',
+                                    'options' => [
+                                        'height' => 200,
+                                        'width' => 400,
+                                    ],
+                                    'data' => [
+                                        'radius' =>  "90%",
+                                        'labels' => ['Perempuan', 'Pria'], // Your labels
+                                        'datasets' => [
+                                            [
+                                                'data' => ['35.6', '46.9'], // Your dataset
+                                                'label' => '',
+                                                'backgroundColor' => [
+                                                    '#ADC3FF',
+                                                    '#FF9A9A',
+                                                    'rgba(190, 124, 145, 0.8)'
+                                                ],
+                                                'borderColor' =>  [
+                                                    '#fff',
+                                                    '#fff',
+                                                    '#fff'
+                                                ],
+                                                'borderWidth' => 1,
+                                                'hoverBorderColor'=>["#999","#999","#999"],
+                                            ]
+                                        ]
+                                    ],
+
+
+                                ])
+                                ?>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+
+                    <div class="box-footer no-border">
+                        <?= Highcharts::widget([
+                                'options' => [
+                                    'title' => ['text' => 'Jenis Pegawai'],
+                                    'series' => [
+                                        [
+                                            'type' => 'pie',
+                                            'name' => 'Total consumption',
+                                            'data' => [
+                                                [
+                                                    'name' => 'PNS',
+                                                    'y' => 13,
+                                                    'color' => new JsExpression('Highcharts.getOptions().colors[0]'), // Jane's color
+                                                ],
+                                                [
+                                                    'name' => 'BLUD',
+                                                    'y' => 23,
+                                                    'color' => new JsExpression('Highcharts.getOptions().colors[1]'), // John's color
+                                                ],
+                                                [
+                                                    'name' => 'Freelance',
+                                                    'y' => 19,
+                                                    'color' => new JsExpression('Highcharts.getOptions().colors[2]'), // Joe's color
+                                                ],
+                                                [
+                                                    'name' => 'Pensiunan',
+                                                    'y' => 19,
+                                                    'color' => new JsExpression('Highcharts.getOptions().colors[3]'), // Joe's color
+                                                ],
+                                            ],
+                                        ]
+                                    ]
+                                ]
+                            ]); ?>
+                        <!-- /.row -->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="col-lg-12 connectedSortable">
+        <div class="col-md-4">
+            <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                    <p class="text-center">
+                        <strong>pegawai yg akan pensiun</strong>
+                    </p>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>nama</th>
+                                <th>tanggal</th>
+                                <th>tahun</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                    <p class="text-center">
+                        <strong>STR akan habis</strong>
+                    </p>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>nama</th>
+                                <th>tanggal</th>
+                                <th>tahun</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                    <p class="text-center">
+                        <strong>SIP akan habis</strong>
+                    </p>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>nama</th>
+                                <th>tanggal</th>
+                                <th>tahun</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Pijar</td>
+                                <td>12-09-2020</td>
+                                <td>25</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 </div>
+    </div>
+</section>

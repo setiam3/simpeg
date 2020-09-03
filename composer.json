@@ -27,7 +27,9 @@
         "mdmsoft/yii2-admin": "~2.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "2amigos/qrcode-library": "~1.1",
-        "tpmanc/yii2-imagick": "*"
+        "tpmanc/yii2-imagick": "*",
+        "miloschuman/yii2-highcharts-widget": "^8.0",
+        "2amigos/yii2-chartjs-widget" : "~2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

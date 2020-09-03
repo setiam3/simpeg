@@ -103,8 +103,7 @@ class RiwayatpendidikanController extends Controller
                 
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
                     $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
-                    
-                    $model->dokumen = $model->pendidikan->nama_referensi . '_' . $model->data->nip . '.' . $ext;
+                    $model->dokumen = $ext;
                 }
 
                 if($model->save(false)){
@@ -176,11 +175,12 @@ class RiwayatpendidikanController extends Controller
                         unlink($filename);
                     }
                     $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads'). $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
-                    $model->dokumen =$ext;
+                    $model->dokumen = $ext;
+
                 }else{
                     $model->dokumen=$oldFoto;
                 }
-                $model->save(false);
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Riwayatpendidikan #".$id,

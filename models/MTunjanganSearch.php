@@ -2,29 +2,31 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\MTunjangan;
 
 /**
- * MTunjanganSearch represents the model behind the search form of `app\models\MTunjangan`.
+ * MTunjanganSearch represents the model behind the search form about `app\models\MTunjangan`.
  */
 class MTunjanganSearch extends MTunjangan
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
         return [
             [['id', 'tunjangan_id', 'id_data'], 'integer'],
+//            [['tunjangan', 'karyawan'], 'string'],
             [['nominal'], 'number'],
             [['status'], 'safe'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -43,8 +45,6 @@ class MTunjanganSearch extends MTunjangan
     {
         $query = MTunjangan::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -57,15 +57,16 @@ class MTunjanganSearch extends MTunjangan
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'tunjangan_id' => $this->tunjangan_id,
             'nominal' => $this->nominal,
             'id_data' => $this->id_data,
+//            'tunjangan' => $this->tunjangan,
+//            'karyawan' => $this->nama,
         ]);
 
-        $query->andFilterWhere(['ilike', 'status', $this->status]);
+        $query->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }
