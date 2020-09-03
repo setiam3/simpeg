@@ -2,29 +2,30 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\MPinjaman;
 
 /**
- * MPinjamanSearch represents the model behind the search form of `app\models\MPinjaman`.
+ * MPinjamanSearch represents the model behind the search form about `app\models\MPinjaman`.
  */
 class MPinjamanSearch extends MPinjaman
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'id_data'], 'integer'],
-            [['tanggal', 'jenis', 'namaBarang'], 'safe'],
+            [['id'], 'integer'],
+            [['tanggal', 'jenis', 'namaBarang', 'id_data'], 'safe'],
             [['jumlah'], 'number'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -43,8 +44,6 @@ class MPinjamanSearch extends MPinjaman
     {
         $query = MPinjaman::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -57,7 +56,9 @@ class MPinjamanSearch extends MPinjaman
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        $query->joinWith('data');
+        //$query->joinWith('jens');
+
         $query->andFilterWhere([
             'id' => $this->id,
             'id_data' => $this->id_data,
@@ -65,8 +66,9 @@ class MPinjamanSearch extends MPinjaman
             'jumlah' => $this->jumlah,
         ]);
 
-        $query->andFilterWhere(['ilike', 'jenis', $this->jenis])
-            ->andFilterWhere(['ilike', 'namaBarang', $this->namaBarang]);
+        $query->andFilterWhere(['like', 'm_referensi.nama_referensi', $this->jenis])
+            ->andFilterWhere(['like', 'namaBarang', $this->namaBarang])
+            ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data]);
 
         return $dataProvider;
     }

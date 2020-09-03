@@ -2,10 +2,8 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Update Pinjaman: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Pinjaman', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+/* @var $this yii\web\View */
+/* @var $model app\models\MPinjaman */
 ?>
 <div class="mpinjaman-update">
 
