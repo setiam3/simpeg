@@ -1,5 +1,7 @@
 <?php
+
 namespace app\controllers;
+
 use Yii;
 use app\models\MBiodata;
 use app\models\MBiodataSearch;
@@ -8,7 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\MKeluargaSearch;
+use app\models\MRiwayatdiklatSearch;
 use app\models\RiwayatpendidikanSearch;
+use app\models\Riwayatdiklat;
 
 class BiodataController extends Controller
 {
@@ -54,16 +58,18 @@ class BiodataController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-    public function actionInfo($id){
+    public function actionInfo($id)
+    {
         $searchModel = new MBiodataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('infopegawai',[
-            'model'=>$this->findModel($id),
+        return $this->render('infopegawai', [
+            'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'searchModelKeluarga'=>new MKeluargaSearch(),
-            'searchModelpendidikan'=>new RiwayatpendidikanSearch(),
+            'searchModelKeluarga' => new MKeluargaSearch(),
+            'searchModelpendidikan' => new RiwayatpendidikanSearch(),
+            'searchModeldiklat' => new MRiwayatdiklatSearch(),
         ]);
     }
 
@@ -76,14 +82,14 @@ class BiodataController extends Controller
     {
         $model = new MBiodata();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip.'/nip_'.$model->nip);
-                $model->foto='nip_'.$model->nip.'.'.$ext;
+        if ($model->load(Yii::$app->request->post())) {
+            if (!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))) {
+                $ext = Yii::$app->tools->upload('MBiodata[foto]', Yii::getAlias('@uploads') . $model->nip . '/nip_' . $model->nip);
+                $model->foto = 'nip_' . $model->nip . '.' . $ext;
             }
-            if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
-                $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nip.'/nik_'.$model->nik);
-                $model->fotoNik='nik_'.$model->nik.'.'.$ext;
+            if (!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))) {
+                $ext = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
+                $model->fotoNik = 'nik_' . $model->nik . '.' . $ext;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
@@ -104,26 +110,26 @@ class BiodataController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $oldFoto=$model->foto;
-        $oldFotoNik=$model->fotoNik;
-        if ($model->load(Yii::$app->request->post()) ) {
-            if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
-                if(file_exists($filename=Yii::getAlias('@uploads').$model->nip.'/'.$oldFoto) && !empty($oldFoto)){
+        $oldFoto = $model->foto;
+        $oldFotoNik = $model->fotoNik;
+        if ($model->load(Yii::$app->request->post())) {
+            if (!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))) {
+                if (file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $oldFoto) && !empty($oldFoto)) {
                     unlink($filename);
                 }
-                $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->nip.'/nip_'.$model->nip);
-                $model->foto=$ext;
-            }else{
-                $model->foto=$oldFoto;
+                $ext = Yii::$app->tools->upload('MBiodata[foto]', Yii::getAlias('@uploads') . $model->nip . '/nip_' . $model->nip);
+                $model->foto = $ext;
+            } else {
+                $model->foto = $oldFoto;
             }
-            if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
-                if(file_exists($filename=Yii::getAlias('@uploads').$model->nip.'/'.$oldFotoNik) && !empty($oldFotoNik)){
+            if (!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))) {
+                if (file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $oldFotoNik) && !empty($oldFotoNik)) {
                     unlink($filename);
                 }
-                $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->nip.'/nik_'.$model->nik);
-                $model->fotoNik=$ext;
-            }else{
-                $model->fotoNik=$oldFotoNik;
+                $ext = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
+                $model->fotoNik = $ext;
+            } else {
+                $model->fotoNik = $oldFotoNik;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
@@ -147,57 +153,60 @@ class BiodataController extends Controller
 
         return $this->redirect(['index']);
     }
-    public function actionImport(){
-        if(isset($_POST)){
+    public function actionImport()
+    {
+        if (isset($_POST)) {
             if (!empty($_FILES)) {
-                    $tempFile = $_FILES['MBiodata']['tmp_name']['file'];
-                    $fileTypes = array('xls','xlsx'); // File extensions
-                    $fileParts = pathinfo($_FILES['MBiodata']['name']['file']);
-                    if (in_array(@$fileParts['extension'],$fileTypes)) {
-                        if($fileParts['extension']=='xlsx'){
-                            $inputFileType = 'Xlsx';
-                        }else{
-                            $inputFileType = 'Xls';
-                        }
-                        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-                        $spreadsheet=$reader->load($tempFile);
-                        $worksheet = $spreadsheet->getActiveSheet();
-                        $highestRow = $worksheet->getHighestRow();
-                        $highestColumn = $worksheet->getHighestColumn();
-                        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-                        //inilah looping untuk membaca cell dalam file excel,perkolom
-                        $inserted=0; $errorCount=0; $totaldisetujui=0;
-                        for ($row = 2; $row <= $highestRow; ++$row) { //$row = 2 artinya baris kedua yang dibaca dulu(header kolom diskip disesuaikan saja)
-                            $model2=new MBiodata;
-                            $model2->nip=$worksheet->getCellByColumnAndRow(2, $row)->getValue();//B
-                            $model2->nama=$worksheet->getCellByColumnAndRow(3, $row)->getValue();//C
-                            $model2->tempatLahir=$worksheet->getCellByColumnAndRow(4, $row)->getValue();//D
-                            $model2->tanggalLahir=$worksheet->getCellByColumnAndRow(5, $row)->getValue();//E
-                            $model2->alamat=$worksheet->getCellByColumnAndRow(6, $row)->getValue();//F
-                            $model2->jenisKelamin=$worksheet->getCellByColumnAndRow(7, $row)->getValue();//G
-                            $model2->nik=$worksheet->getCellByColumnAndRow(8, $row)->getValue();//G
-                            $model2->checklog_id=$worksheet->getCellByColumnAndRow(9, $row)->getValue();//G
-                            $model2->golonganDarah=$worksheet->getCellByColumnAndRow(10, $row)->getValue();//G
-                            $model2->agama=$worksheet->getCellByColumnAndRow(11, $row)->getValue();//G
-                            $model2->gelarDepan=$worksheet->getCellByColumnAndRow(12, $row)->getValue();//G
-                            $model2->gelarBelakang=$worksheet->getCellByColumnAndRow(13, $row)->getValue();//G
-                            try{
-                                if($model2->save(false)){
-                                    $inserted++;
-                                }
-                            }catch (\yii\db\Exception $e){
-                                $errorCount++;
-                                Yii::$app->session->setFlash('error', "($errorCount)Error saving model");
+                $tempFile = $_FILES['MBiodata']['tmp_name']['file'];
+                $fileTypes = array('xls', 'xlsx'); // File extensions
+                $fileParts = pathinfo($_FILES['MBiodata']['name']['file']);
+                if (in_array(@$fileParts['extension'], $fileTypes)) {
+                    if ($fileParts['extension'] == 'xlsx') {
+                        $inputFileType = 'Xlsx';
+                    } else {
+                        $inputFileType = 'Xls';
+                    }
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($tempFile);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow();
+                    $highestColumn = $worksheet->getHighestColumn();
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+                    //inilah looping untuk membaca cell dalam file excel,perkolom
+                    $inserted = 0;
+                    $errorCount = 0;
+                    $totaldisetujui = 0;
+                    for ($row = 2; $row <= $highestRow; ++$row) { //$row = 2 artinya baris kedua yang dibaca dulu(header kolom diskip disesuaikan saja)
+                        $model2 = new MBiodata;
+                        $model2->nip = $worksheet->getCellByColumnAndRow(2, $row)->getValue(); //B
+                        $model2->nama = $worksheet->getCellByColumnAndRow(3, $row)->getValue(); //C
+                        $model2->tempatLahir = $worksheet->getCellByColumnAndRow(4, $row)->getValue(); //D
+                        $model2->tanggalLahir = $worksheet->getCellByColumnAndRow(5, $row)->getValue(); //E
+                        $model2->alamat = $worksheet->getCellByColumnAndRow(6, $row)->getValue(); //F
+                        $model2->jenisKelamin = $worksheet->getCellByColumnAndRow(7, $row)->getValue(); //G
+                        $model2->nik = $worksheet->getCellByColumnAndRow(8, $row)->getValue(); //G
+                        $model2->checklog_id = $worksheet->getCellByColumnAndRow(9, $row)->getValue(); //G
+                        $model2->golonganDarah = $worksheet->getCellByColumnAndRow(10, $row)->getValue(); //G
+                        $model2->agama = $worksheet->getCellByColumnAndRow(11, $row)->getValue(); //G
+                        $model2->gelarDepan = $worksheet->getCellByColumnAndRow(12, $row)->getValue(); //G
+                        $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(13, $row)->getValue(); //G
+                        try {
+                            if ($model2->save(false)) {
+                                $inserted++;
                             }
+                        } catch (\yii\db\Exception $e) {
+                            $errorCount++;
+                            Yii::$app->session->setFlash('error', "($errorCount)Error saving model");
                         }
-                        Yii::$app->session->setFlash('success', ($inserted).' row inserted');   
-                }else{
+                    }
+                    Yii::$app->session->setFlash('success', ($inserted) . ' row inserted');
+                } else {
                     Yii::$app->session->setFlash('warning', "Wrong file type (xlsx, xls) only");
                 }
             }
             $searchModel = new MBiodataSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->pagination->pageSize=10;
+            $dataProvider->pagination->pageSize = 10;
             return $this->render('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
