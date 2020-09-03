@@ -55,12 +55,12 @@ use yii\helpers\Html;
       'items' => [
           [
               'label' => 'Biodata',
-              //'content' =>$this->renderAjax('view', ['model' => $model]),
+              'content' =>$this->renderAjax('view', ['model' => $model]),
               'active' => true,
           ],
           [
               'label' => 'Jabatan',
-              //'content' => $this->renderAjax('index',['searchModel' => $searchModel,'dataProvider' => $dataProvider]),
+              'content' => $this->renderAjax('index',['searchModel' => $searchModel,'dataProvider' => $dataProvider]),
           ],
           [
               'label' => 'Gaji',
@@ -88,12 +88,6 @@ use yii\helpers\Html;
     $this->title= "Biodata Pegawai";
     $this->params['breadcrumbs'][] = ['label' => 'Biodata', 'url' => ['index']];
     $this->params['breadcrumbs'][] = $this->title;
-	Modal::begin([
-	    "id"=>"ajaxCrudModal",
-      'size'=>'modal-lg',
-	    "footer"=>"",
-	]);
-    Modal::end();
     ?>
 </div>
 </div>

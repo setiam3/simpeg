@@ -14,7 +14,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 //$this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
-
+$idmodal=md5($dataProvider->query->modelClass);
 ?>
 <div class="riwayatpendidikan-index">
     <div id="ajaxCrudDatatablePendidikan">
@@ -27,7 +27,7 @@ CrudAsset::register($this);
             'toolbar'=> [
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatpendidikan/create'],
-                    ['role'=>'modal-remote','data-target'=>'#ajaxCrudModalPendidikan','title'=> 'Create new Riwayatpendidikans','class'=>'btn btn-default']).
+                    ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Riwayatpendidikans','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
                     '{toggleData}'.
@@ -59,7 +59,7 @@ CrudAsset::register($this);
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModalPendidikan",
+    "id"=>$idmodal,
     'size'=>'modal-lg',
     "footer"=>"",// always need it for jquery plugin
 ])?>

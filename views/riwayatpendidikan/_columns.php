@@ -71,16 +71,19 @@ return [
         },
         'buttons'=>[
             'view'=>function ($url, $model) {
+                $idmodal=md5($model::className());
                 $t = '@web/riwayatpendidikan/view?id='.$model->id;
-                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',Url::to($t),['role'=>'modal-remote','data-target'=>'#ajaxCrudModalPendidikan','title'=>'View','data-toggle'=>'tooltip']);
+                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',Url::to($t),['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=>'View','data-toggle'=>'tooltip']);
             },
             'update'=>function ($url, $model) {
+                $idmodal=md5($model::className());
                 $t = '@web/riwayatpendidikan/update?id='.$model->id;
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>',Url::to($t),['role'=>'modal-remote','data-target'=>'#ajaxCrudModalPendidikan','title'=>'Update', 'data-toggle'=>'tooltip']);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>',Url::to($t),['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=>'Update', 'data-toggle'=>'tooltip']);
             },
             'delete'=>function ($url, $model) {
+                $idmodal=md5($model::className());
                 $t = '@web/riwayatpendidikan/delete?id='.$model->id;
-                return Html::a('<span class="glyphicon glyphicon-trash"></span>',Url::to($t),['role'=>'modal-remote','data-target'=>'#ajaxCrudModalPendidikan','title'=>'Delete', 
+                return Html::a('<span class="glyphicon glyphicon-trash"></span>',Url::to($t),['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=>'Delete', 
                           'data-confirm'=>false, 'data-method'=>false,
                           'data-request-method'=>'post',
                           'data-toggle'=>'tooltip',
