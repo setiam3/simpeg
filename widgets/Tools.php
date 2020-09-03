@@ -3,7 +3,7 @@ namespace app\widgets;
 use DateTime;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
-
+use tpmanc\imagick\Imagick;
 class Tools extends \yii\bootstrap\Widget{
 
     public function init(){
@@ -22,6 +22,32 @@ class Tools extends \yii\bootstrap\Widget{
       $explodeNamafile = explode('/', $path);
       $namafile=end($explodeNamafile).'.'.$ext;
       return $namafile;
+    }
+    public function pdftoimg($pathfile){
+      $preview='';
+      $ext=pathinfo($pathfile);
+      $image=['jpg','jpeg','png'];
+     
+      if($ext['extension']=='pdf'){
+        $this->genPdfThumbnail($pathfile,$ext['basename'].'.jpeg');
+        $preview=\Yii::getAlias('@web/uploads/foto/510204244/').$ext['basename'].'.jpeg';
+      }elseif(in_array(strtolower($ext['extension']),$image)){
+
+      }else{
+        $preview='';
+      }
+      return $preview;
+    }
+    
+    public function genPdfThumbnail($source, $target){
+        $target = dirname($source).DIRECTORY_SEPARATOR.$target;
+        $im     = new Imagick($source); // 0-first page, 1-second page
+        $im->setImageColorspace(255); // prevent image colors from inverting
+        $im->setimageformat("jpeg");
+        $im->thumbnailimage(160, 160); // width and height
+        $im->writeimage($target);
+        $im->clear();
+        $im->destroy();
     }
     
     public function getUsia($date){

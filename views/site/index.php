@@ -1,6 +1,7 @@
 <?php
 
 $this->title =Yii::$app->name;
+//echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 ?>
 <div class="site-index">
 

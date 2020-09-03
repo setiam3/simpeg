@@ -56,6 +56,24 @@ class SiteController extends Controller
     public function actionDashboard(){
         return $this->render('dashboard');
     }
+    public function actionPhpinfo(){
+        phpinfo();
+    }
+    public function actionPdftoimg($pathfile){
+      $preview='';
+      $ext=pathinfo($pathfile);
+      $image=['jpg','jpeg','png'];
+     
+      if($ext['extension']=='pdf'){
+        $this->genPdfThumbnail($pathfile,$ext['basename'].'.jpeg');
+        $preview=\Yii::getAlias('@web/uploads/foto/510204244/').$ext['basename'].'.jpeg';
+      }elseif(in_array(strtolower($ext['extension']),$image)){
+        //$preview=Yii::getAlias('@urlUpload').$model->cv;
+      }else{
+        $preview='';
+      }
+      return $preview;
+    }
 
     /**
      * Displays homepage.

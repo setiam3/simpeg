@@ -26,7 +26,8 @@
         "johnitvn/yii2-ajaxcrud": "*",
         "mdmsoft/yii2-admin": "~2.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
-        "2amigos/qrcode-library": "~1.1"
+        "2amigos/qrcode-library": "~1.1",
+        "tpmanc/yii2-imagick": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
