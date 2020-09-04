@@ -10,9 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\MKeluargaSearch;
-use app\models\MRiwayatdiklatSearch;
+use app\models\RiwayatdiklatSearch;
 use app\models\RiwayatpendidikanSearch;
-use app\models\Riwayatdiklat;
 
 class BiodataController extends Controller
 {
@@ -69,7 +68,7 @@ class BiodataController extends Controller
             'dataProvider' => $dataProvider,
             'searchModelKeluarga' => new MKeluargaSearch(),
             'searchModelpendidikan' => new RiwayatpendidikanSearch(),
-            'searchModeldiklat' => new MRiwayatdiklatSearch(),
+            'searchModeldiklat' => new RiwayatdiklatSearch(),
         ]);
     }
 
