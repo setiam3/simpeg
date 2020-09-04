@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MRiwayatdiklat;
-use app\models\MRiwayatdiklatSearch;
+use app\models\Riwayatdiklat;
+use app\models\RiwayatdiklatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,7 +13,7 @@ use yii\helpers\Html;
 use yii\web\UploadedFile;
 
 /**
- * RiwayatdiklatController implements the CRUD actions for MRiwayatdiklat model.
+ * RiwayatdiklatController implements the CRUD actions for Riwayatdiklat model.
  */
 class RiwayatdiklatController extends Controller
 {
@@ -34,12 +34,12 @@ class RiwayatdiklatController extends Controller
     }
 
     /**
-     * Lists all MRiwayatdiklat models.
+     * Lists all Riwayatdiklat models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MRiwayatdiklatSearch();
+        $searchModel = new RiwayatdiklatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +50,7 @@ class RiwayatdiklatController extends Controller
 
 
     /**
-     * Displays a single MRiwayatdiklat model.
+     * Displays a single Riwayatdiklat model.
      * @param integer $id
      * @return mixed
      */
@@ -60,7 +60,7 @@ class RiwayatdiklatController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "MRiwayatdiklat #" . $id,
+                'title' => "Riwayatdiklat #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -75,7 +75,7 @@ class RiwayatdiklatController extends Controller
     }
 
     /**
-     * Creates a new MRiwayatdiklat model.
+     * Creates a new Riwayatdiklat model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -83,7 +83,7 @@ class RiwayatdiklatController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MRiwayatdiklat();
+        $model = new Riwayatdiklat();
 
         if ($request->isAjax) {
             /*
@@ -92,7 +92,7 @@ class RiwayatdiklatController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Create new MRiwayatdiklat",
+                    'title' => "Create new Riwayatdiklat",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -102,21 +102,21 @@ class RiwayatdiklatController extends Controller
                 ];
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen =  $ext;
                 }
                 $model->save(false);
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Create new MRiwayatdiklat",
-                    'content' => '<span class="text-success">Create MRiwayatdiklat success</span>',
+                    'title' => "Create new Riwayatdiklat",
+                    'content' => '<span class="text-success">Create Riwayatdiklat success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
                 ];
             } else {
                 return [
-                    'title' => "Create new MRiwayatdiklat",
+                    'title' => "Create new Riwayatdiklat",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -131,7 +131,7 @@ class RiwayatdiklatController extends Controller
             */
             if ($model->load($request->post()) ) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen =  $ext;
                 }
                 $model->save(false);
@@ -145,7 +145,7 @@ class RiwayatdiklatController extends Controller
     }
 
     /**
-     * Updates an existing MRiwayatdiklat model.
+     * Updates an existing Riwayatdiklat model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -163,7 +163,7 @@ class RiwayatdiklatController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Update MRiwayatdiklat #" . $id,
+                    'title' => "Update Riwayatdiklat #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -175,7 +175,7 @@ class RiwayatdiklatController extends Controller
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $olddokumen)) {
                         unlink($filename);
                     }
-                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen = $ext;
                 } else {
                     $model->dokumen = $olddokumen;
@@ -183,7 +183,7 @@ class RiwayatdiklatController extends Controller
                 $model->save(false);
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "MRiwayatdiklat #" . $id,
+                    'title' => "Riwayatdiklat #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -192,7 +192,7 @@ class RiwayatdiklatController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Update MRiwayatdiklat #" . $id,
+                    'title' => "Update Riwayatdiklat #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -209,7 +209,7 @@ class RiwayatdiklatController extends Controller
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $olddokumen)) {
                         unlink($filename);
                     }
-                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen = $ext;
                 } else {
                     $model->dokumen = $olddokumen;
@@ -225,7 +225,7 @@ class RiwayatdiklatController extends Controller
     }
 
     /**
-     * Delete an existing MRiwayatdiklat model.
+     * Delete an existing Riwayatdiklat model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -255,7 +255,7 @@ class RiwayatdiklatController extends Controller
     }
 
     /**
-     * Delete multiple existing MRiwayatdiklat model.
+     * Delete multiple existing Riwayatdiklat model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -288,15 +288,15 @@ class RiwayatdiklatController extends Controller
     }
 
     /**
-     * Finds the MRiwayatdiklat model based on its primary key value.
+     * Finds the Riwayatdiklat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MRiwayatdiklat the loaded model
+     * @return Riwayatdiklat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MRiwayatdiklat::findOne($id)) !== null) {
+        if (($model = Riwayatdiklat::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
