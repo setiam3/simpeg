@@ -102,7 +102,7 @@ class RiwayatdiklatController extends Controller
                 ];
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen =  $ext;
                 }
                 $model->save(false);
@@ -129,7 +129,12 @@ class RiwayatdiklatController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post()) ) {
+                if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
+                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
+                    $model->dokumen =  $ext;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
@@ -150,10 +155,8 @@ class RiwayatdiklatController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-
+        $olddokumen = $model->dokumen;
         if ($request->isAjax) {
-            $model = $this->findModel($id);
-            $olddokumen = $model->dokumen;
             /*
             *   Process for ajax request
             */
@@ -172,7 +175,7 @@ class RiwayatdiklatController extends Controller
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $olddokumen)) {
                         unlink($filename);
                     }
-                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen = $ext;
                 } else {
                     $model->dokumen = $olddokumen;
@@ -201,7 +204,17 @@ class RiwayatdiklatController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post()) ) {
+                if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
+                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $olddokumen)) {
+                        unlink($filename);
+                    }
+                    $ext = Yii::$app->tools->upload('MRiwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
+                    $model->dokumen = $ext;
+                } else {
+                    $model->dokumen = $olddokumen;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
@@ -221,7 +234,11 @@ class RiwayatdiklatController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+            unlink($filename);
+        }
+        $model->delete();
 
         if ($request->isAjax) {
             /*
@@ -249,7 +266,10 @@ class RiwayatdiklatController extends Controller
         $request = Yii::$app->request;
         $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
         foreach ($pks as $pk) {
-            $model = $this->findModel($pk);
+            $model=$this->findModel($pk);
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                unlink($filename);
+            }
             $model->delete();
         }
 

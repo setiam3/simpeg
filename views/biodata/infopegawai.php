@@ -80,7 +80,10 @@ use yii\helpers\Html;
             ],
             [
                 'label' => 'Diklat',
-                'content' => 'Anim pariatur cliche...',
+                'content' => $this->render('//riwayatdiklat/index',[
+                    'searchModel'=>$searchModeldiklat,
+                    'dataProvider'=>$searchModeldiklat->search(Yii::$app->request->queryParams,['m_biodata.id_data'=>$model->id_data])
+                    ]),
             ],
             [
                 'label' => 'Pendidikan',
@@ -92,8 +95,7 @@ use yii\helpers\Html;
         ],
     ]);
     $this->title= "Biodata Pegawai";
-    $this->params['breadcrumbs'][] = ['label' => 'Biodata', 'url' => ['index']];
-    $this->params['breadcrumbs'][] = $this->title;
+    //$this->params['breadcrumbs'][] = '';
     ?>
     </div>
 </div>

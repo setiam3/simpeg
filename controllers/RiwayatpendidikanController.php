@@ -224,7 +224,11 @@ class RiwayatpendidikanController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+            unlink($filename);
+        }
+        $model->delete();
 
         if($request->isAjax){
             /*
@@ -255,6 +259,9 @@ class RiwayatpendidikanController extends Controller
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
             $model = $this->findModel($pk);
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                unlink($filename);
+            }
             $model->delete();
         }
 

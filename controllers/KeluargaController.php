@@ -103,11 +103,11 @@ class KeluargaController extends Controller
                 $model->is_pegawai=0;
                 if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
                     $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$foto='foto_'.$model->status_hubungan_keluarga.'_'.$model->parent_id);
-                    $model->foto=$foto.'.'.$ext;
+                    $model->foto=$ext;
                 }
                 if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
                     $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$fotoNik='fotoNik_'.$model->status_hubungan_keluarga.'_'.$model->nik);
-                    $model->fotoNik=$fotoNik.'.'.$ext;
+                    $model->fotoNik=$ext;
                 }
                 $model->save(false);
                 return [
@@ -133,7 +133,17 @@ class KeluargaController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post()) ) {
+                $model->is_pegawai=0;
+                if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
+                    $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$foto='foto_'.$model->status_hubungan_keluarga.'_'.$model->parent_id);
+                    $model->foto=$ext;
+                }
+                if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
+                    $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$fotoNik='fotoNik_'.$model->status_hubungan_keluarga.'_'.$model->nik);
+                    $model->fotoNik=$ext;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id_data]);
             } else {
                 return $this->render('create', [
@@ -212,7 +222,22 @@ class KeluargaController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post()) ) {
+                if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
+                    if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$oldFoto) && !empty($oldFoto)){
+                        unlink($filename);
+                    }
+                    $ext=Yii::$app->tools->upload('MBiodata[foto]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$foto='foto_'.$model->status_hubungan_keluarga.'_'.$model->parent_id);
+                    $model->foto=$ext;
+                }
+                if(!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))){
+                    if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$oldFotoNik) && !empty($oldFotoNik)){
+                        unlink($filename);
+                    }
+                    $ext=Yii::$app->tools->upload('MBiodata[fotoNik]',Yii::getAlias('@uploads').$model->parent->nip.'/'.$fotoNik='fotoNik_'.$model->status_hubungan_keluarga.'_'.$model->nik);
+                    $model->fotoNik=$ext;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id_data]);
             } else {
                 return $this->render('update', [
@@ -270,6 +295,12 @@ class KeluargaController extends Controller
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
             $model = $this->findModel($pk);
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$model->foto) && !empty($model->foto)){
+                unlink($filename);
+            }
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->parent->nip.'/'.$model->fotoNik) && !empty($model->fotoNik)){
+                unlink($filename);
+            }
             $model->delete();
         }
 

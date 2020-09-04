@@ -10,8 +10,8 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel app\models\MRiwayatdiklatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Riwayatdiklats';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->title = 'M Riwayatdiklats';
+// $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
 $idmodal=md5($dataProvider->query->modelClass);

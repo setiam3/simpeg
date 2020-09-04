@@ -85,11 +85,11 @@ class BiodataController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if (!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))) {
                 $ext = Yii::$app->tools->upload('MBiodata[foto]', Yii::getAlias('@uploads') . $model->nip . '/nip_' . $model->nip);
-                $model->foto = 'nip_' . $model->nip . '.' . $ext;
+                $model->foto = $ext;
             }
             if (!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))) {
                 $ext = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
-                $model->fotoNik = 'nik_' . $model->nik . '.' . $ext;
+                $model->fotoNik = $ext;
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
@@ -149,7 +149,14 @@ class BiodataController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if(file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $model->foto) && !empty($model->foto)) {
+            unlink($filename);
+        }
+        if(file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $model->fotoNik) && !empty($model->fotoNik)) {
+            unlink($filename);
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }

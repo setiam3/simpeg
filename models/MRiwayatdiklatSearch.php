@@ -39,9 +39,9 @@ class MRiwayatdiklatSearch extends MRiwayatdiklat
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$where=null)
     {
-        $query = MRiwayatdiklat::find();
+        $query = MRiwayatdiklat::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

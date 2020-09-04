@@ -234,7 +234,14 @@ class RekeningController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->fotoNpwp) && !empty($model->fotoNpwp)){
+            unlink($filename);
+        }
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->fotoRekening) && !empty($model->fotoRekening)){
+            unlink($filename);
+        }
+        $model->delete();
 
         if ($request->isAjax) {
             /*
@@ -262,7 +269,13 @@ class RekeningController extends Controller
         $request = Yii::$app->request;
         $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
         foreach ($pks as $pk) {
-            $model = $this->findModel($pk);
+            $model=$this->findModel($pk);
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->fotoNpwp) && !empty($model->fotoNpwp)){
+                unlink($filename);
+            }
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->fotoRekening) && !empty($model->fotoRekening)){
+                unlink($filename);
+            }
             $model->delete();
         }
 
