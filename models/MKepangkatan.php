@@ -38,7 +38,7 @@ class MKepangkatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_data', 'ditetapkanOleh', 'noSk', 'tglSk', 'penggolongangaji_id', 'tmtPangkat', 'ruang', 'fk_golongan'], 'required'],
+            [['id_data', 'ditetapkanOleh', 'noSk', 'tglSk', 'penggolongangaji_id', 'tmtPangkat'], 'required'],
             [['id_data', 'penggolongangaji_id', 'fk_golongan'], 'default', 'value' => null],
             [['id_data', 'penggolongangaji_id', 'fk_golongan'], 'integer'],
             [['tglSk', 'tmtPangkat'], 'safe'],

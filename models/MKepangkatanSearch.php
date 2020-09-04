@@ -2,17 +2,18 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\MKepangkatan;
 
 /**
- * MKepangkatanSearch represents the model behind the search form of `app\models\MKepangkatan`.
+ * MKepangkatanSearch represents the model behind the search form about `app\models\MKepangkatan`.
  */
 class MKepangkatanSearch extends MKepangkatan
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
@@ -23,7 +24,7 @@ class MKepangkatanSearch extends MKepangkatan
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -42,8 +43,6 @@ class MKepangkatanSearch extends MKepangkatan
     {
         $query = MKepangkatan::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,7 +55,6 @@ class MKepangkatanSearch extends MKepangkatan
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'id_data' => $this->id_data,
@@ -66,11 +64,11 @@ class MKepangkatanSearch extends MKepangkatan
             'fk_golongan' => $this->fk_golongan,
         ]);
 
-        $query->andFilterWhere(['ilike', 'ditetapkanOleh', $this->ditetapkanOleh])
-            ->andFilterWhere(['ilike', 'noSk', $this->noSk])
-            ->andFilterWhere(['ilike', 'ruang', $this->ruang])
-            ->andFilterWhere(['ilike', 'tmt', $this->tmt])
-            ->andFilterWhere(['ilike', 'dokumen', $this->dokumen]);
+        $query->andFilterWhere(['like', 'ditetapkanOleh', $this->ditetapkanOleh])
+            ->andFilterWhere(['like', 'noSk', $this->noSk])
+            ->andFilterWhere(['like', 'ruang', $this->ruang])
+            ->andFilterWhere(['like', 'tmt', $this->tmt])
+            ->andFilterWhere(['like', 'dokumen', $this->dokumen]);
 
         return $dataProvider;
     }

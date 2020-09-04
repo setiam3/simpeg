@@ -81,7 +81,7 @@ class MReferensi extends \yii\db\ActiveRecord
      */
     public function getPenggolongangajis()
     {
-        return $this->hasMany(Penggolongangaji::className(), ['pangkat_id' => 'reff_id']);
+        return $this->hasMany(MPenggolongangaji::className(), ['pangkat_id' => 'reff_id']);
     }
 
     /**
