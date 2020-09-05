@@ -23,12 +23,12 @@ Data Pegawai
 
 Detail pegawai
     Biodata Pegawai + Foto [v]
-    Daftar Riwayat Jabatan
+    Daftar Riwayat Jabatan [v]
     Daftar Riwayat Gaji
-    Daftar Riwayat Pendidikan
-    Data Keluarga
-    Daftar Riwayat Diklat
-    Daftar Riwayat Prestasi
+    Daftar Riwayat Pendidikan [v]
+    Data Keluarga [v]
+    Daftar Riwayat Diklat [v]
+    Daftar Riwayat Prestasi [v]
     Daftar Riwayat Hukuman
     pengajuan cuti
     pengajuan ijin
