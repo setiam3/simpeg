@@ -194,11 +194,11 @@ class BiodataController extends Controller
                         $model2->alamat = $worksheet->getCellByColumnAndRow(6, $row)->getValue(); //F
                         $model2->jenisKelamin = $worksheet->getCellByColumnAndRow(7, $row)->getValue(); //G
                         $model2->nik = $worksheet->getCellByColumnAndRow(8, $row)->getValue(); //G
-                        $model2->checklog_id = $worksheet->getCellByColumnAndRow(9, $row)->getValue(); //G
-                        $model2->golonganDarah = $worksheet->getCellByColumnAndRow(10, $row)->getValue(); //G
-                        $model2->agama = $worksheet->getCellByColumnAndRow(11, $row)->getValue(); //G
-                        $model2->gelarDepan = $worksheet->getCellByColumnAndRow(12, $row)->getValue(); //G
-                        $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(13, $row)->getValue(); //G
+                        $model2->golonganDarah = $worksheet->getCellByColumnAndRow(9, $row)->getValue(); //G
+                        $model2->agama = $worksheet->getCellByColumnAndRow(10, $row)->getValue(); //G
+                        $model2->gelarDepan = $worksheet->getCellByColumnAndRow(11, $row)->getValue(); //G
+                        $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(12, $row)->getValue(); //G
+                        $model2->is_pegawai = 1;
                         try {
                             if ($model2->save(false)) {
                                 $inserted++;

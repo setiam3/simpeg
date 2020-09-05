@@ -34,31 +34,31 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'KabupatenKota',
                 'value'=>function($data){
-                    return $data->desanya->district->regency->name;
+                    return isset($data->kabupatenKota)?$data->desanya->district->regency->name:'';
                 }
             ],
             [
                 'attribute'=>'kecamatan',
                 'value'=>function($data){
-                    return $data->desanya->district->name;
+                    return isset($data->kecamatan)?$data->desanya->district->name:'';
                 }
             ],
             [
                 'attribute'=>'kelurahan',
                 'value'=>function($data){
-                    return $data->desanya->name;
+                    return isset($data->kelurahan)?$data->desanya->name:'';
                 }
             ],
             [
                 'attribute'=>'jenisKelamin',
                 'value'=>function($data){
-                    return $data->sex->nama_referensi;
+                    return isset($data->jenisKelamin)?$data->sex->nama_referensi:'';
                 }
             ],
             [
                 'attribute'=>'agama',
                 'value'=>function($data){
-                    return $data->agamanya->nama_referensi;
+                    return isset($data->agama)?$data->agamanya->nama_referensi:'';
                 }
             ],
             'telp',
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'statusPerkawinan',
                 'value'=>function($data){
-                    return $data->statuskawin->nama_referensi;
+                    return isset($data->statusPerkawinan)?$data->statuskawin->nama_referensi:'';
                 }
             ],
             'gelarDepan',
