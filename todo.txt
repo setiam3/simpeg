@@ -22,7 +22,7 @@ Data Pegawai
     Report
 
 Detail pegawai
-    Biodata Pegawai + Foto ok
+    Biodata Pegawai + Foto [v]
     Daftar Riwayat Jabatan
     Daftar Riwayat Gaji
     Daftar Riwayat Pendidikan

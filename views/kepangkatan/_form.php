@@ -17,7 +17,7 @@ use kartik\widgets\FileInput;
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->all(),'id_data','nama'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=> '1'])->all(),'id_data','nama'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
