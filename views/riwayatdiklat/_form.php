@@ -18,12 +18,12 @@ use kartik\file\FileInput;
     <div class="row">
         <div class="col-xs-6">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MBiodata::find()->all(), 'id_data', 'nama'),
+                'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => 1])->all(), 'id_data', 'nama'),
                 'options' => ['placeholder' => 'Select id_data ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])
+            ])->label('Nama Pegawai')
             ?>
 
             <?= $form->field($model, 'namaDiklat')->textInput(['maxlength' => true]) ?>
