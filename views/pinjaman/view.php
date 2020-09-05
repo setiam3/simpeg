@@ -6,12 +6,17 @@ use yii\widgets\DetailView;
 /* @var $model app\models\MPinjaman */
 ?>
 <div class="mpinjaman-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_data',
+            // 'id',
+            [
+                'attribute' => 'Karyawan',
+                'value' => function ($data) {
+                    return $data->data->nama;
+                },
+            ],
             'tanggal',
             'jenis',
             'namaBarang',
