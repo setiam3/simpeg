@@ -16,59 +16,61 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'karywan',
-        'value'=>'data.nama'
+        'attribute'=>'tanggalPengajuan',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'jabatan',
-        'value'=>'jabatan.nama_referensi'
+        'attribute'=>'tanggalMulai',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'eselon',
+        'attribute'=>'tanggalAkhir',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'noSk',
+        'attribute'=>'alasan',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'tglSk',
+        'attribute'=>'id_data',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'tmtJabatan',
+        // 'attribute'=>'approval1',
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'dokumen',
+        // 'attribute'=>'approval2',
     // ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'unit_kerja',
+        // 'attribute'=>'disetujui',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'jenisIjin',
     // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) {
+        'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
             'view' => function ($url, $model) {
                 $idmodal=md5($model::className());
-                $t = '@web/riwayatjabatan/view?id=' . $model->id;
+                $t = '@web/pengajuanijin/view?id=' . $model->id;
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote','data-target'=>'#'.$idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
             },
             'update' => function ($url, $model) {
                 $idmodal=md5($model::className());
-                $t = '@web/riwayatjabatan/update?id=' . $model->id;
+                $t = '@web/pengajuanijin/update?id=' . $model->id;
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Update', 'data-toggle' => 'tooltip']);
             },
             'delete' => function ($url, $model) {
                 $idmodal=md5($model::className());
-                $t = '@web/riwayatjabatan/delete?id=' . $model->id;
+                $t = '@web/pengajuanijin/delete?id=' . $model->id;
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
                     'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
                     'data-confirm' => false, 'data-method' => false,
@@ -81,4 +83,4 @@ return [
         ],
     ],
 
-];
+];   

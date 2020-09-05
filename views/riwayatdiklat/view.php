@@ -6,12 +6,17 @@ use yii\widgets\DetailView;
 /* @var $model app\models\MRiwayatdiklat */
 ?>
 <div class="mriwayatdiklat-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_data',
+            //'id',
+            [
+                'attribute' => 'karyawan',
+                'value' => function ($data) {
+                    return $data->data->nama;
+                },
+            ],
             'namaDiklat',
             'tempat',
             'penyelenggara',

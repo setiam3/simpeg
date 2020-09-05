@@ -23,15 +23,15 @@ Data Pegawai
 
 Detail pegawai
     Biodata Pegawai + Foto [v]
-    Daftar Riwayat Jabatan
+    Daftar Riwayat Jabatan [v]
     Daftar Riwayat Gaji
-    Daftar Riwayat Pendidikan   ok
-    Data Keluarga               ok
-    Daftar Riwayat diklat       ok
-    Daftar Riwayat Prestasi?
-    Daftar Riwayat Hukuman?
-    pengajuan cuti          
-    pengajuan ijin 
+    Daftar Riwayat Pendidikan [v]
+    Data Keluarga [v]
+    Daftar Riwayat Diklat [v]
+    Daftar Riwayat Prestasi [v]
+    Daftar Riwayat Hukuman
+    pengajuan cuti
+    pengajuan ijin
     mutasi pegawai
     rekrutment pegawai
 

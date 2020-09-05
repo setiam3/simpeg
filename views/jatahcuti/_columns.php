@@ -16,59 +16,37 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'karywan',
-        'value'=>'data.nama'
+        'attribute'=>'id_data',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'jabatan',
-        'value'=>'jabatan.nama_referensi'
+        'attribute'=>'jumlah',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'eselon',
+        'attribute'=>'sisa',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'noSk',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'tglSk',
-    ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'tmtJabatan',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'dokumen',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'unit_kerja',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) {
+        'urlCreator' => function($action, $model, $key, $index) { 
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
             'view' => function ($url, $model) {
                 $idmodal=md5($model::className());
-                $t = '@web/riwayatjabatan/view?id=' . $model->id;
+                $t = '@web/jatahcuti/view?id=' . $model->id;
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote','data-target'=>'#'.$idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
             },
             'update' => function ($url, $model) {
                 $idmodal=md5($model::className());
-                $t = '@web/riwayatjabatan/update?id=' . $model->id;
+                $t = '@web/jatahcuti/update?id=' . $model->id;
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Update', 'data-toggle' => 'tooltip']);
             },
             'delete' => function ($url, $model) {
                 $idmodal=md5($model::className());
-                $t = '@web/riwayatjabatan/delete?id=' . $model->id;
+                $t = '@web/jatahcuti/delete?id=' . $model->id;
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
                     'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
                     'data-confirm' => false, 'data-method' => false,
@@ -81,4 +59,4 @@ return [
         ],
     ],
 
-];
+];   

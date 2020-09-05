@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\MKeluargaSearch;
 use app\models\RiwayatdiklatSearch;
+use app\models\Riwayatjabatan;
+use app\models\RiwayatjabatanSearch;
 use app\models\RiwayatpendidikanSearch;
 
 class BiodataController extends Controller
@@ -69,6 +71,7 @@ class BiodataController extends Controller
             'searchModelKeluarga' => new MKeluargaSearch(),
             'searchModelpendidikan' => new RiwayatpendidikanSearch(),
             'searchModeldiklat' => new RiwayatdiklatSearch(),
+            'searchModeljabatan' => new RiwayatjabatanSearch(),
         ]);
     }
 
@@ -148,11 +151,11 @@ class BiodataController extends Controller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        if(file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $model->foto) && !empty($model->foto)) {
+        $model = $this->findModel($id);
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $model->foto) && !empty($model->foto)) {
             unlink($filename);
         }
-        if(file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $model->fotoNik) && !empty($model->fotoNik)) {
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $model->fotoNik) && !empty($model->fotoNik)) {
             unlink($filename);
         }
         $model->delete();

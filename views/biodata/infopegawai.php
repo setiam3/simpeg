@@ -1,4 +1,5 @@
 <?php
+
 use yii\bootstrap\Collapse;
 use yii\bootstrap\Tabs;
 use yii\bootstrap\Modal;
@@ -53,49 +54,52 @@ use yii\helpers\Html;
     </div>
 
     <div class="col-md-9">
-    <?php
-	echo Tabs::widget([
-        'items' => [
-            [
-                'label' => 'Biodata',
-                'content' =>$this->renderAjax('view', ['model' => $model]),
-                'active' => true,
-            ],
-            [
-                'label' => 'Jabatan',
-                'content' => $this->renderAjax('index',['searchModel' => $searchModel,'dataProvider' => $dataProvider]),
-            ],
-            [
-                'label' => 'Gaji',
-                'content' => 'Anim pariatur cliche...',
-                'headerOptions' => ['class'],
-                'options' => ['id' => 'myveryownID'],
-            ],
-            [
-                'label' => 'Keluarga',
-                'content' => $this->render('//keluarga/index', [
-                    'searchModel' => $searchModelKeluarga,
-                    'dataProvider'=>$searchModelKeluarga->search(Yii::$app->request->queryParams,['parent_id'=>$model->id_data])
+        <?php
+        echo Tabs::widget([
+            'items' => [
+                [
+                    'label' => 'Biodata',
+                    'content' => $this->renderAjax('view', ['model' => $model]),
+                    'active' => true,
+                ],
+                [
+                    'label' => 'Jabatan',
+                    'content' => $this->render('//riwayatjabatan/index', [
+                        'searchModel' => $searchModeljabatan,
+                        'dataProvider' => $searchModeljabatan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
                     ]),
-            ],
-            [
-                'label' => 'Diklat',
-                'content' => $this->render('//riwayatdiklat/index',[
-                    'searchModel'=>$searchModeldiklat,
-                    'dataProvider'=>$searchModeldiklat->search(Yii::$app->request->queryParams,['m_biodata.id_data'=>$model->id_data])
+                ],
+                [
+                    'label' => 'Gaji',
+                    'content' => 'Anim pariatur cliche...',
+                    'headerOptions' => ['class'],
+                    'options' => ['id' => 'myveryownID'],
+                ],
+                [
+                    'label' => 'Keluarga',
+                    'content' => $this->render('//keluarga/index', [
+                        'searchModel' => $searchModelKeluarga,
+                        'dataProvider' => $searchModelKeluarga->search(Yii::$app->request->queryParams, ['parent_id' => $model->id_data])
                     ]),
-            ],
-            [
-                'label' => 'Pendidikan',
-                'content' => $this->render('//riwayatpendidikan/index',[
-                    'searchModel'=>$searchModelpendidikan,
-                    'dataProvider'=>$searchModelpendidikan->search(Yii::$app->request->queryParams,['id_data'=>$model->id_data])
+                ],
+                [
+                    'label' => 'Diklat',
+                    'content' => $this->render('//riwayatdiklat/index', [
+                        'searchModel' => $searchModeldiklat,
+                        'dataProvider' => $searchModeldiklat->search(Yii::$app->request->queryParams, ['m_biodata.id_data' => $model->id_data])
                     ]),
+                ],
+                [
+                    'label' => 'Pendidikan',
+                    'content' => $this->render('//riwayatpendidikan/index', [
+                        'searchModel' => $searchModelpendidikan,
+                        'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                    ]),
+                ],
             ],
-        ],
-    ]);
-    $this->title= "Biodata Pegawai";
-    //$this->params['breadcrumbs'][] = '';
-    ?>
+        ]);
+        $this->title = "Biodata Pegawai";
+        //$this->params['breadcrumbs'][] = '';
+        ?>
     </div>
 </div>

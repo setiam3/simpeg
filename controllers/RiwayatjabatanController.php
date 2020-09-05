@@ -57,17 +57,17 @@ class RiwayatjabatanController extends Controller
     public function actionView($id)
     {
         $request = Yii::$app->request;
-        if($request->isAjax){
+        if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Riwayatjabatan #".$id,
-                    'content'=>$this->renderAjax('view', [
-                        'model' => $this->findModel($id),
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];
-        }else{
+                'title' => "Riwayatjabatan #" . $id,
+                'content' => $this->renderAjax('view', [
+                    'model' => $this->findModel($id),
+                ]),
+                'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+            ];
+        } else {
             return $this->render('view', [
                 'model' => $this->findModel($id),
             ]);
@@ -85,47 +85,51 @@ class RiwayatjabatanController extends Controller
         $request = Yii::$app->request;
         $model = new Riwayatjabatan();
 
-        if($request->isAjax){
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
+            if ($request->isGet) {
                 return [
-                    'title'=> "Create new Riwayatjabatan",
-                    'content'=>$this->renderAjax('create', [
+                    'title' => "Create new Riwayatjabatan",
+                    'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            }else if($model->load($request->post())){
+            } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+<<<<<<< HEAD
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip );
+=======
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $model->data->nip . '_' . time());
+>>>>>>> 7528759516ba8631a7591985348e627e536036c8
                     $model->dokumen =  $ext;
                 }
                 $model->save(false);
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Riwayatjabatan",
-                    'content'=>'<span class="text-success">Create Riwayatjabatan success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'forceReload' => '#crud-datatable-pjax',
+                    'title' => "Create new Riwayatjabatan",
+                    'content' => '<span class="text-success">Create Riwayatjabatan success</span>',
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
 
                 ];
-            }else{
+            } else {
                 return [
-                    'title'=> "Create new Riwayatjabatan",
-                    'content'=>$this->renderAjax('create', [
+                    'title' => "Create new Riwayatjabatan",
+                    'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
             }
-        }else{
+        } else {
             /*
             *   Process for non-ajax request
             */
@@ -137,7 +141,6 @@ class RiwayatjabatanController extends Controller
                 ]);
             }
         }
-
     }
 
     /**
@@ -153,48 +156,58 @@ class RiwayatjabatanController extends Controller
         $model = $this->findModel($id);
         $olddokumen = $model->dokumen;
 
-        if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
+        if ($request->isAjax) {
+
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
+            if ($request->isGet) {
                 return [
-                    'title'=> "Update Riwayatjabatan #".$id,
-                    'content'=>$this->renderAjax('update', [
+                    'title' => "Update Riwayatjabatan #" . $id,
+                    'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-            }else if($model->load($request->post())){
+            } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('Riwayarjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip . '_' . time());
+<<<<<<< HEAD
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip );
                     $model->dokumen =  $ext;
                 }else{
                     $model->dokumen = $olddokumen;
                 }
-//                $model->save(false);
+                $model->save();
+=======
+                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $olddokumen)) {
+                        unlink($filename);
+                    }
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $model->data->nip);
+                    $model->dokumen = $ext;
+                } else {
+                    $model->dokumen = $olddokumen;
+                }
+                $model->save(false);
+>>>>>>> 7528759516ba8631a7591985348e627e536036c8
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Riwayatjabatan #".$id,
-                    'content'=>$this->renderAjax('view', [
+                    'forceReload' => '#crud-datatable-pjax',
+                    'title' => "Riwayatjabatan #" . $id,
+                    'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
-            }else{
-                 return [
-                    'title'=> "Update Riwayatjabatan #".$id,
-                    'content'=>$this->renderAjax('update', [
+            } else {
+                return [
+                    'title' => "Update Riwayatjabatan #" . $id,
+                    'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
             }
-        }else{
+        } else {
             /*
             *   Process for non-ajax request
             */
@@ -218,25 +231,35 @@ class RiwayatjabatanController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
+<<<<<<< HEAD
+        $model=$this->findModel($id);
+        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+            unlink($filename);
+        }
         $this->findModel($id)->delete();
+=======
+        $model = $this->findModel($id);
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $model->dokumen) && !empty($model->dokumen)) {
+            unlink($filename);
+        }
+        $model->delete();
+>>>>>>> 7528759516ba8631a7591985348e627e536036c8
 
-        if($request->isAjax){
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
-        }else{
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+        } else {
             /*
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
         }
-
-
     }
 
-     /**
+    /**
      * Delete multiple existing Riwayatjabatan model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
@@ -246,25 +269,27 @@ class RiwayatjabatanController extends Controller
     public function actionBulkDelete()
     {
         $request = Yii::$app->request;
-        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
-        foreach ( $pks as $pk ) {
+        $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
+        foreach ($pks as $pk) {
             $model = $this->findModel($pk);
+            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+                unlink($filename);
+            }
             $model->delete();
         }
 
-        if($request->isAjax){
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
-        }else{
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+        } else {
             /*
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
         }
-
     }
 
     /**
