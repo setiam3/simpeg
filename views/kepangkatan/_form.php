@@ -17,7 +17,7 @@ use kartik\widgets\FileInput;
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->all(),'id_data','nama'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=> '1'])->all(),'id_data','nama'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
@@ -41,8 +41,10 @@ use kartik\widgets\FileInput;
 
             <?= $form->field($model, 'penggolongangaji_id')->widget(Select2::classname(), [
                 'data' =>
-                    \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()
-                    ->joinWith('penggolongangajis')->where(['tipe_referensi'=>6])->all(),'reff_id','nama_referensi'),
+                    \yii\helpers\ArrayHelper::map(\app\models\MPenggolongangaji::find()
+                    ->leftJoin('m_referensi','m_referensi.reff_id = penggolongangaji.pangkat_id')
+    ->where(['m_referensi.tipe_referensi'=>6])
+                        ->all(),'id','pangkat.nama_referensi'),
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
                     'allowClear' => true

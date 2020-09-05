@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MKepangkatan;
-use app\models\MKepangkatanSearch;
+use app\models\Riwayatjabatan;
+use app\models\RiwayatjabatanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,9 +13,9 @@ use yii\helpers\Html;
 use yii\web\UploadedFile;
 
 /**
- * KepangkatanController implements the CRUD actions for MKepangkatan model.
+ * RiwayatjabatanController implements the CRUD actions for Riwayatjabatan model.
  */
-class KepangkatanController extends Controller
+class RiwayatjabatanController extends Controller
 {
     /**
      * @inheritdoc
@@ -34,12 +34,12 @@ class KepangkatanController extends Controller
     }
 
     /**
-     * Lists all MKepangkatan models.
+     * Lists all Riwayatjabatan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MKepangkatanSearch();
+        $searchModel = new RiwayatjabatanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +50,7 @@ class KepangkatanController extends Controller
 
 
     /**
-     * Displays a single MKepangkatan model.
+     * Displays a single Riwayatjabatan model.
      * @param integer $id
      * @return mixed
      */
@@ -60,7 +60,7 @@ class KepangkatanController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "MKepangkatan #".$id,
+                    'title'=> "Riwayatjabatan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -75,7 +75,7 @@ class KepangkatanController extends Controller
     }
 
     /**
-     * Creates a new MKepangkatan model.
+     * Creates a new Riwayatjabatan model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -83,7 +83,7 @@ class KepangkatanController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MKepangkatan();
+        $model = new Riwayatjabatan();
 
         if($request->isAjax){
             /*
@@ -92,7 +92,7 @@ class KepangkatanController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new MKepangkatan",
+                    'title'=> "Create new Riwayatjabatan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -102,21 +102,21 @@ class KepangkatanController extends Controller
                 ];
             }else if($model->load($request->post())){
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
                     $model->dokumen =  $ext;
                 }
                 $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new MKepangkatan",
-                    'content'=>'<span class="text-success">Create MKepangkatan success</span>',
+                    'title'=> "Create new Riwayatjabatan",
+                    'content'=>'<span class="text-success">Create Riwayatjabatan success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                 ];
             }else{
                 return [
-                    'title'=> "Create new MKepangkatan",
+                    'title'=> "Create new Riwayatjabatan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -141,7 +141,7 @@ class KepangkatanController extends Controller
     }
 
     /**
-     * Updates an existing MKepangkatan model.
+     * Updates an existing Riwayatjabatan model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -160,26 +160,24 @@ class KepangkatanController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MKepangkatan #".$id,
+                    'title'=> "Update Riwayatjabatan #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];
-            }else if($model->load($request->post()) ){
-
+            }else if($model->load($request->post())){
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/kepangkatan_' . $model->data->nip . '_' . time());
+                    $ext = Yii::$app->tools->upload('Riwayarjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip . '_' . time());
                     $model->dokumen =  $ext;
                 }else{
                     $model->dokumen = $olddokumen;
                 }
-
-                $model->save();
+//                $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MKepangkatan #".$id,
+                    'title'=> "Riwayatjabatan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -188,7 +186,7 @@ class KepangkatanController extends Controller
                 ];
             }else{
                  return [
-                    'title'=> "Update MKepangkatan #".$id,
+                    'title'=> "Update Riwayatjabatan #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -211,7 +209,7 @@ class KepangkatanController extends Controller
     }
 
     /**
-     * Delete an existing MKepangkatan model.
+     * Delete an existing Riwayatjabatan model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -239,7 +237,7 @@ class KepangkatanController extends Controller
     }
 
      /**
-     * Delete multiple existing MKepangkatan model.
+     * Delete multiple existing Riwayatjabatan model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -270,15 +268,15 @@ class KepangkatanController extends Controller
     }
 
     /**
-     * Finds the MKepangkatan model based on its primary key value.
+     * Finds the Riwayatjabatan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MKepangkatan the loaded model
+     * @return Riwayatjabatan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MKepangkatan::findOne($id)) !== null) {
+        if (($model = Riwayatjabatan::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

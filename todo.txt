@@ -13,7 +13,7 @@ Dashboard
     Infografik Jenis Pegawai
     Infografik Golongan
     Pegawai yang berulang tahun >
-    pegawai yg akan pensiun 
+    pegawai yg akan pensiun
     STR akan habis
     SIP akan Habis
 
@@ -22,7 +22,7 @@ Data Pegawai
     Report
 
 Detail pegawai
-    Biodata Pegawai + Foto
+    Biodata Pegawai + Foto [v]
     Daftar Riwayat Jabatan
     Daftar Riwayat Gaji
     Daftar Riwayat Pendidikan   ok
@@ -46,7 +46,7 @@ Arsip digital
     arsip presentasi
     notulen rapat
     nota dinas
-    
+
 Administratif
 -   Unit Kerja
 -   Users

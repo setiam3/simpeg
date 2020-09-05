@@ -44,6 +44,7 @@ use kartik\file\FileInput;
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
+            'frameClass'=>'krajee-default row',
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
             'browseLabel' =>  'Select Foto'
@@ -60,6 +61,7 @@ use kartik\file\FileInput;
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
+            'frameClass'=>'krajee-default row',
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
             'browseLabel' =>  'Select Foto'
