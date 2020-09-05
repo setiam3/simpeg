@@ -26,7 +26,7 @@ $idmodal=md5($dataProvider->query->modelClass);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatdiklat/create'],
                     ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new M Riwayatdiklats','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).

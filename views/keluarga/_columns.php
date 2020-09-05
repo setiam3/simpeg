@@ -17,7 +17,6 @@ return [
             return $data->parent->nama;
         }
     ],
-    'parent_id:html:Nama Pegawai',
     'nama:raw:Nama Anggota Keluarga',
     [
         'class'=>'\kartik\grid\DataColumn',
