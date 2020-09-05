@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\web\UploadedFile;
 
 /**
  * KepangkatanController implements the CRUD actions for MKepangkatan model.
@@ -99,7 +100,12 @@ class KepangkatanController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
 
                 ];
-            }else if($model->load($request->post()) && $model->save(false)){
+            }else if($model->load($request->post())){
+                if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
+                    $ext = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                    $model->dokumen =  $ext;
+                }
+                $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new MKepangkatan",
@@ -145,6 +151,7 @@ class KepangkatanController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
+        $olddokumen = $model->dokumen;
 
         if($request->isAjax){
             /*
@@ -160,7 +167,16 @@ class KepangkatanController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post()) ){
+
+                if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
+                    $ext = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
+                    $model->dokumen =  $ext;
+                }else{
+                    $model->dokumen = $olddokumen;
+                }
+
+                $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "MKepangkatan #".$id,

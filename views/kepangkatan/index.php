@@ -12,6 +12,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 
 $this->title = 'M Kepangkatans';
 $this->params['breadcrumbs'][] = $this->title;
+$idmodal=md5($dataProvider->query->modelClass);
 
 CrudAsset::register($this);
 
@@ -26,8 +27,8 @@ CrudAsset::register($this);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
-                    ['role'=>'modal-remote','title'=> 'Create new M Kepangkatans','class'=>'btn btn-default']).
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['kepangkatan/create'],
+                    ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new M Kepangkatans','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
                     '{toggleData}'.
@@ -47,6 +48,7 @@ CrudAsset::register($this);
                                 [
                                     "class"=>"btn btn-danger btn-xs",
                                     'role'=>'modal-remote-bulk',
+                                    'data-target'=>"#".$idmodal,
                                     'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
                                     'data-request-method'=>'post',
                                     'data-confirm-title'=>'Are you sure?',
@@ -59,7 +61,7 @@ CrudAsset::register($this);
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModal",
+    "id"=>$idmodal,
     "size"=>"modal-lg",
     "footer"=>"",// always need it for jquery plugin
 ])?>

@@ -6,19 +6,29 @@ use yii\widgets\DetailView;
 /* @var $model app\models\MKepangkatan */
 ?>
 <div class="mkepangkatan-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_data',
+            [
+                'attribute' => 'Karyawan',
+                'value' => function ($data) {
+                    return $data->data->nama;
+
+                },
+            ],
             'ditetapkanOleh',
             'noSk',
             'tglSk',
             'penggolongangaji_id',
+            [
+                'attribute' => 'Golongan',
+                'value' => function ($data) {
+                    return $data->penggolongangaji->pangkat->nama_referensi;
+
+                },
+            ],
             'tmtPangkat',
-            'ruang',
-            'fk_golongan',
             'tmt',
             'dokumen',
         ],

@@ -86,6 +86,6 @@ class MKepangkatan extends \yii\db\ActiveRecord
      */
     public function getPenggolongangaji()
     {
-        return $this->hasOne(Penggolongangaji::className(), ['id' => 'penggolongangaji_id']);
+        return $this->hasOne(MPenggolongangaji::className(), ['id' => 'penggolongangaji_id']);
     }
 }
