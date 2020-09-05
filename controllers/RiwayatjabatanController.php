@@ -102,11 +102,9 @@ class RiwayatjabatanController extends Controller
                 ];
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-<<<<<<< HEAD
-                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip );
-=======
-                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $model->data->nip . '_' . time());
->>>>>>> 7528759516ba8631a7591985348e627e536036c8
+
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip);
+
                     $model->dokumen =  $ext;
                 }
                 $model->save(false);
@@ -170,24 +168,14 @@ class RiwayatjabatanController extends Controller
                 ];
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-<<<<<<< HEAD
-                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip );
+
+                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip);
                     $model->dokumen =  $ext;
-                }else{
-                    $model->dokumen = $olddokumen;
-                }
-                $model->save();
-=======
-                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $olddokumen)) {
-                        unlink($filename);
-                    }
-                    $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $model->data->nip);
-                    $model->dokumen = $ext;
                 } else {
                     $model->dokumen = $olddokumen;
                 }
-                $model->save(false);
->>>>>>> 7528759516ba8631a7591985348e627e536036c8
+                $model->save();
+
                 return [
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "Riwayatjabatan #" . $id,
@@ -231,19 +219,13 @@ class RiwayatjabatanController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-<<<<<<< HEAD
-        $model=$this->findModel($id);
-        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+
+        $model = $this->findModel($id);
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
             unlink($filename);
         }
         $this->findModel($id)->delete();
-=======
-        $model = $this->findModel($id);
-        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/Rjabatan_' . $model->dokumen) && !empty($model->dokumen)) {
-            unlink($filename);
-        }
-        $model->delete();
->>>>>>> 7528759516ba8631a7591985348e627e536036c8
+
 
         if ($request->isAjax) {
             /*
@@ -272,7 +254,7 @@ class RiwayatjabatanController extends Controller
         $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
         foreach ($pks as $pk) {
             $model = $this->findModel($pk);
-            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+            if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
                 unlink($filename);
             }
             $model->delete();
