@@ -37,7 +37,7 @@ class PengajuanijinController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {    
+    {
         $searchModel = new PengajuanijinSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,7 +54,7 @@ class PengajuanijinController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {   
+    {
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -65,7 +65,7 @@ class PengajuanijinController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];    
+                ];
         }else{
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -82,7 +82,7 @@ class PengajuanijinController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Pengajuanijin();  
+        $model = new Pengajuanijin();
 
         if($request->isAjax){
             /*
@@ -97,18 +97,18 @@ class PengajuanijinController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
-            }else if($model->load($request->post()) && $model->save()){
+
+                ];
+            }else if($model->load($request->post()) && $model->save(false)){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Pengajuanijin",
                     'content'=>'<span class="text-success">Create Pengajuanijin success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
-        
-                ];         
-            }else{           
+
+                ];
+            }else{
                 return [
                     'title'=> "Create new Pengajuanijin",
                     'content'=>$this->renderAjax('create', [
@@ -116,8 +116,8 @@ class PengajuanijinController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
             /*
@@ -131,7 +131,7 @@ class PengajuanijinController extends Controller
                 ]);
             }
         }
-       
+
     }
 
     /**
@@ -144,7 +144,7 @@ class PengajuanijinController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);
 
         if($request->isAjax){
             /*
@@ -159,7 +159,7 @@ class PengajuanijinController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
@@ -169,7 +169,7 @@ class PengajuanijinController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];    
+                ];
             }else{
                  return [
                     'title'=> "Update Pengajuanijin #".$id,
@@ -178,7 +178,7 @@ class PengajuanijinController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
             /*
@@ -230,7 +230,7 @@ class PengajuanijinController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -250,7 +250,7 @@ class PengajuanijinController extends Controller
             */
             return $this->redirect(['index']);
         }
-       
+
     }
 
     /**

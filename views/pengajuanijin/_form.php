@@ -11,25 +11,56 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tanggalPengajuan')->textInput() ?>
 
-    <?= $form->field($model, 'tanggalMulai')->textInput() ?>
+    <?= $form->field($model, 'tanggalPengajuan')->widget(\kartik\date\DatePicker::className(),[
+        'options' => [ 'value' => date("Y-m-d"), 'readonly' => true,
+        ],
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'autoclose'=>true
+        ]
+    ])?>
 
-    <?= $form->field($model, 'tanggalAkhir')->textInput() ?>
+    <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(),[
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'autoclose'=>true
+        ]
+    ])?>
 
-    <?= $form->field($model, 'alasan')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tanggalAkhir')->widget(\kartik\date\DatePicker::className(),[
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true,
+            'autoclose'=>true
+        ]
+    ])?>
 
-    <?= $form->field($model, 'id_data')->textInput() ?>
+    <?= $form->field($model, 'alasan')->textArea() ?>
 
-    <?= $form->field($model, 'approval1')->textInput() ?>
+    <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=> '1'])->all(),'id_data','nama'),
+        'language' => 'de',
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Nama');
+    ?>
 
-    <?= $form->field($model, 'approval2')->textInput() ?>
 
-    <?= $form->field($model, 'disetujui')->textInput() ?>
+    <?= $form->field($model, 'jenisIjin')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=> '12'])->all(),'nama_referensi','nama_referensi'),
+        'language' => 'de',
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Jenis ijin'); ?>
 
-    <?= $form->field($model, 'jenisIjin')->textInput(['maxlength' => true]) ?>
 
-  
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">
 	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -37,5 +68,5 @@ use yii\widgets\ActiveForm;
 	<?php } ?>
 
     <?php ActiveForm::end(); ?>
-    
+
 </div>
