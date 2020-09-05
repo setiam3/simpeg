@@ -40,6 +40,7 @@ class Riwayatdiklat extends \yii\db\ActiveRecord
             [['mulai', 'selesai'], 'safe'],
             [['namaDiklat', 'tempat', 'penyelenggara', 'dokumen'], 'string', 'max' => 255],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
+
         ];
     }
 

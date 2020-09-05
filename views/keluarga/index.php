@@ -44,7 +44,7 @@ $idmodal=md5($dataProvider->query->modelClass);
                                 [
                                     "class"=>"btn btn-danger btn-xs",
                                     'role'=>'modal-remote-bulk',
-                                    'data-target'=>"#".$idmodal,
+                                    'data-target'=>'#'.$idmodal,
                                     'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
                                     'data-request-method'=>'post',
                                     'data-confirm-title'=>'Are you sure?',

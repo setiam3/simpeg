@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MRiwayatdiklat;
+use app\models\Riwayatdiklat;
 
 /**
  * MRiwayatdiklatSearch represents the model behind the search form about `app\models\MRiwayatdiklat`.
  */
-class MRiwayatdiklatSearch extends MRiwayatdiklat
+class RiwayatdiklatSearch extends Riwayatdiklat
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class MRiwayatdiklatSearch extends MRiwayatdiklat
      */
     public function search($params,$where=null)
     {
-        $query = MRiwayatdiklat::find()->where($where);
+        $query = Riwayatdiklat::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
