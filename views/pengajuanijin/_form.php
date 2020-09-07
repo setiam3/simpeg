@@ -13,7 +13,8 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'tanggalPengajuan')->widget(\kartik\date\DatePicker::className(),[
-        'options' => [ 'value' => date("Y-m-d"), 'readonly' => true,
+            'readonly' => true,
+            'options' => [ 'value' => date("Y-m-d"),
         ],
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',
