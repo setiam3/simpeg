@@ -171,13 +171,14 @@ class Approvel2Controller extends Controller
                     $interval = date_diff($tglMulai,$tglAkhir);
                     $sisa = $interval->format('%a');
 
-                    $datas = new Jatahcuti();
-                    $datas->id_data = $model->id_data;
-                    $datas->jumlah = 8;
-                    $datas->sisa= $datas->jumlah-(int) $sisa;
+                    $datas = Jatahcuti::findOne(['id_data' => $model->id_data]);
+                    $datas->sisa = $datas->sisa - (int) $sisa;
+
+                    $model->save(false);
                     $datas->save(false);
 
                 }elseif ($model->approval2 == 0){
+                    $model->approval2 = "100";
                     $model->disetujui = "0";
                 }
                 $model->save(false);

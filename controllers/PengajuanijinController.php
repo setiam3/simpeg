@@ -99,7 +99,11 @@ class PengajuanijinController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
 
                 ];
-            }else if($model->load($request->post()) && $model->save(false)){
+            }else if($model->load($request->post())){
+                $model->tanggalPengajuan = date('Y-m-d');
+
+                $model->save(false);
+
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Pengajuanijin",

@@ -165,6 +165,8 @@ class Approvel1Controller extends Controller
 
                 if ($model->approval1=='1'){
                     $model->approval1='99';
+                }else{
+                    $model->disetujui='0';
                 }
                 $model->save(false);
                 return [
