@@ -2,9 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Jatahcuti;
 use Yii;
 use app\models\Pengajuanijin;
-use app\models\PengajuanijinSearch;
+use app\models\Approvel2Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,9 +13,9 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * PengajuanijinController implements the CRUD actions for Pengajuanijin model.
+ * Approvel2Controller implements the CRUD actions for Pengajuanijin model.
  */
-class PengajuanijinController extends Controller
+class Approvel2Controller extends Controller
 {
     /**
      * @inheritdoc
@@ -38,8 +39,9 @@ class PengajuanijinController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PengajuanijinSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $where = ['in','approval2',['0',null]];
+        $searchModel = new Approvel2Search();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -99,11 +101,7 @@ class PengajuanijinController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
 
                 ];
-            }else if($model->load($request->post())){
-                $model->tanggalPengajuan = date('Y-m-d');
-
-                $model->save(false);
-
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Pengajuanijin",
@@ -164,7 +162,26 @@ class PengajuanijinController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+                if ($model->approval2 == 1){
+                    $model->approval2 = "100";
+                    $model->disetujui = "1";
+                    $tglAkhir = date_create($model->tanggalAkhir);
+                    $tglMulai = date_create($model->tanggalMulai);
+                    $interval = date_diff($tglMulai,$tglAkhir);
+                    $sisa = $interval->format('%a');
+
+                    $datas = Jatahcuti::findOne(['id_data' => $model->id_data]);
+                    $datas->sisa = $datas->sisa - (int) $sisa;
+
+                    $model->save(false);
+                    $datas->save(false);
+
+                }elseif ($model->approval2 == 0){
+                    $model->approval2 = "100";
+                    $model->disetujui = "0";
+                }
+                $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Pengajuanijin #".$id,

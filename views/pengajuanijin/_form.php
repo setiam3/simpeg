@@ -1,5 +1,7 @@
 <?php
 
+
+use app\models\Jatahcuti;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,15 +14,23 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?php $datas = Jatahcuti::findOne(['id_data' => $model->id_data]);
+    //    var_dump($datas);
+    //    die();
+    //    echo "Sisa Cuti ",$datas['sisa'];
+    ?>
 
-    <?= $form->field($model, 'tanggalPengajuan')->widget(\kartik\date\DatePicker::className(), [
-        'options' => ['value' => date("Y-m-d"), 'readonly' => true,],
+
+    <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => '1'])->all(), 'id_data', 'nama'),
+        'language' => 'de',
+        'options' => ['placeholder' => 'Select a state ...'],
         'pluginOptions' => [
-            'format' => 'yyyy-mm-dd',
-            'todayHighlight' => true,
-            'autoclose' => true
-        ]
-    ]) ?>
+            'allowClear' => true
+        ],
+    ])->label('Nama');
+    ?>
+
 
     <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(), [
         'pluginOptions' => [
@@ -39,16 +49,6 @@ use yii\widgets\ActiveForm;
     ]) ?>
 
     <?= $form->field($model, 'alasan')->textArea() ?>
-
-    <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => '1'])->all(), 'id_data', 'nama'),
-        'language' => 'de',
-        'options' => ['placeholder' => 'Select a state ...'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ])->label('Nama');
-    ?>
 
 
     <?= $form->field($model, 'jenisIjin')->widget(\kartik\select2\Select2::classname(), [
