@@ -13,6 +13,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\models\VTranspeng;
 
 /**
  * TransaksiPenggajianController implements the CRUD actions for TransaksiPenggajian model.
@@ -64,7 +65,7 @@ class TransaksiPenggajianController extends Controller
             return [
                 'title' => "TransaksiPenggajian #" . $id,
                 'content' => $this->renderAjax('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $this->findModel([$id]),
                 ]),
                 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -98,7 +99,6 @@ class TransaksiPenggajianController extends Controller
                 return [
                     'title' => "Create new TransaksiPenggajian",
                     'content' => $this->renderAjax('create', [
-                        //'content' => $this->renderAjax('create', [
                         'transaksipenggajian' => $transaksipenggajian,
                         'transaksipenggajiandetail' => $transaksipenggajiandetail,
                         'potongangaji' => $potongangaji
@@ -132,7 +132,9 @@ class TransaksiPenggajianController extends Controller
                 return [
                     'title' => "Create new TransaksiPenggajian",
                     'content' => $this->renderAjax('create', [
-                        'model' => $transaksipenggajian,
+                        'transaksipenggajian' => $transaksipenggajian,
+                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
+                        'potongangaji' => $potongangaji
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -147,9 +149,9 @@ class TransaksiPenggajianController extends Controller
                 return $this->redirect(['view', 'id' => $transaksipenggajian->transgaji_id]);
             } else {
                 return $this->render('create', [
-                    'TransaksiPenggajian' => $transaksipenggajian,
-                    'TransaksiPenggajianDetail' => $transaksipenggajiandetail,
-                    'PotonganGaji' => $potongangaji
+                    'transaksipenggajian' => $transaksipenggajian,
+                    'transaksipenggajiandetail' => $transaksipenggajiandetail,
+                    'potongangaji' => $potongangaji
                 ]);
             }
         }
@@ -165,9 +167,9 @@ class TransaksiPenggajianController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $transaksipenggajian = TransaksiPenggajian::findOne(['trasgaji_id' => $id]);
-        $transaksipenggajiandetail = TransaksipenggajianDetail::findOne(['id' => $transaksipenggajian->transgaji_id]);
-        $potongangaji = PotonganGaji::findOne(['id' => $transaksipenggajian->transgaji_id]);
+        $transaksipenggajian = TransaksiPenggajian::findOne(['transgaji_id' => $id]);
+        $transaksipenggajiandetail = TransaksipenggajianDetail::findOne(['transgaji_id' => $transaksipenggajian->transgaji_id]);
+        $potongangaji = PotonganGaji::findOne(['transgaji_id' => $transaksipenggajiandetail->transgaji_id]);
 
         if ($request->isAjax) {
             /*
@@ -178,7 +180,9 @@ class TransaksiPenggajianController extends Controller
                 return [
                     'title' => "Update TransaksiPenggajian #" . $id,
                     'content' => $this->renderAjax('update', [
-                        'model' => $transaksipenggajian,
+                        'transaksipenggajian' => $transaksipenggajian,
+                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
+                        'potongangaji' => $potongangaji
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -186,8 +190,9 @@ class TransaksiPenggajianController extends Controller
             } else if ($transaksipenggajian->load($request->post())) {
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
                 if ($transaksipenggajian->save(false)) {
-                    $transaksipenggajiandetail->attributes = $_POST['TransaksiPenggajianDetail'];
+                    $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
                     $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;
+                    $transaksipenggajiandetail->save(false);
                     if ($transaksipenggajiandetail->save(false)) {
                         $potongangaji->attributes = $_POST['PotonganGaji'];
                         $potongangaji->transgaji_id = $transaksipenggajiandetail->transgaji_id;
@@ -196,7 +201,7 @@ class TransaksiPenggajianController extends Controller
                 }
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "TransaksiPenggajian #" . $id,
+                    'title' => "Riwayatpendidikan #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $transaksipenggajian,
                     ]),
@@ -207,7 +212,9 @@ class TransaksiPenggajianController extends Controller
                 return [
                     'title' => "Update TransaksiPenggajian #" . $id,
                     'content' => $this->renderAjax('update', [
-                        'model' => $transaksipenggajian,
+                        'transaksipenggajian' => $transaksipenggajian,
+                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
+                        'potongangaji' => $potongangaji
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -221,7 +228,9 @@ class TransaksiPenggajianController extends Controller
                 return $this->redirect(['view', 'id' => $transaksipenggajian->transgaji_id]);
             } else {
                 return $this->render('update', [
-                    'model' => $transaksipenggajian,
+                    'transaksipenggajian' => $transaksipenggajian,
+                    'transaksipenggajiandetail' => $transaksipenggajiandetail,
+                    'potongangaji' => $potongangaji
                 ]);
             }
         }

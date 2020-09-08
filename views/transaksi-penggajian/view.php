@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\TransaksiPenggajian */
 ?>
 <div class="transaksi-penggajian-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -64,7 +64,14 @@ use kartik\date\DatePicker;
             ?>
             <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
 
-            <?= $form->field($potongangaji, 'potongan_desc') ?>
+            <?= $form->field($potongangaji, 'potongan_desc')->widget(\kartik\select2\Select2::classname(), [
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '13'])->all(), 'reff_id', 'nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Potongan Desc')
+            ?>
             <?= $form->field($potongangaji, 'potongan_nominal') ?>
             <?= $form->field($potongangaji, 'keterangan')->textArea() ?>
         </div>
