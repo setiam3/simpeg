@@ -29,6 +29,10 @@ use yii\widgets\ActiveForm;
     ])->label('Nama');
     ?>
 
+    <script>
+        $('#pengajuanijin-id_data').value();
+    </script>
+
 
 
 
