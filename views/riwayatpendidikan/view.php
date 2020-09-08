@@ -10,8 +10,7 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_data',
+            'data.nama',
             'tingkatPendidikan',
             'jurusan',
             'namaSekolah',
@@ -20,6 +19,9 @@ use yii\widgets\DetailView;
             'no_ijazah',
             'tgl_ijazah',
             'thMasuk',
+            'medis',
+            'suratijin',
+            'tgl_berlaku_ijin',
         ],
     ]) ?>
 

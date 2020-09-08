@@ -4,6 +4,9 @@ use yii\web\JsExpression;
 use dosamigos\chartjs\ChartJs;
 $this->title =Yii::$app->name;
 //echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
+
+$pria = \app\models\MBiodata::find()->where(['jenisKelamin'=>'10'])->count();
+$wanita = \app\models\MBiodata::find()->where(['jenisKelamin'=>'8'])->count();
 ?>
 <section class="content">
     <div class="row">
@@ -163,10 +166,14 @@ $this->title =Yii::$app->name;
                                     ],
                                     'data' => [
                                         'radius' =>  "90%",
-                                        'labels' => ['Perempuan', 'Pria'], // Your labels
+                                        'labels' => ['Pria', 'Perempuan'], // Your labels
                                         'datasets' => [
                                             [
-                                                'data' => ['35.6', '46.9'], // Your dataset
+                                                'data' => [
+//                                                        '35.6',
+                                                    $pria,
+                                                    $wanita,
+                                                ], // Your dataset
                                                 'label' => '',
                                                 'backgroundColor' => [
                                                     '#ADC3FF',

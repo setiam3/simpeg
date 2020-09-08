@@ -9,16 +9,20 @@ use Yii;
  *
  * @property int $id
  * @property int $id_data
- * @property string $tingkatPendidikan
+ * @property int $tingkatPendidikan
  * @property string|null $jurusan
- * @property string $namaSekolah
- * @property string $thLulus
+ * @property string|null $namaSekolah
+ * @property string|null $thLulus
  * @property string|null $dokumen
  * @property string|null $no_ijazah
  * @property string|null $tgl_ijazah
  * @property string|null $thMasuk
+ * @property int|null $medis
+ * @property string|null $suratijin
+ * @property string|null $tgl_berlaku_ijin
  *
  * @property MBiodata $data
+ * @property MReferensi $tingkatPendidikan0
  */
 class Riwayatpendidikan extends \yii\db\ActiveRecord
 {
@@ -36,14 +40,16 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_data', 'tingkatPendidikan', 'namaSekolah', 'thLulus'], 'required'],
-            [['id_data'], 'default', 'value' => null],
-            [['id_data'], 'integer'],
-            [['tgl_ijazah'], 'safe'],
-            [['tingkatPendidikan', 'jurusan', 'namaSekolah', 'dokumen'], 'string', 'max' => 255],
+            [['id_data', 'tingkatPendidikan'], 'required'],
+            [['id_data', 'tingkatPendidikan', 'medis'], 'default', 'value' => null],
+            [['id_data', 'tingkatPendidikan', 'medis'], 'integer'],
+            [['tgl_ijazah', 'tgl_berlaku_ijin'], 'safe'],
+            [['suratijin'], 'string'],
+            [['jurusan', 'namaSekolah', 'dokumen'], 'string', 'max' => 255],
             [['thLulus', 'thMasuk'], 'string', 'max' => 4],
             [['no_ijazah'], 'string', 'max' => 100],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
+            [['tingkatPendidikan'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['tingkatPendidikan' => 'reff_id']],
         ];
     }
 
@@ -63,6 +69,9 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
             'no_ijazah' => 'No Ijazah',
             'tgl_ijazah' => 'Tgl Ijazah',
             'thMasuk' => 'Th Masuk',
+            'medis' => 'Medis',
+            'suratijin' => 'Suratijin',
+            'tgl_berlaku_ijin' => 'Tgl Berlaku Ijin',
         ];
     }
 
@@ -76,9 +85,13 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
 
-    public function getPendidikan()
+    /**
+     * Gets query for [[TingkatPendidikan0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTingkatPendidikan()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'tingkatPendidikan']);
     }
-
 }
