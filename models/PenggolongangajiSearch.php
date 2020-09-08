@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MPenggolonganGaji;
+use app\models\Penggolongangaji;
 
 /**
- * MPenggolonganGajiSearch represents the model behind the search form about `app\models\MPenggolonganGaji`.
+ * PenggolongangajiSearch represents the model behind the search form about `app\models\Penggolongangaji`.
  */
-class MPenggolonganGajiSearch extends MPenggolonganGaji
+class PenggolongangajiSearch extends Penggolongangaji
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class MPenggolonganGajiSearch extends MPenggolonganGaji
      */
     public function search($params)
     {
-        $query = MPenggolonganGaji::find();
+        $query = Penggolongangaji::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

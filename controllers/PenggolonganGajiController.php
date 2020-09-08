@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MPenggolonganGaji;
-use app\models\MPenggolonganGajiSearch;
+use app\models\Penggolongangaji;
+use app\models\PenggolongangajiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +12,7 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * PenggolonganGajiController implements the CRUD actions for MPenggolonganGaji model.
+ * PenggolonganGajiController implements the CRUD actions for Penggolongangaji model.
  */
 class PenggolonganGajiController extends Controller
 {
@@ -33,12 +33,12 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Lists all MPenggolonganGaji models.
+     * Lists all Penggolongangaji models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new MPenggolonganGajiSearch();
+        $searchModel = new PenggolongangajiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,32 +49,33 @@ class PenggolonganGajiController extends Controller
 
 
     /**
-     * Displays a single MPenggolonganGaji model.
+     * Displays a single Penggolongangaji model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {   
         $request = Yii::$app->request;
+        $model=$this->findModel($id);
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "MPenggolonganGaji #".$id,
+                    'title'=> "Penggolongangaji #".$id,
                     'content'=>$this->renderAjax('view', [
-                        'model' => $this->findModel($id),
+                        'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
                 ];    
         }else{
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
             ]);
         }
     }
 
     /**
-     * Creates a new MPenggolonganGaji model.
+     * Creates a new Penggolongangaji model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -82,7 +83,7 @@ class PenggolonganGajiController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MPenggolonganGaji();  
+        $model = new PenggolonganGaji();  
 
         if($request->isAjax){
             /*
@@ -91,7 +92,7 @@ class PenggolonganGajiController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new MPenggolonganGaji",
+                    'title'=> "Create new Penggolongangaji",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -102,15 +103,15 @@ class PenggolonganGajiController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new MPenggolonganGaji",
-                    'content'=>'<span class="text-success">Create MPenggolonganGaji success</span>',
+                    'title'=> "Create new Penggolongangaji",
+                    'content'=>'<span class="text-success">Create Penggolongangaji success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new MPenggolonganGaji",
+                    'title'=> "Create new Penggolongangaji",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -135,7 +136,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Updates an existing MPenggolonganGaji model.
+     * Updates an existing Penggolongangaji model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -153,7 +154,7 @@ class PenggolonganGajiController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MPenggolonganGaji #".$id,
+                    'title'=> "Update Penggolongangaji #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -163,7 +164,7 @@ class PenggolonganGajiController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MPenggolonganGaji #".$id,
+                    'title'=> "Penggolongangaji #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -172,7 +173,7 @@ class PenggolonganGajiController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update MPenggolonganGaji #".$id,
+                    'title'=> "Update Penggolongangaji #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -195,7 +196,7 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Delete an existing MPenggolonganGaji model.
+     * Delete an existing Penggolongangaji model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -223,7 +224,7 @@ class PenggolonganGajiController extends Controller
     }
 
      /**
-     * Delete multiple existing MPenggolonganGaji model.
+     * Delete multiple existing Penggolongangaji model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -254,15 +255,15 @@ class PenggolonganGajiController extends Controller
     }
 
     /**
-     * Finds the MPenggolonganGaji model based on its primary key value.
+     * Finds the Penggolongangaji model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MPenggolonganGaji the loaded model
+     * @return Penggolongangaji the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MPenggolonganGaji::findOne($id)) !== null) {
+        if (($model = Penggolongangaji::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

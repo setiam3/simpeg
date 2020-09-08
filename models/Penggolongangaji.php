@@ -18,6 +18,7 @@ use Yii;
  * @property Kepangkatan[] $kepangkatans
  * @property MReferensi $pangkat
  * @property MReferensi $jenisPegawai
+ * @property TransaksipenggajianDetail[] $transaksipenggajianDetails
  */
 class Penggolongangaji extends \yii\db\ActiveRecord
 {
@@ -89,5 +90,15 @@ class Penggolongangaji extends \yii\db\ActiveRecord
     public function getJenisPegawai()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenis_pegawai']);
+    }
+
+    /**
+     * Gets query for [[TransaksipenggajianDetails]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTransaksipenggajianDetails()
+    {
+        return $this->hasMany(TransaksipenggajianDetail::className(), ['gol_gaji' => 'id']);
     }
 }

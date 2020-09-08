@@ -57,19 +57,20 @@ class Approvel1Controller extends Controller
     public function actionView($id)
     {
         $request = Yii::$app->request;
+        $model = $this->findModel($id);
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
                     'title'=> "Pengajuanijin #".$id,
                     'content'=>$this->renderAjax('view', [
-                        'model' => $this->findModel($id),
+                        'model' =>$model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
                 ];
         }else{
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' =>$model,
             ]);
         }
     }
