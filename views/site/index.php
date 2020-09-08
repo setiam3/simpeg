@@ -1,12 +1,12 @@
 <?php
 use miloschuman\highcharts\Highcharts;
 use yii\web\JsExpression;
+use yii\helpers\ArrayHelper;
 use dosamigos\chartjs\ChartJs;
 $this->title =Yii::$app->name;
 //echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 
-$pria = \app\models\MBiodata::find()->where(['jenisKelamin'=>'10'])->count();
-$wanita = \app\models\MBiodata::find()->where(['jenisKelamin'=>'8'])->count();
+$populasi=\Yii::$app->tools->grafikPopulasi();
 ?>
 <section class="content">
     <div class="row">
@@ -166,14 +166,10 @@ $wanita = \app\models\MBiodata::find()->where(['jenisKelamin'=>'8'])->count();
                                     ],
                                     'data' => [
                                         'radius' =>  "90%",
-                                        'labels' => ['Pria', 'Perempuan'], // Your labels
+                                        'labels' => ArrayHelper::getColumn($populasi,'nama_referensi'), // Your labels
                                         'datasets' => [
                                             [
-                                                'data' => [
-//                                                        '35.6',
-                                                    $pria,
-                                                    $wanita,
-                                                ], // Your dataset
+                                                'data' => [ArrayHelper::getValue($populasi,'0.jumlah'),ArrayHelper::getValue($populasi,'1.jumlah')],
                                                 'label' => '',
                                                 'backgroundColor' => [
                                                     '#ADC3FF',

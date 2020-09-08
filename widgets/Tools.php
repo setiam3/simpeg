@@ -4,6 +4,7 @@ use DateTime;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use tpmanc\imagick\Imagick;
+use yii\helpers\ArrayHelper;
 class Tools extends \yii\bootstrap\Widget{
 
     public function init(){
@@ -82,16 +83,21 @@ class Tools extends \yii\bootstrap\Widget{
     }
 
     public function grafikPopulasi(){// L/P
-
+        return \app\models\MBiodata::find()
+                ->select('nama_referensi,count("jenisKelamin") as jumlah')
+                ->joinWith('sex')
+                ->where(['tipe_referensi'=>8])
+                ->groupBy("nama_referensi,jenisKelamin")
+                ->createCommand()->queryAll();
     }
-    public function gjenisPegawai(){//pns / non
-      
+    public function gjenisPegawai(){//pns / non /
+      return \app\models\MBiodata::find();
     }
     public function golonganPegawai(){// bar, gol 1 2 3 
       
     }
     public function ultahPegawai($my){// month year
-      return $model=\app\models\VPegawai::find()->where(['month(tanggalLahir)'=>$my])->all();
+      return $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>$my])->all();
     }
     public function nextPensiun($y){// akan pensiun
       
