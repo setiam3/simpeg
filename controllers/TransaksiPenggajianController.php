@@ -66,14 +66,14 @@ class TransaksiPenggajianController extends Controller
             return [
                 'title' => "TransaksiPenggajian #" . $id,
                 'content' => $this->renderAjax('view', [
-                    'model' =>$model,
+                    'model' => $model,
                 ]),
                 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
             ];
         } else {
             return $this->render('view', [
-                'model' =>$model,
+                'model' => $model,
             ]);
         }
     }
@@ -126,7 +126,7 @@ class TransaksiPenggajianController extends Controller
                     'title' => "Create new TransaksiPenggajian",
                     'content' => '<span class="text-success">Create TransaksiPenggajian success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($transaksipenggajian))])
 
                 ];
             } else {
@@ -207,7 +207,7 @@ class TransaksiPenggajianController extends Controller
                         'model' => $transaksipenggajian,
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($transaksipenggajian))])
                 ];
             } else {
                 return [
