@@ -35,41 +35,41 @@ use kartik\file\FileInput;
             <?= $form->field($model, 'nomor_rekening')->textInput(['maxlength' => true, 'type' => 'number']) ?>
 
 
-    <?= $form->field($model, 'npwp')->textInput(['maxlength' => true, 'type' => 'number']) ?>
-    </div>
-    <div class="col-sm-4">
-        <?= $form->field($model, 'fotoNpwp')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
-        'pluginOptions' => [
-            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])],
-            'maxFileSize' => 2048,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'frameClass'=>'krajee-default row',
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
-        ],
-    ]) ?>
-    </div>
-    <div class="col-sm-4">
-    <?= $form->field($model, 'fotoRekening')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
-        'pluginOptions' => [
-            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoRekening), ['class' => 'col-xs-12'])],
-            'showPreview'=>true,
-            'maxFileSize' => 2048,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'frameClass'=>'krajee-default row',
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
-        ],
-    ]) ?>
-    </div>
+            <?= $form->field($model, 'npwp')->textInput(['maxlength' => true, 'type' => 'number']) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'fotoNpwp')->widget(FileInput::classname(), [
+                'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
+                'pluginOptions' => [
+                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])],
+                    'maxFileSize' => 2048,
+                    'showCaption' => false,
+                    'showRemove' => false,
+                    'showUpload' => false,
+                    'frameClass' => 'krajee-default row',
+                    'browseClass' => 'btn btn-primary btn-block',
+                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+                    'browseLabel' =>  'Select Foto'
+                ],
+            ]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'fotoRekening')->widget(FileInput::classname(), [
+                'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
+                'pluginOptions' => [
+                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoRekening), ['class' => 'col-xs-12'])],
+                    'showPreview' => true,
+                    'maxFileSize' => 2048,
+                    'showCaption' => false,
+                    'showRemove' => false,
+                    'showUpload' => false,
+                    'frameClass' => 'krajee-default row',
+                    'browseClass' => 'btn btn-primary btn-block',
+                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+                    'browseLabel' =>  'Select Foto'
+                ],
+            ]) ?>
+        </div>
     </div>
 
     <?php if (!Yii::$app->request->isAjax) { ?>
