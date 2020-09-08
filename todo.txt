@@ -30,8 +30,8 @@ Detail pegawai
     Daftar Riwayat Diklat [v]
     Daftar Riwayat Prestasi [v]
     Daftar Riwayat Hukuman
-    pengajuan cuti
-    pengajuan ijin
+    pengajuan cuti [v]
+    pengajuan ijin [v]
     mutasi pegawai
     rekrutment pegawai
 

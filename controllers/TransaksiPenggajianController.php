@@ -111,8 +111,9 @@ class TransaksiPenggajianController extends Controller
             } else if ($transaksipenggajian->load($request->post())) {
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
                 if ($transaksipenggajian->save(false)) {
-                    $transaksipenggajiandetail->attributes = $_POST['TransaksiPenggajianDetail'];
+                    $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
                     $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;
+                    $transaksipenggajiandetail->save(false);
                     if ($transaksipenggajiandetail->save(false)) {
                         $potongangaji->attributes = $_POST['PotonganGaji'];
                         $potongangaji->transgaji_id = $transaksipenggajiandetail->transgaji_id;

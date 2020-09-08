@@ -54,7 +54,7 @@ use kartik\date\DatePicker;
             ])->label('Golongan Gaji');
             ?>
             <?= $form->field($transaksipenggajiandetail, 'tunjangan_id')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'tunjangan_id', 'id'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'id'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
