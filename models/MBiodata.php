@@ -228,4 +228,7 @@ class MBiodata extends \yii\db\ActiveRecord
     public function getSex(){
         return $this->hasOne(MReferensi::className(),['reff_id'=>'jenisKelamin']);
     }
+    public function getJenispegawai(){
+        return $this->hasOne(MReferensi::className(),['reff_id'=>'jenis_pegawai']);
+    }
 }

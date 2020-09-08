@@ -7,6 +7,11 @@ $this->title =Yii::$app->name;
 //echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 
 $populasi=\Yii::$app->tools->grafikPopulasi();
+$jenispegawai=\Yii::$app->tools->gjenisPegawai(); 
+foreach($jenispegawai as $row){
+    $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
+}
+
 ?>
 <section class="content">
     <div class="row">
@@ -210,29 +215,8 @@ $populasi=\Yii::$app->tools->grafikPopulasi();
                                     'series' => [
                                         [
                                             'type' => 'pie',
-                                            'name' => 'Total consumption',
-                                            'data' => [
-                                                [
-                                                    'name' => 'PNS',
-                                                    'y' => 13,
-                                                    'color' => new JsExpression('Highcharts.getOptions().colors[0]'), // Jane's color
-                                                ],
-                                                [
-                                                    'name' => 'BLUD',
-                                                    'y' => 23,
-                                                    'color' => new JsExpression('Highcharts.getOptions().colors[1]'), // John's color
-                                                ],
-                                                [
-                                                    'name' => 'Freelance',
-                                                    'y' => 19,
-                                                    'color' => new JsExpression('Highcharts.getOptions().colors[2]'), // Joe's color
-                                                ],
-                                                [
-                                                    'name' => 'Pensiunan',
-                                                    'y' => 19,
-                                                    'color' => new JsExpression('Highcharts.getOptions().colors[3]'), // Joe's color
-                                                ],
-                                            ],
+                                            'name' => 'Total',
+                                            'data' => $arrayJenispegawai,
                                         ]
                                     ]
                                 ]

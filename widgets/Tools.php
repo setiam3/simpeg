@@ -91,7 +91,12 @@ class Tools extends \yii\bootstrap\Widget{
                 ->createCommand()->queryAll();
     }
     public function gjenisPegawai(){//pns / non /
-      return \app\models\MBiodata::find();
+      return \app\models\MBiodata::find()
+      ->select('nama_referensi,count("jenis_pegawai") as jumlah')
+      ->joinWith('jenispegawai')
+      ->where(['tipe_referensi'=>1])
+      ->groupBy("nama_referensi,jenis_pegawai")
+      ->createCommand()->queryAll(); 
     }
     public function golonganPegawai(){// bar, gol 1 2 3 
       
