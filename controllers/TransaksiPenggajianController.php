@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\MBiodata;
 use Yii;
 use app\models\TransaksiPenggajian;
 use app\models\TransaksiPenggajianSearch;
 use app\models\TransaksipenggajianDetail;
 use app\models\PotonganGaji;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -44,10 +46,13 @@ class TransaksiPenggajianController extends Controller
     {
         $searchModel = new TransaksiPenggajianSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $karyawan = MBiodata::find()->all();
+        $karyawan = ArrayHelper::map($karyawan,'id_data','nama');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'karyawan' => $karyawan,
         ]);
     }
 

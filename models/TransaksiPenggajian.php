@@ -87,8 +87,8 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    // public function getTransaksipenggajianDetails()
-    // {
-    //     return $this->hasMany(TransaksipenggajianDetail::className(), ['transgaji_id' => 'transgaji_id']);
-    // }
+     public function getTransaksipenggajianDetails()
+     {
+         return $this->hasMany(TransaksipenggajianDetail::className(), ['transgaji_id' => 'transgaji_id']);
+     }
 }

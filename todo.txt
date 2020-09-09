@@ -24,7 +24,7 @@ Data Pegawai
 Detail pegawai
     Biodata Pegawai + Foto [v]
     Daftar Riwayat Jabatan [v]
-    Daftar Riwayat Gaji
+    Daftar Riwayat Gaji [v]
     Daftar Riwayat Pendidikan [v]
     Data Keluarga [v]
     Daftar Riwayat Diklat [v]

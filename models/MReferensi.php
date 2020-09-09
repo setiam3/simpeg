@@ -15,7 +15,7 @@ use Yii;
  * @property MBiodata[] $mBiodatas
  * @property MReffTipe $tipeReferensi
  * @property Penggolongangaji[] $penggolongangajis
- * @property Penggolongangaji[] $penggolongangajis0
+// * @property Penggolongangaji[] $penggolongangajis0
  * @property Riwayatjabatan[] $riwayatjabatans
  */
 class MReferensi extends \yii\db\ActiveRecord
@@ -81,7 +81,8 @@ class MReferensi extends \yii\db\ActiveRecord
      */
     public function getPenggolongangajis()
     {
-        return $this->hasMany(MPenggolongangaji::className(), ['pangkat_id' => 'reff_id']);
+        return $this->hasMany(Penggolongangaji::className(), ['pangkat_id' => 'reff_id']);
+//        return $this->hasMany(Penggolongangaji::className(), ['golongan_id' => 'reff_id']);
     }
 
     /**

@@ -31,9 +31,6 @@ use yii\widgets\ActiveForm;
     ])->label('Nama');
     ?>
 
-    <script>
-        $('#pengajuanijin-id_data').value();
-    </script>
 
 
     <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(), [

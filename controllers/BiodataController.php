@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\TransaksiPenggajianSearch;
 use Yii;
 use app\models\MBiodata;
 use app\models\MBiodataSearch;
@@ -72,6 +73,7 @@ class BiodataController extends Controller
             'searchModelpendidikan' => new RiwayatpendidikanSearch(),
             'searchModeldiklat' => new RiwayatdiklatSearch(),
             'searchModeljabatan' => new RiwayatjabatanSearch(),
+            'searchModelpenggajian' => new TransaksiPenggajianSearch(),
         ]);
     }
 

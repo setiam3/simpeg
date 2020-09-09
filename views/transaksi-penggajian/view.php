@@ -10,14 +10,22 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'transgaji_id',
+//            'transgaji_id',
+            [
+                'attribute' => 'Karyawan',
+                'value' => function ($data) {
+                    return $data->data->nama;
+
+                },
+            ],
             'nomor_transgaji',
             'tgl_gaji',
-            'data_id',
-            'pelaksana_id',
+//            'pelaksana_id',
             'tgl_input',
             'total_brutto_gaji',
             'total_bersih_gaji',
+            'transgaji_id',
+
         ],
     ]) ?>
 

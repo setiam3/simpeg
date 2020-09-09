@@ -18,6 +18,7 @@ use Yii;
  * @property int $fk_golongan
  * @property string|null $tmt
  * @property string|null $dokumen
+ * @property string|null $nama
  *
  * @property MBiodata $data
  * @property Penggolongangaji $penggolongangaji
@@ -45,7 +46,7 @@ class MKepangkatan extends \yii\db\ActiveRecord
             [['ditetapkanOleh', 'noSk', 'tmt', 'dokumen'], 'string', 'max' => 255],
             [['ruang'], 'string', 'max' => 1],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
-            [['penggolongangaji_id'], 'exist', 'skipOnError' => true, 'targetClass' => MPenggolongangaji::className(), 'targetAttribute' => ['penggolongangaji_id' => 'id']],
+            [['penggolongangaji_id'], 'exist', 'skipOnError' => true, 'targetClass' => Penggolongangaji::className(), 'targetAttribute' => ['penggolongangaji_id' => 'id']],
         ];
     }
 
@@ -56,11 +57,11 @@ class MKepangkatan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
+            'id_data' => 'nama',
             'ditetapkanOleh' => 'Ditetapkan Oleh',
             'noSk' => 'No Sk',
             'tglSk' => 'Tgl Sk',
-            'penggolongangaji_id' => 'Penggolongangaji ID',
+            'penggolongangaji_id' => 'Golongan',
             'tmtPangkat' => 'Tmt Pangkat',
             'ruang' => 'Ruang',
             'fk_golongan' => 'Fk Golongan',
@@ -86,6 +87,6 @@ class MKepangkatan extends \yii\db\ActiveRecord
      */
     public function getPenggolongangaji()
     {
-        return $this->hasOne(MPenggolongangaji::className(), ['id' => 'penggolongangaji_id']);
+        return $this->hasOne(Penggolongangaji::className(), ['id' => 'penggolongangaji_id']);
     }
 }

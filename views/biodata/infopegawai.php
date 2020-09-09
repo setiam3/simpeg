@@ -74,7 +74,11 @@ use yii\helpers\Html;
                 ],
                 [
                     'label' => 'Gaji',
-                    'content' => 'Anim pariatur cliche...',
+//                    'content' => 'Anim pariatur cliche...',
+                    'content' => $this->render('//transaksi-penggajian/index',[
+                        'searchModel' => $searchModelpenggajian,
+                        'dataProvider' => $searchModelpenggajian->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                    ]),
                     'headerOptions' => ['class'],
                     'options' => ['id' => 'myveryownID'],
                 ],
