@@ -11,8 +11,8 @@ use yii\helpers\Html;
         <?php $linkFoto = \Yii::getAlias('@web/uploads/foto/' . $model->nip . '/' . $model->foto);
         if (file_exists(\Yii::getAlias('@uploads') . $model->nip . '/' . $model->foto) && !empty($model->foto)) {
             echo Html::a(Html::img($linkFoto, ['class' => 'col-xs-12']), $linkFoto, ['class' => '']);
-        }else{
-            $link=\Yii::getAlias('@web/uploads/foto/avatarfemale.jpg');
+        } else {
+            $link = \Yii::getAlias('@web/uploads/foto/avatarfemale.jpg');
             echo Html::a(Html::img($link, ['class' => 'col-xs-12']), $link, ['class' => '']);
         } ?>
 
@@ -74,9 +74,10 @@ use yii\helpers\Html;
                 ],
                 [
                     'label' => 'Gaji',
-                    'content' => 'Anim pariatur cliche...',
-                    'headerOptions' => ['class'],
-                    'options' => ['id' => 'myveryownID'],
+                    'content' => $this->render('//transaksi-penggajian/index', [
+                        'searchModel' => $searchModelgaji,
+                        'dataProvider' => $searchModelgaji->search(Yii::$app->request->queryParams, ['data_id' => $model->id_data])
+                    ]),
                 ],
                 [
                     'label' => 'Keluarga',

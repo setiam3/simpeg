@@ -14,6 +14,7 @@ use app\models\RiwayatdiklatSearch;
 use app\models\Riwayatjabatan;
 use app\models\RiwayatjabatanSearch;
 use app\models\RiwayatpendidikanSearch;
+use app\models\TransaksiPenggajianSearch;
 
 class BiodataController extends Controller
 {
@@ -72,6 +73,7 @@ class BiodataController extends Controller
             'searchModelpendidikan' => new RiwayatpendidikanSearch(),
             'searchModeldiklat' => new RiwayatdiklatSearch(),
             'searchModeljabatan' => new RiwayatjabatanSearch(),
+            'searchModelgaji' => new TransaksiPenggajianSearch(),
         ]);
     }
 

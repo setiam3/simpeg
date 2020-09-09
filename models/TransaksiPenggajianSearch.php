@@ -40,9 +40,9 @@ class TransaksiPenggajianSearch extends TransaksiPenggajian
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $where = NULL)
     {
-        $query = TransaksiPenggajian::find();
+        $query = TransaksiPenggajian::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
