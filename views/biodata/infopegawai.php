@@ -74,20 +74,12 @@ use yii\helpers\Html;
                 ],
                 [
                     'label' => 'Gaji',
-<<<<<<< HEAD
-//                    'content' => 'Anim pariatur cliche...',
-                    'content' => $this->render('//transaksi-penggajian/index',[
-                        'searchModel' => $searchModelpenggajian,
-                        'dataProvider' => $searchModelpenggajian->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
-                    ]),
-                    'headerOptions' => ['class'],
-                    'options' => ['id' => 'myveryownID'],
-=======
+
                     'content' => $this->render('//transaksi-penggajian/index', [
                         'searchModel' => $searchModelgaji,
                         'dataProvider' => $searchModelgaji->search(Yii::$app->request->queryParams, ['data_id' => $model->id_data])
                     ]),
->>>>>>> 24c159bcdcaa6b604ffe174d81f4a954ddbeded0
+
                 ],
                 [
                     'label' => 'Keluarga',
