@@ -51,7 +51,7 @@ class Riwayatdiklat extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
+            'id_data' => 'Nama',
             'namaDiklat' => 'Nama Diklat',
             'tempat' => 'Tempat',
             'penyelenggara' => 'Penyelenggara',

@@ -43,7 +43,7 @@ class MKepangkatanSearch extends MKepangkatan
     {
         $query = MKepangkatan::find();
         $query->joinWith('data');
-        $query->joinWith('penggolongangaji'));
+        $query->joinWith('penggolongangaji');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
