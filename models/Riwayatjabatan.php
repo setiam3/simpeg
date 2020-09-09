@@ -55,8 +55,8 @@ class Riwayatjabatan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
-            'id_jabatan' => 'Id Jabatan',
+            'id_data' => 'Karyawan',
+            'id_jabatan' => 'Jabatan',
             'eselon' => 'Eselon',
             'noSk' => 'No Sk',
             'tglSk' => 'Tgl Sk',

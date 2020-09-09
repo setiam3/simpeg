@@ -52,8 +52,8 @@ class MRekening extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
-            'bank_id' => 'Bank ID',
+            'id_data' => 'Karyawan',
+            'bank_id' => 'Nama Bank',
             'nomor_rekening' => 'Nomor Rekening',
             'npwp' => 'Npwp',
             'fotoNpwp' => 'Foto Npwp',
