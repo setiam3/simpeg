@@ -74,12 +74,10 @@ use yii\helpers\Html;
                 ],
                 [
                     'label' => 'Gaji',
-
                     'content' => $this->render('//transaksi-penggajian/index', [
                         'searchModel' => $searchModelgaji,
                         'dataProvider' => $searchModelgaji->search(Yii::$app->request->queryParams, ['data_id' => $model->id_data])
                     ]),
-
                 ],
                 [
                     'label' => 'Keluarga',
