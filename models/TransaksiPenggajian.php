@@ -54,7 +54,7 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
             'transgaji_id' => 'Transgaji ID',
             'nomor_transgaji' => 'Nomor Transgaji',
             'tgl_gaji' => 'Tgl Gaji',
-            'data_id' => 'Data ID',
+            'data_id' => 'Nama',
             'pelaksana_id' => 'Pelaksana ID',
             'tgl_input' => 'Tgl Input',
             'total_brutto_gaji' => 'Total Brutto Gaji',

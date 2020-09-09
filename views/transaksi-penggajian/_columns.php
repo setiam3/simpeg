@@ -17,10 +17,10 @@ return [
         'attribute' => 'data_id',
         'value' => 'data.nama',
     ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'transgaji_id',
-    ],
+    // [
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'attribute' => 'transgaji_id',
+    // ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'nomor_transgaji',
