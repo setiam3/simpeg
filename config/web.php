@@ -4,7 +4,8 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'timeZone'=>'Asia/Jakarta',
+    'id' => 'simpeg_v1',
     'name'=>'SIMPEG',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -17,12 +18,30 @@ $config = [
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+            'layout' => 'left-menu', // it can be '@path/to/your/layout'.
+            'controllerMap' => [
+                'assignment' => [
+                    'class' => 'mdm\admin\controllers\AssignmentController',
+                    'userClassName' => 'mdm\admin\models\User',
+                    'idField' => 'id'
+                ],
+            ],
+            'menus' => [
+                'assignment' => [
+                    'label' => 'Grand Access' // change label
+                ],
+                //'route' => null, // disable menu route
+            ]
+        ]
     ],
     'components' => [
         'view' => [
              'theme' => [
                  'pathMap' => [
-                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                    '@app/views' => '@app/views'
+                    //'@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
                  ],
              ],
         ],
@@ -41,17 +60,18 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'identityClass' => 'mdm\admin\models\User',
+            'loginUrl' => ['site/login'],
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -85,7 +105,21 @@ $config = [
             'rules' => [
             ],
         ],
-        
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',
+            'admin/*',
+            'debug/*'
+        ]
+    ],
+    'as beforeRequest' => [  //if guest user access site so, redirect to login page.
+        'class' => 'yii\filters\AccessControl',
+        'rules' => [
+            ['actions' => ['login'],'allow' => true,],
+            ['allow' => true,'roles' => ['@'],],
+        ],
     ],
     'params' => $params,
 ];

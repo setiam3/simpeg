@@ -58,7 +58,7 @@ class Menu extends \yii\db\ActiveRecord
     public static function getMenu($cnd=0) 
            { 
                $data2 = []; 
-               //$helper=new \mdm\admin\components\Helper; 
+               $helper=new \mdm\admin\components\Helper; 
                foreach(Menu::find()->where(['parent' => $cnd])->orderby('order')->all() as $haha) 
                { 
                    $row=[]; 
@@ -66,7 +66,7 @@ class Menu extends \yii\db\ActiveRecord
                    $row['label']  = $haha->name; 
                    $row['icon']  = $haha->icon; 
                    $row['url']    = [$haha->route]; 
-                   //$row['visible']    = $helper->checkRoute($haha->route); 
+                   $row['visible']    = $helper->checkRoute($haha->route); 
                    if(count(Menu::getMenu2($haha->id))>0) 
                    { 
                       $row['items'] = Menu::getMenu2($haha->id); 
@@ -79,7 +79,7 @@ class Menu extends \yii\db\ActiveRecord
            public static function getMenu2($cnd=0) 
            { 
                $data2 = []; 
-               //$helper=new \mdm\admin\components\Helper; 
+               $helper=new \mdm\admin\components\Helper; 
               foreach(Menu::find()->where(['parent' => $cnd ])->orderby('order')->all() as $haha) 
                { 
                     $row=[]; 
@@ -87,7 +87,7 @@ class Menu extends \yii\db\ActiveRecord
                     $row['label']  = $haha->name; 
                     $row['icon']  = $haha->icon; 
                     $row['url']    = [$haha->route]; 
-                    //$row['visible']    = $helper->checkRoute($haha->route); 
+                    $row['visible']    = $helper->checkRoute($haha->route); 
                     if(count(Menu::getMenu2($haha->id))>0) 
                           $row['items'] = Menu::getMenu2($haha->id); 
                     $data2[] =$row; 
