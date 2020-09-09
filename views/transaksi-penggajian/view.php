@@ -11,15 +11,31 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+<<<<<<< HEAD
+//            'transgaji_id',
+            [
+                'attribute' => 'Karyawan',
+                'value' => function ($data) {
+                    return $data->data->nama;
+
+=======
             //'transgaji_id',
             [
                 'attribute' => 'data_id',
                 'value' => function ($data) {
                     return $data->data->nama;
+>>>>>>> 24c159bcdcaa6b604ffe174d81f4a954ddbeded0
                 },
             ],
             'nomor_transgaji',
             'tgl_gaji',
+<<<<<<< HEAD
+//            'pelaksana_id',
+            'tgl_input',
+            'total_brutto_gaji',
+            'total_bersih_gaji',
+            'transgaji_id',
+=======
             'pelaksana_id',
             'tgl_input',
             'total_brutto_gaji',
@@ -50,6 +66,7 @@ use yii\widgets\DetailView;
             ],
 
 
+>>>>>>> 24c159bcdcaa6b604ffe174d81f4a954ddbeded0
 
         ],
     ]) ?>

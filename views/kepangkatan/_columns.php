@@ -16,8 +16,10 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'Karyawan',
+        'attribute'=>'id_data',
         'value' => 'data.nama',
+
+//        'filter' => Html::activeDropDownList($searchModel, 'id_data',$karyawan, ['class'=>'form-control']  ),
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -33,7 +35,7 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'Golongan',
+        'attribute'=>'penggolongangaji_id',
         'value' => 'penggolongangaji.pangkat.nama_referensi',
     ],
     // [

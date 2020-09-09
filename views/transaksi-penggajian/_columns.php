@@ -14,8 +14,13 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'transgaji_id',
+        'attribute' => 'data_id',
+        'value' => 'data.nama',
     ],
+    // [
+    //     'class' => '\kartik\grid\DataColumn',
+    //     'attribute' => 'transgaji_id',
+    // ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'nomor_transgaji',
@@ -23,10 +28,6 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'tgl_gaji',
-    ],
-    [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'data_id',
     ],
     [
         'class' => '\kartik\grid\DataColumn',

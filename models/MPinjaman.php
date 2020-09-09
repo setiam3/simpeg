@@ -49,7 +49,7 @@ class MPinjaman extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
+            'id_data' => 'Nama',
             'tanggal' => 'Tanggal',
             'jenis' => 'Jenis',
             'namaBarang' => 'Nama Barang',

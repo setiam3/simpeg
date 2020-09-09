@@ -18,8 +18,8 @@ class MKepangkatanSearch extends MKepangkatan
     public function rules()
     {
         return [
-            [['id', 'id_data', 'penggolongangaji_id', 'fk_golongan'], 'integer'],
-            [['ditetapkanOleh', 'noSk', 'tglSk', 'tmtPangkat', 'ruang', 'tmt', 'dokumen'], 'safe'],
+            [['id','fk_golongan', ], 'integer'],
+            [['ditetapkanOleh', 'noSk', 'tglSk', 'tmtPangkat', 'ruang', 'tmt', 'dokumen','id_data','penggolongangaji_id',], 'safe'],
         ];
     }
 
@@ -42,9 +42,12 @@ class MKepangkatanSearch extends MKepangkatan
     public function search($params)
     {
         $query = MKepangkatan::find();
+        $query->joinWith('data');
+        $query->joinWith('penggolongangaji');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+
         ]);
 
         $this->load($params);
@@ -57,18 +60,22 @@ class MKepangkatanSearch extends MKepangkatan
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_data' => $this->id_data,
             'tglSk' => $this->tglSk,
-            'penggolongangaji_id' => $this->penggolongangaji_id,
+//            'penggolongangaji_id' => $this->penggolongangaji_id,
             'tmtPangkat' => $this->tmtPangkat,
             'fk_golongan' => $this->fk_golongan,
+
         ]);
+
 
         $query->andFilterWhere(['like', 'ditetapkanOleh', $this->ditetapkanOleh])
             ->andFilterWhere(['like', 'noSk', $this->noSk])
             ->andFilterWhere(['like', 'ruang', $this->ruang])
             ->andFilterWhere(['like', 'tmt', $this->tmt])
+            ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data])
+            ->andFilterWhere(['like', 'penggolongangaji.pangkat.nama_referensi', $this->penggolongangaji_id])
             ->andFilterWhere(['like', 'dokumen', $this->dokumen]);
+
 
         return $dataProvider;
     }

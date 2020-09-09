@@ -5,7 +5,7 @@ use kartik\select2\Select2;
 use kartik\widgets\SwitchInput;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MPenggolonganGaji */
+/* @var $model app\models\PenggolonganGaji */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

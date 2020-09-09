@@ -61,7 +61,7 @@ class MPinjamanSearch extends MPinjaman
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_data' => $this->id_data,
+            //'id_data' => $this->id_data,
             'tanggal' => $this->tanggal,
             'jumlah' => $this->jumlah,
         ]);
