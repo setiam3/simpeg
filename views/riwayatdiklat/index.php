@@ -18,9 +18,9 @@ CrudAsset::register($this);
 $idmodal = md5($dataProvider->query->modelClass);
 ?>
 <div class="mriwayatdiklat-index">
-    <div id="ajaxCrudDatatable">
+    <div id="ajaxCrudDatatableDiklat">
         <?= GridView::widget([
-            'id' => 'crud-datatable',
+            'id' => 'crud-datatablediklat',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
@@ -34,7 +34,7 @@ $idmodal = md5($dataProvider->query->modelClass);
                     '{toggleData}'.
                     '{export}'
                 ],
-            ],          
+            ],
             'striped' => true,
             'condensed' => true,
             'responsive' => true,

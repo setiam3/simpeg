@@ -100,9 +100,17 @@ use yii\helpers\Html;
                         'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
                     ]),
                 ],
+                [
+                    'label' => 'Pengajuan Ijin',
+                    'content' => $this->render('//pengajuanijin/index', [
+                        'searchModel' => $searchModelpengajuanijin,
+                        'dataProvider' => $searchModelpengajuanijin->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                    ]),
+                ],
             ],
         ]);
         $this->title = "My Profile";
+        $this->params['breadcrumbs'] = "";
         ?>
     </div>
 </div>
