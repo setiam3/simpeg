@@ -18,9 +18,9 @@ CrudAsset::register($this);
 $idmodal = md5($dataProvider->query->modelClass);
 ?>
 <div class="transaksi-penggajian-index">
-    <div id="ajaxCrudDatatable">
+    <div id="ajaxCrudDatatableGaji">
         <?= GridView::widget([
-            'id' => 'crud-datatable',
+            'id' => 'crud-datatablegaji',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax' => true,

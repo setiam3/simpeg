@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\models\PengajuanijinSearch;
 use Yii;
 use app\models\UserSearch;
 use app\models\MBiodata;
@@ -10,6 +11,7 @@ use app\models\RiwayatdiklatSearch;
 use app\models\RiwayatjabatanSearch;
 use app\models\TransaksiPenggajianSearch;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 class ProfileController extends \yii\web\Controller
 {
@@ -25,6 +27,7 @@ class ProfileController extends \yii\web\Controller
             'searchModeldiklat' => new RiwayatdiklatSearch(),
             'searchModeljabatan' => new RiwayatjabatanSearch(),
             'searchModelgaji' => new TransaksiPenggajianSearch(),
+            'searchModelpengajuanijin' => new PengajuanijinSearch(),
         ]);
     }
     public function actionUpdate(){
