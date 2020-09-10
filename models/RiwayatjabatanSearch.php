@@ -39,9 +39,9 @@ class RiwayatjabatanSearch extends Riwayatjabatan
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$where=null)
     {
-        $query = Riwayatjabatan::find();
+        $query = Riwayatjabatan::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,8 +59,6 @@ class RiwayatjabatanSearch extends Riwayatjabatan
 
         $query->andFilterWhere([
             'id' => $this->id,
-            //'id_data' => $this->id_data,
-            //'id_jabatan' => $this->id_jabatan,
             'tglSk' => $this->tglSk,
             'tmtJabatan' => $this->tmtJabatan,
             'unit_kerja' => $this->unit_kerja,

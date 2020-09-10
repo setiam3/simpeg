@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mbiodata-view">
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_data], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_data], [
+        <?= Html::a('Update', ['biodata/update', 'id' => $model->id_data], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['biodata/delete', 'id' => $model->id_data], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

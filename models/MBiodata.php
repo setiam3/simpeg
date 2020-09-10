@@ -231,4 +231,7 @@ class MBiodata extends \yii\db\ActiveRecord
     public function getJenispegawai(){
         return $this->hasOne(MReferensi::className(),['reff_id'=>'jenis_pegawai']);
     }
+    public function getUserid(){
+        return $this->hasOne(\mdm\admin\models\User::className(),['id_data'=>'id_data']);
+    }
 }

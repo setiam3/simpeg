@@ -3,6 +3,7 @@ use miloschuman\highcharts\Highcharts;
 use yii\web\JsExpression;
 use yii\helpers\ArrayHelper;
 use dosamigos\chartjs\ChartJs;
+use app\widgets\Advquery;
 $this->title =Yii::$app->name;
 //echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 
