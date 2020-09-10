@@ -23,12 +23,10 @@ if(in_array('karyawan',$role)){
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $datas = Jatahcuti::findOne(['id_data' => $model->id_data]);
-    //    var_dump($datas);
-    //    die();
-    //    echo "Sisa Cuti ",$datas['sisa'];
-    ?>
+    <?php $datas = Jatahcuti::findOne(['id_data' => \Yii::$app->user->identity->id_data]);
 
+        echo "<h5>Sisa Cuti ",$datas['sisa'], "<h5>";
+    ?>
 
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
         'data' => $parent,
@@ -37,8 +35,6 @@ if(in_array('karyawan',$role)){
         ],
     ])->label('Nama Pegawai');
     ?>
-
-
 
     <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(), [
         'pluginOptions' => [
@@ -67,7 +63,6 @@ if(in_array('karyawan',$role)){
             'allowClear' => true
         ],
     ])->label('Jenis ijin'); ?>
-
 
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">

@@ -37,7 +37,7 @@ class UserController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {    
+    {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,7 +54,7 @@ class UserController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {   
+    {
         $request = Yii::$app->request;
         $model=$this->findModel($id);
         if($request->isAjax){
@@ -66,7 +66,7 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
         }else{
             return $this->render('view', [
                 'model' => $model,
@@ -83,7 +83,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Signup();  
+        $model = new Signup();
 
         if($request->isAjax){
             /*
@@ -98,8 +98,8 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
@@ -107,9 +107,9 @@ class UserController extends Controller
                     'content'=>'<span class="text-success">Create User success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-        
-                ];         
-            }else{           
+
+                ];
+            }else{
                 return [
                     'title'=> "Create new User",
                     'content'=>$this->renderAjax('create', [
@@ -117,8 +117,8 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
             /*
@@ -132,7 +132,7 @@ class UserController extends Controller
                 ]);
             }
         }
-       
+
     }
 
     /**
@@ -145,7 +145,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);
 
         if($request->isAjax){
             /*
@@ -160,7 +160,7 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
@@ -170,7 +170,7 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
             }else{
                  return [
                     'title'=> "Update User #".$id,
@@ -179,7 +179,7 @@ class UserController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
             /*
@@ -231,7 +231,7 @@ class UserController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -251,7 +251,7 @@ class UserController extends Controller
             */
             return $this->redirect(['index']);
         }
-       
+
     }
 
     /**
@@ -263,6 +263,13 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
+        if(in_array('approvel1',$role)){
+            $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+            $parent=[$data->id_data => $data->nama];
+        }else{
+            $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+        }
+
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {

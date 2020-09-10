@@ -37,7 +37,7 @@ class KeluargaController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {    
+    {
         $role=\Yii::$app->tools->getcurrentroleuser();
         if(in_array('karyawan',$role)){
             $where=['parent_id'=>\Yii::$app->user->identity->id_data];
@@ -60,7 +60,7 @@ class KeluargaController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {   
+    {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         if($request->isAjax){
@@ -72,7 +72,7 @@ class KeluargaController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
         }else{
             return $this->render('view', [
                 'model' => $model,
@@ -89,7 +89,7 @@ class KeluargaController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MBiodata();  
+        $model = new MBiodata();
 
         if($request->isAjax){
             /*
@@ -104,8 +104,8 @@ class KeluargaController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }else if($model->load($request->post()) ){
                 $model->is_pegawai=0;
                 if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
@@ -118,14 +118,14 @@ class KeluargaController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload'=>'#datatable'.md5(get_class($model)).'-pjax',
+                    'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Data Keluarga",
                     'content'=>'<span class="text-success">Create Data Keluarga success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-        
-                ];         
-            }else{           
+
+                ];
+            }else{
                 return [
                     'title'=> "Data Keluarga",
                     'content'=>$this->renderAjax('create', [
@@ -133,8 +133,8 @@ class KeluargaController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
             /*
@@ -158,7 +158,7 @@ class KeluargaController extends Controller
                 ]);
             }
         }
-       
+
     }
 
     /**
@@ -171,9 +171,9 @@ class KeluargaController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);   
-        $oldFoto=$model->foto;    
-        $oldFotoNik=$model->fotoNik;    
+        $model = $this->findModel($id);
+        $oldFoto=$model->foto;
+        $oldFotoNik=$model->fotoNik;
 
         if($request->isAjax){
             /*
@@ -188,7 +188,7 @@ class KeluargaController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
+                ];
             }else if( $model->load($request->post()) ){
                 $model->is_pegawai=0;
                 if(!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))){
@@ -207,14 +207,14 @@ class KeluargaController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload'=>'#datatable'.md5(get_class($model)).'-pjax',
+                    'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Data Keluarga #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
             }else{
                  return [
                     'title'=> "Update Data Keluarga #".$id,
@@ -223,7 +223,7 @@ class KeluargaController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
             /*
@@ -278,7 +278,7 @@ class KeluargaController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#datatable'.md5(get_class($model)).'-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -297,7 +297,7 @@ class KeluargaController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -316,14 +316,14 @@ class KeluargaController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#datatable'.md5(get_class($model))];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
         }else{
             /*
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
         }
-       
+
     }
 
     /**

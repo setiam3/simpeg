@@ -31,12 +31,6 @@ use yii\widgets\ActiveForm;
     ])->label('Nama');
     ?>
 
-<!--    --><?//= $form->field($model, 'approval1')->textInput() ?>
-<!---->
-<!--    --><?//= $form->field($model, 'approval2')->textInput() ?>
-<!---->
-<!--    --><?//= $form->field($model, 'disetujui')->textInput() ?>
-
     <?= $form->field($model, 'jenisIjin')->textInput(['maxlength' => true,'readonly' => true,]) ?>
 
     <?= $form->field($model, 'approval1')->widget(\kartik\widgets\SwitchInput::classname(),['pluginOptions'=>[
