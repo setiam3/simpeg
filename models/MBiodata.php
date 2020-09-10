@@ -114,7 +114,7 @@ class MBiodata extends \yii\db\ActiveRecord
      */
     public function getKepangkatans()
     {
-        return $this->hasMany(Kepangkatan::className(), ['id_data' => 'id_data']);
+        return $this->hasMany(MKepangkatan::className(), ['id_data' => 'id_data']);
     }
 
     /**

@@ -8,11 +8,18 @@ $this->title =Yii::$app->name;
 //echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 
 $populasi=\Yii::$app->tools->grafikPopulasi();
-$jenispegawai=\Yii::$app->tools->gjenisPegawai(); 
+$jenispegawai=\Yii::$app->tools->gjenisPegawai();
+$golpeg=\Yii::$app->tools->golonganPegawai();
+//$pegultah=\Yii::$app->tools->ultahPegawai();
+
 foreach($jenispegawai as $row){
     $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
 }
-
+foreach ($golpeg as $row){
+    $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
+}
+//print_r($pegultah);
+//die();
 ?>
 <section class="content">
     <div class="row">
@@ -25,80 +32,89 @@ foreach($jenispegawai as $row){
                         <?= Highcharts::widget([
                             'options' => [
                                 'title' => ['text' => 'Golongan'],
-                                'xAxis' => [
-                                    'categories' => [
-                                            'Juru Muda	I/a',
-                                        'Juru Muda Tingkat I I/b',
-                                        'Juru	I/c',
-                                        'Juru Tingkat I I/d',
-                                        'Pengatur Muda	II/a',
-                                        'Pengatur Muda Tingkat I II/b',
-                                        'Pengatur II/c',
-                                        'Pengatur Tingkat I II/d',
-                                        'Penata III/c',
-                                        'Penata Tingkat I III/d',
-                                        'Pembina IV/a',
-                                        'Pembina Tingkat I IV/b',
-                                        'Pembina Utama Muda IV/c',
-                                        'Pembina Utama Madya IV/d',
-                                        'Pembina Utama IV/e',
-                                        ]
-                                ],
-                                'yAxis' => [
-                                    'title' => ['text' => 'Jumlah']
-                                ],
+                                    'xAxis' => [
+                                        'categories' => [
+                                                'Juru Muda	I/a',
+                                            'Juru Muda Tingkat I I/b',
+                                            'Juru	I/c',
+                                            'Juru Tingkat I I/d',
+                                            'Pengatur Muda	II/a',
+                                            'Pengatur Muda Tingkat I II/b',
+                                            'Pengatur II/c',
+                                            'Pengatur Tingkat I II/d',
+                                            'Penata III/c',
+                                            'Penata Tingkat I III/d',
+                                            'Pembina IV/a',
+                                            'Pembina Tingkat I IV/b',
+                                            'Pembina Utama Muda IV/c',
+                                            'Pembina Utama Madya IV/d',
+                                            'Pembina Utama IV/e',
+                                            ]
+                                    ],
+                                    'yAxis' => [
+                                        'title' => ['text' => 'Jumlah']
+                                    ],
                                 'series' => [
                                     [
                                         'type' => 'column',
 
-//                                        'data' => [3, 2, 1, 3, 4],
-                                        'data' => [
-                                                ['name'=>'Juru Muda	I/a',
-                                                'y'=>3,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[0]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>2,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[1]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>1,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[2]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>5,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[3]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>9,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[4]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>2,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[5]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>3,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[6]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>4,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[7]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>7,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[8]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>7,
-                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[9]'),],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>6,
-                                                    'color'=>'#2f7ed8',],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>3,
-                                                    'color'=>'#0d233a',],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>1,
-                                                    'color'=>'#8bbc21',],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>7,
-                                                    'color'=>'#910000',],
-                                            ['name'=>'Juru Muda	I/a',
-                                                'y'=>4,
-                                                    'color'=>'#1aadce',],
-                                        ],
+                                        'data' => $arrayGolPeg,
+//                                        'data' => [
+//                                                [$arrayGolPeg],
+//                                                ['name'=>'Juru Muda	I/a',
+//                                                'y'=>3,
+////                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[0]'),
+//                                                    ],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>2,
+////                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[1]'),
+//                                                ],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>1,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[2]'),
+//                                                ],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>5,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[3]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>9,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[4]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>2,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[5]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>3,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[6]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>4,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[7]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>7,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[8]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>7,
+//                                                    'color'=>new JsExpression('Highcharts.getOptions().colors[9]'),],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>6,
+//                                                    'color'=>'#2f7ed8',],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>3,
+//                                                    'color'=>'#0d233a',],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>1,
+//                                                    'color'=>'#8bbc21',],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>7,
+//                                                    'color'=>'#910000',],
+//                                            ['name'=>'Juru Muda	I/a',
+//                                                'y'=>4,
+//                                                    'color'=>'#1aadce',],
+//                                        ],
+                                        'center' => [100, 80],
+                                        'size' => 100,
+                                        'showInLegend' => false,
+                                        'dataLabels' => [
+                                            'enabled' => true,]
                                     ],
 
                                 ]
@@ -125,11 +141,6 @@ foreach($jenispegawai as $row){
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Pijar</td>
-                                    <td>12-09-2020</td>
-                                    <td>25</td>
-                                </tr>
                                 <tr>
                                     <td>Pijar</td>
                                     <td>12-09-2020</td>
@@ -248,11 +259,13 @@ foreach($jenispegawai as $row){
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
-                            </tr>
+<!--                            --><?php //foreach ($pegultah as $ultah){ ?>
+<!--                            <tr>-->
+<!--                                <td>--><?//= $ultah->nama ?><!--</td>-->
+<!--                                <td>12-09-2020</td>-->
+<!--                                <td>25</td>-->
+<!--                            </tr>-->
+<!--<!--                            -->--><?php ////} ?>
                             <tr>
                                 <td>Pijar</td>
                                 <td>12-09-2020</td>
