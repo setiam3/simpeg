@@ -66,7 +66,7 @@ class RiwayatjabatanController extends Controller
                     'model' => $model,
                 ]),
                 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
             ];
         } else {
             return $this->render('view', [
@@ -110,11 +110,11 @@ class RiwayatjabatanController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
                     'title' => "Create new Riwayatjabatan",
                     'content' => '<span class="text-success">Create Riwayatjabatan success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
 
                 ];
             } else {
@@ -178,13 +178,13 @@ class RiwayatjabatanController extends Controller
                 $model->save();
 
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
                     'title' => "Riwayatjabatan #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
                 ];
             } else {
                 return [
@@ -220,7 +220,6 @@ class RiwayatjabatanController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-
         $model = $this->findModel($id);
         if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
             unlink($filename);
@@ -233,7 +232,7 @@ class RiwayatjabatanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
             /*
             *   Process for non-ajax request
@@ -266,7 +265,7 @@ class RiwayatjabatanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
             /*
             *   Process for non-ajax request
