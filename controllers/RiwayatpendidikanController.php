@@ -103,7 +103,7 @@ class RiwayatpendidikanController extends Controller
             }else if($model->load($request->post())){
 
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen'. $model->data->nip);
                     $model->dokumen = $ext;
                 }
 
