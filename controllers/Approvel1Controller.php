@@ -165,7 +165,7 @@ class Approvel1Controller extends Controller
             }else if($model->load($request->post())){
 
                 if ($model->approval1=='1'){
-                    $model->approval1='99';
+                    $model->approval1=\Yii::$app->user->identity->id_data;
                 }else{
                     $model->disetujui='0';
                 }
@@ -271,6 +271,7 @@ class Approvel1Controller extends Controller
      */
     protected function findModel($id)
     {
+
         if (($model = Pengajuanijin::findOne($id)) !== null) {
             return $model;
         } else {

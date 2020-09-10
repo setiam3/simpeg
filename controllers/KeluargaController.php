@@ -118,11 +118,7 @@ class KeluargaController extends Controller
                 }
                 $model->save(false);
                 return [
-<<<<<<< HEAD
-                    'forceReload'=>'#crud-datatable-pjax'),
-=======
-                    'forceReload'=>'#datatable'.md5(get_class($model)).'-pjax',
->>>>>>> 615d336badf3980a6244b12b00f29def154312cc
+                    'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Data Keluarga",
                     'content'=>'<span class="text-success">Create Data Keluarga success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -211,7 +207,7 @@ class KeluargaController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload'=>'#datatable'.md5(get_class($model)).'-pjax',
+                    'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Data Keluarga #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
@@ -282,7 +278,7 @@ class KeluargaController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#datatable'.md5(get_class($model)).'-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -320,7 +316,7 @@ class KeluargaController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#datatable'.md5(get_class($model))];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
         }else{
             /*
             *   Process for non-ajax request
