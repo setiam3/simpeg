@@ -53,7 +53,7 @@ class Penggolongangaji extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'pangkat_id' => 'Pangkat ID',
+            'pangkat_id' => 'Pangkat',
             'masa_kerja' => 'Masa Kerja',
             'gaji' => 'Gaji',
             'status_penggolongan' => 'Status Penggolongan',
