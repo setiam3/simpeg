@@ -18,10 +18,9 @@ class MTunjanganSearch extends MTunjangan
     public function rules()
     {
         return [
-            [['id', 'tunjangan_id', 'id_data'], 'integer'],
-//            [['tunjangan', 'karyawan'], 'string'],
+            [['id',], 'integer'],
             [['nominal'], 'number'],
-            [['status'], 'safe'],
+            [['status','tunjangan_id','id_data'], 'safe'],
         ];
     }
 
@@ -44,6 +43,8 @@ class MTunjanganSearch extends MTunjangan
     public function search($params)
     {
         $query = MTunjangan::find();
+        $query->joinWith('tunjangan');
+        $query->joinWith('data');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,14 +60,14 @@ class MTunjanganSearch extends MTunjangan
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'tunjangan_id' => $this->tunjangan_id,
+//            'tunjangan_id' => $this->tunjangan_id,
             'nominal' => $this->nominal,
-            'id_data' => $this->id_data,
-//            'tunjangan' => $this->tunjangan,
-//            'karyawan' => $this->nama,
+//            'id_data' => $this->id_data,
         ]);
 
-        $query->andFilterWhere(['like', 'status', $this->status]);
+        $query->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'm_referensi.nama_referensi', $this->tunjangan_id])
+            ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data]);
 
         return $dataProvider;
     }

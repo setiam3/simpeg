@@ -16,7 +16,7 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'Tunjangan',
+        'attribute'=>'tunjangan_id',
         'value' => 'tunjangan.nama_referensi',
     ],
     [
@@ -29,14 +29,14 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'Nama Pegawai',
+        'attribute'=>'id_data',
         'value' => 'data.nama',
     ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { 
+        'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
@@ -65,4 +65,4 @@ return [
         ],
     ],
 
-];   
+];

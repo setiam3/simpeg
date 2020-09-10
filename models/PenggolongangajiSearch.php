@@ -18,8 +18,8 @@ class PenggolongangajiSearch extends Penggolongangaji
     public function rules()
     {
         return [
-            [['id', 'pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'integer'],
-            [['gaji', 'status_penggolongan', 'ruang'], 'safe'],
+            [['id', 'masa_kerja',], 'integer'],
+            [['gaji', 'status_penggolongan', 'ruang','pangkat_id','jenis_pegawai'], 'safe'],
         ];
     }
 
@@ -42,6 +42,8 @@ class PenggolongangajiSearch extends Penggolongangaji
     public function search($params)
     {
         $query = Penggolongangaji::find();
+        $query->joinWith('pangkat');
+        $query->joinWith('jenisPegawai');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,13 +59,15 @@ class PenggolongangajiSearch extends Penggolongangaji
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'pangkat_id' => $this->pangkat_id,
+//            'pangkat_id' => $this->pangkat_id,
             'masa_kerja' => $this->masa_kerja,
-            'jenis_pegawai' => $this->jenis_pegawai,
+//            'jenis_pegawai' => $this->jenis_pegawai,
         ]);
 
         $query->andFilterWhere(['like', 'gaji', $this->gaji])
             ->andFilterWhere(['like', 'status_penggolongan', $this->status_penggolongan])
+            ->andFilterWhere(['like', 'm_referensi.nama_referensi', $this->pangkat_id])
+            ->andFilterWhere(['like', 'm_referensi.nama_referensi', $this->jenis_pegawai])
             ->andFilterWhere(['like', 'ruang', $this->ruang]);
 
         return $dataProvider;

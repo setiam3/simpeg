@@ -1,5 +1,6 @@
-<?php 
+<?php
 namespace app\widgets;
+use app\models\MBiodata;
 use DateTime;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
@@ -8,7 +9,7 @@ use yii\helpers\ArrayHelper;
 class Tools extends \yii\bootstrap\Widget{
 
     public function init(){
-        parent::init();   
+        parent::init();
     }
     public function upload($instancename,$path){
       $file=UploadedFile::getInstanceByName($instancename);
@@ -28,7 +29,7 @@ class Tools extends \yii\bootstrap\Widget{
       $preview='';
       $ext=pathinfo($pathfile);
       $image=['jpg','jpeg','png'];
-     
+
       if($ext['extension']=='pdf'){
         $this->genPdfThumbnail($pathfile,$ext['basename'].'.jpeg');
         $preview=\Yii::getAlias('@web/uploads/foto/510204244/').$ext['basename'].'.jpeg';
@@ -39,7 +40,7 @@ class Tools extends \yii\bootstrap\Widget{
       }
       return $preview;
     }
-    
+
     public function genPdfThumbnail($source, $target){
         $target = dirname($source).DIRECTORY_SEPARATOR.$target;
         $im     = new Imagick($source); // 0-first page, 1-second page
@@ -50,7 +51,7 @@ class Tools extends \yii\bootstrap\Widget{
         $im->clear();
         $im->destroy();
     }
-    
+
     public function getUsia($date){
 
       $datetime1 = new DateTime($date);
@@ -78,7 +79,7 @@ class Tools extends \yii\bootstrap\Widget{
             $icon[]=['key'=>$k,'value'=>$typeicons.$k];
         }
       }
-      
+
       return $icon;
     }
 
@@ -96,16 +97,33 @@ class Tools extends \yii\bootstrap\Widget{
       ->joinWith('jenispegawai')
       ->where(['tipe_referensi'=>1])
       ->groupBy("nama_referensi,jenis_pegawai")
-      ->createCommand()->queryAll(); 
+      ->createCommand()->queryAll();
     }
-    public function golonganPegawai(){// bar, gol 1 2 3 
-      
+    public function golonganPegawai(){// bar, gol 1 2 3
+        return MBiodata::find()
+            ->select('nama_referensi,count(nama_referensi) as jumlah')
+            ->joinWith(['kepangkatans' => function($query){
+                $query->joinWith(['penggolongangaji' => function($query){
+                    $query->joinWith('jenisPegawai');
+                }]);
+            }])
+//            ->joinWith('penggolongangaji')
+//            ->joinWith('jenisPegawai')
+            ->groupBy("nama_referensi")
+            ->createCommand()
+            ->queryAll();
+//        ->all();
+
     }
-    public function ultahPegawai($my){// month year
-      return $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>$my])->all();
+    public function ultahPegawai(){// month year
+$sql = 'select * from m_biodata where EXTRACT(month FROM "tanggalLahir") :: INTEGER = 1
+        and EXTRACT(DAY FROM "tanggalLahir") :: INTEGER = 1';
+
+      return $hasil = \Yii::$app->db->createCommand($sql)->all();
+//          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
     }
     public function nextPensiun($y){// akan pensiun
-      
+
     }
     protected function findModelAll($condition,$models){
         $modelx=\Yii::createObject([

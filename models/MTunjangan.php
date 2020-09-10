@@ -49,10 +49,10 @@ class MTunjangan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tunjangan_id' => 'Tunjangan ID',
+            'tunjangan_id' => 'Tunjangan',
             'nominal' => 'Nominal',
             'status' => 'Status',
-            'id_data' => 'Id Data',
+            'id_data' => 'Nama Karyawan',
         ];
     }
 
