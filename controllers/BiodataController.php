@@ -15,7 +15,7 @@ use app\models\RiwayatdiklatSearch;
 use app\models\Riwayatjabatan;
 use app\models\RiwayatjabatanSearch;
 use app\models\RiwayatpendidikanSearch;
-//use app\models\TransaksiPenggajianSearch;
+
 
 class BiodataController extends Controller
 {
