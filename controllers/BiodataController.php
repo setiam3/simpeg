@@ -8,6 +8,7 @@ use app\models\MBiodata;
 use app\models\MBiodataSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\MKeluargaSearch;
@@ -237,10 +238,12 @@ class BiodataController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = MBiodata::findOne($id)) !== null) {
-            return $model;
+        if($id==\Yii::$app->user->identity->id_data){
+            if (($model = MBiodata::findOne($id)) !== null) {
+                return $model;
+            }
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new ForbiddenHttpException;
     }
 }

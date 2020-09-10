@@ -125,6 +125,13 @@ $sql = 'select * from m_biodata where EXTRACT(month FROM "tanggalLahir") :: INTE
     public function nextPensiun($y){// akan pensiun
 
     }
+    public function getcurrentroleuser(){
+      $currentrole=\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id);
+      foreach($currentrole as $roles){
+        $role[]=['name'=>$roles->name];
+      }
+      return ArrayHelper::map($role,'name','name');
+    }
     protected function findModelAll($condition,$models){
         $modelx=\Yii::createObject([
           'class' => "app\models\\".$models,

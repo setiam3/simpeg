@@ -7,6 +7,14 @@ use kartik\file\FileInput;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use kartik\date\DatePicker;
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+    $parent=[$data->id_data => $data->nama];
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+}
+
 ?>
 
 <div class="mbiodata-form">
@@ -15,12 +23,11 @@ use kartik\date\DatePicker;
     <div class="row">
     <div class="col-xs-4">
     <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>1]), 'id_data','nama'),
-                'options' => ['placeholder' => 'Select  ...'],
+                'data' => $parent,
                 'pluginOptions' => [
-                    'allowClear' => true
+                    'allowClear' => false
                 ],
-            ]) ?>
+    ])->label('Nama Pegawai') ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
