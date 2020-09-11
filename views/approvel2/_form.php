@@ -11,18 +11,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tanggalPengajuan')->textInput(['readonly' => true,]) ?>
-
-    <?= $form->field($model, 'tanggalMulai')->textInput(['readonly' => true,]) ?>
-
-    <?= $form->field($model, 'tanggalAkhir')->textInput(['readonly' => true,]) ?>
-
-    <?= $form->field($model, 'alasan')->textArea(['readonly' => true]) ?>
-
-<!--    --><?//= $form->field($model, 'id_data')->textInput() ?>
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
         'disabled'=>'readonly',
-//            'readonly'=>true,
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=> '1'])->all(),'id_data','nama'),
         'language' => 'de',
         'options' => ['placeholder' => 'Select a state ...'],
@@ -32,6 +22,13 @@ use yii\widgets\ActiveForm;
     ])->label('Nama');
     ?>
 
+    <?= $form->field($model, 'tanggalPengajuan')->textInput(['readonly' => true,]) ?>
+
+    <?= $form->field($model, 'tanggalMulai')->textInput(['readonly' => true,]) ?>
+
+    <?= $form->field($model, 'tanggalAkhir')->textInput(['readonly' => true,]) ?>
+
+    <?= $form->field($model, 'alasan')->textArea(['readonly' => true]) ?>
 
     <?= $form->field($model, 'jenisIjin')->textInput(['maxlength' => true]) ?>
 

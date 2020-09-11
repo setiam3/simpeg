@@ -16,6 +16,11 @@ return [
     // ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'Nama Pegawai',
+        'value' => 'data.nama',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'tanggalPengajuan',
     ],
     [
@@ -30,10 +35,7 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'alasan',
     ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'id_data',
-    ],
+
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'approval1',
