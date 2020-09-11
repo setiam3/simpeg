@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Pengajuanijin */
 ?>
 <div class="pengajuanijin-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -15,8 +15,22 @@ use yii\widgets\DetailView;
             'tanggalMulai',
             'tanggalAkhir',
             'alasan',
-            'id_data',
+//            'id_data',
+            [
+                'attribute' => 'Karyawan',
+                'value' => function ($data) {
+                    return $data->data->nama;
+
+                },
+            ],
             'approval1',
+//            [
+//                'attribute' => 'approval1',
+//                'value' => function ($data) {
+//                    return $data->data->nama;
+//
+//                },
+//            ],
             'approval2',
             'disetujui',
             'jenisIjin',
