@@ -207,6 +207,11 @@ class MBiodata extends \yii\db\ActiveRecord
         return $this->hasMany(Riwayatjabatan::className(), ['id_data' => 'id_data']);
     }
 
+    public function getRiwayatjabatan()
+    {
+        return $this->hasOne(Riwayatjabatan::className(), ['id_data' => 'id_data']);
+    }
+
     /**
      * Gets query for [[Riwayatpendidikans]].
      *

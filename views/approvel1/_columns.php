@@ -13,11 +13,14 @@ return [
         'width' => '30px',
     ],
 
+
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'unit kerja',
-        'value' => 'data.riwayarJabatas.jabatan.nama_referensi'
+        'value' => 'data.riwayatjabatan.jabatan.nama_referensi'
+
     ],
+
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
@@ -67,6 +70,7 @@ return [
             'view' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel1/view?id=' . $model->id;
+
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
             },
             'update' => function ($url, $model) {
