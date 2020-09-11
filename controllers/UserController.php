@@ -263,13 +263,6 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if(in_array('approvel1',$role)){
-            $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
-            $parent=[$data->id_data => $data->nama];
-        }else{
-            $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
-        }
-
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
