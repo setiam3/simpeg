@@ -69,7 +69,7 @@ use yii\helpers\Html;
                     'label' => 'Jabatan',
                     'content' => $this->render('//riwayatjabatan/index', [
                         'searchModel' => $searchModeljabatan,
-                        'dataProvider' => $searchModeljabatan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                        'dataProvider' => $searchModeljabatan->search(Yii::$app->request->queryParams, ['riwayatjabatan.id_data' => $model->id_data])
                     ]),
                 ],
                 [
