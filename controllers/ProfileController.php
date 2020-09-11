@@ -10,6 +10,7 @@ use app\models\RiwayatdiklatSearch;
 use app\models\RiwayatjabatanSearch;
 use app\models\TransaksiPenggajianSearch;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 class ProfileController extends \yii\web\Controller
 {
