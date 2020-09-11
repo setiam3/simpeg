@@ -12,18 +12,17 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-<<<<<<< HEAD
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'id',
-    // ],
-=======
-         [
-         'class'=>'\kartik\grid\DataColumn',
-         'attribute'=>'unit kerja',
-             'value'=>'data.riwayarJabatas.jabatan.nama_referensi'
+
+     [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'unit kerja',
+         'value'=>'data.riwayatjabatan.jabatan.nama_referensi'
+//        'value' => implode(\yii\helpers\ArrayHelper::map($model->trandetail, 'transgaji_id', 'gol_gaji'))
+//function ($data) {return $data->riwayatjabatans->id;
+
+//         },
      ],
->>>>>>> revisi appovel
+
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
@@ -73,11 +72,9 @@ return [
             'view' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel1/view?id=' . $model->id;
-<<<<<<< HEAD
-                //                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote','data-target'=>'#'.$idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
-=======
+
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote','data-target'=>'#'.$idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
->>>>>>> revisi appovel
+
             },
             'update' => function ($url, $model) {
                 $idmodal = md5($model::className());
@@ -87,16 +84,7 @@ return [
             'delete' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel1/delete?id=' . $model->id;
-<<<<<<< HEAD
-                //                return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
-                //                    'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
-                //                    'data-confirm' => false, 'data-method' => false,
-                //                    'data-request-method' => 'post',
-                //                    'data-toggle' => 'tooltip',
-                //                    'data-confirm-title' => 'Are you sure?',
-                //                    'data-confirm-message' => 'Are you sure want to delete this item'
-                //                ]);
-=======
+
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
                     'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
                     'data-confirm' => false, 'data-method' => false,
@@ -105,7 +93,7 @@ return [
                     'data-confirm-title' => 'Are you sure?',
                     'data-confirm-message' => 'Are you sure want to delete this item'
                 ]);
->>>>>>> revisi appovel
+
             },
         ],
     ],

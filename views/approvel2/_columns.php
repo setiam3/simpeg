@@ -16,7 +16,7 @@ return [
 
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'unit',
-        'value'=>'data.riwayarJabatas.jabatan.nama_referensi',
+        'value'=>'data.riwayatjabatan.jabatan.nama_referensi'
     ],[
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'Nama Pegawai',
