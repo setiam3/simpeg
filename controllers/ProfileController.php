@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\models\PengajuanijinSearch;
 use Yii;
 use app\models\UserSearch;
 use app\models\MBiodata;
@@ -26,6 +27,7 @@ class ProfileController extends \yii\web\Controller
             'searchModeldiklat' => new RiwayatdiklatSearch(),
             'searchModeljabatan' => new RiwayatjabatanSearch(),
             'searchModelgaji' => new TransaksiPenggajianSearch(),
+            'searchModelpengajuanijin' => new PengajuanijinSearch(),
         ]);
     }
     public function actionUpdate(){

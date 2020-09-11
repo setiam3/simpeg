@@ -38,8 +38,14 @@ class PengajuanijinController extends Controller
      */
     public function actionIndex()
     {
+        $role=\Yii::$app->tools->getcurrentroleuser();
+        if(in_array('karyawan',$role)){
+            $where=['parent_id'=>\Yii::$app->user->identity->id_data];
+        }else{
+            $where='';
+        }
         $searchModel = new PengajuanijinSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -106,7 +112,7 @@ class PengajuanijinController extends Controller
                 $model->save(false);
 
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Create new Pengajuanijin",
                     'content'=>'<span class="text-success">Create Pengajuanijin success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -167,7 +173,7 @@ class PengajuanijinController extends Controller
                 ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Pengajuanijin #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
@@ -216,7 +222,7 @@ class PengajuanijinController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -248,7 +254,7 @@ class PengajuanijinController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request

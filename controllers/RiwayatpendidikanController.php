@@ -37,7 +37,7 @@ class RiwayatpendidikanController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {    
+    {
         $searchModel = new RiwayatpendidikanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,7 +54,7 @@ class RiwayatpendidikanController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {   
+    {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         if($request->isAjax){
@@ -66,7 +66,7 @@ class RiwayatpendidikanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
         }else{
             return $this->render('view', [
                 'model' =>$model,
@@ -83,7 +83,7 @@ class RiwayatpendidikanController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Riwayatpendidikan();  
+        $model = new Riwayatpendidikan();
 
         if($request->isAjax){
             /*
@@ -98,27 +98,27 @@ class RiwayatpendidikanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }else if($model->load($request->post())){
-                
+
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen'. $model->data->nip);
                     $model->dokumen = $ext;
                 }
 
                 if($model->save(false)){
                     return [
-                        'forceReload'=>'#crud-datatable-pjax',
+                        'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                         'title'=> "Create new Riwayatpendidikan",
                         'content'=>'<span class="text-success">Create Riwayatpendidikan success</span>',
                         'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-            
-                    ]; 
+
+                    ];
                 }
-                        
-            }else{           
+
+            }else{
                 return [
                     'title'=> "Create new Riwayatpendidikan",
                     'content'=>$this->renderAjax('create', [
@@ -126,8 +126,8 @@ class RiwayatpendidikanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
             /*
@@ -141,7 +141,7 @@ class RiwayatpendidikanController extends Controller
                 ]);
             }
         }
-       
+
     }
 
     /**
@@ -154,7 +154,7 @@ class RiwayatpendidikanController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id); 
+        $model = $this->findModel($id);
         $oldFoto=$model->dokumen;
         if($request->isAjax){
             /*
@@ -169,7 +169,7 @@ class RiwayatpendidikanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
+                ];
             }else if($model->load($request->post())){
                 if(!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))){
                     if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldFoto) && !empty($oldFoto)){
@@ -183,14 +183,14 @@ class RiwayatpendidikanController extends Controller
                 }
                 $model->save();
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Riwayatpendidikan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
             }else{
                  return [
                     'title'=> "Update Riwayatpendidikan #".$id,
@@ -199,7 +199,7 @@ class RiwayatpendidikanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
             /*
@@ -255,7 +255,7 @@ class RiwayatpendidikanController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -271,14 +271,14 @@ class RiwayatpendidikanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
         }
-       
+
     }
 
     /**

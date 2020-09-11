@@ -18,23 +18,28 @@ CrudAsset::register($this);
 $idmodal = md5($dataProvider->query->modelClass);
 ?>
 <div class="mriwayatdiklat-index">
-    <div id="ajaxCrudDatatable">
+    <div id="ajaxCrudDatatableDiklat">
         <?= GridView::widget([
-            'id' => 'crud-datatable',
+            'id' => 'crud-datatablediklat' . $idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'pjax'=>true,
-            'columns' => require(__DIR__.'/_columns.php'),
-            'toolbar'=> [
-                ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatdiklat/create'],
-                    ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Riwayatdiklat','class'=>'btn btn-default']).
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
-                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
-                    '{toggleData}'.
-                    '{export}'
-                ],
-            ],          
+            'pjax' => true,
+            'columns' => require(__DIR__ . '/_columns.php'),
+            'toolbar' => [
+                ['content' =>
+                Html::a(
+                    '<i class="glyphicon glyphicon-plus"></i>',
+                    ['riwayatdiklat/create'],
+                    ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new Riwayatdiklat', 'class' => 'btn btn-default']
+                ) .
+                    Html::a(
+                        '<i class="glyphicon glyphicon-repeat"></i>',
+                        [''],
+                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                    ) .
+                    '{toggleData}' .
+                    '{export}'],
+            ],
             'striped' => true,
             'condensed' => true,
             'responsive' => true,

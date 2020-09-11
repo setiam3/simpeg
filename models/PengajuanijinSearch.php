@@ -39,9 +39,9 @@ class PengajuanijinSearch extends Pengajuanijin
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$where = null)
     {
-        $query = Pengajuanijin::find();
+        $query = Pengajuanijin::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

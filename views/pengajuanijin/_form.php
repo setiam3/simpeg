@@ -8,30 +8,33 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengajuanijin */
 /* @var $form yii\widgets\ActiveForm */
+
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+    $parent=[$data->id_data => $data->nama];
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+}
+
 ?>
 
 <div class="pengajuanijin-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $datas = Jatahcuti::findOne(['id_data' => $model->id_data]);
-    //    var_dump($datas);
-    //    die();
-    //    echo "Sisa Cuti ",$datas['sisa'];
-    ?>
+    <?php $datas = Jatahcuti::findOne(['id_data' => \Yii::$app->user->identity->id_data]);
 
+        echo "<h5>Sisa Cuti ",$datas['sisa'], "<h5>";
+    ?>
 
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => '1'])->all(), 'id_data', 'nama'),
-        'language' => 'de',
-        'options' => ['placeholder' => 'Select a state ...'],
+        'data' => $parent,
         'pluginOptions' => [
-            'allowClear' => true
+            'allowClear' => false
         ],
-    ])->label('Nama');
+    ])->label('Nama Pegawai');
     ?>
-
-
 
     <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(), [
         'pluginOptions' => [
@@ -60,7 +63,6 @@ use yii\widgets\ActiveForm;
             'allowClear' => true
         ],
     ])->label('Jenis ijin'); ?>
-
 
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">

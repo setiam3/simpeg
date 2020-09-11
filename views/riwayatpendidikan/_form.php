@@ -8,6 +8,14 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Riwayatpendidikan */
 /* @var $form yii\widgets\ActiveForm */
+
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+    $parent=[$data->id_data => $data->nama];
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+}
 ?>
 
 <div class="riwayatpendidikan-forms">
@@ -15,8 +23,7 @@ use kartik\date\DatePicker;
     <?php $form = ActiveForm::begin(); ?>
     <div class="col-sm-4">
         <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>1])->all(), 'id_data', 'nama'),
-            'options' => ['placeholder' => 'Select id_data ...'],
+            'data' => $parent,
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -39,7 +46,7 @@ use kartik\date\DatePicker;
                 'format' => 'yyyy',
                 'todayHighlight' => true,
                 'autoclose'=>true,
-                'viewMode' => "years", 
+                'viewMode' => "years",
                 'minViewMode' => "years"
             ]
         ])  ?>
@@ -48,7 +55,7 @@ use kartik\date\DatePicker;
                         'format' => 'yyyy',
                         'todayHighlight' => true,
                         'autoclose'=>true,
-                        'viewMode' => "years", 
+                        'viewMode' => "years",
                         'minViewMode' => "years"
                     ]
                 ])  ?>
@@ -76,7 +83,7 @@ use kartik\date\DatePicker;
                 ],
             ]) ?>
     </div>
-    
+
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">
 	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -84,5 +91,5 @@ use kartik\date\DatePicker;
 	<?php } ?>
 
     <?php ActiveForm::end(); ?>
-    
+
 </div>

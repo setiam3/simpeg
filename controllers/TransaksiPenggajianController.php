@@ -47,7 +47,7 @@ class TransaksiPenggajianController extends Controller
         $searchModel = new TransaksiPenggajianSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $karyawan = MBiodata::find()->all();
-        $karyawan = ArrayHelper::map($karyawan,'id_data','nama');
+        $karyawan = ArrayHelper::map($karyawan, 'id_data', 'nama');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -127,7 +127,7 @@ class TransaksiPenggajianController extends Controller
                     }
                 }
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
                     'title' => "Create new TransaksiPenggajian",
                     'content' => '<span class="text-success">Create TransaksiPenggajian success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
@@ -206,7 +206,7 @@ class TransaksiPenggajianController extends Controller
                     }
                 }
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
                     'title' => "Riwayatpendidikan #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $transaksipenggajian,
@@ -252,6 +252,10 @@ class TransaksiPenggajianController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
+        $model = $this->findModel($id);
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
+            unlink($filename);
+        }
         $this->findModel($id)->delete();
 
         if ($request->isAjax) {
@@ -259,7 +263,7 @@ class TransaksiPenggajianController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
             /*
             *   Process for non-ajax request
@@ -289,7 +293,7 @@ class TransaksiPenggajianController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
             /*
             *   Process for non-ajax request

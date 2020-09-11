@@ -39,7 +39,9 @@ class Approvel2Controller extends Controller
      */
     public function actionIndex()
     {
-        $where = ['in','approval2',['0',null]];
+        $where = 'approval1 != 0 and approval2 IS NULL';
+
+
         $searchModel = new Approvel2Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
 
@@ -149,12 +151,14 @@ class Approvel2Controller extends Controller
         $request = Yii::$app->request;
         $model = $this->findModel($id);
 
+//        if (){}
+
         if($request->isAjax){
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
+            if($request->isGet && $model == "null"){
                 return [
                     'title'=> "Update Pengajuanijin #".$id,
                     'content'=>$this->renderAjax('update', [

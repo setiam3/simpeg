@@ -119,7 +119,7 @@ class Tools extends \yii\bootstrap\Widget{
 $sql = 'select * from m_biodata where EXTRACT(month FROM "tanggalLahir") :: INTEGER = 1
         and EXTRACT(DAY FROM "tanggalLahir") :: INTEGER = 1';
 
-      return $hasil = \Yii::$app->db->createCommand($sql)->all();
+      return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
 //          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
     }
     public function nextPensiun($y){// akan pensiun
