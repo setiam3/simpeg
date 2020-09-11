@@ -13,8 +13,13 @@ return [
         'width' => '30px',
     ],
     [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'id_data',
+
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'unit',
+        'value'=>'data.riwayarJabatas.jabatan.nama_referensi',
+    ],[
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'Nama Pegawai',
         'value' => 'data.nama',
     ],
     [
@@ -67,19 +72,23 @@ return [
             'update' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel2/update?id=' . $model->id;
-                //                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Update', 'data-toggle' => 'tooltip']);
+
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Update', 'data-toggle' => 'tooltip']);
+
             },
             'delete' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel2/delete?id=' . $model->id;
-                //                return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
-                //                    'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
-                //                    'data-confirm' => false, 'data-method' => false,
-                //                    'data-request-method' => 'post',
-                //                    'data-toggle' => 'tooltip',
-                //                    'data-confirm-title' => 'Are you sure?',
-                //                    'data-confirm-message' => 'Are you sure want to delete this item'
-                //                ]);
+
+                return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
+                    'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
+                    'data-confirm' => false, 'data-method' => false,
+                    'data-request-method' => 'post',
+                    'data-toggle' => 'tooltip',
+                    'data-confirm-title' => 'Are you sure?',
+                    'data-confirm-message' => 'Are you sure want to delete this item'
+                ]);
+
             },
         ],
     ],

@@ -38,7 +38,9 @@ class Approvel1Controller extends Controller
      */
     public function actionIndex()
     {
-        $where=['in','approval1',['0',null]];
+//        $where=['in','approval1',['0',null]];
+        $where='approval1 is null
+AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data ='.\Yii::$app->user->identity->id_data.')';
         $searchModel = new Approvel1Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
 

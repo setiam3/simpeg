@@ -41,7 +41,12 @@ class Approvel1Search extends Pengajuanijin
      */
     public function search($params, $where = null)
     {
-        $query = Pengajuanijin::find()->where($where);
+        $query = Pengajuanijin::find()
+            ->joinWith(['data' => function($query){
+                $query->joinWith('riwayatjabatans');
+            }])
+
+            ->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
