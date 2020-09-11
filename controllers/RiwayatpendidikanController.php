@@ -103,13 +103,13 @@ class RiwayatpendidikanController extends Controller
             }else if($model->load($request->post())){
 
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen'. $model->data->nip);
                     $model->dokumen = $ext;
                 }
 
                 if($model->save(false)){
                     return [
-                        'forceReload'=>'#crud-datatable-pjax',
+                        'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                         'title'=> "Create new Riwayatpendidikan",
                         'content'=>'<span class="text-success">Create Riwayatpendidikan success</span>',
                         'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -183,7 +183,7 @@ class RiwayatpendidikanController extends Controller
                 }
                 $model->save();
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Riwayatpendidikan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
@@ -271,7 +271,7 @@ class RiwayatpendidikanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request

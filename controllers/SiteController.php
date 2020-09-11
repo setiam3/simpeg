@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -53,26 +54,29 @@ class SiteController extends Controller
             ],
         ];
     }
-    public function actionDashboard(){
+    public function actionDashboard()
+    {
         return $this->render('dashboard');
     }
-    public function actionPhpinfo(){
+    public function actionPhpinfo()
+    {
         phpinfo();
     }
-    public function actionPdftoimg($pathfile){
-      $preview='';
-      $ext=pathinfo($pathfile);
-      $image=['jpg','jpeg','png'];
-     
-      if($ext['extension']=='pdf'){
-        $this->genPdfThumbnail($pathfile,$ext['basename'].'.jpeg');
-        $preview=\Yii::getAlias('@web/uploads/foto/510204244/').$ext['basename'].'.jpeg';
-      }elseif(in_array(strtolower($ext['extension']),$image)){
-        //$preview=Yii::getAlias('@urlUpload').$model->cv;
-      }else{
-        $preview='';
-      }
-      return $preview;
+    public function actionPdftoimg($pathfile)
+    {
+        $preview = '';
+        $ext = pathinfo($pathfile);
+        $image = ['jpg', 'jpeg', 'png'];
+
+        if ($ext['extension'] == 'pdf') {
+            $this->genPdfThumbnail($pathfile, $ext['basename'] . '.jpeg');
+            $preview = \Yii::getAlias('@web/uploads/foto/510204244/') . $ext['basename'] . '.jpeg';
+        } elseif (in_array(strtolower($ext['extension']), $image)) {
+            //$preview=Yii::getAlias('@urlUpload').$model->cv;
+        } else {
+            $preview = '';
+        }
+        return $preview;
     }
 
     /**
@@ -146,13 +150,14 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-    
-    public function actionChild($model) {
+
+    public function actionChild($model)
+    {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
             $id = end($_POST['depdrop_parents']);
-            $list = $model=='Kecamatan'?$this->findModelAll(['regency_id'=> $id],$model):$this->findModelAll(['district_id'=> $id],$model);
+            $list = $model == 'Kecamatan' ? $this->findModelAll(['regency_id' => $id], $model) : $this->findModelAll(['district_id' => $id], $model);
             $selected  = null;
             if ($id != null && count($list) > 0) {
                 $selected = '';
@@ -168,19 +173,21 @@ class SiteController extends Controller
         return ['output' => '', 'selected' => ''];
     }
 
-    protected function findModel($id,$models){
-        $modelx=Yii::createObject([
-          'class' => "app\models\\".$models,
-         ]);
+    protected function findModel($id, $models)
+    {
+        $modelx = Yii::createObject([
+            'class' => "app\models\\" . $models,
+        ]);
         if (($model = $modelx::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    protected function findModelAll($id,$models){
-        $modelx=Yii::createObject([
-          'class' => "app\models\\".$models,
-         ]);
+    protected function findModelAll($id, $models)
+    {
+        $modelx = Yii::createObject([
+            'class' => "app\models\\" . $models,
+        ]);
         if (($model = $modelx::findAll($id)) !== null) {
             return $model;
         }

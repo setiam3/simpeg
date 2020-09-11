@@ -66,7 +66,7 @@ class RiwayatdiklatController extends Controller
                     'model' => $model,
                 ]),
                 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
             ];
         } else {
             return $this->render('view', [
@@ -108,11 +108,11 @@ class RiwayatdiklatController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
                     'title' => "Create new Riwayatdiklat",
                     'content' => '<span class="text-success">Create Riwayatdiklat success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
 
                 ];
             } else {
@@ -130,7 +130,7 @@ class RiwayatdiklatController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) ) {
+            if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
                     $ext = Yii::$app->tools->upload('Riwayatdiklat[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                     $model->dokumen =  $ext;
@@ -183,13 +183,13 @@ class RiwayatdiklatController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
                     'title' => "Riwayatdiklat #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
                 ];
             } else {
                 return [
@@ -205,7 +205,7 @@ class RiwayatdiklatController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) ) {
+            if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $olddokumen)) {
                         unlink($filename);
@@ -235,8 +235,8 @@ class RiwayatdiklatController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $model=$this->findModel($id);
-        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+        $model = $this->findModel($id);
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
             unlink($filename);
         }
         $model->delete();
@@ -246,7 +246,7 @@ class RiwayatdiklatController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',];
         } else {
             /*
             *   Process for non-ajax request
@@ -267,8 +267,8 @@ class RiwayatdiklatController extends Controller
         $request = Yii::$app->request;
         $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
         foreach ($pks as $pk) {
-            $model=$this->findModel($pk);
-            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+            $model = $this->findModel($pk);
+            if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
                 unlink($filename);
             }
             $model->delete();
@@ -279,7 +279,7 @@ class RiwayatdiklatController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',];
         } else {
             /*
             *   Process for non-ajax request
