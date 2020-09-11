@@ -15,15 +15,19 @@ use yii\widgets\DetailView;
                 'attribute' => 'Karyawan',
                 'value' => function ($data) {
                     return $data->data->nama;
-
                 },
             ],
             'tanggalPengajuan',
             'tanggalMulai',
             'tanggalAkhir',
             'alasan',
-//            'id_data',
-            'approval1',
+            //            'id_data',
+            [
+                'attribute' => 'approval1',
+                'value' => function ($data) {
+                    return $data->approval10->nama;
+                },
+            ],
             'approval2',
             'disetujui',
             'jenisIjin',
