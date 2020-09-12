@@ -169,7 +169,7 @@ class Approvel2Controller extends Controller
                 ];
             }else if($model->load($request->post())){
                 if ($model->approval2 == 1){
-                    $model->approval2 = "100";
+                    $model->approval2 = \Yii::$app->user->identity->id_data;
                     $model->disetujui = "1";
                     $tglAkhir = date_create($model->tanggalAkhir);
                     $tglMulai = date_create($model->tanggalMulai);
@@ -183,7 +183,7 @@ class Approvel2Controller extends Controller
                     $datas->save(false);
 
                 }elseif ($model->approval2 == 0){
-                    $model->approval2 = "100";
+                    $model->approval2 = \Yii::$app->user->identity->id_data;
                     $model->disetujui = "0";
                 }
                 $model->save(false);

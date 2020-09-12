@@ -123,7 +123,7 @@ $sql = 'select * from m_biodata where EXTRACT(month FROM "tanggalLahir") :: INTE
 //          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
     }
     public function nextPensiun($y){// akan pensiun
-
+        
     }
     public function getcurrentroleuser(){
       $currentrole=\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id);

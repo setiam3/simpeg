@@ -12,15 +12,12 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-
-
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'unit kerja',
         'value' => 'data.riwayatjabatan.jabatan.nama_referensi'
 
     ],
-
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
