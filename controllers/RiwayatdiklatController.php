@@ -39,6 +39,12 @@ class RiwayatdiklatController extends Controller
      */
     public function actionIndex()
     {
+        $role=\Yii::$app->tools->getcurrentroleuser();
+        if(in_array('karyawan',$role)){
+            $where=['parent_id'=>\Yii::$app->user->identity->id_data];
+        }else{
+            $where='';
+        }
         $searchModel = new RiwayatdiklatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -108,7 +114,7 @@ class RiwayatdiklatController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
+                    'forceReload' => '#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title' => "Create new Riwayatdiklat",
                     'content' => '<span class="text-success">Create Riwayatdiklat success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .

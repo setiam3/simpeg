@@ -7,6 +7,15 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiPenggajian */
 /* @var $form yii\widgets\ActiveForm */
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+    $parent=[$data->id_data => $data->nama];
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+}
+
+
 ?>
 <div class="transaksi-penggajian-form">
 
@@ -14,9 +23,7 @@ use kartik\date\DatePicker;
     <div class="row">
         <div class="col-sm-6">
             <?= $form->field($transaksipenggajian, 'data_id')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => '1'])->all(), 'id_data', 'nama'),
-                'language' => 'de',
-                'options' => ['placeholder' => 'Select  ...'],
+                'data' => $parent,
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
@@ -30,7 +37,6 @@ use kartik\date\DatePicker;
                     'format' => 'yyyy-mm-dd'
                 ]
             ]); ?>
-            <?= $form->field($transaksipenggajian, 'pelaksana_id') ?>
             <?= $form->field($transaksipenggajian, 'tgl_input')->widget(\kartik\date\DatePicker::className(), [
                 'options' => ['value' => date("Y-m-d"), 'readonly' => true,],
                 'pluginOptions' => [
