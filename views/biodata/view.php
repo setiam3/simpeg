@@ -27,7 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'nip',
-            'nama',
+            ['attribute'=>'nama','value'=>function($data){
+                return $data->gelarDepan.' '.$data->nama.' '.$data->gelarBelakang;
+            }],
             'tempatLahir',
             'tanggalLahir',
             'alamat',

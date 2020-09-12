@@ -14,7 +14,7 @@ use kartik\number\NumberControl;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'tunjangan_id')->widget(Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'4']),'reff_id','nama_referensi'),
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'4','status'=>'1']),'reff_id','nama_referensi'),
         'language' => 'de',
         'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
@@ -28,7 +28,6 @@ use kartik\number\NumberControl;
 
     <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>'1'])->all(),'id_data','nama'),
-        'language' => 'de',
         'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
             'allowClear' => true

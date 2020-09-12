@@ -116,6 +116,7 @@ class TransaksiPenggajianController extends Controller
                 ];
             } else if ($transaksipenggajian->load($request->post())) {
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
+                $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
                 if ($transaksipenggajian->save(false)) {
                     $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
                     $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;
@@ -195,6 +196,7 @@ class TransaksiPenggajianController extends Controller
                 ];
             } else if ($transaksipenggajian->load($request->post())) {
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
+                $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
                 if ($transaksipenggajian->save(false)) {
                     $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
                     $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;

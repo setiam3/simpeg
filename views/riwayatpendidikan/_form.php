@@ -30,7 +30,7 @@ if(in_array('karyawan',$role)){
         ])->label('Nama Pegawai')
         ?>
         <?= $form->field($model, 'tingkatPendidikan')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>10])->all(), 'reff_id', 'nama_referensi'),
+            'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'10','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
             'options' => ['placeholder' => 'Select sekolah ...'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -73,10 +73,11 @@ if(in_array('karyawan',$role)){
             'options' => ['accept' => 'image/*','application/pdf','autoReplace'=>true],
             'pluginOptions' => [
                 'maxFileSize' => 2048,
-                'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])],
+                'initialPreview' => (!$model->isNewRecord && isset($model->dokumen)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])]:[],
                 'showCaption' => false,
                 'showRemove' => false,
                 'showUpload' => false,
+                'frameClass' => 'krajee-default row',
                 'browseClass' => 'btn btn-primary btn-block',
                 'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
                 'browseLabel' =>  'Select Foto'

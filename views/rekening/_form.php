@@ -25,7 +25,7 @@ use kartik\file\FileInput;
             ?>
 
             <?= $form->field($model, 'bank_id')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '5'])->all(), 'reff_id', 'nama_referensi'),
+                'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '5','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select bank id ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -41,7 +41,7 @@ use kartik\file\FileInput;
             <?= $form->field($model, 'fotoNpwp')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
-                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])],
+                    'initialPreview' => (!$model->isNewRecord && isset($model->fotoNpwp)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoNpwp), ['class' => 'col-xs-12'])]:[],
                     'maxFileSize' => 2048,
                     'showCaption' => false,
                     'showRemove' => false,
@@ -57,7 +57,7 @@ use kartik\file\FileInput;
             <?= $form->field($model, 'fotoRekening')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
-                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoRekening), ['class' => 'col-xs-12'])],
+                    'initialPreview' => (!$model->isNewRecord && isset($model->fotoRekening)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->fotoRekening), ['class' => 'col-xs-12'])]:[],
                     'showPreview' => true,
                     'maxFileSize' => 2048,
                     'showCaption' => false,

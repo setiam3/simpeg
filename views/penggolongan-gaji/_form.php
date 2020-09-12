@@ -7,6 +7,7 @@ use kartik\widgets\SwitchInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\PenggolonganGaji */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="mpenggolongan-gaji-form">
@@ -14,7 +15,7 @@ use kartik\widgets\SwitchInput;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'pangkat_id')->widget(Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'6']),'reff_id','nama_referensi'),
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'6','status'=>'1']),'reff_id','nama_referensi'),
         'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
             'allowClear' => true
@@ -41,7 +42,7 @@ use kartik\widgets\SwitchInput;
     ]) ?>
 
     <?= $form->field($model, 'jenis_pegawai')->widget(Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>1]),'reff_id','nama_referensi'),
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1','status'=>'1']),'reff_id','nama_referensi'),
         'language' => 'de',
         'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
