@@ -99,9 +99,10 @@ class RiwayatdiklatController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Create new Riwayatdiklat",
+                    'title' => "Create new Riwayatdiklat get",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid'=>isset($_GET['id'])?$_GET['id']:'',
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -126,6 +127,7 @@ class RiwayatdiklatController extends Controller
                     'title' => "Create new Riwayatdiklat",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid'=>isset($_GET['id'])?$_GET['id']:'',
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])

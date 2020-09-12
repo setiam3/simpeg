@@ -16,6 +16,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 
 CrudAsset::register($this);
 $idmodal = md5($dataProvider->query->modelClass);
+$params=isset($klikedid)?'?id='.$klikedid:'';
 ?>
 <div class="mriwayatdiklat-index">
     <div id="ajaxCrudDatatableDiklat">
@@ -29,7 +30,7 @@ $idmodal = md5($dataProvider->query->modelClass);
                 ['content' =>
                 Html::a(
                     '<i class="glyphicon glyphicon-plus"></i>',
-                    ['riwayatdiklat/create'],
+                    ['riwayatdiklat/create'.$params],
                     ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new Riwayatdiklat', 'class' => 'btn btn-default']
                 ) .
                     Html::a(
