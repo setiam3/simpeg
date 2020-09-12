@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
             },
         ],
         'nip',
-        'nama',
+        ['attribute'=>'nama','value'=>function($data){
+            return $data->gelarDepan.' '.$data->nama.' '.$data->gelarBelakang;
+        }],
         'tempatLahir',
         ['class' => 'yii\grid\ActionColumn',
             'header'=>'Action',

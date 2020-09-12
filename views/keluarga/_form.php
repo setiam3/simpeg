@@ -9,10 +9,10 @@ use yii\helpers\Url;
 use kartik\date\DatePicker;
 $role=\Yii::$app->tools->getcurrentroleuser();
 if(in_array('karyawan',$role)){
-    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+    $data=$model::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
     $parent=[$data->id_data => $data->nama];
 }else{
-    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+    $parent=ArrayHelper::map($model::findAll(['is_pegawai'=>'1']), 'id_data','nama');
 }
 
 ?>
@@ -124,11 +124,12 @@ if(in_array('karyawan',$role)){
     <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
-            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->foto), ['class' => 'col-xs-12'])],
+            'initialPreview' => (!$model->isNewRecord && isset($model->foto)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->foto), ['class' => 'col-xs-12'])]:[],
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
+            'frameClass' => 'krajee-default row',
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
             'browseLabel' =>  'Select Foto'
@@ -137,11 +138,12 @@ if(in_array('karyawan',$role)){
 <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
-            'initialPreview' => $model->isNewRecord?[]:[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])],
+            'initialPreview' => (!$model->isNewRecord && isset($model->fotoNik)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])]:[],
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,
             'showUpload' => false,
+            'frameClass' => 'krajee-default row',
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
             'browseLabel' =>  'Select Foto'

@@ -26,7 +26,7 @@ use kartik\select2\Select2;
     ?>
 
     <?= $form->field($model, 'jenis')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '11'])->all(), 'reff_id', 'nama_referensi'),
+        'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '11','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
         'options' => ['placeholder' => 'Select Jenis ...'],
         'pluginOptions' => [
             'allowClear' => true

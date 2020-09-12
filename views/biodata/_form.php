@@ -15,11 +15,10 @@ use kartik\file\FileInput;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-xs-3">
-        
         <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
-            'initialPreview' => (!$model->isNewRecord && isset($model->fotoNik)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])]:[],
+            'initialPreview' => (!$model->isNewRecord && isset($model->foto)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->nip . '/' . $model->foto), ['class' => 'col-xs-12'])]:[],
             'maxFileSize' => 2048,
             'showCaption' => false,
             'showRemove' => false,
@@ -35,7 +34,7 @@ use kartik\file\FileInput;
         <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'jenisKelamin')->radioList(
-            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8']), 'reff_id','nama_referensi')
+            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8','status'=>'1']), 'reff_id','nama_referensi')
         ) ?>
 
         </div>
@@ -93,7 +92,7 @@ use kartik\file\FileInput;
         </div>
         <div class="col-xs-3">
             <?= $form->field($model, 'agama')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7','status'=>'1']), 'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -101,7 +100,7 @@ use kartik\file\FileInput;
             ])?>
 
         <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9']), 'reff_id','nama_referensi'),
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9','status'=>'1']), 'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
