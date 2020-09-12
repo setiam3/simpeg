@@ -239,7 +239,7 @@ class BiodataController extends Controller
     protected function findModel($id)
     {
         $role=\Yii::$app->tools->getcurrentroleuser();
-        if(in_array('admin',$role)){
+        if(in_array('admin',$role) || in_array('operator',$role)){
             if (($model = MBiodata::findOne($id)) !== null) {
                 return $model;
             }
