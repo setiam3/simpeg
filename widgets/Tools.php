@@ -116,14 +116,15 @@ class Tools extends \yii\bootstrap\Widget{
 
     }
     public function ultahPegawai(){// month year
-$sql = 'select * from m_biodata where EXTRACT(month FROM "tanggalLahir") :: INTEGER = 1
-        and EXTRACT(DAY FROM "tanggalLahir") :: INTEGER = 1';
+$sql = 'SELECT * FROM m_biodata 
+WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
+AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
 
       return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
 //          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
     }
     public function nextPensiun($y){// akan pensiun
-        
+
     }
     public function getcurrentroleuser(){
       $currentrole=\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id);
