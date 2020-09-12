@@ -10,7 +10,7 @@ $this->title =Yii::$app->name;
 $populasi=\Yii::$app->tools->grafikPopulasi();
 $jenispegawai=\Yii::$app->tools->gjenisPegawai();
 $golpeg=\Yii::$app->tools->golonganPegawai();
-//$pegultah=\Yii::$app->tools->ultahPegawai();
+$pegultah=\Yii::$app->tools->ultahPegawai();
 
 foreach($jenispegawai as $row){
     $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
@@ -18,7 +18,7 @@ foreach($jenispegawai as $row){
 foreach ($golpeg as $row){
     $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
 }
-//print_r($pegultah);
+//($golpeg);
 //die();
 ?>
 <section class="content">
@@ -141,6 +141,13 @@ foreach ($golpeg as $row){
                                 </tr>
                                 </thead>
                                 <tbody>
+<!--                                --><?php //foreach ($pegultah as $ultah){ ?>
+<!--                                <tr>-->
+<!--                                    <td>--><?//= $ultah->nama ?><!--</td>-->
+<!--                                    <td>--><?//= $ultah->tanggalLahir?><!--</td>-->
+<!--<!--                                    <td>25</td>-->-->
+<!--                                </tr>-->
+<!--                                --><?php //} ?>
                                 <tr>
                                     <td>Pijar</td>
                                     <td>12-09-2020</td>

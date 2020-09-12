@@ -127,7 +127,7 @@ class TransaksiPenggajianController extends Controller
                     }
                 }
                 return [
-                    'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
+                    'forceReload' => '#crud-datatable'.md5(get_class($transaksipenggajian)).'-pjax',
                     'title' => "Create new TransaksiPenggajian",
                     'content' => '<span class="text-success">Create TransaksiPenggajian success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
@@ -253,9 +253,9 @@ class TransaksiPenggajianController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
-            unlink($filename);
-        }
+//        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
+//            unlink($filename);
+//        }
         $this->findModel($id)->delete();
 
         if ($request->isAjax) {

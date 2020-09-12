@@ -169,6 +169,7 @@ AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as r
                 if ($model->approval1=='1'){
                     $model->approval1=\Yii::$app->user->identity->id_data;
                 }else{
+                    $model->approval1=\Yii::$app->user->identity->id_data;
                     $model->disetujui='0';
                 }
                 $model->save(false);
