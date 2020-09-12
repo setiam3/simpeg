@@ -17,10 +17,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'unit kerja',
          'value'=>'data.riwayatjabatan.jabatan.nama_referensi'
-//        'value' => implode(\yii\helpers\ArrayHelper::map($model->trandetail, 'transgaji_id', 'gol_gaji'))
-//function ($data) {return $data->riwayatjabatans->id;
-
-//         },
      ],
 
     [
