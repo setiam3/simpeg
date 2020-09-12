@@ -18,8 +18,16 @@ foreach($jenispegawai as $row){
 foreach ($golpeg as $row){
     $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
 }
-//($golpeg);
+
+//print_r($pegultah);
 //die();
+//for ($row = 0; $row < count($pegultah); $row++){
+//    for ($r = 0; $r < count($pegultah[$row]); $r++){
+//
+//    }
+//
+//
+//}
 ?>
 <section class="content">
     <div class="row">
@@ -141,23 +149,14 @@ foreach ($golpeg as $row){
                                 </tr>
                                 </thead>
                                 <tbody>
-<!--                                --><?php //foreach ($pegultah as $ultah){ ?>
-<!--                                <tr>-->
-<!--                                    <td>--><?//= $ultah->nama ?><!--</td>-->
-<!--                                    <td>--><?//= $ultah->tanggalLahir?><!--</td>-->
-<!--<!--                                    <td>25</td>-->-->
-<!--                                </tr>-->
-<!--                                --><?php //} ?>
+                                <?php foreach ($pegultah as $row){ ?>
                                 <tr>
-                                    <td>Pijar</td>
-                                    <td>12-09-2020</td>
-                                    <td>25</td>
+                                    <td><?= $row['nama'] ?></td>
+                                    <td><?= $row['tanggalLahir'] ?></td>
+                                    <td></td>
                                 </tr>
-                                <tr>
-                                    <td>Pijar</td>
-                                    <td>12-09-2020</td>
-                                    <td>25</td>
-                                </tr>
+                                <?php } ?>
+
                                 </tbody>
                             </table>
                         </div>
@@ -374,3 +373,4 @@ foreach ($golpeg as $row){
 </div>
     </div>
 </section>
+
