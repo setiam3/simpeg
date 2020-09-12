@@ -75,9 +75,7 @@ class BiodataController extends Controller
             'searchModelpendidikan' => new RiwayatpendidikanSearch(),
             'searchModeldiklat' => new RiwayatdiklatSearch(),
             'searchModeljabatan' => new RiwayatjabatanSearch(),
-
             'searchModelgaji' => new TransaksiPenggajianSearch(),
-
         ]);
     }
 
