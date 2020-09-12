@@ -18,7 +18,6 @@ if(in_array('karyawan',$role)){
 ?>
 
 <div class="mbiodata-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
     <div class="col-xs-4">
@@ -29,7 +28,7 @@ if(in_array('karyawan',$role)){
                 ],
     ])->label('Nama Pegawai') ?>
 
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nama')->textInput(['maxlength' => true])->label('Nama Anggota Keluarga') ?>
 
     <?= $form->field($model, 'tempatLahir')->textInput(['maxlength' => true]) ?>
 
