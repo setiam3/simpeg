@@ -244,17 +244,6 @@ class BiodataController extends Controller
                 return $model;
             }
             throw new NotFoundHttpException('The requested page does not exist.');
-        }
-        elseif(in_array('operator',$role)){
-            if (($model = MBiodata::findOne($id)) !== null) {
-                return $model;
-            }
-            throw new NotFoundHttpException('The requested page does not exist.');
-        } else if (in_array('operator', $role)) {
-            if (($model = MBiodata::findOne($id)) !== null) {
-                return $model;
-            }
-            throw new NotFoundHttpException('The requested page does not exist.');
         }elseif($id==\Yii::$app->user->identity->id_data){
             if (($model = MBiodata::findOne($id)) !== null) {
                 return $model;
