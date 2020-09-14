@@ -5,21 +5,19 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
 use kartik\date\DatePicker;
-/* @var $this yii\web\View */
-/* @var $model app\models\Riwayatpendidikan */
-/* @var $form yii\widgets\ActiveForm */
 
 $role=\Yii::$app->tools->getcurrentroleuser();
 if(in_array('karyawan',$role)){
     $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
     $parent=[$data->id_data => $data->nama];
 }
-elseif (in_array('operator',$role)){
-    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
-    $parent=[$data->id_data => $data->nama];
-}
-else{
-    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+elseif (in_array('operator',$role) || in_array('admin',$role)){
+    if(!empty($klikedid)){
+        $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>$klikedid]);
+        $parent=[$data->id_data => $data->nama];
+    }else{
+        $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+    }
 }
 ?>
 

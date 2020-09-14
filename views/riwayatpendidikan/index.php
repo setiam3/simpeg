@@ -6,15 +6,9 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\RiwayatpendidikanSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-//$this->title = 'Riwayatpendidikans';
-//$this->params['breadcrumbs'][] = $this->title;
-
 CrudAsset::register($this);
 $idmodal=md5($dataProvider->query->modelClass);
+$params=isset($_GET['id'])?'?id='.$_GET['id']:'';
 ?>
 <div class="riwayatpendidikan-index">
     <div id="ajaxCrudDatatablePendidikan">
@@ -26,7 +20,7 @@ $idmodal=md5($dataProvider->query->modelClass);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatpendidikan/create'],
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatpendidikan/create'.$params],
                     ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Riwayatpendidikans','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
