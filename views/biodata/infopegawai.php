@@ -69,6 +69,7 @@ use yii\helpers\Html;
                     'label' => 'Jabatan',
                     'content' => $this->render('//riwayatjabatan/index', [
                         'searchModel' => $searchModeljabatan,
+                        'klikedid'=>$model->id_data,
                         'dataProvider' => $searchModeljabatan->search(Yii::$app->request->queryParams, ['riwayatjabatan.id_data' => $model->id_data])
                     ]),
                 ],
@@ -76,6 +77,7 @@ use yii\helpers\Html;
                     'label' => 'Gaji',
                     'content' => $this->render('//transaksi-penggajian/index', [
                         'searchModel' => $searchModelgaji,
+                        'klikedid'=>$model->id_data,
                         'dataProvider' => $searchModelgaji->search(Yii::$app->request->queryParams, ['data_id' => $model->id_data])
                     ]),
                 ],
@@ -83,6 +85,7 @@ use yii\helpers\Html;
                     'label' => 'Keluarga',
                     'content' => $this->render('//keluarga/index', [
                         'searchModel' => $searchModelKeluarga,
+                        'klikedid'=>$model->id_data,
                         'dataProvider' => $searchModelKeluarga->search(Yii::$app->request->queryParams, ['parent_id' => $model->id_data])
                     ]),
                 ],
@@ -98,6 +101,7 @@ use yii\helpers\Html;
                     'label' => 'Pendidikan',
                     'content' => $this->render('//riwayatpendidikan/index', [
                         'searchModel' => $searchModelpendidikan,
+                        'klikedid'=>$model->id_data,
                         'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
                     ]),
                 ],

@@ -60,7 +60,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
+            'id_data' => 'Nama Pegawai',
             'tingkatPendidikan' => 'Tingkat Pendidikan',
             'jurusan' => 'Jurusan',
             'namaSekolah' => 'Nama Sekolah',

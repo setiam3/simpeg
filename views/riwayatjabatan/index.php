@@ -6,15 +6,11 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\RiwayatjabatanSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Riwayatjabatan';
 $this->params['breadcrumbs'][] = $this->title;
-
 CrudAsset::register($this);
 $idmodal=md5($dataProvider->query->modelClass);
+$params=isset($klikedid)?'?id='.$klikedid:'';
 ?>
 <div class="riwayatjabatan-index">
     <div id="ajaxCrudDatatableJabatan">
@@ -26,7 +22,7 @@ $idmodal=md5($dataProvider->query->modelClass);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatjabatan/create'],
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatjabatan/create'.$params],
                     ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Riwayatjabatans','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
