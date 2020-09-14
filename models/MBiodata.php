@@ -61,7 +61,7 @@ class MBiodata extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'default', 'value' => null],
-            [['parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'integer'],
+            [['parent_id', 'status_hubungan_keluarga', 'checklog_id','jenis_pegawai'], 'integer'],
             [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
             [['tanggalLahir'], 'safe'],
             [['nip', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik', 'is_pegawai'], 'string', 'max' => 255],
@@ -104,6 +104,7 @@ class MBiodata extends \yii\db\ActiveRecord
             'status_hubungan_keluarga' => 'Status Hubungan Keluarga',
             'is_pegawai' => 'Is Pegawai',
             'checklog_id' => 'Checklog ID',
+            'jenis_pegawai'=>'Jenis Pegawai'
         ];
     }
 

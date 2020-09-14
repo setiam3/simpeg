@@ -11,7 +11,6 @@ use kartik\file\FileInput;
 ?>
 
 <div class="mbiodata-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-xs-3">
@@ -119,6 +118,13 @@ use kartik\file\FileInput;
         ]) ?>
 
         <?= $form->field($model, 'checklog_id')->textInput() ?>
+        <?= $form->field($model, 'jenis_pegawai')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1','status'=>'1']), 'reff_id','nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])?>
         </div>
         <div class="col-xs-3">
         <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
