@@ -92,7 +92,7 @@ class TunjanganController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new MTunjangan",
+                    'title'=> "Create new Tunjangan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -103,15 +103,15 @@ class TunjanganController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new MTunjangan",
-                    'content'=>'<span class="text-success">Create MTunjangan success</span>',
+                    'title'=> "Create new Tunjangan",
+                    'content'=>'<span class="text-success">Create Tunjangan success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new MTunjangan",
+                    'title'=> "Create new Tunjangan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -154,7 +154,7 @@ class TunjanganController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MTunjangan #".$id,
+                    'title'=> "Update Tunjangan #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -164,7 +164,7 @@ class TunjanganController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MTunjangan #".$id,
+                    'title'=> "Tunjangan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -173,7 +173,7 @@ class TunjanganController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update MTunjangan #".$id,
+                    'title'=> "Update Tunjangan #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

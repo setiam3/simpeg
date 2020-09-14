@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use kartik\grid\GridView;
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
@@ -10,10 +11,6 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'tunjangan_id',
@@ -24,9 +21,16 @@ return [
         'attribute'=>'nominal',
     ],
     [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'status',
-    ],
+            'class' => 'kartik\grid\DataColumn',
+            'attribute' => 'status',
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ['1'=>'Aktif','0'=>'Non Aktif'], 
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => 'status'],
+            'group' => true,
+        ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
