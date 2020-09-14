@@ -13,7 +13,6 @@ return [
         'width' => '30px',
     ],
     [
-
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'unit',
         'value'=>'data.riwayatjabatan.jabatan.nama_referensi'

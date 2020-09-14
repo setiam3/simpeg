@@ -34,11 +34,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'order',
     ],
-    
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'icon',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

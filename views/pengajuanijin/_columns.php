@@ -30,10 +30,6 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'alasan',
     ],
-//    [
-//        'class'=>'\kartik\grid\DataColumn',
-//        'attribute'=>'id_data',
-//    ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'Nama Pegawai',
