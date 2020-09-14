@@ -88,7 +88,7 @@ if (in_array('karyawan', $role)) {
             <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
 
             <?= $form->field($potongangaji, 'potongan_desc')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '13'])->all(), 'reff_id', 'nama_referensi'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '13','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true

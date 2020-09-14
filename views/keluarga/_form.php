@@ -40,11 +40,11 @@ if(in_array('karyawan',$role)){
                 ]
             ])?>
     <?= $form->field($model, 'jenisKelamin')->radioList(
-            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8']), 'reff_id','nama_referensi')
+            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8','status'=>'1']), 'reff_id','nama_referensi')
         ) ?>
 
     <?= $form->field($model, 'agama')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
+        'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7','status'=>'1']), 'reff_id','nama_referensi'),
         'options' => ['placeholder' => 'Select  ...'],
         'pluginOptions' => [
             'allowClear' => true
@@ -95,7 +95,7 @@ if(in_array('karyawan',$role)){
                 ]
             ]) ?>  
         <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9']), 'reff_id','nama_referensi'),
+            'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9','status'=>'1']), 'reff_id','nama_referensi'),
             'options' => ['placeholder' => 'Select  ...'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -106,7 +106,7 @@ if(in_array('karyawan',$role)){
         <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>2]), 'reff_id','nama_referensi'),
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>2,'status'=>'1']), 'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -142,7 +142,7 @@ if(in_array('karyawan',$role)){
             'frameClass' => 'krajee-default row',
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
+            'browseLabel' =>  'Select FotoNik'
             ],
         ]) ?>
 

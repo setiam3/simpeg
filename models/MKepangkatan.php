@@ -57,7 +57,7 @@ class MKepangkatan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'nama',
+            'id_data' => 'Nama Pegawai',
             'ditetapkanOleh' => 'Ditetapkan Oleh',
             'noSk' => 'No Sk',
             'tglSk' => 'Tgl Sk',

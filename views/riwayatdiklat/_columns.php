@@ -13,7 +13,9 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
-        'value' => 'data.nama',
+        'value' =>function($model){
+            return $model->data->gelarDepan.$model->data->nama.$model->data->gelarBelakang;
+        },
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
