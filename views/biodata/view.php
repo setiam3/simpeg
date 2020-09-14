@@ -94,6 +94,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function($data){
                     return isset($data->status_hubungan_keluarga)?$data->statusHubunganKeluarga->nama_referensi:'';
                 }
+            ],[
+                'attribute'=>'jenis_pegawai',
+                'value'=>function($data){
+                    return isset($data->jenis_pegawai)?$data->jenispegawai->nama_referensi:'';
+                }
             ],
             'is_pegawai',
             'checklog_id',

@@ -242,7 +242,7 @@ class BiodataController extends Controller
                 return $model;
             }
             throw new NotFoundHttpException('The requested page does not exist.');
-        }else if($id==\Yii::$app->user->identity->id_data){
+        }elseif($id==\Yii::$app->user->identity->id_data){
             if (($model = MBiodata::findOne($id)) !== null) {
                 return $model;
             }
