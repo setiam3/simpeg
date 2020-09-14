@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+
 
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
@@ -32,7 +34,7 @@ if (in_array('karyawan', $role)) {
             ?>
             <?= $form->field($transaksipenggajian, 'nomor_transgaji') ?>
             <?= $form->field($transaksipenggajian, 'tgl_gaji')->widget(DatePicker::classname(), [
-                'options' => ['placeholder' => 'masukan tanggal Mulai'],
+                'options' => ['placeholder' => 'masukan tanggal'],
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
@@ -61,7 +63,7 @@ if (in_array('karyawan', $role)) {
             ])->label('Golongan Gaji');
             ?>
             <?= $form->field($transaksipenggajiandetail, 'tunjangan_id')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'id'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'tunjangan_id'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
@@ -69,6 +71,20 @@ if (in_array('karyawan', $role)) {
                 ],
             ])->label('Tunjangan Id');
             ?>
+
+            <?=
+                Select2::widget([
+                    'name' => 'Tunjangan_id',
+                    'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'tunjangan_id'),
+                    'size' => Select2::MEDIUM,
+                    'options' => ['placeholder' => 'Select  ...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+            ?>
+
+
             <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
 
             <?= $form->field($potongangaji, 'potongan_desc')->widget(\kartik\select2\Select2::classname(), [
