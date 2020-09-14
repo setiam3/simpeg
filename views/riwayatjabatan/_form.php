@@ -1,10 +1,17 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Riwayatjabatan */
-/* @var $form yii\widgets\ActiveForm */
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
+    $parent=[$data->id_data => $data->nama];
+}elseif(in_array('operator',$role) || in_array('admin',$role)){
+    !empty($klikedid)?$parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama'):
+    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
+}
 ?>
 
 <div class="riwayatjabatan-form">
@@ -13,8 +20,7 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>'1'])->all(),'id_data','nama'),
-                'language' => 'de',
+                'data' => $parent,
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -23,7 +29,7 @@ use yii\widgets\ActiveForm;
             ?>
 
             <?= $form->field($model, 'id_jabatan')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'3'])->all(),'reff_id','nama_referensi'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'3','status'=>'1'])->all(),'reff_id','nama_referensi'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [

@@ -4,21 +4,25 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\date\DatePicker;
 use kartik\widgets\FileInput;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\MKepangkatan */
-/* @var $form yii\widgets\ActiveForm */
-
+use yii\helpers\ArrayHelper;
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
+    $parent=[$data->id_data => $data->nama];
+}elseif(in_array('operator',$role) || in_array('admin',$role)){
+    !empty($klikedid)?$parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama'):
+    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
+}
 ?>
 
 <div class="mkepangkatan-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=> '1'])->all(),'id_data','nama'),
-                'language' => 'de',
+                'data' =>$parent,
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -43,7 +47,7 @@ use kartik\widgets\FileInput;
                 'data' =>
                     \yii\helpers\ArrayHelper::map(\app\models\Penggolongangaji::find()
                     ->leftJoin('m_referensi','m_referensi.reff_id = penggolongangaji.pangkat_id')
-    ->where(['m_referensi.tipe_referensi'=>6])
+    ->where(['m_referensi.tipe_referensi'=>6,'status'=>'1'])
                         ->all(),'id','pangkat.nama_referensi'),
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [

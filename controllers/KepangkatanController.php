@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\MKepangkatan;
 use app\models\MKepangkatanSearch;
@@ -96,6 +94,7 @@ class KepangkatanController extends Controller
                     'title'=> "Create new Kepangkatan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid'=>isset($_GET['id'])?$_GET['id']:'',
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
@@ -119,6 +118,7 @@ class KepangkatanController extends Controller
                     'title'=> "Create new Kepangkatan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid'=>isset($_GET['id'])?$_GET['id']:'',
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])

@@ -99,7 +99,7 @@ class RiwayatdiklatController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Create new Riwayatdiklat get",
+                    'title' => "Create new Riwayatdiklat",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                         'klikedid'=>isset($_GET['id'])?$_GET['id']:'',

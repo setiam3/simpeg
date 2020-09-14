@@ -15,7 +15,6 @@ use Yii;
  * @property MBiodata[] $mBiodatas
  * @property MReffTipe $tipeReferensi
  * @property Penggolongangaji[] $penggolongangajis
-// * @property Penggolongangaji[] $penggolongangajis0
  * @property Riwayatjabatan[] $riwayatjabatans
  */
 class MReferensi extends \yii\db\ActiveRecord
