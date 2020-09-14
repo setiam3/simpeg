@@ -61,7 +61,7 @@ class KepangkatanController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "MKepangkatan #".$id,
+                    'title'=> "Kepangkatan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -93,7 +93,7 @@ class KepangkatanController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new MKepangkatan",
+                    'title'=> "Create new Kepangkatan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -103,13 +103,12 @@ class KepangkatanController extends Controller
                 ];
             }else if($model->load($request->post())){
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip . '_' . time());
-                    $model->dokumen =  $ext;
+                    $model->dokumen = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                 }
                 $model->save(false);
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new MKepangkatan",
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title'=> "Create new Kepangkatan",
                     'content'=>'<span class="text-success">Create MKepangkatan success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
@@ -117,7 +116,7 @@ class KepangkatanController extends Controller
                 ];
             }else{
                 return [
-                    'title'=> "Create new MKepangkatan",
+                    'title'=> "Create new Kepangkatan",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -161,7 +160,7 @@ class KepangkatanController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MKepangkatan #".$id,
+                    'title'=> "Update Kepangkatan #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -171,16 +170,14 @@ class KepangkatanController extends Controller
             }else if($model->load($request->post()) ){
 
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
-                    $ext = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/kepangkatan_' . $model->data->nip . '_' . time());
-                    $model->dokumen =  $ext;
+                    $model->dokumen = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/kepangkatan_' . $model->data->nip);
                 }else{
                     $model->dokumen = $olddokumen;
                 }
-
                 $model->save();
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MKepangkatan #".$id,
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title'=> "Kepangkatan #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -189,7 +186,7 @@ class KepangkatanController extends Controller
                 ];
             }else{
                  return [
-                    'title'=> "Update MKepangkatan #".$id,
+                    'title'=> "Update Kepangkatan #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -225,14 +222,14 @@ class KepangkatanController extends Controller
         if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
             unlink($filename);
         }
-        $this->findModel($id)->delete();
+        $model->delete();
 
         if($request->isAjax){
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -267,7 +264,7 @@ class KepangkatanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request

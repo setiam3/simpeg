@@ -67,7 +67,6 @@ return [
             'view' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel1/view?id=' . $model->id;
-
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'View', 'data-toggle' => 'tooltip']);
             },
             'update' => function ($url, $model) {
@@ -78,7 +77,6 @@ return [
             'delete' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel1/delete?id=' . $model->id;
-
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
                     'role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Delete',
                     'data-confirm' => false, 'data-method' => false,

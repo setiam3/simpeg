@@ -105,8 +105,8 @@ class RiwayatpendidikanController extends Controller
             } else if ($model->load($request->post())) {
 
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' . $model->data->nip);
-                    $model->dokumen = $ext;
+
+                    $model->dokumen = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' . $model->data->nip);
                 }
 
                 if ($model->save(false)) {
@@ -176,8 +176,8 @@ class RiwayatpendidikanController extends Controller
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldFoto) && !empty($oldFoto)) {
                         unlink($filename);
                     }
-                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
-                    $model->dokumen = $ext;
+
+                    $model->dokumen = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
                 } else {
                     $model->dokumen = $oldFoto;
                 }
@@ -236,8 +236,10 @@ class RiwayatpendidikanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
+
             /*
             *   Process for non-ajax request
             */

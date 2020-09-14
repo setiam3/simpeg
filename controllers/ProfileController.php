@@ -1,5 +1,4 @@
 <?php
-
 namespace app\controllers;
 use app\models\PengajuanijinSearch;
 use Yii;
@@ -15,7 +14,6 @@ use yii\web\NotFoundHttpException;
 
 class ProfileController extends \yii\web\Controller
 {
-
     public function actionIndex()
     {
         $identity = Yii::$app->user->identity;

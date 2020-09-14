@@ -102,7 +102,7 @@ class MenuController extends Controller
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Create new Menu",
                     'content'=>'<span class="text-success">Create Menu success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -163,7 +163,7 @@ class MenuController extends Controller
                 ];         
             }else if($model->load($request->post()) && $model->save(false)){
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Menu #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
@@ -205,14 +205,15 @@ class MenuController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        $model->delete();
 
         if($request->isAjax){
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -244,7 +245,7 @@ class MenuController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request

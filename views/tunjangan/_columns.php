@@ -21,16 +21,16 @@ return [
         'attribute'=>'nominal',
     ],
     [
-            'class' => 'kartik\grid\DataColumn',
-            'attribute' => 'status',
-            'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ['1'=>'Aktif','0'=>'Non Aktif'], 
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => 'status'],
-            'group' => true,
+        'class' => 'kartik\grid\DataColumn',
+        'attribute' => 'status',
+        'filterType' => GridView::FILTER_SELECT2,
+        'filter' => ['1'=>'Aktif','0'=>'Non Aktif'], 
+        'filterWidgetOptions' => [
+            'pluginOptions' => ['allowClear' => true],
         ],
+        'filterInputOptions' => ['placeholder' => 'status'],
+        'group' => true,
+    ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',

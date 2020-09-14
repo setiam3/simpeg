@@ -72,14 +72,12 @@ return [
             'update' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel2/update?id=' . $model->id;
-
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::to($t), ['role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Update', 'data-toggle' => 'tooltip']);
 
             },
             'delete' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel2/delete?id=' . $model->id;
-
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
                     'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
                     'data-confirm' => false, 'data-method' => false,

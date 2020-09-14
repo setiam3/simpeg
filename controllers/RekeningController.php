@@ -61,7 +61,7 @@ class RekeningController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "MRekening #" . $id,
+                'title' => "Rekening #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $model,
                 ]),
@@ -93,7 +93,7 @@ class RekeningController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Create new MRekening",
+                    'title' => "Create new Rekening",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -112,16 +112,16 @@ class RekeningController extends Controller
                 }
                 $model->save(false);
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Create new MRekening",
-                    'content' => '<span class="text-success">Create MRekening success</span>',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title' => "Create new Rekening",
+                    'content' => '<span class="text-success">Create Rekening success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote','data-target'=>'#'.md5(get_class($model))])
 
                 ];
             } else {
                 return [
-                    'title' => "Create new MRekening",
+                    'title' => "Create new Rekening",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -165,7 +165,7 @@ class RekeningController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
-                    'title' => "Update MRekening #" . $id,
+                    'title' => "Update Rekening #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -177,8 +177,7 @@ class RekeningController extends Controller
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldNpwp)) {
                         unlink($filename);
                     }
-                    $ext = Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/npwp_' . $model->npwp);
-                    $model->fotoNpwp =  $ext;
+                    $model->fotoNpwp =Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/npwp_' . $model->npwp);
                 } else {
                     $model->fotoNpwp = $oldNpwp;
                 }
@@ -186,15 +185,14 @@ class RekeningController extends Controller
                     if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldRekening)) {
                         unlink($filename);
                     }
-                    $ext = Yii::$app->tools->upload('MRekening[fotoRekening]', Yii::getAlias('@uploads') . $model->data->nip . '/rek_' . $model->nomor_rekening);
-                    $model->fotoRekening = $ext;
+                    $model->fotoRekening = Yii::$app->tools->upload('MRekening[fotoRekening]', Yii::getAlias('@uploads') . $model->data->nip . '/rek_' . $model->nomor_rekening);
                 } else {
                     $model->fotoRekening = $oldRekening;
                 }
                 $model->save(false);
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "MRekening #" . $id,
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title' => "Rekening #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -203,7 +201,7 @@ class RekeningController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Update MRekening #" . $id,
+                    'title' => "Update Rekening #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -249,7 +247,7 @@ class RekeningController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         } else {
             /*
             *   Process for non-ajax request
@@ -285,7 +283,7 @@ class RekeningController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+            return ['forceClose' => true, 'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         } else {
             /*
             *   Process for non-ajax request
