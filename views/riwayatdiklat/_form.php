@@ -16,7 +16,6 @@ if(in_array('karyawan',$role)){
     $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
 }
 ?>
-
 <div class="mriwayatdiklat-form">
 
     <?php $form = ActiveForm::begin(); ?>

@@ -7,10 +7,12 @@ if(in_array('karyawan',$role)){
     $data=\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
     $parent=[$data->id_data => $data->nama];
 }elseif(in_array('operator',$role) || in_array('admin',$role)){
-    !empty($klikedid)?$parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama'):
-    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
-}else{
-    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama');
+    if(!empty($klikedid)){
+        $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama');
+    }
+
+    $parent=$model->isNewRecord?ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama'):
+    ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data'=>$model->id_data])->all(),'id_data','nama');
 }
 ?>
 
@@ -20,7 +22,7 @@ if(in_array('karyawan',$role)){
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-                'data' => $parent,
+                'data'=>$parent,
                 'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -29,8 +31,7 @@ if(in_array('karyawan',$role)){
             ?>
 
             <?= $form->field($model, 'id_jabatan')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'3','status'=>'1'])->all(),'reff_id','nama_referensi'),
-                'language' => 'de',
+                'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'3','status'=>'1'])->all(),'reff_id','nama_referensi'),
                 'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
                     'allowClear' => true
@@ -78,7 +79,7 @@ if(in_array('karyawan',$role)){
             ]) ?>
 
             <?= $form->field($model, 'unit_kerja')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MUnit::find()->all(),'id','unit'),
+                'data' => ArrayHelper::map(\app\models\MUnit::find()->all(),'id','unit'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
