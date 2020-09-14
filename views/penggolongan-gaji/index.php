@@ -11,7 +11,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel app\models\MPenggolongangajiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'M Penggolongangajis';
+$this->title = 'Penggolongangaji';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -30,7 +30,7 @@ $idmodal = md5($dataProvider->query->modelClass);
                 Html::a(
                     '<i class="glyphicon glyphicon-plus"></i>',
                     ['create'],
-                    ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new M Penggolongangajis', 'class' => 'btn btn-default']
+                    ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new Penggolongangaji', 'class' => 'btn btn-default']
                 ) .
                     Html::a(
                         '<i class="glyphicon glyphicon-repeat"></i>',
@@ -45,7 +45,7 @@ $idmodal = md5($dataProvider->query->modelClass);
             'responsive' => true,
             'panel' => [
                 'type' => 'primary',
-                'heading' => '<i class="glyphicon glyphicon-list"></i> M Penggolongangajis listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Penggolongangaji',
                 'before' => '<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after' => BulkButtonWidget::widget([
                     'buttons' => Html::a(

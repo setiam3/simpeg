@@ -38,9 +38,7 @@ class Approvel1Controller extends Controller
      */
     public function actionIndex()
     {
-//        $where=['in','approval1',['0',null]];
-        $where='approval1 is null
-AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data ='.\Yii::$app->user->identity->id_data.')';
+        $where='approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data ='.\Yii::$app->user->identity->id_data.')';
         $searchModel = new Approvel1Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
 
@@ -105,7 +103,7 @@ AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as r
                 ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Create new Pengajuanijin",
                     'content'=>'<span class="text-success">Create Pengajuanijin success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -174,7 +172,7 @@ AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as r
                 }
                 $model->save(false);
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Pengajuanijin #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
@@ -216,14 +214,15 @@ AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as r
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
         if($request->isAjax){
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -255,7 +254,7 @@ AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as r
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -274,7 +273,6 @@ AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as r
      */
     protected function findModel($id)
     {
-
         if (($model = Pengajuanijin::findOne($id)) !== null) {
             return $model;
         } else {

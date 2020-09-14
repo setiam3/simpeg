@@ -15,17 +15,16 @@ return [
         'attribute'=>'nama_reff_tipe',
     ],
     [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'status',
+        'class' => 'kartik\grid\DataColumn',
+        'attribute' => 'status',
+        'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
+        'filter' => ['1'=>'Aktif','0'=>'Non Aktif'], 
+        'filterWidgetOptions' => [
+            'pluginOptions' => ['allowClear' => true],
+        ],
+        'filterInputOptions' => ['placeholder' => 'status'],
+        'group' => true,
     ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'refftipe_code',
-    // ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'parent_refftipe',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

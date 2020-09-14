@@ -10,7 +10,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel app\models\Approvel1Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengajuanijins';
+$this->title = 'Pengajuanijin';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -19,15 +19,13 @@ $idmodal=md5($dataProvider->query->modelClass);
 <div class="pengajuanijin-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
-            'id'=>'crud-datatable',
+            'id'=>'crud-datatable'.$idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-//                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['approvel1/create'],
-//                    ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Pengajuanijins','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
                     '{toggleData}'.
@@ -39,7 +37,7 @@ $idmodal=md5($dataProvider->query->modelClass);
             'responsive' => true,
             'panel' => [
                 'type' => 'primary',
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Pengajuanijins listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Pengajuanijin',
                 'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after'=>BulkButtonWidget::widget([
                             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

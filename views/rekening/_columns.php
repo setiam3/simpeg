@@ -12,10 +12,6 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'id',
-    // ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
@@ -34,14 +30,6 @@ return [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'npwp',
     ],
-    // [
-    //     'class'=>'\kartik\grid\DataColumn',
-    //     'attribute'=>'fotoNpwp',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'fotoRekening',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

@@ -224,7 +224,7 @@ class RiwayatjabatanController extends Controller
         if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
             unlink($filename);
         }
-        $this->findModel($id)->delete();
+        $model->delete();
 
 
         if ($request->isAjax) {

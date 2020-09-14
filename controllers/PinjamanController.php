@@ -92,7 +92,7 @@ class PinjamanController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new MPinjaman",
+                    'title'=> "Create new Pinjaman",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -102,16 +102,16 @@ class PinjamanController extends Controller
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new MPinjaman",
-                    'content'=>'<span class="text-success">Create MPinjaman success</span>',
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title'=> "Create new Pinjaman",
+                    'content'=>'<span class="text-success">Create Pinjaman success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new MPinjaman",
+                    'title'=> "Create new Pinjaman",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -154,7 +154,7 @@ class PinjamanController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MPinjaman #".$id,
+                    'title'=> "Update Pinjaman #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -163,8 +163,8 @@ class PinjamanController extends Controller
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MPinjaman #".$id,
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title'=> "Pinjaman #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -173,7 +173,7 @@ class PinjamanController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update MPinjaman #".$id,
+                    'title'=> "Update Pinjaman #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -205,14 +205,14 @@ class PinjamanController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);$model->delete();
 
         if($request->isAjax){
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -244,7 +244,7 @@ class PinjamanController extends Controller
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
             /*
             *   Process for non-ajax request

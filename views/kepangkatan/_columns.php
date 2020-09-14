@@ -10,16 +10,10 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
         'value' => 'data.nama',
-
-//        'filter' => Html::activeDropDownList($searchModel, 'id_data',$karyawan, ['class'=>'form-control']  ),
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
