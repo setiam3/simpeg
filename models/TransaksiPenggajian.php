@@ -72,6 +72,11 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
         return $this->hasMany(PotonganGaji::className(), ['transgaji_id' => 'transgaji_id']);
     }
 
+    public function getPotongangajiss()
+    {
+        return $this->hasOne(PotonganGaji::className(), ['transgaji_id' => 'transgaji_id']);
+    }
+
     /**
      * Gets query for [[Data]].
      *
@@ -91,5 +96,10 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
     public function getTrandetail()
     {
         return $this->hasMany(TransaksipenggajianDetail::className(), ['transgaji_id' => 'transgaji_id']);
+    }
+
+    public function getTransdetail()
+    {
+        return $this->hasOne(TransaksipenggajianDetail::className(), ['transgaji_id' => 'transgaji_id']);
     }
 }
