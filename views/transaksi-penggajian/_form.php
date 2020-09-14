@@ -3,16 +3,18 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TransaksiPenggajian */
 /* @var $form yii\widgets\ActiveForm */
-$role=\Yii::$app->tools->getcurrentroleuser();
-if(in_array('karyawan',$role)){
-    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
-    $parent=[$data->id_data => $data->nama];
-}else{
-    $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+
+$role = \Yii::$app->tools->getcurrentroleuser();
+if (in_array('karyawan', $role)) {
+    $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
+    $parent = [$data->id_data => $data->nama];
+} else {
+    $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
 }
 
 

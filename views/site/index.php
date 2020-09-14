@@ -153,11 +153,11 @@ foreach ($golpeg as $row){
                                 <tr>
                                     <td><?= $row['nama'] ?></td>
                                     <td><?= $row['tanggalLahir'] ?></td>
-                                    <td></td>
+<!--                                    <td>--><?//= $row['umur'] ?><!--</td>-->
                                 </tr>
                                 <?php } ?>
-
                                 </tbody>
+
                             </table>
                         </div>
 
@@ -373,4 +373,5 @@ foreach ($golpeg as $row){
 </div>
     </div>
 </section>
+
 
