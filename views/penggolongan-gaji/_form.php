@@ -3,11 +3,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\widgets\SwitchInput;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\PenggolonganGaji */
-/* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="mpenggolongan-gaji-form">
@@ -25,10 +20,10 @@ use kartik\widgets\SwitchInput;
     <?= $form->field($model, 'masa_kerja')->textInput() ?>
 
     <?= $form->field($model, 'gaji')->widget(\yii\widgets\MaskedInput::className(), [
-        'clientOptions' => [
+       'clientOptions' => [
             'alias' => 'numeric',
-            'digits' => 2,
-            'digitsOptional' => false,
+            // 'digits' => 2,
+            'digitsOptional' => true,
             'radixPoint' => '.',
             'groupSeparator' => ',',
             'autoGroup' => true,

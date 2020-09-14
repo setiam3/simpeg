@@ -22,6 +22,9 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'gaji',
+        'value'=>function($model){
+            return Yii::$app->formatter->asCurrency($model->gaji);
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

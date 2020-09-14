@@ -19,6 +19,9 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'nominal',
+        'value'=>function($model){
+            return Yii::$app->formatter->asCurrency($model->nominal);
+        }
     ],
     [
         'class' => 'kartik\grid\DataColumn',
@@ -29,12 +32,13 @@ return [
             'pluginOptions' => ['allowClear' => true],
         ],
         'filterInputOptions' => ['placeholder' => 'status'],
-        'group' => true,
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
-        'value' => 'data.nama',
+        'value' => function($model){
+            return $model->data->gelarDepan.' '.$model->data->nama.' '.$model->data->gelarBelakang;
+        }
     ],
     [
         'class' => 'kartik\grid\ActionColumn',

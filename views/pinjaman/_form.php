@@ -5,22 +5,21 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
-
-
-/* @var $this yii\web\View */
-/* @var $model app\models\MPinjaman */
-/* @var $form yii\widgets\ActiveForm */
+$role=\Yii::$app->tools->getcurrentroleuser();
+if(in_array('karyawan',$role)){
+    $data=\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
+    $parent=[$data->id_data => $data->nama];
+}else{
+    $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama');
+}
 ?>
-
 <div class="mpinjaman-form">
-
     <?php $form = ActiveForm::begin(); ?>
-
     <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>'1'])->all(), 'id_data', 'nama'),
-        'options' => ['placeholder' => 'Select id_data ...'],
+        'data' => $parent,
+        'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
-            'allowClear' => true
+            'allowClear' => false
         ],
     ])
     ?>

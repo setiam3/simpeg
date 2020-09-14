@@ -9,10 +9,10 @@ use yii\helpers\Url;
 use kartik\date\DatePicker;
 $role=\Yii::$app->tools->getcurrentroleuser();
 if(in_array('karyawan',$role)){
-    $data=$model::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
+    $data=$model::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
     $parent=[$data->id_data => $data->nama];
 }else{
-    $parent=ArrayHelper::map($model::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+    $parent=ArrayHelper::map($model::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama');
 }
 
 ?>
@@ -39,20 +39,17 @@ if(in_array('karyawan',$role)){
                     'autoclose'=>true
                 ]
             ])?>
-
-    
-
-<?= $form->field($model, 'jenisKelamin')->radioList(
+    <?= $form->field($model, 'jenisKelamin')->radioList(
             ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8']), 'reff_id','nama_referensi')
         ) ?>
 
     <?= $form->field($model, 'agama')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ])?>
+        'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7']), 'reff_id','nama_referensi'),
+        'options' => ['placeholder' => 'Select  ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])?>
 
     <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
 
