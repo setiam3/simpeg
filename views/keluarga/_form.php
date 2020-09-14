@@ -142,7 +142,7 @@ if(in_array('karyawan',$role)){
             'frameClass' => 'krajee-default row',
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
+            'browseLabel' =>  'Select FotoNik'
             ],
         ]) ?>
 

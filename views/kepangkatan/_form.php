@@ -73,11 +73,12 @@ if(in_array('karyawan',$role)){
             <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
-                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])],
+                    'initialPreview' => (!$model->isNewRecord && isset($model->dokumen)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])]:[],
                     'maxFileSize' => 2048,
                     'showCaption' => false,
                     'showRemove' => false,
                     'showUpload' => false,
+                    'frameClass' => 'krajee-default row',
                     'browseClass' => 'btn btn-primary btn-block',
                     'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
                     'browseLabel' =>  'Select File'

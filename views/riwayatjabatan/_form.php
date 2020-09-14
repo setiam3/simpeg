@@ -21,17 +21,17 @@ if(in_array('karyawan',$role)){
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
                 'data' => $parent,
-                'options' => ['placeholder' => 'Select a state ...'],
+                'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])->label('Pegawai');
+            ])
             ?>
 
             <?= $form->field($model, 'id_jabatan')->widget(\kartik\select2\Select2::classname(), [
                 'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'3','status'=>'1'])->all(),'reff_id','nama_referensi'),
                 'language' => 'de',
-                'options' => ['placeholder' => 'Select a state ...'],
+                'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
@@ -65,11 +65,12 @@ if(in_array('karyawan',$role)){
             <?= $form->field($model, 'dokumen')->widget(\kartik\file\FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
-                    'initialPreview' => $model->isNewRecord ? [] : [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])],
+                    'initialPreview' => (!$model->isNewRecord && isset($model->dokumen)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])]:[],
                     'maxFileSize' => 2048,
                     'showCaption' => false,
                     'showRemove' => false,
                     'showUpload' => false,
+                    'frameClass' => 'krajee-default row',
                     'browseClass' => 'btn btn-primary btn-block',
                     'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
                     'browseLabel' =>  'Select File'
