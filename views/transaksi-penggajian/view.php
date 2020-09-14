@@ -31,6 +31,9 @@ use yii\widgets\DetailView;
             ],
             [
                 'attribute' => 'tunjangan id',
+//                'value' => function($data){
+//        return $data->transdetail->gol_gaji;
+//                }
                 'value' => implode(\yii\helpers\ArrayHelper::map($model->trandetail, 'transgaji_id', 'tunjangan_id'))
             ],
             [
@@ -39,7 +42,8 @@ use yii\widgets\DetailView;
             ],
             [
                 'attribute' => 'potongan desc',
-                'value' => implode(\yii\helpers\ArrayHelper::map($model->potongangajis, 'transgaji_id', 'potongan_desc'))
+//                'value' => implode(\yii\helpers\ArrayHelper::map($model->potongangajis->potonganDesc, 'potongan_desc', 'nama_referensi'))
+                'value' => function ($data) {$data->potongangajiss->potonganDesc->nama_referensi;}
             ],
             [
                 'attribute' => 'potongan nominal',

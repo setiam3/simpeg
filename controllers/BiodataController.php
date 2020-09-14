@@ -236,13 +236,16 @@ class BiodataController extends Controller
      */
     protected function findModel($id)
     {
-<<<<<<< HEAD
-        $role = \Yii::$app->tools->getcurrentroleuser();
-        if (in_array('admin', $role)) {
-=======
+
         $role=\Yii::$app->tools->getcurrentroleuser();
         if(in_array('admin',$role) || in_array('operator',$role)){
->>>>>>> 7a35eeb5a967ae42b2dde82495ac3c75aa7e84f2
+
+            if (($model = MBiodata::findOne($id)) !== null) {
+                return $model;
+            }
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        elseif(in_array('operator',$role)){
             if (($model = MBiodata::findOne($id)) !== null) {
                 return $model;
             }
