@@ -96,6 +96,7 @@ class RiwayatjabatanController extends Controller
                     'title' => "Create new Riwayatjabatan",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -122,6 +123,7 @@ class RiwayatjabatanController extends Controller
                     'title' => "Create new Riwayatjabatan",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])

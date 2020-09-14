@@ -16,11 +16,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
 $idmodal = md5($dataProvider->query->modelClass);
+$params = isset($klikedid) ? '?id=' . $klikedid : '';
 ?>
 <div class="transaksi-penggajian-index">
     <div id="ajaxCrudDatatableGaji">
         <?= GridView::widget([
-            'id' => 'crud-datatable'.$idmodal,
+            'id' => 'crud-datatable' . $idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax' => true,
@@ -29,7 +30,7 @@ $idmodal = md5($dataProvider->query->modelClass);
                 ['content' =>
                 Html::a(
                     '<i class="glyphicon glyphicon-plus"></i>',
-                    ['transaksi-penggajian/create'],
+                    ['transaksi-penggajian/create' . $params],
                     ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new Transaksi Penggajians', 'class' => 'btn btn-default']
                 ) .
                     Html::a(

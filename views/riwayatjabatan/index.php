@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
@@ -14,25 +15,31 @@ $this->title = 'Riwayatjabatans';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
-$idmodal=md5($dataProvider->query->modelClass);
+$idmodal = md5($dataProvider->query->modelClass);
+$params = isset($klikedid) ? '?id=' . $klikedid : '';
 ?>
 <div class="riwayatjabatan-index">
     <div id="ajaxCrudDatatableJabatan">
-        <?=GridView::widget([
-            'id'=>'crud-datatablejabatan',
+        <?= GridView::widget([
+            'id' => 'crud-datatablejabatan',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'pjax'=>true,
-            'columns' => require(__DIR__.'/_columns.php'),
-            'toolbar'=> [
-                ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['riwayatjabatan/create'],
-                    ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Riwayatjabatans','class'=>'btn btn-default']).
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
-                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
-                    '{toggleData}'.
-                    '{export}'
-                ],
+            'pjax' => true,
+            'columns' => require(__DIR__ . '/_columns.php'),
+            'toolbar' => [
+                ['content' =>
+                Html::a(
+                    '<i class="glyphicon glyphicon-plus"></i>',
+                    ['riwayatjabatan/create' . $params],
+                    ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new Riwayatjabatans', 'class' => 'btn btn-default']
+                ) .
+                    Html::a(
+                        '<i class="glyphicon glyphicon-repeat"></i>',
+                        [''],
+                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
+                    ) .
+                    '{toggleData}' .
+                    '{export}'],
             ],
             'striped' => true,
             'condensed' => true,
@@ -40,28 +47,30 @@ $idmodal=md5($dataProvider->query->modelClass);
             'panel' => [
                 'type' => 'primary',
                 'heading' => '<i class="glyphicon glyphicon-list"></i> Riwayatjabatans listing',
-                'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
-                'after'=>BulkButtonWidget::widget([
-                            'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
-                                ["bulk-delete"] ,
-                                [
-                                    "class"=>"btn btn-danger btn-xs",
-                                    'role'=>'modal-remote-bulk',
-                                    'data-target'=>'#'.$idmodal,
-                                    'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
-                                    'data-request-method'=>'post',
-                                    'data-confirm-title'=>'Are you sure?',
-                                    'data-confirm-message'=>'Are you sure want to delete this item'
-                                ]),
-                        ]).
-                        '<div class="clearfix"></div>',
+                'before' => '<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
+                'after' => BulkButtonWidget::widget([
+                    'buttons' => Html::a(
+                        '<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                        ["bulk-delete"],
+                        [
+                            "class" => "btn btn-danger btn-xs",
+                            'role' => 'modal-remote-bulk',
+                            'data-target' => '#' . $idmodal,
+                            'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                            'data-request-method' => 'post',
+                            'data-confirm-title' => 'Are you sure?',
+                            'data-confirm-message' => 'Are you sure want to delete this item'
+                        ]
+                    ),
+                ]) .
+                    '<div class="clearfix"></div>',
             ]
-        ])?>
+        ]) ?>
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>$idmodal,
-    "size"=>"modal-lg",
-    "footer"=>"",// always need it for jquery plugin
-])?>
+    "id" => $idmodal,
+    "size" => "modal-lg",
+    "footer" => "", // always need it for jquery plugin
+]) ?>
 <?php Modal::end(); ?>

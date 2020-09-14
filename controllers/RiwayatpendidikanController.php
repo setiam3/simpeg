@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 use yii\web\UploadedFile;
+
 /**
  * RiwayatpendidikanController implements the CRUD actions for Riwayatpendidikan model.
  */
@@ -57,19 +58,19 @@ class RiwayatpendidikanController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        if($request->isAjax){
+        if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Riwayatpendidikan #".$id,
-                    'content'=>$this->renderAjax('view', [
-                        'model' =>$model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];
-        }else{
+                'title' => "Riwayatpendidikan #" . $id,
+                'content' => $this->renderAjax('view', [
+                    'model' => $model,
+                ]),
+                'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                    Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
+            ];
+        } else {
             return $this->render('view', [
-                'model' =>$model,
+                'model' => $model,
             ]);
         }
     }
@@ -85,51 +86,52 @@ class RiwayatpendidikanController extends Controller
         $request = Yii::$app->request;
         $model = new Riwayatpendidikan();
 
-        if($request->isAjax){
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
+            if ($request->isGet) {
                 return [
-                    'title'=> "Create new Riwayatpendidikan",
-                    'content'=>$this->renderAjax('create', [
+                    'title' => "Create new Riwayatpendidikan",
+                    'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            }else if($model->load($request->post())){
+            } else if ($model->load($request->post())) {
 
                 if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
-                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen'. $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' . $model->data->nip);
                     $model->dokumen = $ext;
                 }
 
-                if($model->save(false)){
+                if ($model->save(false)) {
                     return [
-                        'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
-                        'title'=> "Create new Riwayatpendidikan",
-                        'content'=>'<span class="text-success">Create Riwayatpendidikan success</span>',
-                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                        'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
+                        'title' => "Create new Riwayatpendidikan",
+                        'content' => '<span class="text-success">Create Riwayatpendidikan success</span>',
+                        'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                            Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
 
                     ];
                 }
-
-            }else{
+            } else {
                 return [
-                    'title'=> "Create new Riwayatpendidikan",
-                    'content'=>$this->renderAjax('create', [
+                    'title' => "Create new Riwayatpendidikan",
+                    'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
             }
-        }else{
+        } else {
             /*
             *   Process for non-ajax request
             */
@@ -141,7 +143,6 @@ class RiwayatpendidikanController extends Controller
                 ]);
             }
         }
-
     }
 
     /**
@@ -155,53 +156,52 @@ class RiwayatpendidikanController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $oldFoto=$model->dokumen;
-        if($request->isAjax){
+        $oldFoto = $model->dokumen;
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
+            if ($request->isGet) {
                 return [
-                    'title'=> "Update Riwayatpendidikan #".$id,
-                    'content'=>$this->renderAjax('update', [
+                    'title' => "Update Riwayatpendidikan #" . $id,
+                    'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-            }else if($model->load($request->post())){
-                if(!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))){
-                    if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$oldFoto) && !empty($oldFoto)){
+            } else if ($model->load($request->post())) {
+                if (!empty(UploadedFile::getInstanceByName('Riwayatpendidikan[dokumen]'))) {
+                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldFoto) && !empty($oldFoto)) {
                         unlink($filename);
                     }
-                    $ext=Yii::$app->tools->upload('Riwayatpendidikan[dokumen]',Yii::getAlias('@uploads'). $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
+                    $ext = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
                     $model->dokumen = $ext;
-
-                }else{
-                    $model->dokumen=$oldFoto;
+                } else {
+                    $model->dokumen = $oldFoto;
                 }
                 $model->save();
                 return [
-                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
-                    'title'=> "Riwayatpendidikan #".$id,
-                    'content'=>$this->renderAjax('view', [
+                    'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
+                    'title' => "Riwayatpendidikan #" . $id,
+                    'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
                 ];
-            }else{
-                 return [
-                    'title'=> "Update Riwayatpendidikan #".$id,
-                    'content'=>$this->renderAjax('update', [
+            } else {
+                return [
+                    'title' => "Update Riwayatpendidikan #" . $id,
+                    'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                        Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
             }
-        }else{
+        } else {
             /*
             *   Process for non-ajax request
             */
@@ -225,29 +225,27 @@ class RiwayatpendidikanController extends Controller
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
-        $model=$this->findModel($id);
-        if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+        $model = $this->findModel($id);
+        if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
             unlink($filename);
         }
         $model->delete();
 
-        if($request->isAjax){
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
-        }else{
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+        } else {
             /*
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
         }
-
-
     }
 
-     /**
+    /**
      * Delete multiple existing Riwayatpendidikan model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
@@ -257,28 +255,27 @@ class RiwayatpendidikanController extends Controller
     public function actionBulkDelete()
     {
         $request = Yii::$app->request;
-        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
-        foreach ( $pks as $pk ) {
+        $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
+        foreach ($pks as $pk) {
             $model = $this->findModel($pk);
-            if(file_exists($filename=Yii::getAlias('@uploads').$model->data->nip.'/'.$model->dokumen) && !empty($model->dokumen)){
+            if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->dokumen) && !empty($model->dokumen)) {
                 unlink($filename);
             }
             $model->delete();
         }
 
-        if($request->isAjax){
+        if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
-        }else{
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
+        } else {
             /*
             *   Process for non-ajax request
             */
             return $this->redirect(['index']);
         }
-
     }
 
     /**
