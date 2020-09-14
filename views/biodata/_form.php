@@ -11,7 +11,6 @@ use kartik\file\FileInput;
 ?>
 
 <div class="mbiodata-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-xs-3">
