@@ -36,9 +36,9 @@ Detail pegawai
     rekrutment pegawai
 
 Notifikasi Reminder
-    Kenaikan Jabatan
+    Kenaikan Jabatan 6
     Kenaikan Gaji
-    KGB (Kenaikan Gaji Berkala)
+    KGB (Kenaikan Gaji Berkala) 2 thn
     Kelengkapan berkas
 
 Arsip digital

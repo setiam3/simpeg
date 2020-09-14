@@ -145,7 +145,6 @@ foreach ($golpeg as $row){
                                 <tr>
                                     <th>nama</th>
                                     <th>tanggal</th>
-                                    <th>tahun</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -153,7 +152,6 @@ foreach ($golpeg as $row){
                                 <tr>
                                     <td><?= $row['nama'] ?></td>
                                     <td><?= $row['tanggalLahir'] ?></td>
-<!--                                    <td>--><?//= $row['umur'] ?><!--</td>-->
                                 </tr>
                                 <?php } ?>
                                 </tbody>
@@ -260,8 +258,8 @@ foreach ($golpeg as $row){
                             <thead>
                             <tr>
                                 <th>nama</th>
-                                <th>tanggal</th>
-                                <th>tahun</th>
+<!--                                <th>tanggal</th>-->
+<!--                                <th>tahun</th>-->
                             </tr>
                             </thead>
                             <tbody>

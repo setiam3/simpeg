@@ -116,9 +116,9 @@ class Tools extends \yii\bootstrap\Widget{
 
     }
     public function ultahPegawai(){// month year
-$sql = 'SELECT * FROM m_biodata 
-WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
-AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
+$sql = 'SELECT nama, "tanggalLahir" FROM m_biodata 
+	WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
+	AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
 
       return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
 //          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
@@ -133,6 +133,25 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
       }
       return ArrayHelper::map($role,'name','name');
     }
+
+
+    public function notifKenaikanGaji(){
+
+//        $data = MBiodata::find()
+//            ->where("DATE_PART('day', 'tanggalLahir') = 1")->all();
+//        $where = 'WHERE DATE_PART('year', now()) - DATE_PART('year',tmtPangkat) = 4';
+//        $sql=MBiodata::find()
+//            ->joinWith('kepangkatans')
+//            ->where($where)->all();
+        $sql ="SELECT * FROM m_biodata
+LEFT JOIN kepangkatan ON m_biodata.id_data = kepangkatan.id_data
+WHERE DATE_PART('year', NOW()) = :dayBind - DATE_PART('year' ,'tmtPangkat') = :dayBind";
+
+         $params = array(':dayBind' => 2020, ':dayBind' => 2018);
+
+//        "DATE_PART('year', NOW()) - DATE_PART('year' ,'tmtPangkat') = 2";
+        return \Yii::$app->db->createCommand($sql)->bindValues($params)->queryAll();
+    }
     protected function findModelAll($condition,$models){
         $modelx=\Yii::createObject([
           'class' => "app\models\\".$models,
@@ -142,5 +161,6 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }
 ?>

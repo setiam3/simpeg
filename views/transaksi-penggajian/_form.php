@@ -17,6 +17,12 @@ if (in_array('karyawan', $role)) {
     $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
 }
 
+//print_r(\app\models\Penggolongangaji::find()
+//    ->joinWith('pangkat',true,'RIGHT JOIN')
+//    ->where(['tipe_referensi' => 6])
+////                    ->with('pangkat')
+//    ->all());
+//die();
 
 ?>
 <div class="transaksi-penggajian-form">
@@ -53,7 +59,16 @@ if (in_array('karyawan', $role)) {
 
         <div class="col-sm-6">
             <?= $form->field($transaksipenggajiandetail, 'gol_gaji')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\Penggolongangaji::find()->all(), 'id', 'id'),
+                'data' => \yii\helpers\ArrayHelper::map(
+                    (new \yii\db\Query())
+        ->from('penggolongangaji')
+        ->rightJoin('m_referensi','penggolongangaji.pangkat_id = m_referensi.reff_id')
+        ->where('tipe_referensi = 6')
+        ->all(),'id','nama_referensi'),
+//                        \app\models\Penggolongangaji::find()
+//                    ->joinWith('pangkat',true,'RIGHT JOIN')
+//                    ->where(['tipe_referensi' => 6])
+//                    ->all(), 'pangkat_id', 'nama_referensi'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [

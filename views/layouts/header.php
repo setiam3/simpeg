@@ -3,6 +3,9 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+//$kgb=\Yii::$app->tools->notifKenaikanGaji();
+//var_dump($kgb[0]['jumlah']);
+//die()
 ?>
 
 <header class="main-header">
@@ -30,6 +33,7 @@ use yii\helpers\Html;
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
+                                for(){}
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
@@ -104,7 +108,7 @@ use yii\helpers\Html;
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 10 notifications</li>

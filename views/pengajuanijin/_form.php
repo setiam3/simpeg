@@ -24,9 +24,9 @@ if (in_array('karyawan', $role)) {
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $datas = Jatahcuti::findOne(['id_data' => \Yii::$app->user->identity->id_data]);
+    <?php $datas = Jatahcuti::findOne(['id_data' => \Yii::$app->user->identity->id_data]);?>
 
-    echo "<h5>Sisa Cuti ", $datas['sisa'], "<h5>";
+    echo "<h5>Sisa Cuti ", <?= $datas;?> "<h5>";
     ?>
 
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [

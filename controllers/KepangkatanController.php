@@ -102,6 +102,7 @@ class KepangkatanController extends Controller
 
                 ];
             }else if($model->load($request->post())){
+
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
                     $model->dokumen = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ridik_' . $model->data->nip);
                 }
