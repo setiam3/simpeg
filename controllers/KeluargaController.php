@@ -7,6 +7,7 @@ use app\models\MBiodata;
 use app\models\MKeluargaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
@@ -335,10 +336,17 @@ class KeluargaController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = MBiodata::findOne($id)) !== null) {
-            return $model;
-        } else {
+        $role=\Yii::$app->tools->getcurrentroleuser();
+        if(in_array('admin',$role) || in_array('operator',$role)){
+            if (($model = MBiodata::findOne($id)) !== null) {
+                return $model;
+            }
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }elseif(($model=MBiodata::find()->where(['parent_id'=>\Yii::$app->user->identity->id_data,'id_data'=>$id])->one()) !==null){
+                return $model;
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new ForbiddenHttpException;
+
     }
 }

@@ -7,16 +7,11 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\RiwayatpendidikanSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-//$this->title = 'Riwayatpendidikans';
-//$this->params['breadcrumbs'][] = $this->title;
-
 CrudAsset::register($this);
+
 $idmodal = md5($dataProvider->query->modelClass);
-$params = isset($klikedid) ? '?id=' . $klikedid : '';
+$params = isset($_GET['id']) ? '?id=' . $_GET['id'] : '';
+
 ?>
 <div class="riwayatpendidikan-index">
     <div id="ajaxCrudDatatablePendidikan">
@@ -24,6 +19,7 @@ $params = isset($klikedid) ? '?id=' . $klikedid : '';
             'id' => 'crud-datatable' . $idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+
             'pjax' => true,
             'columns' => require(__DIR__ . '/_columns.php'),
             'toolbar' => [
@@ -40,6 +36,7 @@ $params = isset($klikedid) ? '?id=' . $klikedid : '';
                     ) .
                     '{toggleData}' .
                     '{export}'],
+
             ],
             'striped' => true,
             'condensed' => true,

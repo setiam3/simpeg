@@ -7,6 +7,7 @@ use yii\helpers\Html;
 <div class="riwayatpendidikan-create">
     <?= $this->render('_form', [
         'model' => $model,
-        'klikedid' => $klikedid
+
+        'klikedid'=>$klikedid,
     ]) ?>
 </div>

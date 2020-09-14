@@ -30,7 +30,6 @@ return [
             'pluginOptions' => ['allowClear' => true],
         ],
         'filterInputOptions' => ['placeholder' => 'status'],
-        'group' => true,
     ],
     [
         'class' => 'kartik\grid\ActionColumn',

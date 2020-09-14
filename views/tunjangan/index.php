@@ -19,14 +19,14 @@ $idmodal=md5($dataProvider->query->modelClass);
 <div class="mtunjangan-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
-            'id'=>'crud-datatable',
+            'id'=>'crud-datatable'.$idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax'=>true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['tunjangan/create'],
                     ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Tunjangan','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).

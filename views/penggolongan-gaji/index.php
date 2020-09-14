@@ -20,7 +20,7 @@ $idmodal = md5($dataProvider->query->modelClass);
 <div class="mpenggolongangaji-index">
     <div id="ajaxCrudDatatable">
         <?= GridView::widget([
-            'id' => 'crud-datatable' . $idmodal,
+            'id' => 'crud-datatable'.$idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax' => true,
@@ -29,7 +29,7 @@ $idmodal = md5($dataProvider->query->modelClass);
                 ['content' =>
                 Html::a(
                     '<i class="glyphicon glyphicon-plus"></i>',
-                    ['create'],
+                    ['penggolongan-gaji/create'],
                     ['role' => 'modal-remote', 'data-target' => '#' . $idmodal, 'title' => 'Create new Penggolongangaji', 'class' => 'btn btn-default']
                 ) .
                     Html::a(

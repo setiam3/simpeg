@@ -7,21 +7,17 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\RiwayatjabatanSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Riwayatjabatans';
+$this->title = 'Riwayatjabatan';
 $this->params['breadcrumbs'][] = $this->title;
-
 CrudAsset::register($this);
+
 $idmodal = md5($dataProvider->query->modelClass);
 $params = isset($klikedid) ? '?id=' . $klikedid : '';
 ?>
 <div class="riwayatjabatan-index">
     <div id="ajaxCrudDatatableJabatan">
         <?= GridView::widget([
-            'id' => 'crud-datatablejabatan',
+            'id' => 'crud-datatable' . $idmodal,
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax' => true,
@@ -40,13 +36,14 @@ $params = isset($klikedid) ? '?id=' . $klikedid : '';
                     ) .
                     '{toggleData}' .
                     '{export}'],
+
             ],
             'striped' => true,
             'condensed' => true,
             'responsive' => true,
             'panel' => [
                 'type' => 'primary',
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Riwayatjabatans listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Riwayatjabatan',
                 'before' => '<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after' => BulkButtonWidget::widget([
                     'buttons' => Html::a(

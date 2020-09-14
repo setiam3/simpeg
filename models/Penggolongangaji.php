@@ -10,10 +10,10 @@ use Yii;
  * @property int $id
  * @property int $pangkat_id
  * @property int|null $masa_kerja
- * @property string $gaji
- * @property string|null $status_penggolongan
+ * @property float $gaji
  * @property string|null $ruang
  * @property int|null $jenis_pegawai
+ * @property int|null $status_penggolongan
  *
  * @property Kepangkatan[] $kepangkatans
  * @property MReferensi $pangkat
@@ -37,10 +37,10 @@ class Penggolongangaji extends \yii\db\ActiveRecord
     {
         return [
             [['pangkat_id', 'gaji'], 'required'],
-            [['pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'default', 'value' => null],
-            [['pangkat_id', 'masa_kerja', 'jenis_pegawai'], 'integer'],
+            [['pangkat_id', 'masa_kerja', 'jenis_pegawai', 'status_penggolongan'], 'default', 'value' => null],
+            [['pangkat_id', 'masa_kerja', 'jenis_pegawai', 'status_penggolongan'], 'integer'],
+            [['gaji'], 'number'],
             [['ruang'], 'string'],
-            [['gaji', 'status_penggolongan'], 'string', 'max' => 255],
             [['pangkat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['pangkat_id' => 'reff_id']],
             [['jenis_pegawai'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['jenis_pegawai' => 'reff_id']],
         ];
@@ -53,12 +53,12 @@ class Penggolongangaji extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'pangkat_id' => 'Pangkat',
+            'pangkat_id' => 'Pangkat ID',
             'masa_kerja' => 'Masa Kerja',
             'gaji' => 'Gaji',
-            'status_penggolongan' => 'Status Penggolongan',
             'ruang' => 'Ruang',
             'jenis_pegawai' => 'Jenis Pegawai',
+            'status_penggolongan' => 'Status Penggolongan',
         ];
     }
 

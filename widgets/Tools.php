@@ -89,21 +89,24 @@ class Tools extends \yii\bootstrap\Widget
       }
     }
 
+
     return $icon;
   }
+
 
   public function grafikPopulasi()
   { // L/P
     return \app\models\MBiodata::find()
       ->select('nama_referensi,count("jenisKelamin") as jumlah')
       ->joinWith('sex')
-      ->where(['tipe_referensi' => 8])
+      ->where(['tipe_referensi' => 8, 'status' => '1'])
       ->groupBy("nama_referensi,jenisKelamin")
       ->createCommand()->queryAll();
   }
   public function gjenisPegawai()
   { //pns / non /
     return \app\models\MBiodata::find()
+
       ->select('nama_referensi,count("jenis_pegawai") as jumlah')
       ->joinWith('jenispegawai')
       ->where(['tipe_referensi' => 1])

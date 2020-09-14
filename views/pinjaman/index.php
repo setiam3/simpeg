@@ -10,7 +10,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel app\models\MPinjamanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pinjamn';
+$this->title = 'Pinjaman';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -26,7 +26,7 @@ $idmodal=md5($dataProvider->query->modelClass);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['pinjaman/create'],
                     ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Pinjaman','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
@@ -39,7 +39,7 @@ $idmodal=md5($dataProvider->query->modelClass);
             'responsive' => true,          
             'panel' => [
                 'type' => 'primary', 
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Pinjaman listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Pinjaman',
                 'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after'=>BulkButtonWidget::widget([
                             'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',

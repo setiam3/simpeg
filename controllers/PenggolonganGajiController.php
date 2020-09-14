@@ -100,7 +100,8 @@ class PenggolonganGajiController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post()) ){
+                $model->gaji=str_replace(',','',str_replace('.00','',$model->gaji));
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Create new Penggolongangaji",
@@ -124,7 +125,8 @@ class PenggolonganGajiController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post()) ) {
+                $model->gaji=str_replace(',','',str_replace('.00','',$model->gaji));
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
@@ -161,7 +163,9 @@ class PenggolonganGajiController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post()) ){
+                $model->gaji=str_replace(',','',str_replace('.00','',$model->gaji));
+                $model->save(false);
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Penggolongangaji #".$id,
@@ -185,7 +189,8 @@ class PenggolonganGajiController extends Controller
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post())) {
+                $model->gaji=str_replace(',','',str_replace('.00','',$model->gaji));
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [

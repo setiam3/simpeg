@@ -96,7 +96,9 @@ class RiwayatpendidikanController extends Controller
                     'title' => "Create new Riwayatpendidikan",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+
                         'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
+
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -124,7 +126,9 @@ class RiwayatpendidikanController extends Controller
                     'title' => "Create new Riwayatpendidikan",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+
                         'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
+
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])

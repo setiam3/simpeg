@@ -10,10 +10,6 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'pangkat_id',
@@ -26,6 +22,9 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'gaji',
+        'value'=>function($model){
+            return Yii::$app->formatter->asCurrency($model->gaji);
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

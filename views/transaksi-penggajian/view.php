@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use app\models\TransaksiPenggajian;
 use yii\widgets\DetailView;

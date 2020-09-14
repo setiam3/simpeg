@@ -1,24 +1,31 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
+use yii\web\JsExpression;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\MRekening */
-/* @var $form yii\widgets\ActiveForm */
+$format = <<< SCRIPT
+function concate(data) {
+    if (!data.id) return data.text;
+    return data.text;
+}
+SCRIPT;
+$escape = new JsExpression("function(m) { return m; }");
+$this->registerJs($format, $this::POS_HEAD);
 ?>
 <div class="mrekening-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-sm-4">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => 1])->all(), 'id_data', 'nama'),
-                'options' => ['placeholder' => 'Select id_data ...'],
+                'data' =>ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama'),
+                'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
+                    'templateResult' => new JsExpression('concate'),
+                    'templateSelection' => new JsExpression('concate'),
+                    'escapeMarkup' => $escape,
                     'allowClear' => true
                 ],
             ])->label('Nama Pegawai')

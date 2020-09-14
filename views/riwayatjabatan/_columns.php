@@ -12,14 +12,12 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'id',
-    // ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
-        'value' => 'data.nama'
+        'value' => function($model){
+            return $model->data->gelarDepan.$model->data->nama.$model->data->gelarBelakang;
+        },
     ],
     [
         'class' => '\kartik\grid\DataColumn',
@@ -29,6 +27,12 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'eselon',
+        'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
+        'filter' => ['1'=>'Eselon','0'=>'Non Eselon'], 
+        'filterWidgetOptions' => [
+            'pluginOptions' => ['allowClear' => true],
+        ],
+        'filterInputOptions' => ['placeholder' => 'status'],
     ],
     [
         'class' => '\kartik\grid\DataColumn',
