@@ -25,8 +25,17 @@ use yii\widgets\DetailView;
             ],
             'nomor_rekening',
             'npwp',
-            'fotoNpwp',
-            'fotoRekening',
+            [
+                'attribute' => 'fotoNpwp',
+                'format' => 'raw',
+                'value' => \yii\helpers\Html::a($model->fotoNpwp, ['uploads/foto/'.$model->data->nip.'/'.$model->fotoNpwp])
+
+            ],
+            [
+                'attribute' => 'fotoRekening',
+                'format' => 'raw',
+                'value' => \yii\helpers\Html::a($model->fotoRekening, ['uploads/foto/'.$model->data->nip.'/'.$model->fotoRekening])
+            ],
         ],
     ]) ?>
 

@@ -25,7 +25,6 @@ if(in_array('karyawan',$role)){
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
                 'data'=>$parent,
-                'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
                     'allowClear' => false
                 ],
@@ -42,7 +41,7 @@ if(in_array('karyawan',$role)){
             ?>
 
             <?= $form->field($model, 'eselon')->widget(\kartik\widgets\SwitchInput::classname(),['pluginOptions'=>[
-                'handleWidth'=>60,'onText'=>'Aktif','offText'=>'Tidak'
+                'handleWidth'=>60,'onText'=>'Eselon','offText'=>'NonEselon'
             ]
             ]) ?>
 

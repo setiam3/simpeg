@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Jatahcuti;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -171,6 +172,15 @@ class SiteController extends Controller
             }
         }
         return ['output' => '', 'selected' => ''];
+    }
+
+    public function actionSisaijin($id)
+    {
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = Jatahcuti::findOne(['id_data' => $id]);
+        return [$model->sisa];
+
     }
 
     protected function findModel($id, $models)

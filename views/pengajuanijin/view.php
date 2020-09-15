@@ -23,8 +23,29 @@ use yii\widgets\DetailView;
 
                 },
             ],
-            'approval1',
-            'approval2',
+
+            [
+                'attribute' => 'approval1',
+                'value' => function ($data) {
+                    if (!empty($data->approval10->nama)){
+                        return $data->approval10->nama;
+                    }else{
+                        return 'Pending';
+                    }
+
+                },
+            ],
+            [
+                'attribute' => 'approval2',
+                'value' => function ($data) {
+                if (!empty($data->approval20->nama)){
+                    return $data->approval20->nama;
+                }else{
+                    return 'Pending';
+                }
+
+                },
+            ],
             'disetujui',
             'jenisIjin',
         ],

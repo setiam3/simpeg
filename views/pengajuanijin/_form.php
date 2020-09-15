@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengajuanijin */
 /* @var $form yii\widgets\ActiveForm */
-
+$this->registerJsVar('baseurl',yii\helpers\Url::home());
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
     $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
@@ -24,18 +24,37 @@ if (in_array('karyawan', $role)) {
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $datas = Jatahcuti::findOne(['id_data' => \Yii::$app->user->identity->id_data]);?>
 
-    echo "<h5>Sisa Cuti ", <?= $datas;?> "<h5>";
-    ?>
+<div><p id="sisaijin">Sisa Ijin: </p></div>
+
 
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
         'data' => $parent,
         'pluginOptions' => [
-            'allowClear' => false
+            'allowClear' => false,
+
         ],
+        'pluginEvents' => [
+            "change" => "function() {
+            $.get(
+                baseurl+'site/sisaijin',
+                {id: $('#pengajuanijin-id_data').val()},
+                function (data) {
+                    console.log(data);
+                    $('#sisaijin').html(data);
+                }
+            );
+            return false;
+            
+             }",
+        ],
+
+
     ])->label('Nama Pegawai');
     ?>
+
+
+
 
     <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(), [
         'pluginOptions' => [
