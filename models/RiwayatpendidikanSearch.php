@@ -18,8 +18,8 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
     public function rules()
     {
         return [
-            [['id', 'id_data', 'tingkatPendidikan', 'medis'], 'integer'],
-            [['jurusan', 'namaSekolah', 'thLulus', 'dokumen', 'no_ijazah', 'tgl_ijazah', 'thMasuk', 'suratijin', 'tgl_berlaku_ijin'], 'safe'],
+            [['id',  'id_data', 'tingkatPendidikan', 'medis'], 'integer'],
+            [['jurusan',  'namaSekolah', 'thLulus', 'dokumen', 'no_ijazah', 'tgl_ijazah', 'thMasuk', 'suratijin', 'tgl_berlaku_ijin'], 'safe'],
         ];
     }
 
@@ -39,7 +39,7 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$where=NULL)
+    public function search($params, $where = NULL)
     {
         $query = Riwayatpendidikan::find()->where($where);
 
@@ -54,6 +54,8 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        //
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -71,6 +73,7 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
             ->andFilterWhere(['like', 'no_ijazah', $this->no_ijazah])
             ->andFilterWhere(['like', 'thMasuk', $this->thMasuk])
             ->andFilterWhere(['like', 'suratijin', $this->suratijin]);
+        //->andFilterWhere(['like', 'm_biodata.nama', $this->id_data]);
 
         return $dataProvider;
     }

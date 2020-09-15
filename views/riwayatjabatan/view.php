@@ -15,26 +15,28 @@ use yii\widgets\DetailView;
                 'attribute' => 'Karyawan',
                 'value' => function ($data) {
                     return $data->data->nama;
-
                 },
             ],
             [
                 'attribute' => 'Jabatan',
                 'value' => function ($data) {
                     return $data->jabatan->nama_referensi;
-
                 },
             ],
             'eselon',
             'noSk',
             'tglSk',
             'tmtJabatan',
-            'dokumen',
+            [
+                'attribute' => 'dokumen',
+                'format' => 'raw',
+                'value' => \yii\helpers\Html::a($model->dokumen, ['uploads/foto/' . $model->data->nip . '/' . $model->dokumen])
+
+            ],
             [
                 'attribute' => 'Unit Kerja',
                 'value' => function ($data) {
                     return $data->unitKerja->unit;
-
                 },
             ],
         ],

@@ -181,7 +181,7 @@ class RiwayatpendidikanController extends Controller
                         unlink($filename);
                     }
 
-                    $model->dokumen = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/' . $model->pendidikan->nama_referensi . '_' . $model->data->nip);
+                    $model->dokumen = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' .  $model->data->nip);
                 } else {
                     $model->dokumen = $oldFoto;
                 }

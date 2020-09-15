@@ -28,8 +28,6 @@ if (in_array('karyawan', $role)) {
 
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
                 'data' => $parent,
-                'options' => ['placeholder' => 'Select ...'],
-
                 'pluginOptions' => [
                     'allowClear' => false
                 ],

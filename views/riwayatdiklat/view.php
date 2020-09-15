@@ -22,7 +22,12 @@ use yii\widgets\DetailView;
             'penyelenggara',
             'mulai',
             'selesai',
-            'dokumen',
+            [
+                'attribute' => 'dokumen',
+                'format' => 'raw',
+                'value' => \yii\helpers\Html::a($model->dokumen, ['uploads/foto/' . $model->data->nip . '/' . $model->dokumen])
+
+            ],
         ],
     ]) ?>
 

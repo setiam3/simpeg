@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
@@ -6,16 +7,16 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
 
-$role=\Yii::$app->tools->getcurrentroleuser();
-if(in_array('karyawan',$role)){
-    $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data]);
-    $parent=[$data->id_data => $data->nama];
-}elseif (in_array('operator',$role) || in_array('admin',$role)){
-    if(!empty($klikedid)){
-        $data=\app\models\MBiodata::findOne(['is_pegawai'=>'1','id_data'=>$klikedid]);
-        $parent=[$data->id_data => $data->nama];
-    }else{
-        $parent=ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai'=>'1']), 'id_data','nama');
+$role = \Yii::$app->tools->getcurrentroleuser();
+if (in_array('karyawan', $role)) {
+    $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
+    $parent = [$data->id_data => $data->nama];
+} elseif (in_array('operator', $role) || in_array('admin', $role)) {
+    if (!empty($klikedid)) {
+        $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => $klikedid]);
+        $parent = [$data->id_data => $data->nama];
+    } else {
+        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
     }
 }
 
@@ -59,7 +60,7 @@ if(in_array('karyawan',$role)){
             <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
-                    'initialPreview' =>(!$model->isNewRecord && isset($model->dokumen)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])]:[],
+                    'initialPreview' => (!$model->isNewRecord && isset($model->dokumen)) ? [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->data->nip . '/' . $model->dokumen), ['class' => 'col-xs-12'])] : [],
                     'maxFileSize' => 2048,
                     'showCaption' => false,
                     'showRemove' => false,
