@@ -14,7 +14,6 @@ use yii\widgets\DetailView;
                 'attribute' => 'Karyawan',
                 'value' => function ($data) {
                     return $data->data->nama;
-
                 },
             ],
             'ditetapkanOleh',
@@ -25,12 +24,16 @@ use yii\widgets\DetailView;
                 'attribute' => 'Golongan',
                 'value' => function ($data) {
                     return $data->penggolongangaji->pangkat->nama_referensi;
-
                 },
             ],
             'tmtPangkat',
             'tmt',
-            'dokumen',
+            [
+                'attribute' => 'dokumen',
+                'format' => 'raw',
+                'value' => \yii\helpers\Html::a($model->dokumen, ['uploads/foto/' . $model->data->nip . '/' . $model->dokumen])
+
+            ],
         ],
     ]) ?>
 

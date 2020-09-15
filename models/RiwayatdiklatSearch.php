@@ -39,7 +39,7 @@ class RiwayatdiklatSearch extends Riwayatdiklat
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$where=null)
+    public function search($params, $where = null)
     {
         $query = Riwayatdiklat::find()->where($where);
 

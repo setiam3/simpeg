@@ -70,7 +70,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
             'tgl_ijazah' => 'Tgl Ijazah',
             'thMasuk' => 'Th Masuk',
             'medis' => 'Medis',
-            'suratijin' => 'Suratijin',
+            'suratijin' => 'Surat Ijin',
             'tgl_berlaku_ijin' => 'Tgl Berlaku Ijin',
         ];
     }
@@ -90,7 +90,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTingkatPendidikan()
+    public function getTingpen()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'tingkatPendidikan']);
     }

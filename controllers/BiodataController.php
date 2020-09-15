@@ -90,10 +90,10 @@ class BiodataController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if (!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))) {
-                $model->foto=Yii::$app->tools->upload('MBiodata[foto]', Yii::getAlias('@uploads') . $model->nip . '/nip_' . $model->nip);
+                $model->foto = Yii::$app->tools->upload('MBiodata[foto]', Yii::getAlias('@uploads') . $model->nip . '/nip_' . $model->nip);
             }
             if (!empty(UploadedFile::getInstanceByName('MBiodata[fotoNik]'))) {
-                $model->fotoNik =Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
+                $model->fotoNik = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
             }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
@@ -129,7 +129,7 @@ class BiodataController extends Controller
                 if (file_exists($filename = Yii::getAlias('@uploads') . $model->nip . '/' . $oldFotoNik) && !empty($oldFotoNik)) {
                     unlink($filename);
                 }
-                $model->fotoNik =Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
+                $model->fotoNik = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
             } else {
                 $model->fotoNik = $oldFotoNik;
             }
@@ -232,13 +232,14 @@ class BiodataController extends Controller
      */
     protected function findModel($id)
     {
-        $role=\Yii::$app->tools->getcurrentroleuser();
-        if(in_array('admin',$role) || in_array('operator',$role)){
+
+        $role = \Yii::$app->tools->getcurrentroleuser();
+        if (in_array('admin', $role) || in_array('operator', $role)) {
             if (($model = MBiodata::findOne($id)) !== null) {
                 return $model;
             }
             throw new NotFoundHttpException('The requested page does not exist.');
-        }elseif($id==\Yii::$app->user->identity->id_data){
+        } elseif ($id == \Yii::$app->user->identity->id_data) {
             if (($model = MBiodata::findOne($id)) !== null) {
                 return $model;
             }

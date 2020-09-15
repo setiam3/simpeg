@@ -107,7 +107,8 @@ class TransaksiPenggajianController extends Controller
                     'content' => $this->renderAjax('create', [
                         'transaksipenggajian' => $transaksipenggajian,
                         'transaksipenggajiandetail' => $transaksipenggajiandetail,
-                        'potongangaji' => $potongangaji
+                        'potongangaji' => $potongangaji,
+                        'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
 
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
@@ -128,7 +129,7 @@ class TransaksiPenggajianController extends Controller
                     }
                 }
                 return [
-                    'forceReload' => '#crud-datatable'.md5(get_class($transaksipenggajian)).'-pjax',
+                    'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
                     'title' => "Create new TransaksiPenggajian",
                     'content' => '<span class="text-success">Create TransaksiPenggajian success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
@@ -141,7 +142,8 @@ class TransaksiPenggajianController extends Controller
                     'content' => $this->renderAjax('create', [
                         'transaksipenggajian' => $transaksipenggajian,
                         'transaksipenggajiandetail' => $transaksipenggajiandetail,
-                        'potongangaji' => $potongangaji
+                        'potongangaji' => $potongangaji,
+                        'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -255,7 +257,9 @@ class TransaksiPenggajianController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
+
         $model->delete();
+
 
         if ($request->isAjax) {
             /*

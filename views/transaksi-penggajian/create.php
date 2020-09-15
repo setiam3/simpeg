@@ -11,6 +11,7 @@ use yii\helpers\Html;
     <?= $this->render('_form', [
         'transaksipenggajian' => $transaksipenggajian,
         'transaksipenggajiandetail' => $transaksipenggajiandetail,
-        'potongangaji' => $potongangaji
+        'potongangaji' => $potongangaji,
+        'klikedid' => $klikedid
     ]) ?>
 </div>

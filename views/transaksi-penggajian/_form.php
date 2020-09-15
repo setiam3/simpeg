@@ -4,13 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
 
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
     $data=\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
     $parent = [$data->id_data => $data->nama];
+<<<<<<< HEAD
 } elseif(in_array('operator',$role) || in_array('admin',$role)){
     if(!empty($klikedid)){
         $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->all(), 'id_data','nama');
@@ -19,6 +24,13 @@ if (in_array('karyawan', $role)) {
             ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data'=>$model->id_data])->all(),'id_data','nama');
     }
 
+=======
+} elseif (in_array('operator', $role) || in_array('admin', $role)) {
+    !empty($klikedid) ? $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1', 'id_data' => $klikedid]), 'id_data', 'nama') :
+        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
+} else {
+    $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
+>>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
 }
 
 //print_r(\app\models\Penggolongangaji::find()
@@ -43,7 +55,7 @@ if (in_array('karyawan', $role)) {
             ?>
             <?= $form->field($transaksipenggajian, 'nomor_transgaji') ?>
             <?= $form->field($transaksipenggajian, 'tgl_gaji')->widget(DatePicker::classname(), [
-                'options' => ['placeholder' => 'masukan tanggal Mulai'],
+                'options' => ['placeholder' => 'masukan tanggal'],
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
@@ -81,7 +93,7 @@ if (in_array('karyawan', $role)) {
             ])->label('Golongan Gaji');
             ?>
             <?= $form->field($transaksipenggajiandetail, 'tunjangan_id')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'id'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'tunjangan_id'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
@@ -89,6 +101,20 @@ if (in_array('karyawan', $role)) {
                 ],
             ])->label('Tunjangan Id');
             ?>
+
+            <?=
+                Select2::widget([
+                    'name' => 'Tunjangan_id',
+                    'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'tunjangan_id'),
+                    'size' => Select2::MEDIUM,
+                    'options' => ['placeholder' => 'Select  ...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+            ?>
+
+
             <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
 
             <?= $form->field($potongangaji, 'potongan_desc')->widget(\kartik\select2\Select2::classname(), [
