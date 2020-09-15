@@ -43,7 +43,7 @@ $params = isset($_GET['id']) ? '?id=' . $_GET['id'] : '';
             'responsive' => true,
             'panel' => [
                 'type' => 'primary',
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Riwayatpendidikans listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Riwayatpendidikan',
                 'before' => '<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after' => BulkButtonWidget::widget([
                     'buttons' => Html::a(
@@ -51,7 +51,7 @@ $params = isset($_GET['id']) ? '?id=' . $_GET['id'] : '';
                         ["bulk-delete"],
                         [
                             "class" => "btn btn-danger btn-xs",
-                            'role' => 'modal-remote-bulk',
+                            'role' => 'modal-remote-bulk','data-target' => '#' . $idmodal,
                             'data-confirm' => false, 'data-method' => false, // for overide yii data api
                             'data-request-method' => 'post',
                             'data-confirm-title' => 'Are you sure?',
