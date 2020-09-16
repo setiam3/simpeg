@@ -9,11 +9,11 @@ TODO:
 list fiture :
 Login Admin dan Pegawai
 Dashboard
-    Infografik pegawai (L/P)
-    Infografik Jenis Pegawai
-    Infografik Golongan
-    Pegawai yang berulang tahun >
-    pegawai yg akan pensiun
+    Infografik pegawai (L/P) [v]
+    Infografik Jenis Pegawai [v]
+    Infografik Golongan [v]
+    Pegawai yang berulang tahun > [v]
+    pegawai yg akan pensiun []
     STR akan habis
     SIP akan Habis
 

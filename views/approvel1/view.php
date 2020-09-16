@@ -10,12 +10,7 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'tanggalPengajuan',
-            'tanggalMulai',
-            'tanggalAkhir',
-            'alasan',
-//            'id_data',
+//            'id',
             [
                 'attribute' => 'Karyawan',
                 'value' => function ($data) {
@@ -23,7 +18,12 @@ use yii\widgets\DetailView;
 
                 },
             ],
-            'approval1',
+            'tanggalPengajuan',
+            'tanggalMulai',
+            'tanggalAkhir',
+            'alasan',
+//            'id_data',
+//            'approval1',
 //            [
 //                'attribute' => 'approval1',
 //                'value' => function ($data) {
@@ -31,8 +31,8 @@ use yii\widgets\DetailView;
 //
 //                },
 //            ],
-            'approval2',
-            'disetujui',
+//            'approval2',
+//            'disetujui',
             'jenisIjin',
         ],
     ]) ?>

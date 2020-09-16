@@ -139,6 +139,7 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
   public function nextPensiun($y)
   { // akan pensiun
 
+
   }
   public function getcurrentroleuser()
   {
