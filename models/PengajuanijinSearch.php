@@ -18,8 +18,8 @@ class PengajuanijinSearch extends Pengajuanijin
     public function rules()
     {
         return [
-            [['id', 'approval1', 'approval2', 'disetujui'], 'integer'],
-            [['tanggalPengajuan', 'tanggalMulai', 'tanggalAkhir', 'alasan', 'jenisIjin','id_data'], 'safe'],
+            [['id', 'approval1', 'id_data', 'approval2', 'disetujui'], 'integer'],
+            [['tanggalPengajuan', 'tanggalMulai', 'tanggalAkhir', 'alasan', 'jenisIjin'], 'safe'],
         ];
     }
 
@@ -39,10 +39,10 @@ class PengajuanijinSearch extends Pengajuanijin
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$where = null)
+    public function search($params, $where = null)
     {
         $query = Pengajuanijin::find()->where($where);
-        $query->joinWith('data');
+        // $query->joinWith('data');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,6 +58,7 @@ class PengajuanijinSearch extends Pengajuanijin
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_data' => $this->id_data,
             'tanggalPengajuan' => $this->tanggalPengajuan,
             'tanggalMulai' => $this->tanggalMulai,
             'tanggalAkhir' => $this->tanggalAkhir,
@@ -67,7 +68,7 @@ class PengajuanijinSearch extends Pengajuanijin
         ]);
 
         $query->andFilterWhere(['like', 'alasan', $this->alasan])
-            ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data])
+            // ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data])
             ->andFilterWhere(['like', 'jenisIjin', $this->jenisIjin]);
 
         return $dataProvider;

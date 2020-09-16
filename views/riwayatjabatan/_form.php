@@ -27,15 +27,10 @@ if (in_array('karyawan', $role)) {
         <div class="col-md-6">
 
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-<<<<<<< HEAD
-                'data'=>$parent,
-=======
                 'data' => $parent,
->>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
                 'pluginOptions' => [
                     'allowClear' => false
                 ],
-
             ])
             ?>
 
@@ -49,17 +44,9 @@ if (in_array('karyawan', $role)) {
             ])->label('Jabatan');
             ?>
 
-<<<<<<< HEAD
-            <?= $form->field($model, 'eselon')->widget(\kartik\widgets\SwitchInput::classname(),['pluginOptions'=>[
-                'handleWidth'=>60,'onText'=>'Eselon','offText'=>'NonEselon'
-            ]
-            ]) ?>
-=======
             <?= $form->field($model, 'eselon')->widget(\kartik\widgets\SwitchInput::classname(), ['pluginOptions' => [
                 'handleWidth' => 60, 'onText' => 'Aktif', 'offText' => 'Tidak'
             ]]) ?>
->>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
-
             <?= $form->field($model, 'noSk')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'tglSk')->widget(\kartik\date\DatePicker::classname(), [
