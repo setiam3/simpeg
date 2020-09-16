@@ -40,8 +40,8 @@ class PengajuanijinController extends Controller
     {
         $role=\Yii::$app->tools->getcurrentroleuser();
         if(in_array('karyawan',$role)){
-            $where=['parent_id'=>\Yii::$app->user->identity->id_data];
-        }else{
+            $where=['id_data'=>\Yii::$app->user->identity->id_data];
+        } else{
             $where='';
         }
         $searchModel = new PengajuanijinSearch();

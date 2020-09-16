@@ -20,6 +20,8 @@ if (in_array('karyawan', $role)) {
         $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
     }
 }
+
+$this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide()");
 ?>
 
 <div class="riwayatpendidikan-forms">
@@ -73,9 +75,23 @@ if (in_array('karyawan', $role)) {
                     'autoclose' => true
                 ]
             ]) ?>
-            <?= $form->field($model, 'medis')->widget(\kartik\widgets\SwitchInput::classname(), ['pluginOptions' => [
-                'handleWidth' => 60, 'onText' => 'Iya', 'offText' => 'Tidak'
-            ]]) ?>
+            <?= $form->field($model, 'medis')->widget(\kartik\widgets\SwitchInput::classname(), [
+                    'pluginOptions' => [
+                        'handleWidth' => 60, 'onText' => 'Iya', 'offText' => 'Tidak',
+                        'class' => 'riwatarpendidikan'
+                    ],
+                    'pluginEvents' => [
+                        "switchChange.bootstrapSwitch" => "function(e,s) {
+                           if(s == true){
+                           $('.field-riwayatpendidikan-tgl_berlaku_ijin').show()
+                           $('.field-riwayatpendidikan-suratijin').show()
+                           }else{
+                                $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide()                       
+                                $('.field-riwayatpendidikan-suratijin').hide()                       
+                           }
+                        }"
+                    ]
+            ]) ?>
             <?= $form->field($model, 'suratijin')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'tgl_berlaku_ijin')->widget(DatePicker::className(), [
                 'pluginOptions' => [

@@ -28,7 +28,6 @@ use yii\widgets\DetailView;
                 'value' => \yii\helpers\Html::a($model->dokumen, ['uploads/foto/' . $model->data->nip . '/' . $model->dokumen])
 
             ],
-
         ],
     ]) ?>
 

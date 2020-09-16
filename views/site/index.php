@@ -5,7 +5,6 @@ use yii\helpers\ArrayHelper;
 use dosamigos\chartjs\ChartJs;
 use app\widgets\Advquery;
 $this->title =Yii::$app->name;
-//echo \Yii::$app->tools->pdftoimg(\Yii::getAlias('@uploads').'510204244/apksiwa.pdf');
 
 $populasi=\Yii::$app->tools->grafikPopulasi();
 $jenispegawai=\Yii::$app->tools->gjenisPegawai();
@@ -19,15 +18,6 @@ foreach ($golpeg as $row){
     $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
 }
 
-//print_r($pegultah);
-//die();
-//for ($row = 0; $row < count($pegultah); $row++){
-//    for ($r = 0; $r < count($pegultah[$row]); $r++){
-//
-//    }
-//
-//
-//}
 ?>
 <section class="content">
     <div class="row">

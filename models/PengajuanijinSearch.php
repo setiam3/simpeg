@@ -18,7 +18,8 @@ class PengajuanijinSearch extends Pengajuanijin
     public function rules()
     {
         return [
-            [['id', 'approval1', 'id_data', 'approval2', 'disetujui'], 'integer'],
+
+            [['id', 'approval1', 'approval2', 'disetujui', 'id_data'], 'integer'],
             [['tanggalPengajuan', 'tanggalMulai', 'tanggalAkhir', 'alasan', 'jenisIjin'], 'safe'],
         ];
     }
@@ -42,7 +43,8 @@ class PengajuanijinSearch extends Pengajuanijin
     public function search($params, $where = null)
     {
         $query = Pengajuanijin::find()->where($where);
-        // $query->joinWith('data');
+
+        //        $query->joinWith('data');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,13 +64,16 @@ class PengajuanijinSearch extends Pengajuanijin
             'tanggalPengajuan' => $this->tanggalPengajuan,
             'tanggalMulai' => $this->tanggalMulai,
             'tanggalAkhir' => $this->tanggalAkhir,
+            'id_data', $this->id_data,
             'approval1' => $this->approval1,
             'approval2' => $this->approval2,
             'disetujui' => $this->disetujui,
         ]);
 
         $query->andFilterWhere(['like', 'alasan', $this->alasan])
-            // ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data])
+
+            //            ->andFilterWhere(['like', 'm_biodata.nama', $this->id_data])
+
             ->andFilterWhere(['like', 'jenisIjin', $this->jenisIjin]);
 
         return $dataProvider;

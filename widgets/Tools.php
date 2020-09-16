@@ -106,7 +106,6 @@ class Tools extends \yii\bootstrap\Widget
   public function gjenisPegawai()
   { //pns / non /
     return \app\models\MBiodata::find()
-
       ->select('nama_referensi,count("jenis_pegawai") as jumlah')
       ->joinWith('jenispegawai')
       ->where(['tipe_referensi' => 1])
@@ -127,17 +126,15 @@ class Tools extends \yii\bootstrap\Widget
       ->groupBy("nama_referensi")
       ->createCommand()
       ->queryAll();
-    //        ->all();
-
-
   }
+
   public function ultahPegawai()
   { // month year
     $sql = 'SELECT * FROM m_biodata 
 WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
 AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
+
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
-    //          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
   }
   public function nextPensiun($y)
   { // akan pensiun
@@ -150,8 +147,10 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
       $role[] = ['name' => $roles->name];
     }
 
+
     return ArrayHelper::map($role, 'name', 'name');
   }
+
   protected function findModelAll($condition, $models)
   {
     $modelx = \Yii::createObject([

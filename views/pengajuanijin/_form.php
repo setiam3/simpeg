@@ -53,9 +53,6 @@ if (in_array('karyawan', $role)) {
     ])->label('Nama Pegawai');
     ?>
 
-
-
-
     <?= $form->field($model, 'tanggalMulai')->widget(\kartik\date\DatePicker::className(), [
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',

@@ -44,9 +44,12 @@ if (in_array('karyawan', $role)) {
             ])->label('Jabatan');
             ?>
 
+
+
             <?= $form->field($model, 'eselon')->widget(\kartik\widgets\SwitchInput::classname(), ['pluginOptions' => [
                 'handleWidth' => 60, 'onText' => 'Aktif', 'offText' => 'Tidak'
             ]]) ?>
+
             <?= $form->field($model, 'noSk')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'tglSk')->widget(\kartik\date\DatePicker::classname(), [
