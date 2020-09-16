@@ -183,6 +183,15 @@ class SiteController extends Controller
 
     }
 
+    public function actionSwitch($id)
+    {
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = Jatahcuti::findOne(['id_data' => $id]);
+        return [$model->sisa];
+
+    }
+
     protected function findModel($id, $models)
     {
         $modelx = Yii::createObject([

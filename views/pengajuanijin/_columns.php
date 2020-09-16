@@ -33,7 +33,7 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
-        'value' => 'id_data',
+        'value' => 'data.nama',
     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
