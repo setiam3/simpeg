@@ -114,6 +114,7 @@ class Tools extends \yii\bootstrap\Widget
   }
   public function golonganPegawai()
   { // bar, gol 1 2 3
+
     return MBiodata::find()
       ->select('nama_referensi,count(nama_referensi) as jumlah')
       ->joinWith(['kepangkatans' => function ($query) {

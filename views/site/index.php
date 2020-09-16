@@ -11,12 +11,24 @@ $jenispegawai=\Yii::$app->tools->gjenisPegawai();
 $golpeg=\Yii::$app->tools->golonganPegawai();
 $pegultah=\Yii::$app->tools->ultahPegawai();
 
-foreach($jenispegawai as $row){
-    $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
+
+
+if(empty($jenispegawai)){
+    $arrayJenispegawai[] = '';
+}else{
+    foreach($jenispegawai as $row){
+        $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
+    }
 }
-foreach ($golpeg as $row){
-    $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
+
+if(empty($golpeg)){
+    $arrayGolPeg[]='';
+}else{
+    foreach ($golpeg as $row){
+        $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
+    }
 }
+
 
 ?>
 <section class="content">
