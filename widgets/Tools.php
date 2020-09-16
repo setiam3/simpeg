@@ -129,20 +129,15 @@ class Tools extends \yii\bootstrap\Widget
       ->queryAll();
     //        ->all();
 
-<<<<<<< HEAD
+
     }
-    public function ultahPegawai(){// month year
-$sql = 'SELECT nama, "tanggalLahir" FROM m_biodata 
-	WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
-	AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
-=======
-  }
+
   public function ultahPegawai()
   { // month year
     $sql = 'SELECT * FROM m_biodata 
 WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
 AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
->>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
+
 
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
     //          $model=\app\models\MBiodata::find()->where(['month(tanggalLahir)'=>date('m-d')])->all();
@@ -157,14 +152,8 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
     foreach ($currentrole as $roles) {
       $role[] = ['name' => $roles->name];
     }
-<<<<<<< HEAD
-    public function getcurrentroleuser(){
-      $currentrole=\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id);
-      foreach($currentrole as $roles){
-        $role[]=['name'=>$roles->name];
-      }
-      return ArrayHelper::map($role,'name','name');
-    }
+
+  }
 
 
     public function notifKenaikanGaji(){
@@ -183,18 +172,8 @@ WHERE DATE_PART('year', NOW()) = :dayBind - DATE_PART('year' ,'tmtPangkat') = :d
 
 //        "DATE_PART('year', NOW()) - DATE_PART('year' ,'tmtPangkat') = 2";
         return \Yii::$app->db->createCommand($sql)->bindValues($params)->queryAll();
-    }
-    protected function findModelAll($condition,$models){
-        $modelx=\Yii::createObject([
-          'class' => "app\models\\".$models,
-         ]);
-        if (($model = $modelx::findAll($condition)) !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 
-=======
+
     return ArrayHelper::map($role, 'name', 'name');
   }
   protected function findModelAll($condition, $models)
@@ -219,5 +198,5 @@ WHERE DATE_PART('year', NOW()) = :dayBind - DATE_PART('year' ,'tmtPangkat') = :d
 
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
->>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
+
 }

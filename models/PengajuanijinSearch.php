@@ -42,7 +42,7 @@ class PengajuanijinSearch extends Pengajuanijin
     public function search($params,$where = null)
     {
         $query = Pengajuanijin::find()->where($where);
-        $query->joinWith('data');
+//        $query->joinWith('data');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -61,6 +61,7 @@ class PengajuanijinSearch extends Pengajuanijin
             'tanggalPengajuan' => $this->tanggalPengajuan,
             'tanggalMulai' => $this->tanggalMulai,
             'tanggalAkhir' => $this->tanggalAkhir,
+//            'id_data', $this->id_data,
             'approval1' => $this->approval1,
             'approval2' => $this->approval2,
             'disetujui' => $this->disetujui,
