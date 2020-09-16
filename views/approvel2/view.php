@@ -28,7 +28,7 @@ use yii\widgets\DetailView;
                     return $data->approval10->nama;
                 },
             ],
-            'approval2',
+//            'approval2',
             'disetujui',
             'jenisIjin',
         ],

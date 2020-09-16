@@ -114,6 +114,7 @@ class Tools extends \yii\bootstrap\Widget
   }
   public function golonganPegawai()
   { // bar, gol 1 2 3
+
     return MBiodata::find()
       ->select('nama_referensi,count(nama_referensi) as jumlah')
       ->joinWith(['kepangkatans' => function ($query) {
@@ -138,6 +139,7 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
   }
   public function nextPensiun($y)
   { // akan pensiun
+
 
   }
   public function getcurrentroleuser()

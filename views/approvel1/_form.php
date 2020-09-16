@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'jenisIjin')->textInput(['maxlength' => true,'readonly' => true,]) ?>
 
     <?= $form->field($model, 'approval1')->widget(\kartik\widgets\SwitchInput::classname(),['pluginOptions'=>[
-        'handleWidth'=>60,'onText'=>'Setujui','offText'=>'Tidak'
+        'handleWidth'=>60,'onText'=>'Setujuhi','offText'=>'Tidak'
     ]
     ]) ?>
 
