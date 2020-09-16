@@ -35,13 +35,9 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-<<<<<<< HEAD
-                                for(){}
-                                <li><!-- start message -->
-=======
+
                                 <li>
                                     <!-- start message -->
->>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
                                     <a href="#">
                                         <div class="pull-left">
                                             <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image" />

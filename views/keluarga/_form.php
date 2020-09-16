@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
@@ -7,12 +8,18 @@ use kartik\file\FileInput;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use kartik\date\DatePicker;
-$role=\Yii::$app->tools->getcurrentroleuser();
-if(in_array('karyawan',$role)){
-    $data=$model::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
-    $parent=[$data->id_data => $data->nama];
-}else{
-    $parent=ArrayHelper::map($model::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(), 'id_data','nama');
+
+$role = \Yii::$app->tools->getcurrentroleuser();
+if (in_array('karyawan', $role)) {
+    $data = $model::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->one();
+    $parent = [$data->id_data => $data->nama];
+} elseif (in_array('operator', $role) || in_array('admin', $role)) {
+    if (!empty($klikedid)) {
+        $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => $klikedid]);
+        $parent = [$data->id_data => $data->nama];
+    } else {
+        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
+    }
 }
 
 ?>
@@ -20,141 +27,141 @@ if(in_array('karyawan',$role)){
 <div class="mbiodata-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-    <div class="col-xs-4">
-    <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
+        <div class="col-xs-4">
+            <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
                 'data' => $parent,
                 'pluginOptions' => [
                     'allowClear' => false
                 ],
-    ])->label('Nama Pegawai') ?>
+            ])->label('Nama Pegawai') ?>
 
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => true])->label('Nama Anggota Keluarga') ?>
+            <?= $form->field($model, 'nama')->textInput(['maxlength' => true])->label('Nama Anggota Keluarga') ?>
 
-    <?= $form->field($model, 'tempatLahir')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'tempatLahir')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggalLahir')->widget(DatePicker::className(),[
+            <?= $form->field($model, 'tanggalLahir')->widget(DatePicker::className(), [
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true,
-                    'autoclose'=>true
+                    'autoclose' => true
                 ]
-            ])?>
-    <?= $form->field($model, 'jenisKelamin')->radioList(
-            ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'8','status'=>'1']), 'reff_id','nama_referensi')
-        ) ?>
+            ]) ?>
+            <?= $form->field($model, 'jenisKelamin')->radioList(
+                ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '8', 'status' => '1']), 'reff_id', 'nama_referensi')
+            ) ?>
 
-    <?= $form->field($model, 'agama')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'7','status'=>'1']), 'reff_id','nama_referensi'),
-        'options' => ['placeholder' => 'Select  ...'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ])?>
-
-    <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-    </div>
-
-    <div class="col-xs-4">
-        <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\Kabupaten::findAll(['province_id'=>'35']), 'id','name'),
+            <?= $form->field($model, 'agama')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '7', 'status' => '1']), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ]) ?>
 
-        <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(),[
-                'data'=>!$model->isNewRecord && isset($model->kecamatan)?[$model->kecamatan=>\app\models\Kecamatan::findOne(['id'=>$model->kecamatan])->name]:[],
+            <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div>
+
+        <div class="col-xs-4">
+            <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\Kabupaten::findAll(['province_id' => '35']), 'id', 'name'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
+
+            <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(), [
+                'data' => !$model->isNewRecord && isset($model->kecamatan) ? [$model->kecamatan => \app\models\Kecamatan::findOne(['id' => $model->kecamatan])->name] : [],
                 'type' => DepDrop::TYPE_SELECT2,
                 'options' => ['placeholder' => 'Select ...'],
                 'select2Options' => [
-                    'options'=>['placeholder' => 'Select ...'],
+                    'options' => ['placeholder' => 'Select ...'],
                     'pluginOptions' => ['allowClear' => true]
                 ],
-                'pluginOptions'=>[
-                    'depends'=>['mbiodata-kabupatenkota'],
+                'pluginOptions' => [
+                    'depends' => ['mbiodata-kabupatenkota'],
                     'placeholder' => 'Select...',
                     'url' => Url::to(['/site/child?model=Kecamatan']),
                     'loadingText' => 'Loading kecamatan ...',
                 ]
             ]) ?>
-        <?= $form->field($model, 'kelurahan')->widget(DepDrop::classname(),[
-                'data'=>!$model->isNewRecord && isset($model->kelurahan)?[$model->kelurahan=>\app\models\Kelurahan::findOne(['id'=>$model->kelurahan])->name]:[],
+            <?= $form->field($model, 'kelurahan')->widget(DepDrop::classname(), [
+                'data' => !$model->isNewRecord && isset($model->kelurahan) ? [$model->kelurahan => \app\models\Kelurahan::findOne(['id' => $model->kelurahan])->name] : [],
                 'type' => DepDrop::TYPE_SELECT2,
                 'options' => ['placeholder' => 'Select ...'],
                 'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                'pluginOptions'=>[
-                    'depends'=>['mbiodata-kecamatan'],
+                'pluginOptions' => [
+                    'depends' => ['mbiodata-kecamatan'],
                     'placeholder' => 'Select...',
                     'url' => Url::to(['/site/child?model=Kelurahan']),
                     'loadingText' => 'Loading kelurahan ...',
                 ]
-            ]) ?>  
-        <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9','status'=>'1']), 'reff_id','nama_referensi'),
-            'options' => ['placeholder' => 'Select  ...'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]) ?>
-        <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
-        
-        <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>2,'status'=>'1']), 'reff_id','nama_referensi'),
+            ]) ?>
+            <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '9', 'status' => '1']), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ]) ?>
-    </div>
-    
-    <div class="col-xs-4">
-   
-    
-    <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*','autoReplace'=>true],
-        'pluginOptions' => [
-            'initialPreview' => (!$model->isNewRecord && isset($model->foto)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->foto), ['class' => 'col-xs-12'])]:[],
-            'maxFileSize' => 2048,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'frameClass' => 'krajee-default row',
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
-            ],
-        ]) ?>
-<?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*','autoReplace'=>true],
-        'pluginOptions' => [
-            'initialPreview' => (!$model->isNewRecord && isset($model->fotoNik)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])]:[],
-            'maxFileSize' => 2048,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'frameClass' => 'krajee-default row',
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select FotoNik'
-            ],
-        ]) ?>
+            <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
 
-    
-  
-	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
-	<?php } ?>
-    </div>
+            <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => 2, 'status' => '1']), 'reff_id', 'nama_referensi'),
+                'options' => ['placeholder' => 'Select  ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
+        </div>
+
+        <div class="col-xs-4">
+
+
+            <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
+                'options' => ['accept' => 'image/*', 'autoReplace' => true],
+                'pluginOptions' => [
+                    'initialPreview' => (!$model->isNewRecord && isset($model->foto)) ? [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->foto), ['class' => 'col-xs-12'])] : [],
+                    'maxFileSize' => 2048,
+                    'showCaption' => false,
+                    'showRemove' => false,
+                    'showUpload' => false,
+                    'frameClass' => 'krajee-default row',
+                    'browseClass' => 'btn btn-primary btn-block',
+                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+                    'browseLabel' =>  'Select Foto'
+                ],
+            ]) ?>
+            <?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
+                'options' => ['accept' => 'image/*', 'autoReplace' => true],
+                'pluginOptions' => [
+                    'initialPreview' => (!$model->isNewRecord && isset($model->fotoNik)) ? [Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])] : [],
+                    'maxFileSize' => 2048,
+                    'showCaption' => false,
+                    'showRemove' => false,
+                    'showUpload' => false,
+                    'frameClass' => 'krajee-default row',
+                    'browseClass' => 'btn btn-primary btn-block',
+                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+                    'browseLabel' =>  'Select FotoNik'
+                ],
+            ]) ?>
+
+
+
+            <?php if (!Yii::$app->request->isAjax) { ?>
+                <div class="form-group">
+                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                </div>
+            <?php } ?>
+        </div>
     </div>
     <?php ActiveForm::end(); ?>
-    
+
 </div>
