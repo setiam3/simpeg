@@ -16,7 +16,7 @@ if (in_array('karyawan', $role)) {
     if (!empty($klikedid)) {
         $parent = ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => $klikedid])->all(), 'id_data', 'nama');
     } else {
-        $parent = $model->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'nama') :
+        $parent = $transaksipenggajian->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'nama') :
             ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $model->id_data])->all(), 'id_data', 'nama');
     }
 }

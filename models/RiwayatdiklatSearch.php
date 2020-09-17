@@ -55,7 +55,7 @@ class RiwayatdiklatSearch extends Riwayatdiklat
             return $dataProvider;
         }
 
-        //$query->joinWith('data');
+        $query->joinWith('data');
 
         $query->andFilterWhere([
             'id' => $this->id,

@@ -69,7 +69,7 @@ class Penggolongangaji extends \yii\db\ActiveRecord
      */
     public function getKepangkatans()
     {
-        return $this->hasMany(Kepangkatan::className(), ['penggolongangaji_id' => 'id']);
+        return $this->hasMany(MKepangkatan::className(), ['penggolongangaji_id' => 'id']);
     }
 
     /**
