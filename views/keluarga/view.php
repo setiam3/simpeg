@@ -31,13 +31,13 @@ use yii\widgets\DetailView;
             [
                 'attribute' => 'foto',
                 'format' => 'raw',
-                'value' => \yii\helpers\Html::a($model->foto, ['uploads/foto' . $model->parent->nip . '/' . $foto = 'foto_' . $model->status_hubungan_keluarga . '_' . $model->parent_id])
+                'value' => \yii\helpers\Html::a($model->foto, ['uploads/foto/' . $model->parent->nip . '/' . $model->foto])
 
             ],
             [
                 'attribute' => 'fotoNik',
                 'format' => 'raw',
-                'value' => \yii\helpers\Html::a($model->fotoNik, ['uploads/foto/' . $model->parent->nip . '/' . $fotoNik = 'fotoNik_' . $model->status_hubungan_keluarga . '_' . $model->nik])
+                'value' => \yii\helpers\Html::a($model->fotoNik, ['uploads/foto/' . $model->parent->nip . '/'  . $model->fotoNik])
 
             ],
             'golonganDarah',

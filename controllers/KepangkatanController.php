@@ -102,10 +102,7 @@ class KepangkatanController extends Controller
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-<<<<<<< HEAD
 
-=======
->>>>>>> e0cb27c8e57298e032282496fe0a057f5660ca20
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'dokumen'))) {
                     $model->dokumen = Yii::$app->tools->upload('MKepangkatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/Kepangkatan' . $model->data->nip);
