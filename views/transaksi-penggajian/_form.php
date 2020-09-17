@@ -15,7 +15,7 @@ if (in_array('karyawan', $role)) {
     if(!empty($klikedid)){
         $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->all(), 'id_data','nama');
     }else{
-        $parent=$model->isNewRecord?ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama'):
+        $parent=$transaksipenggajian->isNewRecord?ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama'):
             ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data'=>$model->id_data])->all(),'id_data','nama');
     }
 
@@ -86,12 +86,13 @@ if (in_array('karyawan', $role)) {
             <?=
                 Select2::widget([
                     'name' => 'Tunjangan_id',
-                    'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'tunjangan_id'),
+                    'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->joinWith('tunjangan')->all(), 'id', 'tunjangan_id'),
                     'size' => Select2::MEDIUM,
                     'options' => ['placeholder' => 'Select  ...', 'multiple' => true],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
+
                 ]);
             ?>
 
@@ -110,6 +111,52 @@ if (in_array('karyawan', $role)) {
             <?= $form->field($potongangaji, 'keterangan')->textArea() ?>
         </div>
 
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <tr>
+                    <td>no</td>
+                    <td>keterangan</td>
+                    <td>jumlah</td>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>gaji pokok</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>tunjangan1</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>tunjangan2</td>
+                    <td>2000</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>potongan 1</td>
+                    <td>2000</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>potongan 2</td>
+                    <td>2000</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>jumlah</td>
+                    <td>2000</td>
+                </tr>
+
+            </table>
+        </div>
     </div>
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">

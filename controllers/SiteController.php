@@ -183,6 +183,28 @@ class SiteController extends Controller
 
     }
 
+    public function actiontunjangan($model)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $id = end($_POST['depdrop_parents']);
+            $list = $model == 'Kecamatan' ? $this->findModelAll(['regency_id' => $id], $model) : $this->findModelAll(['district_id' => $id], $model);
+            $selected  = null;
+            if ($id != null && count($list) > 0) {
+                $selected = '';
+                foreach ($list as $i => $account) {
+                    $out[] = ['id' => $account['id'], 'name' => $account['name']];
+                    if ($i == 0) {
+                        $selected = $account['id'];
+                    }
+                }
+                return ['output' => $out, 'selected' => $selected];
+            }
+        }
+        return ['output' => '', 'selected' => ''];
+    }
+
     public function actionSwitch($id)
     {
 

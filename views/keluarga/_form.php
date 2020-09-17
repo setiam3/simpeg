@@ -93,7 +93,7 @@ if(in_array('karyawan',$role)){
                     'url' => Url::to(['/site/child?model=Kelurahan']),
                     'loadingText' => 'Loading kelurahan ...',
                 ]
-            ]) ?>  
+            ]) ?>
         <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
             'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9','status'=>'1']), 'reff_id','nama_referensi'),
             'options' => ['placeholder' => 'Select  ...'],
@@ -102,7 +102,7 @@ if(in_array('karyawan',$role)){
             ],
         ]) ?>
         <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
-        
+
         <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
@@ -113,10 +113,10 @@ if(in_array('karyawan',$role)){
                 ],
             ]) ?>
     </div>
-    
+
     <div class="col-xs-4">
-   
-    
+
+
     <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*','autoReplace'=>true],
         'pluginOptions' => [
@@ -146,8 +146,8 @@ if(in_array('karyawan',$role)){
             ],
         ]) ?>
 
-    
-  
+
+
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">
 	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -156,5 +156,5 @@ if(in_array('karyawan',$role)){
     </div>
     </div>
     <?php ActiveForm::end(); ?>
-    
+
 </div>
