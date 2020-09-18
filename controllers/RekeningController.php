@@ -174,7 +174,7 @@ class RekeningController extends Controller
                 ];
             } else if ($model->load($request->post())) {
                 if (!empty(UploadedFile::getInstance($model, 'fotoNpwp'))) {
-                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldNpwp)) {
+                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldNpwp) && !empty($oldFoto)) {
                         unlink($filename);
                     }
                     $model->fotoNpwp =Yii::$app->tools->upload('MRekening[fotoNpwp]', Yii::getAlias('@uploads') . $model->data->nip . '/npwp_' . $model->npwp);
@@ -182,7 +182,7 @@ class RekeningController extends Controller
                     $model->fotoNpwp = $oldNpwp;
                 }
                 if (!empty(UploadedFile::getInstance($model, 'fotoRekening'))) {
-                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldRekening)) {
+                    if (file_exists($filename = Yii::getAlias('@uploads') . $model->data->nip . '/' . $oldRekening) && !empty($oldFoto)) {
                         unlink($filename);
                     }
                     $model->fotoRekening = Yii::$app->tools->upload('MRekening[fotoRekening]', Yii::getAlias('@uploads') . $model->data->nip . '/rek_' . $model->nomor_rekening);

@@ -98,7 +98,7 @@ use yii\helpers\Html;
                     'content' => $this->render('//riwayatdiklat/index', [
                         'searchModel' => $searchModeldiklat,
                         'klikedid' => $model->id_data,
-                        'dataProvider' => $searchModeldiklat->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                        'dataProvider' => $searchModeldiklat->search(Yii::$app->request->queryParams, ['m_biodata.id_data' => $model->id_data])
                     ]),
                 ],
                 [
