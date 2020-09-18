@@ -10,8 +10,16 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+
             'id_data',
-            'parent_id',
+
+
+            [
+                'attribute' => 'parent_id',
+                'value' => function ($data) {
+                    return $data->parent->nama;
+                },
+            ],
             'nip',
             'nama',
             'tempatLahir',
@@ -20,11 +28,27 @@ use yii\widgets\DetailView;
             'kabupatenKota',
             'kecamatan',
             'kelurahan',
-            'jenisKelamin',
-            'agama',
+            [
+                'attribute' => 'jenisKelamin',
+                'value' => function ($data) {
+                    return $data->sex->nama_referensi;
+                },
+            ],
+            [
+                'attribute' => 'agama',
+                'value' => function ($data) {
+                    return $data->agamanya->nama_referensi;
+                },
+            ],
             'telp',
             'email:email',
-            'statusPerkawinan',
+            //'statusPerkawinan',
+            [
+                'attribute' => 'statusPerkawinan',
+                'value' => function ($data) {
+                    return $data->statuskawin->nama_referensi;
+                },
+            ],
             'gelarDepan',
             'gelarBelakang',
             'nik',
@@ -41,10 +65,15 @@ use yii\widgets\DetailView;
 
             ],
             'golonganDarah',
-            'status_hubungan_keluarga',
+            //'status_hubungan_keluarga',
+            [
+                'attribute' => 'status_hubungan_keluarga',
+                'value' => function ($data) {
+                    return $data->statusHubunganKeluarga->nama_referensi;
+                },
+            ],
             'is_pegawai',
             'checklog_id',
         ],
     ]) ?>
-
 </div>

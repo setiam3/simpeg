@@ -25,7 +25,7 @@ if(in_array('karyawan',$role)){
     ?>
 
     <?= $form->field($model, 'jenis')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '11','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
+        'data' => ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '11','status'=>'1'])->all(), 'nama_referensi', 'nama_referensi'),
         'options' => ['placeholder' => 'Select Jenis ...'],
         'pluginOptions' => [
             'allowClear' => true

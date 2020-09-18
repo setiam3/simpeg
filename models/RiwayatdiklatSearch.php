@@ -59,7 +59,7 @@ class RiwayatdiklatSearch extends Riwayatdiklat
 
         $query->andFilterWhere([
             'id' => $this->id,
-            //'id_data' => $this->id_data,
+            // 'id_data' => $this->id_data,
             'mulai' => $this->mulai,
             'selesai' => $this->selesai,
         ]);

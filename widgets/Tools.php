@@ -149,9 +149,9 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
       $role[] = ['name' => $roles->name];
     }
 
-      return ArrayHelper::map($role,'name','name');
-  }
 
+    return ArrayHelper::map($role, 'name', 'name');
+  }
 
   protected function findModelAll($condition, $models)
   {
@@ -175,5 +175,4 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
 
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
-
 }

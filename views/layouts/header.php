@@ -35,13 +35,9 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-<<<<<<< HEAD
-                                for(){}
-                                <li><!-- start message -->
-=======
+
                                 <li>
                                     <!-- start message -->
->>>>>>> cfc76d4cd1e721594f13a94f6367b1ec453128aa
                                     <a href="#">
                                         <div class="pull-left">
                                             <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
@@ -110,16 +106,16 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning"></span>
+                        <span class="label label-warning"><?= $notifDOK[0]['jumlah'] ?></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <li class="header">You have <?= $notifDOK[0]['jumlah'] ?> notifications</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        <i class="fa fa-users text-aqua"></i> <?= $notifDOK[0]['jumlah'] ?> Dokumen Belum Lengkap
                                     </a>
                                 </li>
                                 <li>

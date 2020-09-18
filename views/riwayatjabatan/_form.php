@@ -27,13 +27,10 @@ if (in_array('karyawan', $role)) {
         <div class="col-md-6">
 
             <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-
                 'data' => $parent,
-
                 'pluginOptions' => [
                     'allowClear' => false
                 ],
-
             ])
             ?>
 
@@ -46,6 +43,7 @@ if (in_array('karyawan', $role)) {
                 ],
             ])->label('Jabatan');
             ?>
+
 
 
             <?= $form->field($model, 'eselon')->widget(\kartik\widgets\SwitchInput::classname(), ['pluginOptions' => [

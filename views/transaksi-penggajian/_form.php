@@ -7,18 +7,27 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
 
+
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
-    $data=\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>\Yii::$app->user->identity->id_data])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->one();
+    $data = \app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->one();
     $parent = [$data->id_data => $data->nama];
+<<<<<<< HEAD
 } elseif(in_array('operator',$role) || in_array('admin',$role)){
     if(!empty($klikedid)){
         $parent=ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1','id_data'=>$klikedid])->all(), 'id_data','nama');
     }else{
         $parent=$transaksipenggajian->isNewRecord?ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai'=>'1'])->andWhere(['not',['jenis_pegawai'=>'4']])->andWhere(['not',['jenis_pegawai'=>NULL]])->all(),'id_data','nama'):
             ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data'=>$model->id_data])->all(),'id_data','nama');
+=======
+} elseif (in_array('operator', $role) || in_array('admin', $role)) {
+    if (!empty($klikedid)) {
+        $parent = ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => $klikedid])->all(), 'id_data', 'nama');
+    } else {
+        $parent = $transaksipenggajian->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'nama') :
+            ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $model->id_data])->all(), 'id_data', 'nama');
+>>>>>>> c01c5c760d76108a6bd1baabf2ef92d8196c14b2
     }
-
 }
 
 ?>
@@ -58,14 +67,17 @@ if (in_array('karyawan', $role)) {
             <?= $form->field($transaksipenggajiandetail, 'gol_gaji')->widget(\kartik\select2\Select2::classname(), [
                 'data' => \yii\helpers\ArrayHelper::map(
                     (new \yii\db\Query())
-        ->from('penggolongangaji')
-        ->rightJoin('m_referensi','penggolongangaji.pangkat_id = m_referensi.reff_id')
-        ->where('tipe_referensi = 6')
-        ->all(),'id','nama_referensi'),
-//                        \app\models\Penggolongangaji::find()
-//                    ->joinWith('pangkat',true,'RIGHT JOIN')
-//                    ->where(['tipe_referensi' => 6])
-//                    ->all(), 'pangkat_id', 'nama_referensi'),
+                        ->from('penggolongangaji')
+                        ->rightJoin('m_referensi', 'penggolongangaji.pangkat_id = m_referensi.reff_id')
+                        ->where('tipe_referensi = 6')
+                        ->all(),
+                    'id',
+                    'nama_referensi'
+                ),
+                //                        \app\models\Penggolongangaji::find()
+                //                    ->joinWith('pangkat',true,'RIGHT JOIN')
+                //                    ->where(['tipe_referensi' => 6])
+                //                    ->all(), 'pangkat_id', 'nama_referensi'),
                 'language' => 'de',
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
@@ -100,7 +112,7 @@ if (in_array('karyawan', $role)) {
             <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
 
             <?= $form->field($potongangaji, 'potongan_desc')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '13','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
+                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '13', 'status' => '1'])->all(), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
