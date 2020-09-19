@@ -102,71 +102,13 @@ if (in_array('karyawan', $role)) {
                 ]
             ]) ?>
 
-        <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'9','status'=>'1']), 'reff_id','nama_referensi'),
-            'options' => ['placeholder' => 'Select  ...'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]) ?>
-        <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
-                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>2,'status'=>'1']), 'reff_id','nama_referensi'),
+            <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '9', 'status' => '1']), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ]) ?>
-        </div>
-
-    <div class="col-xs-4">
-
-
-    <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*','autoReplace'=>true],
-        'pluginOptions' => [
-            'initialPreview' => (!$model->isNewRecord && isset($model->foto)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->foto), ['class' => 'col-xs-12'])]:[],
-            'maxFileSize' => 2048,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'frameClass' => 'krajee-default row',
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select Foto'
-            ],
-        ]) ?>
-<?= $form->field($model, 'fotoNik')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*','autoReplace'=>true],
-        'pluginOptions' => [
-            'initialPreview' => (!$model->isNewRecord && isset($model->fotoNik)) ?[Html::img(\Yii::getAlias('@web/uploads/foto/' . $model->parent->nip . '/' . $model->fotoNik), ['class' => 'col-xs-12'])]:[],
-            'maxFileSize' => 2048,
-            'showCaption' => false,
-            'showRemove' => false,
-            'showUpload' => false,
-            'frameClass' => 'krajee-default row',
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-            'browseLabel' =>  'Select FotoNik'
-            ],
-        ]) ?>
-
-
-
-	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
-	<?php } ?>
-    </div>
-
-
-
-
-
             <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
@@ -220,8 +162,6 @@ if (in_array('karyawan', $role)) {
                 </div>
             <?php } ?>
         </div>
-
-
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
+    </div>
 </div>
-

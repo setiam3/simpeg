@@ -67,4 +67,5 @@ class Pinjaman extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
+    
 }

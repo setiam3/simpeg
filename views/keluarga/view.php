@@ -25,9 +25,30 @@ use yii\widgets\DetailView;
             'tempatLahir',
             'tanggalLahir',
             'alamat',
-            'kabupatenKota',
-            'kecamatan',
-            'kelurahan',
+
+
+
+            [
+                'attribute' => 'kabupatenKota',
+                'value' => function ($data) {
+                    return $data->desanya->district->regency->name;
+                },
+            ],
+
+            [
+                'attribute' => 'kecamatan',
+                'value' => function ($data) {
+                    return $data->desanya->district->name;
+                },
+            ],
+            [
+                'attribute' => 'kelurahan',
+                'value' => function ($data) {
+                    return $data->desanya->name;
+                },
+            ],
+
+
             [
                 'attribute' => 'jenisKelamin',
                 'value' => function ($data) {
