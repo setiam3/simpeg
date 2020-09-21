@@ -112,6 +112,8 @@ $config = [
             'site/*',
             //'admin/*',
             'debug/*',
+            'site/login',
+            'site/error',
         ]
     ],
     'as beforeRequest' => [  //if guest user access site so, redirect to login page.

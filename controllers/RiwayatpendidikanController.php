@@ -111,7 +111,7 @@ class RiwayatpendidikanController extends Controller
                     $model->dokumen = Yii::$app->tools->upload('Riwayatpendidikan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/ripen' . $model->data->nip);
                 }
 
-                if ($model->save(false)) {
+                if ($model->save()) {
                     return [
                         'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
                         'title' => "Create new Riwayatpendidikan",

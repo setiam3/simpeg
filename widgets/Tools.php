@@ -137,11 +137,24 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
 
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
-  public function nextPensiun($y)
-  { // akan pensiun
+  public function nextPensiun()
+  { // akan pensiun 1 jenis pegawai pns --kode pegawai pns  --kode pegawai 2 blud, 3 freelend --1 jenis pegawai pns
+//      $sql = "SELECT * FROM m_biodata
+//        WHERE date_part('YEAR', NOW()) - date_part('YEAR', 'tanggalLahir') IN ('59','60')
+//          AND jenis_pegawai = '1'
+//          AND is_pegawai = '1'
+//          OR date_part('YEAR', NOW()) - date_part('YEAR', 'tanggalLahir') IN ('49','50')
+//          AND jenis_pegawai IN ('3','2')
+//          AND is_pegawai = '1'";
 
+      $sql = "SELECT * FROM m_biodata
+WHERE EXTRACT(YEAR FROM NOW()) ::INTEGER - EXTRACT(YEAR FROM 'tanggalLahir') :: INTEGER
+OR EXTRACT(YEAR FROM NOW()) ::INTEGER - EXTRACT(YEAR FROM 'tanggalLahir') :: INTEGER";
+
+      return $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
 
   }
+
   public function getcurrentroleuser()
   {
     $currentrole = \Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id);
@@ -165,6 +178,21 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
   }
   public function getNotifdokumen()
   {
+//      SELECT COUNT(*) as jumlah FROM m_biodata
+//JOIN m_rekening ON m_biodata.id_data =  m_rekening.id_data
+//LEFT JOIN riwayatdiklat ON m_biodata.id_data =  riwayatdiklat.id_data
+//LEFT JOIN riwayatjabatan ON m_biodata.id_data =  riwayatjabatan.id_data
+//LEFT JOIN kepangkatan ON m_biodata.id_data =  kepangkatan.id_data
+//LEFT JOIN riwayatpendidikan ON m_biodata.id_data =  riwayatpendidikan.id_data
+//WHERE is_pegawai = '1'
+//  AND "fotoNik" is NULL
+//  OR "foto" is NULL
+//  OR m_rekening."fotoRekening" is NULL
+//  OR riwayatdiklat.dokumen is null
+//  OR riwayatjabatan.dokumen is null
+//  OR kepangkatan.dokumen is null
+//  OR riwayatpendidikan.dokumen is null
+
     $sql = 'SELECT COUNT(*) as jumlah 
       FROM m_biodata as b
       join m_rekening as r on b.id_data = r.id_data
