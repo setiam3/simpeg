@@ -10,9 +10,9 @@ $populasi=\Yii::$app->tools->grafikPopulasi();
 $jenispegawai=\Yii::$app->tools->gjenisPegawai();
 $golpeg=\Yii::$app->tools->golonganPegawai();
 $pegultah=\Yii::$app->tools->ultahPegawai();
-$pensiun=\Yii::$app->tools->nextPensiun();
 
-var_dump($pensiun);die();
+
+
 
 if(empty($jenispegawai)){
     $arrayJenispegawai[] = '';
