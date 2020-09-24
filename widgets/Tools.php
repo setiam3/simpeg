@@ -4,6 +4,8 @@ namespace app\widgets;
 
 use app\models\MBiodata;
 use DateTime;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use tpmanc\imagick\Imagick;
@@ -148,10 +150,24 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
 //          AND is_pegawai = '1'";
 
       $sql = "SELECT * FROM m_biodata
-WHERE EXTRACT(YEAR FROM NOW()) ::INTEGER - EXTRACT(YEAR FROM 'tanggalLahir') :: INTEGER
-OR EXTRACT(YEAR FROM NOW()) ::INTEGER - EXTRACT(YEAR FROM 'tanggalLahir') :: INTEGER";
-
-      return $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
+WHERE (EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM \"tanggalLahir\") IN (59,60))
+AND (\"jenis_pegawai\" = 1)
+AND (\"is_pegawai\" = '1')
+or (EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM \"tanggalLahir\") IN (49,50))
+AND (\"jenis_pegawai\" in ('3','2'))
+AND (\"is_pegawai\" = '1')
+";
+//$where = new Expression('EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tanggalLahir")');
+//      $sql = MBiodata::find()
+//          ->where(['=','is_pegawai','1'])
+//          ->where(['in',$where,['59','60']])
+//          ->where(['=','jenis_pegawai',1])
+//          ->orWhere(['in',$where,['49','50']])
+//          ->where(['in','jenis_pegawai',['3','2']])
+//          ->all();
+      return
+//          $sql;
+          $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
 
   }
 
@@ -178,7 +194,37 @@ OR EXTRACT(YEAR FROM NOW()) ::INTEGER - EXTRACT(YEAR FROM 'tanggalLahir') :: INT
   }
   public function getNotifdokumen()
   {
-//      SELECT COUNT(*) as jumlah FROM m_biodata
+      $sql = MBiodata::find()
+          ->select([
+              'm_biodata.id_data',
+              'r.id as id_rekening',
+              'fotoNik',
+              'foto',
+              'r.fotoRekening',
+              'p.dokumen as dokumen_pendidikan',
+              'j.dokumen as dokumen_jabatan',
+              'd.dokumen as dokumen_diklat',
+              'k.dokumen as dokumen_kepangkatan'])
+          ->Join('join', 'm_rekening as r','m_biodata.id_data = r.id_data')
+          ->joinWith('riwayatdiklats as d')
+          ->joinWith('riwayatjabatans as j')
+          ->joinWith('riwayatpendidikans as p')
+          ->joinWith('riwayatpendidikans as p')
+          ->joinWith('kepangkatans as k')
+          ->where(['is_pegawai' => '1'])
+          ->where(['m_biodata.id_data' => '2'])
+//          ->orWhere(['is','fotoNik',null])
+//          ->orWhere(['is','foto',null])
+//          ->orWhere(['is','r.fotoRekening',null])
+//          ->orWhere(['is','p.dokumen',null])
+//          ->orWhere(['is','j.dokumen',null])
+//          ->orWhere(['is','d.dokumen',null])
+//          ->orWhere(['is','k.dokumen',null])
+//          ->groupBy('m_biodata.id_data')
+//          ->count();
+//          ->with('riwayatdiklats')
+          ->all();
+//          SELECT COUNT(*) as jumlah FROM m_biodata
 //JOIN m_rekening ON m_biodata.id_data =  m_rekening.id_data
 //LEFT JOIN riwayatdiklat ON m_biodata.id_data =  riwayatdiklat.id_data
 //LEFT JOIN riwayatjabatan ON m_biodata.id_data =  riwayatjabatan.id_data
@@ -193,14 +239,17 @@ OR EXTRACT(YEAR FROM NOW()) ::INTEGER - EXTRACT(YEAR FROM 'tanggalLahir') :: INT
 //  OR kepangkatan.dokumen is null
 //  OR riwayatpendidikan.dokumen is null
 
-    $sql = 'SELECT COUNT(*) as jumlah 
-      FROM m_biodata as b
-      join m_rekening as r on b.id_data = r.id_data
-      JOIN riwayatdiklat as rd on b.id_data = rd.id_data
-      JOIN riwayatpendidikan as rp on b.id_data = rp.id_data
-      JOIN kepangkatan as ke on b.id_data = ke.id_data
-      WHERE foto is NULL or "fotoNik" IS NULL or "fotoRekening" is NULL or "fotoNpwp" is NULL or rd.dokumen IS NULL or rp.dokumen is NULL or ke.dokumen is NULL';
+//    $sql = 'SELECT COUNT(*) as jumlah
+//      FROM m_biodata as b
+//      join m_rekening as r on b.id_data = r.id_data
+//      JOIN riwayatdiklat as rd on b.id_data = rd.id_data
+//      JOIN riwayatpendidikan as rp on b.id_data = rp.id_data
+//      JOIN kepangkatan as ke on b.id_data = ke.id_data
+//      WHERE foto is NULL or "fotoNik" IS NULL or "fotoRekening" is NULL or "fotoNpwp" is NULL or rd.dokumen IS NULL or rp.dokumen is NULL or ke.dokumen is NULL';
 
-    return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
+    return $sql;
+//        $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
+
+
 }
