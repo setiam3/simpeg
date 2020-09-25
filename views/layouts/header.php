@@ -31,11 +31,11 @@ $this->registerJs('$("document").ready(function(){
   })
  });
  
- setInterval(function(){
+// setInterval(function(){
     loadDoc()
     notifgaji()
     countpangkat()
- },5000)
+// },5000)
  
  
  function notifgaji(){
@@ -102,20 +102,7 @@ $this->registerJs('$("document").ready(function(){
 
             <ul class="nav navbar-nav">
 
-<!--                <li class="dropdown">-->
-<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-<!--                    <ul class="dropdown-menu">-->
-<!--                        <li><a href="#">Action</a></li>-->
-<!--                        <li><a href="#">Another action</a></li>-->
-<!--                        <li><a href="#">Something else here</a></li>-->
-<!--                        <li role="separator" class="divider"></li>-->
-<!--                        <li><a href="#">Separated link</a></li>-->
-<!--                        <li role="separator" class="divider"></li>-->
-<!--                        <li><a href="#">One more separated link</a></li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-
-                <!-- Messages: style can be found in dropdown.less-->
+                <!-- notif dokumen-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
@@ -126,8 +113,7 @@ $this->registerJs('$("document").ready(function(){
                     </ul>
                 </li>
 
-
-
+                <!-- notif gaji-->
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
@@ -139,7 +125,7 @@ $this->registerJs('$("document").ready(function(){
                 </li>
 
 
-<!--                notifikasi dokumen-->
+                <!--notifikasi kenaikan pangkat-->
                 <li class="dropdown notifications-menu ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
@@ -147,43 +133,12 @@ $this->registerJs('$("document").ready(function(){
                         </span>
                     </a>
                     <ul class="dropdown-menu ">
-                        <li class="header">You have 0 notifications</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
 
-
-
-<!--                                <li>-->
-<!--                                    <a href="#">-->
-<!--                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may-->
-<!--                                        not fit into the page and may cause design problems-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="#">-->
-<!--                                        <i class="fa fa-users text-red"></i> 5 new members joined-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!---->
-<!--                                <li>-->
-<!--                                    <a href="#">-->
-<!--                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="#">-->
-<!--                                        <i class="fa fa-user text-red"></i> You changed your username-->
-<!--                                    </a>-->
-<!--                                </li>-->
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
                 <!-- Tasks: style can be found in dropdown.less -->
 
-<!--                notif kenaikan gaji-->
+                <!--notif kenaikan gaji-->
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" >
                         <i class="fa fa-flag-o"></i>

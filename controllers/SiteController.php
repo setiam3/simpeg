@@ -306,6 +306,7 @@ class SiteController extends Controller
         $sql = MBiodata::find()
             ->select([
                 'm_biodata.id_data',
+                'm_biodata.nama as nama',
                 'r.id as id_rekening',
                 'fotoNik',
                 'foto',
@@ -328,7 +329,7 @@ class SiteController extends Controller
         if (!empty($sql)){
             foreach ($sql as $row){
 //                echo (empty($row['fotoNik']))?'<li>'..'</li>':'';
-                $list []= (empty($row['fotoNik']))?'<li><a href="#">foto NIK belum diupload</a></li>':'';
+                $list []= (empty($row['fotoNik']))?'<li><a href="">'.$row['nama'].'foto NIK belum diupload</a></li>':'';
                 $list []= (empty($row['foto']))?'<li><a href="#">foto belum diupload</a></li>':'';
                 $list []= (empty($row['fotoRekening']))?'<li><a href="#">foto rekening belum diupload</a></li>':'';
                 $list []= (empty($row['dokumen_jabatan']))?'<li><a href="#">foto jabatan belum diupload</a></li>':'';
@@ -342,7 +343,7 @@ class SiteController extends Controller
             $list = '<li><a href="#">data tidak ada</a></li>';
         }
 
-        return [$list];
+        return $list;
     }
 
     public function actionNotifgaji(){
@@ -383,7 +384,7 @@ class SiteController extends Controller
         }else{
             $list = '<li><a href="#">data tidak ada</a></li>';
         }
-        return [$list];
+        return $list;
     }
 
     public function actionKenaikanpangkat(){
@@ -430,6 +431,13 @@ class SiteController extends Controller
             ->andWhere($wherecon)
             ->andWhere($whereid)
             ->all();
+        if (!empty($gaji)){
+            foreach ($gaji as $row){
+                $list[] = '<li><a href="#">'.$row->nama.'</a></li>';
+            }
+        }else{
+            $list = '<li><a href="#">data tidak ada</a></li>';
+        }
 
         return $gaji;
     }
