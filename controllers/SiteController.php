@@ -302,6 +302,7 @@ class SiteController extends Controller
         } else {
             $where = '';
         }
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $sql = MBiodata::find()
             ->select([
@@ -330,7 +331,7 @@ class SiteController extends Controller
             foreach ($sql as $row){
 //                echo (empty($row['fotoNik']))?'<li>'..'</li>':'';
                 $list []= (empty($row['fotoNik']))?'<li><a href="">'.$row['nama'].'foto NIK belum diupload</a></li>':'';
-                $list []= (empty($row['foto']))?'<li><a href="#">foto belum diupload</a></li>':'';
+                $list []= (empty($row['foto']))?'<li><a href="'.Yii::$app->homeUrl.'/biodata/update?id='.$row['id_data'].'">foto belum diupload</a></li>':'';
                 $list []= (empty($row['fotoRekening']))?'<li><a href="#">foto rekening belum diupload</a></li>':'';
                 $list []= (empty($row['dokumen_jabatan']))?'<li><a href="#">foto jabatan belum diupload</a></li>':'';
                 $list []= (empty($row['dokumen_diklat']))?'<li><a href="#">foto diklat belum diupload</a></li>':'';
@@ -412,7 +413,7 @@ class SiteController extends Controller
     }
 
     public function actionLisenaikanpangkat(){
-//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role)) {
             $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
@@ -431,14 +432,15 @@ class SiteController extends Controller
             ->andWhere($wherecon)
             ->andWhere($whereid)
             ->all();
-        if (!empty($gaji)){
-            foreach ($gaji as $row){
-                $list[] = '<li><a href="#">'.$row->nama.'</a></li>';
-            }
-        }else{
-            $list = '<li><a href="#">data tidak ada</a></li>';
-        }
 
-        return $gaji;
+            if (!empty($gaji)){
+                foreach ($gaji as $row){
+                    $list[] = '<li><a href="#">'.$row['nama'].'</a></li>';
+                }
+            }else{
+                $list = '<li><a href="#">data tidak ada</a></li>';
+            }
+    return $list;
+
     }
 }

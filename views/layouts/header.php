@@ -8,7 +8,7 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
 //$kgb=\Yii::$app->tools->notifKenaikanGaji();
 //var_dump($notifDOK);
 //die();
-$this->registerJsVar('baseurl',yii\helpers\Url::home());
+$this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
  function loadDoc() {
      $.ajax({
@@ -75,16 +75,15 @@ $this->registerJs('$("document").ready(function(){
   $(document).on("click", ".dropdown-toggle", function(){
       $.ajax({
            url:"site/lisenaikanpangkat",
-           method:"POST",
+           method:"get",
            dataType:"json",
            success:function(data){
-                $(".gaji").html(data);
+                $(".pangkat").html(data);
            }
       })
  });
  
- });'
-    );
+ });');
 
 ?>
 
@@ -102,10 +101,24 @@ $this->registerJs('$("document").ready(function(){
 
             <ul class="nav navbar-nav">
 
-                <!-- notif dokumen-->
+                <!--                <li class="dropdown">-->
+                <!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--                    <ul class="dropdown-menu">-->
+                <!--                        <li><a href="#">Action</a></li>-->
+                <!--                        <li><a href="#">Another action</a></li>-->
+                <!--                        <li><a href="#">Something else here</a></li>-->
+                <!--                        <li role="separator" class="divider"></li>-->
+                <!--                        <li><a href="#">Separated link</a></li>-->
+                <!--                        <li role="separator" class="divider"></li>-->
+                <!--                        <li><a href="#">One more separated link</a></li>-->
+                <!--                    </ul>-->
+                <!--                </li>-->
+
+                <!-- Messages: style can be found in dropdown.less-->
+                <!--notif dokumen-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-envelope-o"></i>
+                        <i class="fa fa-folder"></i>
                         <span class="label label-success" id="count_notifdok">0</span>
                     </a>
                     <ul class="dropdown-menu dok">
@@ -116,7 +129,7 @@ $this->registerJs('$("document").ready(function(){
                 <!-- notif gaji-->
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
+                        <i class="fa fa-money"></i>
                         <span class="label label-success" id="countgaji">0</span>
                     </a>
                     <ul class="dropdown-menu gaji">
@@ -124,23 +137,24 @@ $this->registerJs('$("document").ready(function(){
                     </ul>
                 </li>
 
-
                 <!--notifikasi kenaikan pangkat-->
+
                 <li class="dropdown notifications-menu ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-warning" id="count-notif-pang">0
                         </span>
                     </a>
-                    <ul class="dropdown-menu ">
+
+                    <ul class="dropdown-menu pangkat">
 
                     </ul>
                 </li>
                 <!-- Tasks: style can be found in dropdown.less -->
 
-                <!--notif kenaikan gaji-->
+
                 <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" >
+                    <a href="#" class="dropdown-toggle">
                         <i class="fa fa-flag-o"></i>
                         <span class="label label-danger" id="">9</span>
                     </a>
@@ -299,7 +313,6 @@ $this->registerJs('$("document").ready(function(){
     //         xhttp.send();
     //     },1000)
     // }loadDoc();
-
 </script>
 
 
