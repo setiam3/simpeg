@@ -1,12 +1,11 @@
 <?php
-
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
-
-
+use yii\bootstrap\Tabs;
 
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
@@ -18,21 +17,48 @@ if (in_array('karyawan', $role)) {
         $parent = ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => $klikedid])->all(), 'id_data', 'nama');
     } else {
         $parent = $transaksipenggajian->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'nama') :
-            ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $model->id_data])->all(), 'id_data', 'nama');
+        ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $model->id_data])->all(), 'id_data', 'nama');
     }
 }
+$this->registerJsVar('baseurl',yii\helpers\Url::home());
+$this->registerJs("function gettunjangan(id){
+            $.ajax({
+                'type':'post',
+                'url':baseurl+'tunjangan/gettunjangan',
+                'data':{'id':id},
+            }).done(function(data){
+                $('.tabtunjangan').html(data);
+            });
+        }
+        gettunjangan($('#transaksipenggajian-data_id').val());
+        $(document).on('shown.bs.tab', 'a[data-toggle=\"tab\"]', function (e) {
+            var tab = $(e.target);
+            var contentId = tab.attr(\"href\");
+            if (tab.parent().hasClass('active')) {
+                if(tab.html()=='Tunjangan'){
+                    gettunjangan($('#transaksipenggajian-data_id').val());
+                }
+                console.log('the tab with the content id ' + contentId + ' is visible');
+            }
+        });
 
+    "
+);
 ?>
 <div class="transaksi-penggajian-form">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?= $form->field($transaksipenggajian, 'data_id')->widget(\kartik\select2\Select2::classname(), [
                 'data' => $parent,
                 'pluginOptions' => [
                     'allowClear' => false
                 ],
+                'pluginEvents' => [
+                    "change" => 'function(){
+                        gettunjangan($(this).val());
+                    }',
+                    ]
             ])
             ?>
             <?= $form->field($transaksipenggajian, 'nomor_transgaji') ?>
@@ -43,6 +69,8 @@ if (in_array('karyawan', $role)) {
                     'format' => 'yyyy-mm-dd'
                 ]
             ]); ?>
+        </div>
+        <div class="col-sm-4">
             <?= $form->field($transaksipenggajian, 'tgl_input')->widget(\kartik\date\DatePicker::className(), [
                 'options' => ['value' => date("Y-m-d"), 'readonly' => true,],
                 'pluginOptions' => [
@@ -54,8 +82,7 @@ if (in_array('karyawan', $role)) {
             <?= $form->field($transaksipenggajian, 'total_brutto_gaji') ?>
             <?= $form->field($transaksipenggajian, 'total_bersih_gaji') ?>
         </div>
-
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?= $form->field($transaksipenggajiandetail, 'gol_gaji')->widget(\kartik\select2\Select2::classname(), [
                 'data' => \yii\helpers\ArrayHelper::map(
                     (new \yii\db\Query())
@@ -66,108 +93,36 @@ if (in_array('karyawan', $role)) {
                     'id',
                     'nama_referensi'
                 ),
-                //                        \app\models\Penggolongangaji::find()
-                //                    ->joinWith('pangkat',true,'RIGHT JOIN')
-                //                    ->where(['tipe_referensi' => 6])
-                //                    ->all(), 'pangkat_id', 'nama_referensi'),
-                'language' => 'de',
                 'options' => ['placeholder' => 'Select  ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ])->label('Golongan Gaji');
             ?>
-            <?= $form->field($transaksipenggajiandetail, 'tunjangan_id')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->all(), 'id', 'tunjangan_id'),
-                'language' => 'de',
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ])->label('Tunjangan Id');
-            ?>
-
-            <?=
-                Select2::widget([
-                    'name' => 'Tunjangan_id',
-                    'data' => \yii\helpers\ArrayHelper::map(\app\models\MTunjangan::find()->joinWith('tunjangan')->all(), 'id', 'tunjangan_id'),
-                    'size' => Select2::MEDIUM,
-                    'options' => ['placeholder' => 'Select  ...', 'multiple' => true],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],
-
-                ]);
-            ?>
-
-
             <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
-
-            <?= $form->field($potongangaji, 'potongan_desc')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '13', 'status' => '1'])->all(), 'reff_id', 'nama_referensi'),
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ])->label('Potongan Desc')
-            ?>
-            <?= $form->field($potongangaji, 'potongan_nominal') ?>
             <?= $form->field($potongangaji, 'keterangan')->textArea() ?>
         </div>
 
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <table>
-                <tr>
-                    <td>no</td>
-                    <td>keterangan</td>
-                    <td>jumlah</td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <td>gaji pokok</td>
-                    <td>2000</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>tunjangan1</td>
-                    <td>2000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>tunjangan2</td>
-                    <td>2000</td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td>potongan 1</td>
-                    <td>2000</td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td>potongan 2</td>
-                    <td>2000</td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td>jumlah</td>
-                    <td>2000</td>
-                </tr>
-
-            </table>
-        </div>
+        <?php echo Tabs::widget([
+            'items' => [
+                [
+                    'label' => 'Tunjangan',
+                    'content' => '<div class="tabtunjangan">'.Yii::$app->runAction('tunjangan/gettunjangan', ['id'=>'']).'</div>',
+                ],
+                [
+                    'label'=>'Pinjaman',
+                    'content' => '<div class="tabpinjaman">'.Yii::$app->runAction('pinjaman/getpinjaman', ['id'=>'']).'</div>',
+                ],
+            ]
+        ]);
+        ?>
     </div>
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">
             <?= Html::submitButton($transaksipenggajian->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     <?php } ?>
-
     <?php ActiveForm::end(); ?>
-
 </div>
