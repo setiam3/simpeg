@@ -411,7 +411,7 @@ class SiteController extends Controller
     }
 
     public function actionLisenaikanpangkat(){
-//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role)) {
             $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
@@ -430,7 +430,13 @@ class SiteController extends Controller
             ->andWhere($wherecon)
             ->andWhere($whereid)
             ->all();
-
-        return $gaji;
+            if (!empty($gaji)){
+                foreach ($gaji as $row){
+                    $list[] = '<li><a href="#">'.$row['nama'].'</a></li>';
+                }
+            }else{
+                $list = '<li><a href="#">data tidak ada</a></li>';
+            }
+    return [$list];
     }
 }
