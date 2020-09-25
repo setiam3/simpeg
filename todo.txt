@@ -13,7 +13,7 @@ Dashboard
     Infografik Jenis Pegawai [v]
     Infografik Golongan [v]
     Pegawai yang berulang tahun > [v]
-    pegawai yg akan pensiun []
+    pegawai yg akan pensiun [v]
     STR akan habis
     SIP akan Habis
 
@@ -38,8 +38,8 @@ Detail pegawai
 Notifikasi Reminder
     Kenaikan Jabatan 6
     Kenaikan Gaji
-    KGB (Kenaikan Gaji Berkala) 2 thn
-    Kelengkapan berkas
+    KGB (Kenaikan Gaji Berkala) 2 thn []
+    Kelengkapan berkas []
 
 Arsip digital
     surat keluar / masuk

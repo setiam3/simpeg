@@ -10,9 +10,9 @@ $populasi=\Yii::$app->tools->grafikPopulasi();
 $jenispegawai=\Yii::$app->tools->gjenisPegawai();
 $golpeg=\Yii::$app->tools->golonganPegawai();
 $pegultah=\Yii::$app->tools->ultahPegawai();
+$pensiun=\Yii::$app->tools->nextPensiun();
 
-
-
+//var_dump($pensiun);die();
 
 if(empty($jenispegawai)){
     $arrayJenispegawai[] = '';
@@ -261,28 +261,15 @@ if(empty($golpeg)){
                             <thead>
                             <tr>
                                 <th>nama</th>
-<!--                                <th>tanggal</th>-->
-<!--                                <th>tahun</th>-->
                             </tr>
                             </thead>
                             <tbody>
-<!--                            --><?php //foreach ($pegultah as $ultah){ ?>
-<!--                            <tr>-->
-<!--                                <td>--><?//= $ultah->nama ?><!--</td>-->
-<!--                                <td>12-09-2020</td>-->
-<!--                                <td>25</td>-->
-<!--                            </tr>-->
-<!--<!--                            -->--><?php ////} ?>
+                            <?php foreach ($pensiun as $row){ ?>
                             <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
+                                <td><?= $row['nama'] ?></td>
                             </tr>
-                            <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
-                            </tr>
+                            <?php } ?>
+
                             </tbody>
                         </table>
                     </div>

@@ -6,8 +6,85 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
 /* @var $this \yii\web\View */
 /* @var $content string */
 //$kgb=\Yii::$app->tools->notifKenaikanGaji();
-//var_dump($kgb[0]['jumlah']);
-//die()
+//var_dump($notifDOK);
+//die();
+$this->registerJsVar('baseurl', yii\helpers\Url::home());
+$this->registerJs('$("document").ready(function(){
+ function loadDoc() {
+     $.ajax({
+         url:"site/notifdoc/",
+         method:"POST",
+         dataType:"json",
+         success:function(data){
+         $("#count_notifdok").html(data);
+         }
+     })
+ }
+ 
+ $(document).on("click", ".dropdown-toggle", function(){
+  $.ajax({
+   url:"site/lisnotifdok",
+   method:"GET",    
+   success:function(data){
+        $(".dok").html(data);
+   }
+  })
+ });
+ 
+// setInterval(function(){
+    loadDoc()
+    notifgaji()
+    countpangkat()
+// },5000)
+ 
+ 
+ function notifgaji(){
+     $.ajax({
+         url:"site/notifgaji/",
+         method:"GET",
+         dataType:"json",
+         success:function(data){
+            $("#countgaji").html(data);
+         }
+     })
+ }
+ 
+  $(document).on("click", ".dropdown-toggle", function(){
+      $.ajax({
+           url:"site/listgaji",
+           method:"GET",
+           dataType:"json",
+           success:function(data){
+                $(".gaji").html(data);
+           }
+      })
+ });
+ 
+ function countpangkat() {
+     $.ajax({
+         url:"site/kenaikanpangkat/",
+         method:"POST",
+         dataType:"json",
+         success:function(data){
+         console.log(data);
+         $("#count-notif-pang").html(data);
+         }
+     })
+ }
+ 
+  $(document).on("click", ".dropdown-toggle", function(){
+      $.ajax({
+           url:"site/lisenaikanpangkat",
+           method:"get",
+           dataType:"json",
+           success:function(data){
+                $(".pangkat").html(data);
+           }
+      })
+ });
+ 
+ });');
+
 ?>
 
 <header class="main-header">
@@ -16,7 +93,7 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
 
     <nav class="navbar navbar-static-top" role="navigation">
 
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <a href="#" class="sidebar-toggle">
             <span class="sr-only">Toggle navigation</span>
         </a>
 
@@ -24,132 +101,62 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
 
             <ul class="nav navbar-nav">
 
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success"><?= $notifDOK[0]['jumlah'] ?></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
+                <!--                <li class="dropdown">-->
+                <!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--                    <ul class="dropdown-menu">-->
+                <!--                        <li><a href="#">Action</a></li>-->
+                <!--                        <li><a href="#">Another action</a></li>-->
+                <!--                        <li><a href="#">Something else here</a></li>-->
+                <!--                        <li role="separator" class="divider"></li>-->
+                <!--                        <li><a href="#">Separated link</a></li>-->
+                <!--                        <li role="separator" class="divider"></li>-->
+                <!--                        <li><a href="#">One more separated link</a></li>-->
+                <!--                    </ul>-->
+                <!--                </li>-->
 
-                                <li>
-                                    <!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-                                        </div>
-                                        <h4>
-                                            Support Team
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <!-- end message -->
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user3-128x128.jpg" class="img-circle" alt="user image" />
-                                        </div>
-                                        <h4>
-                                            AdminLTE Design Team
-                                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user4-128x128.jpg" class="img-circle" alt="user image" />
-                                        </div>
-                                        <h4>
-                                            Developers
-                                            <small><i class="fa fa-clock-o"></i> Today</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user3-128x128.jpg" class="img-circle" alt="user image" />
-                                        </div>
-                                        <h4>
-                                            Sales Department
-                                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user4-128x128.jpg" class="img-circle" alt="user image" />
-                                        </div>
-                                        <h4>
-                                            Reviewers
-                                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
+                <!-- Messages: style can be found in dropdown.less-->
+                <!--notif dokumen-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-folder"></i>
+                        <span class="label label-success" id="count_notifdok">0</span>
+                    </a>
+                    <ul class="dropdown-menu dok">
+
                     </ul>
                 </li>
-                <li class="dropdown notifications-menu">
+
+                <!-- notif gaji-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-money"></i>
+                        <span class="label label-success" id="countgaji">0</span>
+                    </a>
+                    <ul class="dropdown-menu gaji">
+
+                    </ul>
+                </li>
+
+                <!--notifikasi kenaikan pangkat-->
+
+                <li class="dropdown notifications-menu ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning"><?= $notifDOK[0]['jumlah'] ?></span>
+                        <span class="label label-warning" id="count-notif-pang">0
+                        </span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have <?= $notifDOK[0]['jumlah'] ?> notifications</li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> <?= $notifDOK[0]['jumlah'] ?> Dokumen Belum Lengkap
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may
-                                        not fit into the page and may cause design problems
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-red"></i> 5 new members joined
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-user text-red"></i> You changed your username
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
+                    <ul class="dropdown-menu pangkat">
+
                     </ul>
                 </li>
                 <!-- Tasks: style can be found in dropdown.less -->
+
+
                 <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle">
                         <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">9</span>
+                        <span class="label label-danger" id="">9</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 9 tasks</li>
@@ -272,3 +279,89 @@ $notifDOK = \Yii::$app->tools->getNotifdokumen();
         </div>
     </nav>
 </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    // function loadDoc() {
+    //     setInterval(function () {
+    //         var xhttp = new XMLHttpRequest();
+    //         xhttp.onreadystatechange = function() {
+    //             if (this.readyState == 4 && this.status == 200) {
+    //                 document.getElementById("count_notif").innerHTML = this.responseText;
+    //             }
+    //         };
+    //         xhttp.open("GET", "site/notifdoc", true);
+    //         xhttp.send();
+    //     },1000)
+    // }loadDoc();
+</script>
+
+
+
+
+
+
+
+
+<!--<script>-->
+<!--    // function loadDoc() {-->
+<!--    //     setInterval(function () {-->
+<!--    //         var xhttp = new XMLHttpRequest();-->
+<!--    //         xhttp.onreadystatechange = function() {-->
+<!--    //             if (this.readyState == 4 && this.status == 200) {-->
+<!--    //                 document.getElementById("count_notif").innerHTML = this.responseText;-->
+<!--    //             }-->
+<!--    //         };-->
+<!--    //         xhttp.open("GET", "site/notifdoc", true);-->
+<!--    //         xhttp.send();-->
+<!--    //     },5000)-->
+<!--    //-->
+<!--    // }-->
+<!--    //-->
+<!--    // loadDoc();-->
+<!--    //-->
+<!--    // $(document).ready(function () {-->
+<!--    //     // $('#count_notif').load(function () {-->
+<!--    //         $.get(-->
+<!--    //             "site/notifdoc",-->
+<!--    //             function (data) {-->
+<!--    //                 console.log(data);-->
+<!--    //                 // $('#count_notif').html(data);-->
+<!--    //             }-->
+<!--    //         )-->
+<!--    //     // })-->
+<!--    // })-->
+<!---->
+<!--    // $(document).ready(function () {-->
+<!--    //     $('#list_notif').click(function () {-->
+<!--    //         $.ajax({-->
+<!--    //             type:'get',-->
+<!--    //             url:'site/ListNotifDoc',-->
+<!--    //             success: function (data) {-->
+<!--    //                 console.log(data);-->
+<!--    //                 // $('#sisaijin').html(data);-->
+<!--    //             }-->
+<!--    //         })-->
+<!--    //     })-->
+<!--    // })-->
+<!---->
+<!--</script>-->
