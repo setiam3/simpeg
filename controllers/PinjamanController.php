@@ -37,7 +37,7 @@ class PinjamanController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {    
+    {
         $searchModel = new PinjamanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,7 +54,7 @@ class PinjamanController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {   
+    {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         if($request->isAjax){
@@ -66,7 +66,7 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
         }else{
             return $this->render('view', [
                 'model' => $model,
@@ -83,7 +83,8 @@ class PinjamanController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Pinjaman();  
+
+        $model = new Pinjaman();
 
         if($request->isAjax){
             /*
@@ -98,8 +99,8 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
@@ -107,9 +108,9 @@ class PinjamanController extends Controller
                     'content'=>'<span class="text-success">Create Pinjaman success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-        
-                ];         
-            }else{           
+
+                ];
+            }else{
                 return [
                     'title'=> "Create new Pinjaman",
                     'content'=>$this->renderAjax('create', [
@@ -117,8 +118,8 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
             /*
@@ -132,7 +133,7 @@ class PinjamanController extends Controller
                 ]);
             }
         }
-       
+
     }
 
     /**
@@ -145,7 +146,7 @@ class PinjamanController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);
 
         if($request->isAjax){
             /*
@@ -160,7 +161,7 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
@@ -170,7 +171,7 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
             }else{
                  return [
                     'title'=> "Update Pinjaman #".$id,
@@ -179,7 +180,7 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
             /*
@@ -230,7 +231,7 @@ class PinjamanController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-    {        
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -250,7 +251,7 @@ class PinjamanController extends Controller
             */
             return $this->redirect(['index']);
         }
-       
+
     }
 
     /**

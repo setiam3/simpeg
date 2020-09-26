@@ -12,7 +12,7 @@ $this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
  function loadDoc() {
      $.ajax({
-         url:"site/notifdoc/",
+         url:"'.yii\helpers\Url::home().'site/notifdoc/",
          method:"POST",
          dataType:"json",
          success:function(data){
@@ -23,7 +23,7 @@ $this->registerJs('$("document").ready(function(){
  
  $(document).on("click", ".dropdown-toggle", function(){
   $.ajax({
-   url:"site/lisnotifdok",
+   url:"'.yii\helpers\Url::home().'site/lisnotifdok",
    method:"GET",    
    success:function(data){
         $(".dok").html(data);
@@ -40,7 +40,7 @@ $this->registerJs('$("document").ready(function(){
  
  function notifgaji(){
      $.ajax({
-         url:"site/notifgaji/",
+         url:"'.yii\helpers\Url::home().'site/notifgaji/",
          method:"GET",
          dataType:"json",
          success:function(data){
@@ -51,7 +51,7 @@ $this->registerJs('$("document").ready(function(){
  
   $(document).on("click", ".dropdown-toggle", function(){
       $.ajax({
-           url:"site/listgaji",
+           url:"'.yii\helpers\Url::home().'site/listgaji",
            method:"GET",
            dataType:"json",
            success:function(data){
@@ -62,7 +62,7 @@ $this->registerJs('$("document").ready(function(){
  
  function countpangkat() {
      $.ajax({
-         url:"site/kenaikanpangkat/",
+         url:"'.yii\helpers\Url::home().'site/kenaikanpangkat/",
          method:"POST",
          dataType:"json",
          success:function(data){
@@ -74,7 +74,7 @@ $this->registerJs('$("document").ready(function(){
  
   $(document).on("click", ".dropdown-toggle", function(){
       $.ajax({
-           url:"site/lisenaikanpangkat",
+           url:"'.yii\helpers\Url::home().'site/lisenaikanpangkat",
            method:"get",
            dataType:"json",
            success:function(data){

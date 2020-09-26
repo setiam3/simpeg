@@ -261,37 +261,37 @@ class SiteController extends Controller
         return $sql;
     }
 
-    public function actionLisnotifdoc(){
-        $role = \Yii::$app->tools->getcurrentroleuser();
-        if (in_array('karyawan', $role)) {
-            $where = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-        } else {
-            $where = '';
-        }
-
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = MBiodata::find()
-            ->select([
-                'm_biodata.id_data',
-                'r.id as id_rekening',
-                'fotoNik',
-                'foto',
-                'r.fotoRekening',
-                'p.dokumen as dokumen_pendidikan',
-                'j.dokumen as dokumen_jabatan',
-                'd.dokumen as dokumen_diklat',
-                'k.dokumen as dokumen_kepangkatan'])
-            ->Join('join', 'm_rekening as r','m_biodata.id_data = r.id_data')
-            ->joinWith('riwayatdiklats as d')
-            ->joinWith('riwayatjabatans as j')
-            ->joinWith('riwayatpendidikans as p')
-            ->joinWith('riwayatpendidikans as p')
-            ->joinWith('kepangkatans as k')
-            ->where(['is_pegawai' => '1'])
-            ->where($where)
-            ->all();
-        return [$sql];
-    }
+//    public function actionLisnotifdoc(){
+//        $role = \Yii::$app->tools->getcurrentroleuser();
+//        if (in_array('karyawan', $role)) {
+//            $where = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+//        } else {
+//            $where = '';
+//        }
+//
+//        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//        $sql = MBiodata::find()
+//            ->select([
+//                'm_biodata.id_data',
+//                'r.id as id_rekening',
+//                'fotoNik',
+//                'foto',
+//                'r.fotoRekening',
+//                'p.dokumen as dokumen_pendidikan',
+//                'j.dokumen as dokumen_jabatan',
+//                'd.dokumen as dokumen_diklat',
+//                'k.dokumen as dokumen_kepangkatan'])
+//            ->Join('join', 'm_rekening as r','m_biodata.id_data = r.id_data')
+//            ->joinWith('riwayatdiklats as d')
+//            ->joinWith('riwayatjabatans as j')
+//            ->joinWith('riwayatpendidikans as p')
+//            ->joinWith('riwayatpendidikans as p')
+//            ->joinWith('kepangkatans as k')
+//            ->where(['is_pegawai' => '1'])
+//            ->where($where)
+//            ->all();
+//        return [$sql];
+//    }
 
 
 
@@ -307,34 +307,42 @@ class SiteController extends Controller
         $sql = MBiodata::find()
             ->select([
                 'm_biodata.id_data',
-                'm_biodata.nama as nama',
-                'r.id as id_rekening',
+                'm_biodata.nama AS nama',
                 'fotoNik',
                 'foto',
-                'r.fotoRekening',
-                'p.dokumen as fotoRekening',
-                'j.dokumen as dokumen_jabatan',
-                'd.dokumen as dokumen_diklat',
-                'k.dokumen as dokumen_kepangkatan'])
+                'p.id as id_pend',
+                'p.dokumen AS dokumenPen',
+                'j.id AS id_jabatan',
+                'j.dokumen AS dokumen_jabatan',
+                'd.id AS id_diklat',
+                'd.dokumen AS dokumen_diklat',
+                'k.id AS id_kepangkatan',
+                'k.dokumen AS dokumen_kepangkatan',
+                'r.id as id_rekening',
+                'r.fotoRekening as fotoRekening'
+
+        ])
             ->Join('join', 'm_rekening as r','m_biodata.id_data = r.id_data')
             ->joinWith('riwayatdiklats as d')
             ->joinWith('riwayatjabatans as j')
             ->joinWith('riwayatpendidikans as p')
-            ->joinWith('riwayatpendidikans as p')
             ->joinWith('kepangkatans as k')
             ->where(['is_pegawai' => '1'])
             ->where($where)
-//                ->groupBy('m_biodata.id_data')
+            ->distinct()
+                ->groupBy( 'm_biodata.id_data,id_pend,j.id,d.id,k.id,r.id')
             ->all();
+
+//        print_r($sql);die();
 
         if (!empty($sql)){
             foreach ($sql as $row){
 //                echo (empty($row['fotoNik']))?'<li>'..'</li>':'';
                 $list []= (empty($row['fotoNik']))?'<li><a href="">'.$row['nama'].'foto NIK belum diupload</a></li>':'';
                 $list []= (empty($row['foto']))?'<li><a href="'.Yii::$app->homeUrl.'/biodata/update?id='.$row['id_data'].'">foto belum diupload</a></li>':'';
-                $list []= (empty($row['fotoRekening']))?'<li><a href="#">foto rekening belum diupload</a></li>':'';
-                $list []= (empty($row['dokumen_jabatan']))?'<li><a href="#">foto jabatan belum diupload</a></li>':'';
-                $list []= (empty($row['dokumen_diklat']))?'<li><a href="#">foto diklat belum diupload</a></li>':'';
+                $list []= (empty($row['fotoRekening']))?'<li><a href="">foto rekening belum diupload</a></li>':'';
+                $list []= (empty($row['dokumen_jabatan']))?'<li><a href="">foto jabatan belum diupload</a></li>':'';
+                $list []= (empty($row['dokumen_diklat']))?'<li><a href="">foto diklat belum diupload</a></li>':'';
                 $list []= (empty($row['dokumen_kepangkatan']))?'<li><a href="#">kepangkatan belum diupload</a></li>':'';
 
 
