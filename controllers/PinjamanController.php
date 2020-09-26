@@ -198,7 +198,7 @@ class PinjamanController extends Controller
 
     public function actionGetpinjaman(){
         if(isset($_POST['id']) || !empty($_POST['id'])){
-            $model=MTunjangan::find()->where(['id_data'=>$_POST['id']])->all();
+            $model=Pinjaman::find()->where(['id_data'=>$_POST['id']])->all();
             return $this->renderAjax('_list',['model'=>$model]);
         }
     }

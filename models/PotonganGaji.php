@@ -33,10 +33,9 @@ class PotonganGaji extends \yii\db\ActiveRecord
     {
         return [
             [['transgaji_id', 'potongan_desc'], 'default', 'value' => null],
-            [['transgaji_id', 'potongan_desc'], 'integer'],
+            [['transgaji_id'], 'integer'],
             [['potongan_nominal'], 'number'],
-            [['keterangan'], 'string', 'max' => 255],
-            [['potongan_desc'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['potongan_desc' => 'reff_id']],
+            [['keterangan','potongan_desc'], 'string', 'max' => 255],
             [['transgaji_id'], 'exist', 'skipOnError' => true, 'targetClass' => TransaksiPenggajian::className(), 'targetAttribute' => ['transgaji_id' => 'transgaji_id']],
         ];
     }
@@ -55,21 +54,6 @@ class PotonganGaji extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[PotonganDesc]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPotonganDesc()
-    {
-        return $this->hasOne(MReferensi::className(), ['reff_id' => 'potongan_desc']);
-    }
-
-    /**
-     * Gets query for [[Transgaji]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getTransgaji()
     {
         return $this->hasOne(TransaksiPenggajian::className(), ['transgaji_id' => 'transgaji_id']);

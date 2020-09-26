@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 /**
  * ReferensiController implements the CRUD actions for MReferensi model.
@@ -45,6 +46,17 @@ class ReferensiController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    public function actionGetpotongandesc($q=null){
+        $arr=[];
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if(isset($q) && !empty($q)){
+            $model=MReferensi::find()->select(['nama_referensi'])->where(['like','lower("nama_referensi")',$q])->andWhere(['tipe_referensi'=>13,'status'=>'1'])->all();
+            foreach($model as $r){
+                $arr[]=['value'=>$r->nama_referensi];
+            }
+            return $arr;
+        }
     }
 
 

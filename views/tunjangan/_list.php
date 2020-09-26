@@ -4,6 +4,7 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
 use app\models\MReferensi;
+$totaltunjangan=0;
 $this->registerJs("
 
 ");
@@ -29,7 +30,9 @@ $this->registerJs("
                 ArrayHelper::map([['id'=>'1','value'=>'aktif'],['id'=>'0','value'=>'nonaktif']],'id','value')
             )->label(false).'</td>
         </tr>';
+        $totaltunjangan+=$v->nominal;
     }
     echo '</table>';
+    echo '<input type="hidden" class="totaltunjangan" value="'.$totaltunjangan.'"/>';
     ?>
 </div>

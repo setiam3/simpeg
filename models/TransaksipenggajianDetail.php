@@ -1,22 +1,6 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "transaksipenggajian_detail".
- *
- * @property int $transgajidetail_id
- * @property int|null $transgaji_id
- * @property int|null $gol_gaji
- * @property int|null $tunjangan_id
- * @property float|null $nominal_val
- *
- * @property MTunjangan $tunjangan
- * @property Penggolongangaji $golGaji
- * @property TransaksiPenggajian $transgaji
- */
 class TransaksipenggajianDetail extends \yii\db\ActiveRecord
 {
     /**

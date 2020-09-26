@@ -21,24 +21,67 @@ if (in_array('karyawan', $role)) {
     }
 }
 $this->registerJsVar('baseurl',yii\helpers\Url::home());
-$this->registerJs("function gettunjangan(id){
+$this->registerJs("
+    var gapok={'netto':[],'totaltunjangan':[],'potongan':[]};
+        function gettunjangan(id){
             $.ajax({
                 'type':'post',
                 'url':baseurl+'tunjangan/gettunjangan',
                 'data':{'id':id},
             }).done(function(data){
                 $('.tabtunjangan').html(data);
+                var totaltunjangan=$('.totaltunjangan').val();
+                gapok.totaltunjangan.push(totaltunjangan);
+                getgajipokok(id);
+                getpinjaman(id);
+            });
+        }
+        function getgajipokok(id){
+            $.ajax({
+                'type':'post',
+                'url':baseurl+'kepangkatan/getgajipokok',
+                'data':{'id':id},
+            }).done(function(data){
+                gapok.netto=[];
+                gapok.netto.push(data);
+                gajinetto();
+                $('#transaksipenggajian-total_brutto_gaji').val(data);
+            });
+        }
+        function gajinetto(){
+            var n=0,tt=0,tp=0;
+            gapok.netto.forEach(function(a){
+                n=Number(a);
+            });
+            gapok.totaltunjangan.forEach(function(t){
+                tt=Number(t);
+            });
+            gapok.potongan.forEach(function(p){
+                tp=Number(p);
+            });
+            $('#transaksipenggajian-total_bersih_gaji').val(n+=tt-tp);
+        }
+        function getpinjaman(id){
+            $.ajax({
+                'type':'post',
+                'url':baseurl+'pinjaman/getpinjaman',
+                'data':{'id':id},
+            }).done(function(data){
+                $('.tabpinjaman').html(data);
             });
         }
         gettunjangan($('#transaksipenggajian-data_id').val());
+        getpinjaman($('#transaksipenggajian-data_id').val());
         $(document).on('shown.bs.tab', 'a[data-toggle=\"tab\"]', function (e) {
             var tab = $(e.target);
             var contentId = tab.attr(\"href\");
             if (tab.parent().hasClass('active')) {
                 if(tab.html()=='Tunjangan'){
                     gettunjangan($('#transaksipenggajian-data_id').val());
+                }else{
+                    getpinjaman($('#transaksipenggajian-data_id').val());
                 }
-                console.log('the tab with the content id ' + contentId + ' is visible');
+                //console.log('the tab with the content id ' + contentId + ' is visible');
             }
         });
 
@@ -57,6 +100,7 @@ $this->registerJs("function gettunjangan(id){
                 'pluginEvents' => [
                     "change" => 'function(){
                         gettunjangan($(this).val());
+                        getpinjaman($(this).val());
                     }',
                     ]
             ])
@@ -71,42 +115,23 @@ $this->registerJs("function gettunjangan(id){
             ]); ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($transaksipenggajian, 'tgl_input')->widget(\kartik\date\DatePicker::className(), [
-                'options' => ['value' => date("Y-m-d"), 'readonly' => true,],
-                'pluginOptions' => [
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true,
-                    'autoclose' => true
-                ]
-            ]); ?>
-            <?= $form->field($transaksipenggajian, 'total_brutto_gaji') ?>
-            <?= $form->field($transaksipenggajian, 'total_bersih_gaji') ?>
+            <?= $form->field($transaksipenggajian, 'tgl_input')->textInput(['value'=>date('Y-m-d')]) ?>
+            <?= $form->field($transaksipenggajian, 'total_brutto_gaji')->textInput(['maxlength' => true,'readonly'=>true]) ?>
+            <?= $form->field($transaksipenggajian, 'total_bersih_gaji')->textInput(['maxlength' => true,'readonly'=>true]) ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($transaksipenggajiandetail, 'gol_gaji')->widget(\kartik\select2\Select2::classname(), [
-                'data' => \yii\helpers\ArrayHelper::map(
-                    (new \yii\db\Query())
-                        ->from('penggolongangaji')
-                        ->rightJoin('m_referensi', 'penggolongangaji.pangkat_id = m_referensi.reff_id')
-                        ->where('tipe_referensi = 6')
-                        ->all(),
-                    'id',
-                    'nama_referensi'
-                ),
-                'options' => ['placeholder' => 'Select  ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ])->label('Golongan Gaji');
-            ?>
-            <?= $form->field($transaksipenggajiandetail, 'nominal_val') ?>
-            <?= $form->field($potongangaji, 'keterangan')->textArea() ?>
+            
         </div>
 
     </div>
     <div class="row">
         <?php echo Tabs::widget([
             'items' => [
+                [
+                    'label' => 'Potongan',
+                    'content' => '<div class="tabpotongan">'.Yii::$app->runAction('transaksi-penggajian/frmpotongan').'</div>',
+                    'active'=>true,
+                ],
                 [
                     'label' => 'Tunjangan',
                     'content' => '<div class="tabtunjangan">'.Yii::$app->runAction('tunjangan/gettunjangan', ['id'=>'']).'</div>',
