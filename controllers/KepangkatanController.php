@@ -140,6 +140,12 @@ class KepangkatanController extends Controller
             }
         }
     }
+    public function actionGetgajipokok(){
+        if(isset($_POST['id']) && !empty($_POST['id'])){
+            $gapok=MKepangkatan::find()->where(['id_data'=>$_POST['id']])->one();
+            return $gapok->penggolongangaji->gaji;
+        }
+    }
 
     /**
      * Updates an existing MKepangkatan model.

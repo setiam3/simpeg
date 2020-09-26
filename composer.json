@@ -29,7 +29,10 @@
         "2amigos/qrcode-library": "~1.1",
         "tpmanc/yii2-imagick": "*",
         "miloschuman/yii2-highcharts-widget": "^8.0",
-        "2amigos/yii2-chartjs-widget" : "~2.0"
+        "2amigos/yii2-chartjs-widget" : "~2.0",
+        "kartik-v/yii2-widget-typeahead": "^1.0",
+        "yiisoft/yii2-jui": "^2.0",
+        "unclead/yii2-multiple-input": "^2.22"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

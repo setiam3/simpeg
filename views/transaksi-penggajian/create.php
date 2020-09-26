@@ -10,7 +10,6 @@ use yii\helpers\Html;
 <div class="transaksi-penggajian-create">
     <?= $this->render('_form', [
         'transaksipenggajian' => $transaksipenggajian,
-        'transaksipenggajiandetail' => $transaksipenggajiandetail,
         'potongangaji' => $potongangaji,
         'klikedid' => $klikedid
     ]) ?>

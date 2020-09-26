@@ -83,17 +83,14 @@ class TransaksiPenggajianController extends Controller
         }
     }
 
-    /**
-     * Creates a new TransaksiPenggajian model.
-     * For ajax request will return json object
-     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+    public function actionFrmpotongan(){
+        $model=new PotonganGaji();
+        return $this->renderPartial('_formpotongan',['model'=>$model]);
+    }
     public function actionCreate()
     {
         $request = Yii::$app->request;
         $transaksipenggajian = new TransaksiPenggajian();
-        $transaksipenggajiandetail = new TransaksipenggajianDetail();
         $potongangaji = new PotonganGaji();
 
         if ($request->isAjax) {
@@ -103,7 +100,6 @@ class TransaksiPenggajianController extends Controller
                     'title' => "Create new TransaksiPenggajian",
                     'content' => $this->renderAjax('create', [
                         'transaksipenggajian' => $transaksipenggajian,
-                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
                         'potongangaji' => $potongangaji,
                         'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
@@ -113,33 +109,51 @@ class TransaksiPenggajianController extends Controller
 
                 ];
             } else if ($transaksipenggajian->load($request->post())) {
-                print_r($_POST);die;
-                $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
-                $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
-                if ($transaksipenggajian->save(false)) {
-                    $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
-                    $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;
-                    $transaksipenggajiandetail->save(false);
-                    if ($transaksipenggajiandetail->save(false)) {
-                        $potongangaji->attributes = $_POST['PotonganGaji'];
-                        $potongangaji->transgaji_id = $transaksipenggajiandetail->transgaji_id;
-                        $potongangaji->save(false);
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
+                    $transaksipenggajian->save();
+                    $flag = true;
+                    $err=Html::errorSummary($transaksipenggajian);
+                    if(!empty($_POST['Potongan']) && isset($_POST['Potongan']) && is_array($potongan=$_POST['Potongan'])){
+                        // insert when not exist
+                        
+                        //else continue
+                        foreach($potongan as $row){
+                            $potongangaji=new PotonganGaji();
+                            $potongangaji->attributes=$row;
+                            $transaksipenggajian->link('potongangajis', $potongangaji);
+                            $potongangaji->save();
+                            if(!($flag=$potongangaji->save())){
+                                $transaction->rollBack();
+                                $err=Html::errorSummary($potongangaji);
+                                break;
+                            }
+                        }
                     }
-                }
-                return [
-                    'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
-                    'title' => "Create new TransaksiPenggajian",
-                    'content' => '<span class="text-success">Create TransaksiPenggajian success</span>',
-                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($transaksipenggajian))])
+                    if(!$flag){
+                        return ['title'=> "eror",'content'=>$err];
+                    }else{
+                        $transaction->commit();
+                        return [
+                            'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
+                            'title' => "Create new TransaksiPenggajian",
+                            'content' => '<span class="text-success">Create TransaksiPenggajian success</span>',
+                            'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                                Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($transaksipenggajian))])
 
-                ];
+                        ];
+                    }
+                }catch (Exception $e) {
+                    $transaction->rollBack();
+                    return ['title'=> "eror",'content'=>$err];
+                }
+                
             } else {
                 return [
                     'title' => "Create new TransaksiPenggajian",
                     'content' => $this->renderAjax('create', [
                         'transaksipenggajian' => $transaksipenggajian,
-                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
                         'potongangaji' => $potongangaji,
                         'klikedid' => isset($_GET['id']) ? $_GET['id'] : '',
                     ]),
@@ -157,7 +171,6 @@ class TransaksiPenggajianController extends Controller
             } else {
                 return $this->render('create', [
                     'transaksipenggajian' => $transaksipenggajian,
-                    'transaksipenggajiandetail' => $transaksipenggajiandetail,
                     'potongangaji' => $potongangaji
                 ]);
             }
@@ -175,7 +188,6 @@ class TransaksiPenggajianController extends Controller
     {
         $request = Yii::$app->request;
         $transaksipenggajian = TransaksiPenggajian::findOne(['transgaji_id' => $id]);
-        $transaksipenggajiandetail = TransaksipenggajianDetail::findOne(['transgaji_id' => $transaksipenggajian->transgaji_id]);
         $potongangaji = PotonganGaji::findOne(['transgaji_id' => $transaksipenggajiandetail->transgaji_id]);
 
         if ($request->isAjax) {
@@ -188,7 +200,6 @@ class TransaksiPenggajianController extends Controller
                     'title' => "Update TransaksiPenggajian #" . $id,
                     'content' => $this->renderAjax('update', [
                         'transaksipenggajian' => $transaksipenggajian,
-                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
                         'potongangaji' => $potongangaji
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
@@ -198,14 +209,14 @@ class TransaksiPenggajianController extends Controller
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
                 $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
                 if ($transaksipenggajian->save(false)) {
-                    $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
-                    $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;
-                    $transaksipenggajiandetail->save(false);
-                    if ($transaksipenggajiandetail->save(false)) {
-                        $potongangaji->attributes = $_POST['PotonganGaji'];
-                        $potongangaji->transgaji_id = $transaksipenggajiandetail->transgaji_id;
-                        $potongangaji->save(false);
-                    }
+                    // $transaksipenggajiandetail->attributes = $_POST['TransaksipenggajianDetail'];
+                    // $transaksipenggajiandetail->transgaji_id = $transaksipenggajian->transgaji_id;
+                    // $transaksipenggajiandetail->save(false);
+                    // if ($transaksipenggajiandetail->save(false)) {
+                    //     $potongangaji->attributes = $_POST['PotonganGaji'];
+                    //     $potongangaji->transgaji_id = $transaksipenggajiandetail->transgaji_id;
+                    //     $potongangaji->save(false);
+                    // }
                 }
                 return [
                     'forceReload' => '#crud-datatable' . md5(get_class($transaksipenggajian)) . '-pjax',
@@ -221,7 +232,6 @@ class TransaksiPenggajianController extends Controller
                     'title' => "Update TransaksiPenggajian #" . $id,
                     'content' => $this->renderAjax('update', [
                         'transaksipenggajian' => $transaksipenggajian,
-                        'transaksipenggajiandetail' => $transaksipenggajiandetail,
                         'potongangaji' => $potongangaji
                     ]),
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
@@ -237,7 +247,6 @@ class TransaksiPenggajianController extends Controller
             } else {
                 return $this->render('update', [
                     'transaksipenggajian' => $transaksipenggajian,
-                    'transaksipenggajiandetail' => $transaksipenggajiandetail,
                     'potongangaji' => $potongangaji
                 ]);
             }
