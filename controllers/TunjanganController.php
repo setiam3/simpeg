@@ -46,7 +46,12 @@ class TunjanganController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    public function actionGettunjangan(){
+        if(!empty($_POST['id'])){
+            $model=MTunjangan::find()->where(['id_data'=>$_POST['id']])->all();
+            return $this->renderAjax('_list',['model'=>$model]);
+            }
+        }
 
     /**
      * Displays a single MTunjangan model.

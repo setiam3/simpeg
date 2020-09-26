@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MPinjaman;
-use app\models\MPinjamanSearch;
+use app\models\Pinjaman;
+use app\models\PinjamanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +12,7 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * PinjamanController implements the CRUD actions for MPinjaman model.
+ * PinjamanController implements the CRUD actions for Pinjaman model.
  */
 class PinjamanController extends Controller
 {
@@ -33,12 +33,12 @@ class PinjamanController extends Controller
     }
 
     /**
-     * Lists all MPinjaman models.
+     * Lists all Pinjaman models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MPinjamanSearch();
+        $searchModel = new PinjamanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class PinjamanController extends Controller
 
 
     /**
-     * Displays a single MPinjaman model.
+     * Displays a single Pinjaman model.
      * @param integer $id
      * @return mixed
      */
@@ -60,7 +60,7 @@ class PinjamanController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "MPinjaman #".$id,
+                    'title'=> "Pinjaman #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -75,7 +75,7 @@ class PinjamanController extends Controller
     }
 
     /**
-     * Creates a new MPinjaman model.
+     * Creates a new Pinjaman model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -83,7 +83,8 @@ class PinjamanController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MPinjaman();
+
+        $model = new Pinjaman();
 
         if($request->isAjax){
             /*
@@ -136,7 +137,7 @@ class PinjamanController extends Controller
     }
 
     /**
-     * Updates an existing MPinjaman model.
+     * Updates an existing Pinjaman model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -195,13 +196,12 @@ class PinjamanController extends Controller
         }
     }
 
-    /**
-     * Delete an existing MPinjaman model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+    public function actionGetpinjaman(){
+        if(isset($_POST['id']) || !empty($_POST['id'])){
+            $model=MTunjangan::find()->where(['id_data'=>$_POST['id']])->all();
+            return $this->renderAjax('_list',['model'=>$model]);
+        }
+    }
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
@@ -224,7 +224,7 @@ class PinjamanController extends Controller
     }
 
      /**
-     * Delete multiple existing MPinjaman model.
+     * Delete multiple existing Pinjaman model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -255,15 +255,15 @@ class PinjamanController extends Controller
     }
 
     /**
-     * Finds the MPinjaman model based on its primary key value.
+     * Finds the Pinjaman model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MPinjaman the loaded model
+     * @return Pinjaman the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MPinjaman::findOne($id)) !== null) {
+        if (($model = Pinjaman::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

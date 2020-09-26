@@ -1,34 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "pinjaman".
- *
- * @property int $id
- * @property int $id_data
- * @property string $tanggal
- * @property string $jenis
- * @property string $namaBarang
- * @property float $jumlah
- *
- * @property MBiodata $data
- */
-class MPinjaman extends \yii\db\ActiveRecord
+class Pinjaman extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'pinjaman';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -56,12 +34,6 @@ class MPinjaman extends \yii\db\ActiveRecord
             'jumlah' => 'Jumlah',
         ];
     }
-
-    /**
-     * Gets query for [[Data]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getData()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);

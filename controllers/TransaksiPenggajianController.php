@@ -97,9 +97,6 @@ class TransaksiPenggajianController extends Controller
         $potongangaji = new PotonganGaji();
 
         if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
@@ -116,6 +113,7 @@ class TransaksiPenggajianController extends Controller
 
                 ];
             } else if ($transaksipenggajian->load($request->post())) {
+                print_r($_POST);die;
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
                 $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
                 if ($transaksipenggajian->save(false)) {

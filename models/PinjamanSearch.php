@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MPinjaman;
+use app\models\Pinjaman;
 
 /**
- * MPinjamanSearch represents the model behind the search form about `app\models\MPinjaman`.
+ * PinjamanSearch represents the model behind the search form about `app\models\Pinjaman`.
  */
-class MPinjamanSearch extends MPinjaman
+class PinjamanSearch extends Pinjaman
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class MPinjamanSearch extends MPinjaman
      */
     public function search($params)
     {
-        $query = MPinjaman::find();
+        $query = Pinjaman::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
