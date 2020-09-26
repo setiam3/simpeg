@@ -24,11 +24,11 @@ $this->registerJs('$("document").ready(function(){
   })
  });
 
-// setInterval(function(){
+ setInterval(function(){
     loadDoc()
     notifgaji()
     countpangkat()
-// },5000)
+ },3000)
 
 
  function notifgaji(){
