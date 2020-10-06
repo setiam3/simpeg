@@ -12,14 +12,10 @@ use \yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
-/**
- * ReferensiController implements the CRUD actions for MReferensi model.
- */
+
 class ReferensiController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -33,12 +29,9 @@ class ReferensiController extends Controller
         ];
     }
 
-    /**
-     * Lists all MReferensi models.
-     * @return mixed
-     */
+
     public function actionIndex()
-    {    
+    {
         $searchModel = new MReferensiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,20 +46,16 @@ class ReferensiController extends Controller
         if(isset($q) && !empty($q)){
             $model=MReferensi::find()->select(['nama_referensi'])->where(['like','lower("nama_referensi")',$q])->andWhere(['tipe_referensi'=>13,'status'=>'1'])->all();
             foreach($model as $r){
-                $arr[]=['value'=>$r->nama_referensi];
+                $arr=['value'=>$r->nama_referensi];
             }
             return $arr;
         }
     }
 
 
-    /**
-     * Displays a single MReferensi model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
-    {   
+    {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         if($request->isAjax){
@@ -78,7 +67,7 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];    
+                ];
         }else{
             return $this->render('view', [
                 'model' => $model,
@@ -86,21 +75,14 @@ class ReferensiController extends Controller
         }
     }
 
-    /**
-     * Creates a new MReferensi model.
-     * For ajax request will return json object
-     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MReferensi();  
+        $model = new MReferensi();
 
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -110,8 +92,8 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
@@ -119,9 +101,9 @@ class ReferensiController extends Controller
                     'content'=>'<span class="text-success">Create Referensi success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-        
-                ];         
-            }else{           
+
+                ];
+            }else{
                 return [
                     'title'=> "Create new Referensi",
                     'content'=>$this->renderAjax('create', [
@@ -129,13 +111,11 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-        
-                ];         
+
+                ];
             }
         }else{
-            /*
-            *   Process for non-ajax request
-            */
+
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->reff_id]);
             } else {
@@ -144,25 +124,17 @@ class ReferensiController extends Controller
                 ]);
             }
         }
-       
+
     }
 
-    /**
-     * Updates an existing MReferensi model.
-     * For ajax request will return json object
-     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);
 
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -172,7 +144,7 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
+                ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
@@ -182,7 +154,7 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#',md5(get_class($model))])
-                ];    
+                ];
             }else{
                  return [
                     'title'=> "Update Referensi #".$id,
@@ -191,12 +163,10 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
+                ];
             }
         }else{
-            /*
-            *   Process for non-ajax request
-            */
+
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->reff_id]);
             } else {
@@ -207,43 +177,27 @@ class ReferensiController extends Controller
         }
     }
 
-    /**
-     * Delete an existing MReferensi model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
         $model=$this->findModel($id);$model->delete();
 
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-            /*
-            *   Process for non-ajax request
-            */
+
             return $this->redirect(['index']);
         }
 
 
     }
 
-     /**
-     * Delete multiple existing MReferensi model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionBulkDelete()
-    {        
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -252,27 +206,17 @@ class ReferensiController extends Controller
         }
 
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-            /*
-            *   Process for non-ajax request
-            */
+
             return $this->redirect(['index']);
         }
-       
+
     }
 
-    /**
-     * Finds the MReferensi model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return MReferensi the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = MReferensi::findOne($id)) !== null) {

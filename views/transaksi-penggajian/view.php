@@ -1,18 +1,12 @@
-    <?php
-
+<?php
 use app\models\TransaksiPenggajian;
 use yii\widgets\DetailView;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\TransaksiPenggajian */
 ?>
 <div class="transaksi-penggajian-view">
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-
-            //'transgaji_id',
             [
                 'attribute' => 'data_id',
                 'value' => function ($data) {
@@ -31,9 +25,6 @@ use yii\widgets\DetailView;
             ],
             [
                 'attribute' => 'tunjangan id',
-//                'value' => function($data){
-//        return $data->transdetail->gol_gaji;
-//                }
                 'value' => implode(\yii\helpers\ArrayHelper::map($model->trandetail, 'transgaji_id', 'tunjangan_id'))
             ],
             [
@@ -42,8 +33,7 @@ use yii\widgets\DetailView;
             ],
             [
                 'attribute' => 'potongan desc',
-//                'value' => implode(\yii\helpers\ArrayHelper::map($model->potongangajis->potonganDesc, 'potongan_desc', 'nama_referensi'))
-                'value' => function ($data) {$data->potongangajiss->potonganDesc->nama_referensi;}
+                //'value' => function ($data) { return $data->potongangajiss->}//potonganDesc->nama_referensi;}
             ],
             [
                 'attribute' => 'potongan nominal',

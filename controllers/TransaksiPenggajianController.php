@@ -7,6 +7,7 @@ use Yii;
 use app\models\TransaksiPenggajian;
 use app\models\TransaksiPenggajianSearch;
 use app\models\TransaksipenggajianDetail;
+use app\models\MReferensi;
 use app\models\PotonganGaji;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
@@ -17,14 +18,10 @@ use \yii\web\Response;
 use yii\helpers\Html;
 use yii\models\VTranspeng;
 
-/**
- * TransaksiPenggajianController implements the CRUD actions for TransaksiPenggajian model.
- */
+
 class TransaksiPenggajianController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -38,10 +35,7 @@ class TransaksiPenggajianController extends Controller
         ];
     }
 
-    /**
-     * Lists all TransaksiPenggajian models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new TransaksiPenggajianSearch();
@@ -57,11 +51,7 @@ class TransaksiPenggajianController extends Controller
     }
 
 
-    /**
-     * Displays a single TransaksiPenggajian model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         $request = Yii::$app->request;
@@ -82,10 +72,38 @@ class TransaksiPenggajianController extends Controller
             ]);
         }
     }
+    public function actionAutonomorgaji(){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model=TransaksiPenggajian::find()->select(['nomor_transgaji'])->where(['not',['nomor_transgaji'=>'null']])->orderBy('transgaji_id desc')->one();
+        is_object($model)?$getlastjo=$model->nomor_transgaji:$getlastjo=$model;
+        $format='GJ';
+        if(!empty($getlastjo)){
+            $t=trim($getlastjo,$format);
+            $lastno=intval($t)+1;
+        }else{
+            $lastno=1;
+        }
+            if(strlen($lastno)==1){
+                $lastno='000000'.$lastno;
+            }elseif(strlen($lastno)==2){
+                $lastno='00000'.$lastno;
+            }elseif(strlen($lastno)==3){
+                $lastno='0000'.$lastno;
+            }elseif(strlen($lastno)==4){
+                $lastno='000'.$lastno;
+            }elseif(strlen($lastno)==5){
+                $lastno='00'.$lastno;
+            }elseif(strlen($lastno)==6){
+                $lastno='0'.$lastno;
+            }elseif(strlen($lastno)==7){
+                $lastno=$lastno;
+            }
+        return ['nomor'=>$format.$lastno];
 
+    }
     public function actionFrmpotongan(){
         $model=new PotonganGaji();
-        return $this->renderPartial('_formpotongan',['model'=>$model]);
+        return $this->renderAjax('_formpotongan',['model'=>$model]);
     }
     public function actionCreate()
     {
@@ -112,23 +130,33 @@ class TransaksiPenggajianController extends Controller
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
                     $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
-                    $transaksipenggajian->save();
+                    $transaksipenggajian->save(false);
                     $flag = true;
                     $err=Html::errorSummary($transaksipenggajian);
-                    if(!empty($_POST['Potongan']) && isset($_POST['Potongan']) && is_array($potongan=$_POST['Potongan'])){
-                        // insert when not exist
-                        
-                        //else continue
-                        foreach($potongan as $row){
+                    $potongans=$_POST['PotonganGaji']['potong'];
+                    $flag=false;
+                    if(!empty($potongans) && isset($potongans) && is_array($potongans)){
+
+                        foreach($potongans as $row){
                             $potongangaji=new PotonganGaji();
                             $potongangaji->attributes=$row;
                             $transaksipenggajian->link('potongangajis', $potongangaji);
-                            $potongangaji->save();
+                            $potongangaji->save(false);
                             if(!($flag=$potongangaji->save())){
                                 $transaction->rollBack();
                                 $err=Html::errorSummary($potongangaji);
                                 break;
                             }
+                            // insert when not exist
+                            $tipereff=new \yii\db\Expression('lower(t.nama_reff_tipe)');
+                            $namereff=new \yii\db\Expression('lower(nama_referensi)');
+                            $reff=MReferensi::find()->joinWith('tipeReferensi as t')->where(['like',$tipereff,'potongan'])->andWhere(['like',$namereff,strtolower($row['potongan_desc'])])->one();
+                            is_object($reff)?$ref=$reff->nama_referensi:$ref=$reff;
+                            if(empty($ref)){
+                                // $newref=new MReferensi();
+                                // $newref->TipeReferensi
+                            }
+                            //else continue
                         }
                     }
                     if(!$flag){
@@ -148,7 +176,7 @@ class TransaksiPenggajianController extends Controller
                     $transaction->rollBack();
                     return ['title'=> "eror",'content'=>$err];
                 }
-                
+
             } else {
                 return [
                     'title' => "Create new TransaksiPenggajian",
@@ -163,9 +191,7 @@ class TransaksiPenggajianController extends Controller
                 ];
             }
         } else {
-            /*
-            *   Process for non-ajax request
-            */
+
             if ($transaksipenggajian->load($request->post()) && $transaksipenggajian->save()) {
                 return $this->redirect(['view', 'id' => $transaksipenggajian->transgaji_id]);
             } else {
@@ -177,23 +203,13 @@ class TransaksiPenggajianController extends Controller
         }
     }
 
-    /**
-     * Updates an existing TransaksiPenggajian model.
-     * For ajax request will return json object
-     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
         $transaksipenggajian = TransaksiPenggajian::findOne(['transgaji_id' => $id]);
-        $potongangaji = PotonganGaji::findOne(['transgaji_id' => $transaksipenggajiandetail->transgaji_id]);
+        $potongangaji = PotonganGaji::find()->where(['transgaji_id' => $transaksipenggajian->transgaji_id])->all();
 
         if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
                 return [
@@ -205,7 +221,7 @@ class TransaksiPenggajianController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-            } else if ($transaksipenggajian->load($request->post())) {
+            } elseif ($transaksipenggajian->load($request->post())) {
                 $transaksipenggajian->attributes = $_POST['TransaksiPenggajian'];
                 $transaksipenggajian->pelaksana_id = \Yii::$app->user->identity->id_data;
                 if ($transaksipenggajian->save(false)) {
@@ -239,9 +255,7 @@ class TransaksiPenggajianController extends Controller
                 ];
             }
         } else {
-            /*
-            *   Process for non-ajax request
-            */
+
             if ($transaksipenggajian->load($request->post()) && $transaksipenggajian->save()) {
                 return $this->redirect(['view', 'id' => $transaksipenggajian->transgaji_id]);
             } else {
@@ -253,13 +267,7 @@ class TransaksiPenggajianController extends Controller
         }
     }
 
-    /**
-     * Delete an existing TransaksiPenggajian model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
@@ -269,26 +277,16 @@ class TransaksiPenggajianController extends Controller
 
 
         if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
-            /*
-            *   Process for non-ajax request
-            */
+
             return $this->redirect(['index']);
         }
     }
 
-    /**
-     * Delete multiple existing TransaksiPenggajian model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionBulkDelete()
     {
         $request = Yii::$app->request;
@@ -299,26 +297,16 @@ class TransaksiPenggajianController extends Controller
         }
 
         if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose' => true, 'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax'];
         } else {
-            /*
-            *   Process for non-ajax request
-            */
+
             return $this->redirect(['index']);
         }
     }
 
-    /**
-     * Finds the TransaksiPenggajian model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return TransaksiPenggajian the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = TransaksiPenggajian::findOne($id)) !== null) {

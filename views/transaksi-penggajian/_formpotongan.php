@@ -8,18 +8,15 @@ use unclead\multipleinput\MultipleInput;
 
 $this->registerJs(
     "
-    function removeTr(el){
-        var btn = $(el).attr('rel');
-        $('#' + btn).remove();
-    }
     function calculate(){
-        $('#frmpotongan').each(function(){
+        $('.multiple-input-list').each(function(){
         var potongan = 0;
         $(this).find('input[name*=\"potongan_nominal\"]').each(function(){
-            potongan += parseInt($(this).val()); //<==== a catch  in here !! read below
+            potongan += parseInt($(this).val());
         });
         gapok.potongan.push(potongan);
         });
+        gajinetto();
     }
     "
 );
@@ -45,11 +42,13 @@ echo $form->field($model, 'potong')->widget(MultipleInput::className(), [
         [
             'name'  => 'potongan_nominal',
             'title' => 'Nominal',
+            'defaultValue'=>0,
             'enableError' => true,
             'options' => [
-                'class' => 'input-priority'
+                'class' => 'input-priority',
+                'onkeyup'=>'calculate()',
             ]
         ]
     ]
- ]);
+ ])->label(false);
  ActiveForm::end();

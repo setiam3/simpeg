@@ -17,10 +17,23 @@ if (in_array('karyawan', $role)) {
         $parent = ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => $klikedid])->all(), 'id_data', 'nama');
     } else {
         $parent = $transaksipenggajian->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'nama') :
-        ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $model->id_data])->all(), 'id_data', 'nama');
+        ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $transaksipenggajian->data_id])->all(), 'id_data', 'nama');
     }
 }
-$this->registerJsVar('baseurl',yii\helpers\Url::home());
+$this->registerJsVar('baseurl',Url::home());
+if($transaksipenggajian->isNewRecord){
+    $this->registerJs("
+        jQuery(document).ready(function(){
+            $.ajax({
+                'type':'get',
+                'url':baseurl+'transaksi-penggajian/autonomorgaji'
+            }).done(function(data){
+                $('#transaksipenggajian-nomor_transgaji').val(data.nomor);
+            });
+
+        });"
+    );
+}
 $this->registerJs("
     var gapok={'netto':[],'totaltunjangan':[],'potongan':[]};
         function gettunjangan(id){
@@ -78,13 +91,12 @@ $this->registerJs("
             if (tab.parent().hasClass('active')) {
                 if(tab.html()=='Tunjangan'){
                     gettunjangan($('#transaksipenggajian-data_id').val());
-                }else{
+                }
+                if(tab.html()=='Pinjaman'){
                     getpinjaman($('#transaksipenggajian-data_id').val());
                 }
-                //console.log('the tab with the content id ' + contentId + ' is visible');
             }
         });
-
     "
 );
 ?>
@@ -106,6 +118,9 @@ $this->registerJs("
             ])
             ?>
             <?= $form->field($transaksipenggajian, 'nomor_transgaji') ?>
+
+        </div>
+        <div class="col-sm-4">
             <?= $form->field($transaksipenggajian, 'tgl_gaji')->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'masukan tanggal'],
                 'pluginOptions' => [
@@ -113,16 +128,12 @@ $this->registerJs("
                     'format' => 'yyyy-mm-dd'
                 ]
             ]); ?>
+            <?= $form->field($transaksipenggajian, 'tgl_input')->textInput(['value'=>date('Y-m-d')]) ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($transaksipenggajian, 'tgl_input')->textInput(['value'=>date('Y-m-d')]) ?>
             <?= $form->field($transaksipenggajian, 'total_brutto_gaji')->textInput(['maxlength' => true,'readonly'=>true]) ?>
             <?= $form->field($transaksipenggajian, 'total_bersih_gaji')->textInput(['maxlength' => true,'readonly'=>true]) ?>
         </div>
-        <div class="col-sm-4">
-            
-        </div>
-
     </div>
     <div class="row">
         <?php echo Tabs::widget([
@@ -146,7 +157,7 @@ $this->registerJs("
     </div>
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">
-            <?= Html::submitButton($transaksipenggajian->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($transaksipenggajian->isNewRecord ? 'Create' : 'Update', ['class' => $transaksipenggajian->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     <?php } ?>
     <?php ActiveForm::end(); ?>

@@ -12,8 +12,6 @@ $golpeg=\Yii::$app->tools->golonganPegawai();
 $pegultah=\Yii::$app->tools->ultahPegawai();
 $pensiun=\Yii::$app->tools->nextPensiun();
 
-//var_dump($pensiun);die();
-
 if(empty($jenispegawai)){
     $arrayJenispegawai[] = '';
 }else{
@@ -45,7 +43,7 @@ if(empty($golpeg)){
                                 'title' => ['text' => 'Golongan'],
                                     'xAxis' => [
                                         'categories' => [
-                                                'Juru Muda	I/a',
+                                            'Juru Muda	I/a',
                                             'Juru Muda Tingkat I I/b',
                                             'Juru	I/c',
                                             'Juru Tingkat I I/d',
