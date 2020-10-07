@@ -1,62 +1,13 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "m_biodata".
- *
- * @property int $id_data
- * @property int|null $parent_id
- * @property string|null $nip
- * @property string $nama
- * @property string $tempatLahir
- * @property string $tanggalLahir
- * @property string $alamat
- * @property string|null $kabupatenKota
- * @property string|null $kecamatan
- * @property string|null $kelurahan
- * @property string $jenisKelamin
- * @property string $agama
- * @property string|null $telp
- * @property string|null $email
- * @property string|null $statusPerkawinan
- * @property string|null $gelarDepan
- * @property string|null $gelarBelakang
- * @property string $nik
- * @property string|null $foto
- * @property string|null $fotoNik
- * @property string|null $golonganDarah
- * @property int|null $status_hubungan_keluarga
- * @property string|null $is_pegawai
- * @property int|null $checklog_id
- *
- * @property Kepangkatan[] $kepangkatans
- * @property MBiodata $parent
- * @property MBiodata[] $mBiodatas
- * @property MReferensi $statusHubunganKeluarga
- * @property MChecklogPegawai[] $mChecklogPegawais
- * @property MRekening[] $mRekenings
- * @property MTunjangan[] $mTunjangans
- * @property Pinjaman[] $pinjamen
- * @property Riwayatdiklat[] $riwayatdiklats
- * @property Riwayatjabatan[] $riwayatjabatans
- * @property Riwayatpendidikan[] $riwayatpendidikans
- */
 class MBiodata extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    //public $namalengkap;
     public static function tableName()
     {
         return 'm_biodata';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -73,10 +24,6 @@ class MBiodata extends \yii\db\ActiveRecord
             [['status_hubungan_keluarga'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['status_hubungan_keluarga' => 'reff_id']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -107,117 +54,53 @@ class MBiodata extends \yii\db\ActiveRecord
             'jenis_pegawai'=>'Jenis Pegawai'
         ];
     }
-
-    /**
-     * Gets query for [[Kepangkatans]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    public function getNamalengkap(){
+        return $this->gelarDepan.' '.$this->nama.''.$this->gelarBelakang;
+    }
     public function getKepangkatans()
     {
         return $this->hasMany(MKepangkatan::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Parent]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getParent()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'parent_id']);
     }
-
-    /**
-     * Gets query for [[MBiodatas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getMBiodatas()
     {
         return $this->hasMany(MBiodata::className(), ['parent_id' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[StatusHubunganKeluarga]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getStatusHubunganKeluarga()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'status_hubungan_keluarga']);
     }
-
-    /**
-     * Gets query for [[MChecklogPegawais]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getMChecklogPegawais()
     {
         return $this->hasMany(MChecklogPegawai::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[MRekenings]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getMRekenings()
     {
         return $this->hasMany(MRekening::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[MTunjangans]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getMTunjangans()
     {
         return $this->hasMany(MTunjangan::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Pinjamen]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getPinjamen()
     {
         return $this->hasMany(Pinjaman::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Riwayatdiklats]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRiwayatdiklats()
     {
         return $this->hasMany(Riwayatdiklat::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Riwayatjabatans]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRiwayatjabatans()
     {
         return $this->hasMany(Riwayatjabatan::className(), ['id_data' => 'id_data']);
     }
-
     public function getRiwayatjabatan()
     {
         return $this->hasOne(Riwayatjabatan::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Riwayatpendidikans]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRiwayatpendidikans()
     {
         return $this->hasMany(Riwayatpendidikan::className(), ['id_data' => 'id_data']);

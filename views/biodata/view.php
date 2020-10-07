@@ -1,11 +1,6 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\MBiodata */
-
 $this->title = $model->id_data;
 $this->params['breadcrumbs'][] = ['label' => 'Biodata', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -100,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return isset($data->jenis_pegawai)?$data->jenispegawai->nama_referensi:'';
                 }
             ],
-            'is_pegawai',
+            //'is_pegawai',
             'checklog_id',
         ],
     ]) ?>

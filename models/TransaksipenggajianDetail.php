@@ -3,17 +3,10 @@ namespace app\models;
 use Yii;
 class TransaksipenggajianDetail extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'transaksipenggajian_detail';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -25,10 +18,6 @@ class TransaksipenggajianDetail extends \yii\db\ActiveRecord
             [['transgaji_id'], 'exist', 'skipOnError' => true, 'targetClass' => TransaksiPenggajian::className(), 'targetAttribute' => ['transgaji_id' => 'transgaji_id']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -39,32 +28,14 @@ class TransaksipenggajianDetail extends \yii\db\ActiveRecord
             'nominal_val' => 'Nominal Val',
         ];
     }
-
-    /**
-     * Gets query for [[Tunjangan]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getTunjangan()
     {
         return $this->hasOne(MTunjangan::className(), ['id' => 'tunjangan_id']);
     }
-
-    /**
-     * Gets query for [[GolGaji]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getGolGaji()
     {
         return $this->hasOne(Penggolongangaji::className(), ['id' => 'gol_gaji']);
     }
-
-    /**
-     * Gets query for [[Transgaji]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getTransgaji()
     {
         return $this->hasOne(TransaksiPenggajian::className(), ['transgaji_id' => 'transgaji_id']);

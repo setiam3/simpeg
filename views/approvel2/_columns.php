@@ -19,7 +19,7 @@ return [
     ],[
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'Nama Pegawai',
-        'value' => 'data.nama',
+        'value' => 'data.namalengkap',
     ],
     [
         'class' => '\kartik\grid\DataColumn',

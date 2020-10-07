@@ -10,10 +10,6 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'tanggalPengajuan',
@@ -33,24 +29,8 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
-        'value' => 'data.nama',
+        'value' => 'data.namalengkap',
     ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'approval1',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'approval2',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'disetujui',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'jenisIjin',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

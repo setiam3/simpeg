@@ -1,38 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "transaksi_penggajian".
- *
- * @property int $transgaji_id
- * @property string|null $nomor_transgaji
- * @property string|null $tgl_gaji
- * @property int|null $data_id
- * @property int|null $pelaksana_id
- * @property string|null $tgl_input
- * @property float|null $total_brutto_gaji
- * @property float|null $total_bersih_gaji
- *
- * @property PotonganGaji[] $potonganGajis
- * @property MBiodata $data
- * @property TransaksipenggajianDetail[] $transaksipenggajianDetails
- */
 class TransaksiPenggajian extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'transaksi_penggajian';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -44,10 +18,6 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
             [['data_id'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['data_id' => 'id_data']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -61,43 +31,22 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
             'total_bersih_gaji' => 'Total Bersih Gaji',
         ];
     }
-
-    /**
-     * Gets query for [[PotonganGajis]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getPotongangajis()
     {
         return $this->hasMany(PotonganGaji::className(), ['transgaji_id' => 'transgaji_id']);
     }
-
     public function getPotongangajiss()
     {
         return $this->hasOne(PotonganGaji::className(), ['transgaji_id' => 'transgaji_id']);
     }
-
-    /**
-     * Gets query for [[Data]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getData()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'data_id']);
     }
-
-    /**
-     * Gets query for [[TransaksipenggajianDetails]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-
     public function getTrandetail()
     {
         return $this->hasMany(TransaksipenggajianDetail::className(), ['transgaji_id' => 'transgaji_id']);
     }
-
     public function getTransdetail()
     {
         return $this->hasOne(TransaksipenggajianDetail::className(), ['transgaji_id' => 'transgaji_id']);

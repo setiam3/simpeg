@@ -1,20 +1,11 @@
 <?php
-
 namespace app\models;
-
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\MBiodata;
-
-/**
- * MKeluargaSearch represents the model behind the search form about `app\models\MBiodata`.
- */
 class MKeluargaSearch extends MBiodata
 {
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -22,46 +13,26 @@ class MKeluargaSearch extends MBiodata
             [['nip', 'nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'agama', 'telp', 'email', 'statusPerkawinan', 'gelarDepan', 'gelarBelakang', 'nik', 'foto', 'fotoNik', 'golonganDarah', 'is_pegawai'], 'safe'],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
-
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
     public function search($params,$where=NULL)
     {
         $query = MBiodata::find()->where($where)->andWhere(['not',['status_hubungan_keluarga'=>NULL]])->andWhere(['is_pegawai'=>'0']);
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
-
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
-
         $query->andFilterWhere([
             'id_data' => $this->id_data,
             'parent_id' => $this->parent_id,
             'tanggalLahir' => $this->tanggalLahir,
             'status_hubungan_keluarga' => $this->status_hubungan_keluarga,
         ]);
-
         $query->andFilterWhere(['like', 'nip', $this->nip])
             ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'tempatLahir', $this->tempatLahir])
@@ -78,7 +49,6 @@ class MKeluargaSearch extends MBiodata
             ->andFilterWhere(['like', 'foto', $this->foto])
             ->andFilterWhere(['like', 'fotoNik', $this->fotoNik])
             ->andFilterWhere(['like', 'golonganDarah', $this->golonganDarah]);
-
         return $dataProvider;
     }
 }

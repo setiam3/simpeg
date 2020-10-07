@@ -31,7 +31,7 @@ $params = isset($klikedid) ? '?id=' . $klikedid : '';
                 ) .
                     Html::a(
                         '<i class="glyphicon glyphicon-repeat"></i>',
-                        [''],
+                        [''.$params],
                         ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']
                     ) .
                     '{toggleData}' .

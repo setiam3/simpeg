@@ -7,10 +7,6 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\MPenggolongangajiSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Penggolongangaji';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -55,7 +51,7 @@ $idmodal = md5($dataProvider->query->modelClass);
                             "class" => "btn btn-danger btn-xs",
                             'role' => 'modal-remote-bulk',
                             'data-target' => '#' . $idmodal,
-                            'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                            'data-confirm' => false, 'data-method' => false,
                             'data-request-method' => 'post',
                             'data-confirm-title' => 'Are you sure?',
                             'data-confirm-message' => 'Are you sure want to delete this item'
@@ -70,6 +66,6 @@ $idmodal = md5($dataProvider->query->modelClass);
 <?php Modal::begin([
     "id" => $idmodal,
     "size" => "modal-lg",
-    "footer" => "", // always need it for jquery plugin
+    "footer" => "",
 ]) ?>
 <?php Modal::end(); ?>

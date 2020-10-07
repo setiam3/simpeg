@@ -1,31 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "villages".
- *
- * @property string $id
- * @property string $district_id
- * @property string $name
- *
- * @property Districts $district
- */
 class Kelurahan extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'villages';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -37,10 +18,6 @@ class Kelurahan extends \yii\db\ActiveRecord
             [['district_id'], 'exist', 'skipOnError' => true, 'targetClass' => Kecamatan::className(), 'targetAttribute' => ['district_id' => 'id']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -49,10 +26,6 @@ class Kelurahan extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getDistrict()
     {
         return $this->hasOne(Kecamatan::className(), ['id' => 'district_id']);

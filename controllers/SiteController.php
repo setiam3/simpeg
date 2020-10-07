@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use app\models\Jatahcuti;
 use app\models\MBiodata;
 use app\models\MKepangkatan;
@@ -15,12 +13,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\NotFoundHttpException;
-
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -43,10 +37,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
@@ -72,90 +62,53 @@ class SiteController extends Controller
         $preview = '';
         $ext = pathinfo($pathfile);
         $image = ['jpg', 'jpeg', 'png'];
-
         if ($ext['extension'] == 'pdf') {
             $this->genPdfThumbnail($pathfile, $ext['basename'] . '.jpeg');
             $preview = \Yii::getAlias('@web/uploads/foto/510204244/') . $ext['basename'] . '.jpeg';
         } elseif (in_array(strtolower($ext['extension']), $image)) {
-            //$preview=Yii::getAlias('@urlUpload').$model->cv;
         } else {
             $preview = '';
         }
         return $preview;
     }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         return $this->render('index');
     }
-
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
     }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
     public function actionContact()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-
             return $this->refresh();
         }
         return $this->render('contact', [
             'model' => $model,
         ]);
     }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
     public function actionAbout()
     {
         return $this->render('about');
     }
-
     public function actionChild($model)
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -177,15 +130,12 @@ class SiteController extends Controller
         }
         return ['output' => '', 'selected' => ''];
     }
-
     public function actionSisaijin($id)
     {
-
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = Jatahcuti::findOne(['id_data' => $id]);
         return [$model->sisa];
     }
-
     public function actiontunjangan($model)
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -207,15 +157,12 @@ class SiteController extends Controller
         }
         return ['output' => '', 'selected' => ''];
     }
-
     public function actionSwitch($id)
     {
-
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = Jatahcuti::findOne(['id_data' => $id]);
         return [$model->sisa];
     }
-
     protected function findModel($id, $models)
     {
         $modelx = Yii::createObject([
@@ -236,7 +183,6 @@ class SiteController extends Controller
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
     public function actionNotifdoc()
     {
         $role = \Yii::$app->tools->getcurrentroleuser();
@@ -245,7 +191,6 @@ class SiteController extends Controller
         } else {
             $where = '';
         }
-
         $sql = MBiodata::find()
             ->Join('join', 'm_rekening as r', 'm_biodata.id_data = r.id_data')
             ->joinWith('riwayatdiklats as d')
@@ -260,37 +205,10 @@ class SiteController extends Controller
         return $sql;
     }
 
-    //    public function actionLisnotifdoc(){
-    //        $role = \Yii::$app->tools->getcurrentroleuser();
-    //        if (in_array('karyawan', $role)) {
-    //            $where = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-    //        } else {
-    //            $where = '';
-    //        }
-    //
-    //        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-    //        $sql = MBiodata::find()
-    //            ->select([
-    //                'm_biodata.id_data',
-    //                'r.id as id_rekening',
-    //                'fotoNik',
-    //                'foto',
-    //                'r.fotoRekening',
-    //                'p.dokumen as dokumen_pendidikan',
-    //                'j.dokumen as dokumen_jabatan',
-    //                'd.dokumen as dokumen_diklat',
-    //                'k.dokumen as dokumen_kepangkatan'])
-    //            ->Join('join', 'm_rekening as r','m_biodata.id_data = r.id_data')
-    //            ->joinWith('riwayatdiklats as d')
-    //            ->joinWith('riwayatjabatans as j')
-    //            ->joinWith('riwayatpendidikans as p')
-    //            ->joinWith('riwayatpendidikans as p')
-    //            ->joinWith('kepangkatans as k')
-    //            ->where(['is_pegawai' => '1'])
-    //            ->where($where)
-    //            ->all();
-    //        return [$sql];
-    //    }
+
+
+
+
 
 
 
@@ -302,35 +220,31 @@ class SiteController extends Controller
         } else {
             $where = '';
         }
-
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = 'SELECT DISTINCT "m_biodata"."id_data", 
+        $sql = 'SELECT DISTINCT "m_biodata"."id_data",
         "m_biodata"."nama" AS "nama",
         "fotoNik",
-  "foto", 
- "p"."id" AS"id_pend", 
- "p"."dokumen" AS "dokumenPen", 
- "j"."id" AS "id_jabatan", 
- "j"."dokumen" AS "dokumen_jabatan", 
- "d"."id" AS "id_diklat", 
- "d"."dokumen" AS "dokumen_diklat", 
- "k"."id" AS "id_kepangkatan", 
- "k"."dokumen" AS "dokumen_kepangkatan", 
- "r"."id" AS "id_rekening", 
- "r"."fotoRekening" AS "fotoRekening" 
- FROM "m_biodata" 
- LEFT JOIN "riwayatdiklat" "d" ON "m_biodata"."id_data" = "d"."id_data" 
- LEFT JOIN "riwayatjabatan" "j" ON "m_biodata"."id_data" = "j"."id_data" 
- LEFT JOIN "riwayatpendidikan" "p" ON "m_biodata"."id_data" = "p"."id_data" 
- LEFT JOIN "kepangkatan" "k" ON "m_biodata"."id_data" = "k"."id_data" 
- join "m_rekening" "r" ON m_biodata.id_data = r.id_data 
+  "foto",
+ "p"."id" AS"id_pend",
+ "p"."dokumen" AS "dokumenPen",
+ "j"."id" AS "id_jabatan",
+ "j"."dokumen" AS "dokumen_jabatan",
+ "d"."id" AS "id_diklat",
+ "d"."dokumen" AS "dokumen_diklat",
+ "k"."id" AS "id_kepangkatan",
+ "k"."dokumen" AS "dokumen_kepangkatan",
+ "r"."id" AS "id_rekening",
+ "r"."fotoRekening" AS "fotoRekening"
+ FROM "m_biodata"
+ LEFT JOIN "riwayatdiklat" "d" ON "m_biodata"."id_data" = "d"."id_data"
+ LEFT JOIN "riwayatjabatan" "j" ON "m_biodata"."id_data" = "j"."id_data"
+ LEFT JOIN "riwayatpendidikan" "p" ON "m_biodata"."id_data" = "p"."id_data"
+ LEFT JOIN "kepangkatan" "k" ON "m_biodata"."id_data" = "k"."id_data"
+ join "m_rekening" "r" ON m_biodata.id_data = r.id_data
  GROUP BY "m_biodata"."id_data", "id_pend", "j"."id", "d"."id", "k"."id", "r"."id"';
         $dok = \Yii::$app->db->createCommand($sql)->queryAll();
-        //        print_r($sql);die();
-
         if (!empty($dok)) {
             foreach ($dok as $row) {
-                //                echo (empty($row['fotoNik']))?'<li>'..'</li>':'';
                 $list[] = (empty($row['fotoNik'])) ? '<li><a href="">' . $row['nama'] . 'foto NIK belum diupload</a></li>' : '';
                 $list[] = (empty($row['foto'])) ? '<li><a href="' . Yii::$app->homeUrl . 'biodata/info?id=' . $row['id_data'] . '">Foto ' . $row['nama'] . ' belum diupload</a></li>' : '';
                 $list[] = (empty($row['fotoRekening'])) ? '<li><a href="' . Yii::$app->homeUrl . 'rekening/update?id=' . $row['id_rekening'] . '">Dokumen rekening ' . $row['nama'] . ' belum diupload</a></li>' : '';
@@ -341,10 +255,8 @@ class SiteController extends Controller
         } else {
             $list = '<li><a href="#">data tidak ada</a></li>';
         }
-
         return $list;
     }
-
     public function actionNotifgaji()
     {
         $role = \Yii::$app->tools->getcurrentroleuser();
@@ -361,7 +273,6 @@ class SiteController extends Controller
             ->count();
         return $gaji;
     }
-
     public function actionListgaji()
     {
         $role = \Yii::$app->tools->getcurrentroleuser();
@@ -370,7 +281,6 @@ class SiteController extends Controller
         } else {
             $whereid = '';
         }
-
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmt"))::INTEGER, 2)');
         $gaji = MKepangkatan::find()
@@ -387,10 +297,8 @@ class SiteController extends Controller
         }
         return $list;
     }
-
     public function actionKenaikanpangkat()
     {
-        //        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role)) {
             $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
@@ -409,10 +317,8 @@ class SiteController extends Controller
             ->andWhere($wherecon)
             ->andWhere($whereid)
             ->count();
-
         return $gaji;
     }
-
     public function actionLisenaikanpangkat()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -434,7 +340,6 @@ class SiteController extends Controller
             ->andWhere($wherecon)
             ->andWhere($whereid)
             ->all();
-
         if (!empty($gaji)) {
             foreach ($gaji as $row) {
                 $list[] = '<li><a href=""> ' . $row['nama'] . ' </a></li>';

@@ -22,6 +22,7 @@ $this->registerJs(
 );
 $form = ActiveForm::begin();
 echo $form->field($model, 'potong')->widget(MultipleInput::className(), [
+    'data'=>$model->isNewRecord?'':$potongangaji,
     'columns' => [
         [
             'name'  => 'potongan_desc',

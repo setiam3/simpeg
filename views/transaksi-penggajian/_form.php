@@ -136,11 +136,17 @@ $this->registerJs("
         </div>
     </div>
     <div class="row">
-        <?php echo Tabs::widget([
+        <?php
+        $frmpot=($transaksipenggajian->isNewRecord?
+        $this->render('_formpotongan',['model'=>$transaksipenggajian])
+        :
+        $this->render('_formpotongan', ['model'=>$transaksipenggajian,'potongangaji'=>$potongangaji]));
+        echo Tabs::widget([
             'items' => [
                 [
                     'label' => 'Potongan',
-                    'content' => '<div class="tabpotongan">'.Yii::$app->runAction('transaksi-penggajian/frmpotongan').'</div>',
+                    'content' => '<div class="tabpotongan">'.
+                    $frmpot.'</div>',
                     'active'=>true,
                 ],
                 [

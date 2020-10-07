@@ -19,10 +19,6 @@ class Pinjaman extends \yii\db\ActiveRecord
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -38,7 +34,6 @@ class Pinjaman extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
-
     public function getJens()
     {
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenis']);

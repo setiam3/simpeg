@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\MReferensi;
 use app\models\MReferensiSearch;
@@ -11,11 +9,8 @@ use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-
-
 class ReferensiController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -28,13 +23,10 @@ class ReferensiController extends Controller
             ],
         ];
     }
-
-
     public function actionIndex()
     {
         $searchModel = new MReferensiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -51,9 +43,6 @@ class ReferensiController extends Controller
             return $arr;
         }
     }
-
-
-
     public function actionView($id)
     {
         $request = Yii::$app->request;
@@ -74,15 +63,11 @@ class ReferensiController extends Controller
             ]);
         }
     }
-
-
     public function actionCreate()
     {
         $request = Yii::$app->request;
         $model = new MReferensi();
-
         if($request->isAjax){
-
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -92,7 +77,6 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
                 ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
@@ -101,7 +85,6 @@ class ReferensiController extends Controller
                     'content'=>'<span class="text-success">Create Referensi success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-
                 ];
             }else{
                 return [
@@ -111,11 +94,9 @@ class ReferensiController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
                 ];
             }
         }else{
-
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->reff_id]);
             } else {
@@ -124,17 +105,12 @@ class ReferensiController extends Controller
                 ]);
             }
         }
-
     }
-
-
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-
         if($request->isAjax){
-
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -166,7 +142,6 @@ class ReferensiController extends Controller
                 ];
             }
         }else{
-
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->reff_id]);
             } else {
@@ -176,47 +151,32 @@ class ReferensiController extends Controller
             }
         }
     }
-
-
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
         $model=$this->findModel($id);$model->delete();
-
         if($request->isAjax){
-
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-
             return $this->redirect(['index']);
         }
-
-
     }
-
-
     public function actionBulkDelete()
     {
         $request = Yii::$app->request;
-        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        $pks = explode(',', $request->post( 'pks' ));
         foreach ( $pks as $pk ) {
             $model = $this->findModel($pk);
             $model->delete();
         }
-
         if($request->isAjax){
-
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-
             return $this->redirect(['index']);
         }
-
     }
-
-
     protected function findModel($id)
     {
         if (($model = MReferensi::findOne($id)) !== null) {

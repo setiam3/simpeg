@@ -11,7 +11,6 @@ use app\models\RiwayatjabatanSearch;
 use app\models\TransaksiPenggajianSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-
 class ProfileController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -54,7 +53,6 @@ class ProfileController extends \yii\web\Controller
             $model->save();
             return $this->redirect(['view', 'id' => $model->id_data]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -66,5 +64,4 @@ class ProfileController extends \yii\web\Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }

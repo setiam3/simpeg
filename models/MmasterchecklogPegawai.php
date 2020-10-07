@@ -1,35 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "m_checklog_pegawai".
- *
- * @property string $checklogpegawai_id
- * @property int $id_data
- * @property string|null $nama_checklogpegawai
- * @property string|null $status_checklogpegawai
- * @property string|null $nip
- *
- * @property ChecklogPegawai[] $checklogPegawais
- * @property MBiodata[] $mBiodatas
- * @property MBiodata $data
- */
 class MmasterchecklogPegawai extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'm_checklog_pegawai';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -44,10 +21,6 @@ class MmasterchecklogPegawai extends \yii\db\ActiveRecord
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -58,32 +31,14 @@ class MmasterchecklogPegawai extends \yii\db\ActiveRecord
             'nip' => 'Nip',
         ];
     }
-
-    /**
-     * Gets query for [[ChecklogPegawais]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getChecklogPegawais()
     {
         return $this->hasMany(ChecklogPegawai::className(), ['checklogpegawai_id' => 'checklogpegawai_id']);
     }
-
-    /**
-     * Gets query for [[MBiodatas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getMBiodatas()
     {
         return $this->hasMany(MBiodata::className(), ['checklog_id' => 'checklogpegawai_id']);
     }
-
-    /**
-     * Gets query for [[Data]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getData()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);

@@ -13,7 +13,7 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
-        'value' => 'data.nama',
+        'value' => 'data.namalengkap',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -36,7 +36,7 @@ return [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { 
+        'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
@@ -65,4 +65,4 @@ return [
         ],
     ],
 
-];   
+];

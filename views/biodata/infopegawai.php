@@ -69,10 +69,16 @@ use yii\helpers\Html;
                     'label' => 'Jabatan',
                     'content' => $this->render('//riwayatjabatan/index', [
                         'searchModel' => $searchModeljabatan,
-
                         'klikedid' => $model->id_data,
-
                         'dataProvider' => $searchModeljabatan->search(Yii::$app->request->queryParams, ['riwayatjabatan.id_data' => $model->id_data])
+                    ]),
+                ],
+                [
+                    'label' => 'Pangkat',
+                    'content' => $this->render('//kepangkatan/index', [
+                        'searchModel' => $searchModelpangkat,
+                        'klikedid' => $model->id_data,
+                        'dataProvider' => $searchModelpangkat->search(Yii::$app->request->queryParams, ['kepangkatan.id_data' => $model->id_data])
                     ]),
                 ],
                 [

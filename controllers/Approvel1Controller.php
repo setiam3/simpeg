@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\Pengajuanijin;
 use app\models\Approvel1Search;
@@ -10,15 +8,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
-
-/**
- * Approvel1Controller implements the CRUD actions for Pengajuanijin model.
- */
 class Approvel1Controller extends Controller
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -31,29 +22,16 @@ class Approvel1Controller extends Controller
             ],
         ];
     }
-
-    /**
-     * Lists all Pengajuanijin models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $where='approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data ='.\Yii::$app->user->identity->id_data.')';
         $searchModel = new Approvel1Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
-
-    /**
-     * Displays a single Pengajuanijin model.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionView($id)
     {
         $request = Yii::$app->request;
@@ -74,22 +52,11 @@ class Approvel1Controller extends Controller
             ]);
         }
     }
-
-    /**
-     * Creates a new Pengajuanijin model.
-     * For ajax request will return json object
-     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $request = Yii::$app->request;
         $model = new Pengajuanijin();
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -99,7 +66,6 @@ class Approvel1Controller extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
                 ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
@@ -108,7 +74,6 @@ class Approvel1Controller extends Controller
                     'content'=>'<span class="text-success">Create Pengajuanijin success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-
                 ];
             }else{
                 return [
@@ -118,13 +83,9 @@ class Approvel1Controller extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
                 ];
             }
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -133,25 +94,12 @@ class Approvel1Controller extends Controller
                 ]);
             }
         }
-
     }
-
-    /**
-     * Updates an existing Pengajuanijin model.
-     * For ajax request will return json object
-     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -163,7 +111,6 @@ class Approvel1Controller extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];
             }else if($model->load($request->post())){
-
                 if ($model->approval1=='1'){
                     $model->approval1=\Yii::$app->user->identity->id_data;
                 }else{
@@ -191,9 +138,6 @@ class Approvel1Controller extends Controller
                 ];
             }
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -203,74 +147,33 @@ class Approvel1Controller extends Controller
             }
         }
     }
-
-    /**
-     * Delete an existing Pengajuanijin model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         $model->delete();
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             return $this->redirect(['index']);
         }
-
-
     }
-
-     /**
-     * Delete multiple existing Pengajuanijin model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionBulkDelete()
     {
         $request = Yii::$app->request;
-        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        $pks = explode(',', $request->post( 'pks' ));
         foreach ( $pks as $pk ) {
             $model = $this->findModel($pk);
             $model->delete();
         }
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             return $this->redirect(['index']);
         }
-
     }
-
-    /**
-     * Finds the Pengajuanijin model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Pengajuanijin the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Pengajuanijin::findOne($id)) !== null) {

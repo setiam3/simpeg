@@ -1,41 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "kepangkatan".
- *
- * @property int $id
- * @property int $id_data
- * @property string $ditetapkanOleh
- * @property string $noSk
- * @property string $tglSk
- * @property int $penggolongangaji_id
- * @property string $tmtPangkat
- * @property string $ruang
- * @property int $fk_golongan
- * @property string|null $tmt
- * @property string|null $dokumen
- * @property string|null $nama
- *
- * @property MBiodata $data
- * @property Penggolongangaji $penggolongangaji
- */
 class MKepangkatan extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'kepangkatan';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -49,10 +20,6 @@ class MKepangkatan extends \yii\db\ActiveRecord
             [['penggolongangaji_id'], 'exist', 'skipOnError' => true, 'targetClass' => Penggolongangaji::className(), 'targetAttribute' => ['penggolongangaji_id' => 'id']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -69,22 +36,13 @@ class MKepangkatan extends \yii\db\ActiveRecord
             'dokumen' => 'Dokumen',
         ];
     }
-
-    /**
-     * Gets query for [[Data]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getData()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Penggolongangaji]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    // public function getPangkat(){
+    //     return $this->
+    // }
     public function getPenggolongangaji()
     {
         return $this->hasOne(Penggolongangaji::className(), ['id' => 'penggolongangaji_id']);

@@ -21,7 +21,7 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
-        'value' => 'data.nama',
+        'value' => 'data.namalengkap',
     ],
     [
         'class' => '\kartik\grid\DataColumn',

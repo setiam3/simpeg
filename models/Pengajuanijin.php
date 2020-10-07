@@ -1,40 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "pengajuanijin".
- *
- * @property int $id
- * @property string $tanggalPengajuan
- * @property string $tanggalMulai
- * @property string $tanggalAkhir
- * @property string $alasan
- * @property int $id_data
- * @property int|null $approval1
- * @property int|null $approval2
- * @property int|null $disetujui
- * @property string $jenisIjin
- *
- * @property MBiodata $data
- * @property MBiodata $approval10
- * @property MBiodata $approval20
- */
 class Pengajuanijin extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'pengajuanijin';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -48,10 +20,6 @@ class Pengajuanijin extends \yii\db\ActiveRecord
             [['approval2'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['approval2' => 'id_data']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -67,32 +35,14 @@ class Pengajuanijin extends \yii\db\ActiveRecord
             'jenisIjin' => 'Jenis Ijin',
         ];
     }
-
-    /**
-     * Gets query for [[Data]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getData()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
-
-    /**
-     * Gets query for [[Approval10]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getApproval10()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'approval1']);
     }
-
-    /**
-     * Gets query for [[Approval20]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getApproval20()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'approval2']);

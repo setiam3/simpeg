@@ -1,8 +1,6 @@
 <?php
-
 use yii\helpers\Url;
 use yii\helpers\Html;
-
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
@@ -15,12 +13,8 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'data_id',
-        'value' => 'data.nama',
+        'value' => 'data.namalengkap',
     ],
-    // [
-    //     'class' => '\kartik\grid\DataColumn',
-    //     'attribute' => 'transgaji_id',
-    // ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'nomor_transgaji',
@@ -33,18 +27,6 @@ return [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'pelaksana_id',
     ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'tgl_input',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'total_brutto_gaji',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'total_bersih_gaji',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

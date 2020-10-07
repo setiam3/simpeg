@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\Pinjaman;
 use app\models\PinjamanSearch;
@@ -10,15 +8,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
-
-/**
- * PinjamanController implements the CRUD actions for Pinjaman model.
- */
 class PinjamanController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -31,28 +22,15 @@ class PinjamanController extends Controller
             ],
         ];
     }
-
-    /**
-     * Lists all Pinjaman models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new PinjamanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
-
-    /**
-     * Displays a single Pinjaman model.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionView($id)
     {
         $request = Yii::$app->request;
@@ -73,23 +51,11 @@ class PinjamanController extends Controller
             ]);
         }
     }
-
-    /**
-     * Creates a new Pinjaman model.
-     * For ajax request will return json object
-     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $request = Yii::$app->request;
-
         $model = new Pinjaman();
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -99,7 +65,6 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
                 ];
             }else if($model->load($request->post()) && $model->save()){
                 return [
@@ -108,7 +73,6 @@ class PinjamanController extends Controller
                     'content'=>'<span class="text-success">Create Pinjaman success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-
                 ];
             }else{
                 return [
@@ -118,13 +82,9 @@ class PinjamanController extends Controller
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
                 ];
             }
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -133,25 +93,12 @@ class PinjamanController extends Controller
                 ]);
             }
         }
-
     }
-
-    /**
-     * Updates an existing Pinjaman model.
-     * For ajax request will return json object
-     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
@@ -183,9 +130,6 @@ class PinjamanController extends Controller
                 ];
             }
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -195,7 +139,6 @@ class PinjamanController extends Controller
             }
         }
     }
-
     public function actionGetpinjaman(){
         if(isset($_POST['id']) || !empty($_POST['id'])){
             $model=Pinjaman::find()->where(['id_data'=>$_POST['id']])->all();
@@ -206,61 +149,28 @@ class PinjamanController extends Controller
     {
         $request = Yii::$app->request;
         $model=$this->findModel($id);$model->delete();
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             return $this->redirect(['index']);
         }
-
-
     }
-
-     /**
-     * Delete multiple existing Pinjaman model.
-     * For ajax request will return json object
-     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionBulkDelete()
     {
         $request = Yii::$app->request;
-        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        $pks = explode(',', $request->post( 'pks' ));
         foreach ( $pks as $pk ) {
             $model = $this->findModel($pk);
             $model->delete();
         }
-
         if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose'=>true,'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax'];
         }else{
-            /*
-            *   Process for non-ajax request
-            */
             return $this->redirect(['index']);
         }
-
     }
-
-    /**
-     * Finds the Pinjaman model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Pinjaman the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Pinjaman::findOne($id)) !== null) {

@@ -1,33 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "regencies".
- *
- * @property string $id
- * @property string $province_id
- * @property string $name
- * @property string $alias
- *
- * @property Districts[] $districts
- * @property Provinces $province
- */
 class Kabupaten extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'regencies';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -39,10 +18,6 @@ class Kabupaten extends \yii\db\ActiveRecord
             [['province_id'], 'exist', 'skipOnError' => true, 'targetClass' => Provinces::className(), 'targetAttribute' => ['province_id' => 'id']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -52,20 +27,9 @@ class Kabupaten extends \yii\db\ActiveRecord
             'alias' => 'Alias',
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getDistricts()
     {
         return $this->hasMany(Kecamatan::className(), ['regency_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    // public function getProvince()
-    // {
-    //     return $this->hasOne(Provinces::className(), ['id' => 'province_id']);
-    // }
 }

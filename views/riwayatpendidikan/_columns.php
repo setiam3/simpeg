@@ -1,8 +1,6 @@
 <?php
-
 use yii\helpers\Url;
 use yii\helpers\Html;
-
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
@@ -14,13 +12,13 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'NIP',
+        'attribute' => 'nip',
         'value' => 'data.nip',
     ],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'id_data',
-        'value' => 'data.nama',
+        'value' => 'data.namalengkap',
     ],
     [
         'class' => '\kartik\grid\DataColumn',

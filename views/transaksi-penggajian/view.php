@@ -3,7 +3,6 @@ use app\models\TransaksiPenggajian;
 use yii\widgets\DetailView;
 ?>
 <div class="transaksi-penggajian-view">
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -33,7 +32,7 @@ use yii\widgets\DetailView;
             ],
             [
                 'attribute' => 'potongan desc',
-                //'value' => function ($data) { return $data->potongangajiss->}//potonganDesc->nama_referensi;}
+                'value' => function ($data) { return $data->potongangajiss->potongan_desc;}
             ],
             [
                 'attribute' => 'potongan nominal',
@@ -43,7 +42,6 @@ use yii\widgets\DetailView;
                 'attribute' => 'keterangan',
                 'value' => implode(\yii\helpers\ArrayHelper::map($model->potongangajis, 'transgaji_id', 'keterangan'))
             ],
-
         ],
     ]) ?>
 

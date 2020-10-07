@@ -1,36 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "riwayatdiklat".
- *
- * @property int $id
- * @property int $id_data
- * @property string $namaDiklat
- * @property string $tempat
- * @property string $penyelenggara
- * @property string $mulai
- * @property string $selesai
- * @property string|null $dokumen
- *
- * @property MBiodata $data
- */
 class Riwayatdiklat extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'riwayatdiklat';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -40,13 +16,8 @@ class Riwayatdiklat extends \yii\db\ActiveRecord
             [['mulai', 'selesai'], 'safe'],
             [['namaDiklat', 'tempat', 'penyelenggara', 'dokumen'], 'string', 'max' => 255],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
-
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -60,12 +31,6 @@ class Riwayatdiklat extends \yii\db\ActiveRecord
             'dokumen' => 'Dokumen',
         ];
     }
-
-    /**
-     * Gets query for [[Data]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getData()
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
