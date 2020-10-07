@@ -3,6 +3,8 @@
 namespace app\widgets;
 
 use app\models\MBiodata;
+use app\models\MReferensi;
+use app\models\Riwayatpendidikan;
 use DateTime;
 use yii\db\Expression;
 use yii\db\Query;
@@ -213,43 +215,59 @@ AND (\"is_pegawai\" = '1')
           ->joinWith('kepangkatans as k')
           ->where(['is_pegawai' => '1'])
           ->where(['m_biodata.id_data' => '2'])
-//          ->orWhere(['is','fotoNik',null])
-//          ->orWhere(['is','foto',null])
-//          ->orWhere(['is','r.fotoRekening',null])
-//          ->orWhere(['is','p.dokumen',null])
-//          ->orWhere(['is','j.dokumen',null])
-//          ->orWhere(['is','d.dokumen',null])
-//          ->orWhere(['is','k.dokumen',null])
-//          ->groupBy('m_biodata.id_data')
-//          ->count();
-//          ->with('riwayatdiklats')
           ->all();
-//          SELECT COUNT(*) as jumlah FROM m_biodata
-//JOIN m_rekening ON m_biodata.id_data =  m_rekening.id_data
-//LEFT JOIN riwayatdiklat ON m_biodata.id_data =  riwayatdiklat.id_data
-//LEFT JOIN riwayatjabatan ON m_biodata.id_data =  riwayatjabatan.id_data
-//LEFT JOIN kepangkatan ON m_biodata.id_data =  kepangkatan.id_data
-//LEFT JOIN riwayatpendidikan ON m_biodata.id_data =  riwayatpendidikan.id_data
-//WHERE is_pegawai = '1'
-//  AND "fotoNik" is NULL
-//  OR "foto" is NULL
-//  OR m_rekening."fotoRekening" is NULL
-//  OR riwayatdiklat.dokumen is null
-//  OR riwayatjabatan.dokumen is null
-//  OR kepangkatan.dokumen is null
-//  OR riwayatpendidikan.dokumen is null
-
-//    $sql = 'SELECT COUNT(*) as jumlah
-//      FROM m_biodata as b
-//      join m_rekening as r on b.id_data = r.id_data
-//      JOIN riwayatdiklat as rd on b.id_data = rd.id_data
-//      JOIN riwayatpendidikan as rp on b.id_data = rp.id_data
-//      JOIN kepangkatan as ke on b.id_data = ke.id_data
-//      WHERE foto is NULL or "fotoNik" IS NULL or "fotoRekening" is NULL or "fotoNpwp" is NULL or rd.dokumen IS NULL or rp.dokumen is NULL or ke.dokumen is NULL';
 
     return $sql;
-//        $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
 
+  public function str(){
+      $role = \Yii::$app->tools->getcurrentroleuser();
+      if (in_array('karyawan', $role)) {
+          $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+      } else {
+          $where_iddata = '';
+      }
+      $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
+      $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
+      $data = Riwayatpendidikan::find()
+//          ->join('join','m_biodata','riwayatpendidikan.id_data = m_biodata.id_data')
+          ->joinWith('data')
+          ->where(['is not','tgl_berlaku_ijin',null])
+          ->andWhere($where)
+          ->andWhere($tahun)
+          ->andWhere(['like','suratijin','STR'])
+          ->andWhere($where_iddata)
+          ->all();
+      return $data;
+  }
+
+    public function sip(){
+        $role = \Yii::$app->tools->getcurrentroleuser();
+        if (in_array('karyawan', $role)) {
+            $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+        } else {
+            $where_iddata = '';
+        }
+        $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
+        $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
+        $data = Riwayatpendidikan::find()
+//            ->select('m_biodata.nama, tgl_berlaku_ijin')
+//            ->join('join','m_biodata','riwayatpendidikan.id_data = m_biodata.id_data')
+            ->joinWith('data')
+            ->where(['is not','tgl_berlaku_ijin',null])
+            ->andWhere($where)
+            ->andWhere(['like','suratijin','SIP'])
+            ->andWhere($where_iddata)
+            ->andWhere($tahun)
+            ->all();
+        return $data;
+    }
+
+    public function kategori(){
+
+      $datas = MReferensi::find()->select('nama_referensi')->where(['tipe_referensi'=>'6'])->createCommand()
+          ->queryAll();
+      return $datas;
+    }
 
 }

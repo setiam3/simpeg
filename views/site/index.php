@@ -9,14 +9,27 @@ $this->title =Yii::$app->name;
 $populasi=\Yii::$app->tools->grafikPopulasi();
 $jenispegawai=\Yii::$app->tools->gjenisPegawai();
 $golpeg=\Yii::$app->tools->golonganPegawai();
+$kategori=\Yii::$app->tools->kategori();
+//print_r($kategori);die();
 $pegultah=\Yii::$app->tools->ultahPegawai();
 $pensiun=\Yii::$app->tools->nextPensiun();
+
+$str=\Yii::$app->tools->str();
+$sip=\Yii::$app->tools->sip();
 
 if(empty($jenispegawai)){
     $arrayJenispegawai[] = '';
 }else{
     foreach($jenispegawai as $row){
         $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
+    }
+}
+
+if (empty($kategori)){
+    $kategor[] = '';
+}else{
+    foreach ($kategori as $row){
+        $kategor[] =$row['nama_referensi'];
     }
 }
 
@@ -27,6 +40,10 @@ if(empty($golpeg)){
         $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
     }
 }
+
+//$this->registerCssFile('@vendor/almasaeed2010/adminlte/bower_components/datatables.net-bs/css/dataTable.bootstrap.css');
+//$this->registerJsFile('@vendor/almasaeed2010/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js');
+//$this->registerJsFile('@vendor/almasaeed2010/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');
 ?>
 <section class="content">
     <div class="row">
@@ -234,25 +251,24 @@ if(empty($golpeg)){
                             <tr>
                                 <th>nama</th>
                                 <th>tanggal</th>
-                                <th>tahun</th>
                             </tr>
                             </thead>
                             <tbody>
+
+                            <?php
+                            if (!empty($str)){
+                            foreach ($str as $row){ ?>
                             <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
+                                <td><?= $row->data->nama ?></td>
+                                <td><?= $row['tgl_berlaku_ijin'] ?></td>
+
                             </tr>
+                            <?php };}else{ ?>
                             <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
+
                             </tr>
-                            <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
-                            </tr>
+                            <?php } ?>
+
                             </tbody>
                         </table>
                     </div>
@@ -272,26 +288,21 @@ if(empty($golpeg)){
                             <thead>
                             <tr>
                                 <th>nama</th>
-                                <th>tanggal</th>
-                                <th>tahun</th>
+                                <th>tgl berakhir</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <?php
+                            if (!empty($sip)){
+                            foreach ($sip as $row){ ?>
                             <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
+                                <td><?= $row['data']['nama'] ?></td>
+                                <td><?= $row->tgl_berlaku_ijin ?></td>
                             </tr>
-                            <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
-                            </tr>
-                            <tr>
-                                <td>Pijar</td>
-                                <td>12-09-2020</td>
-                                <td>25</td>
-                            </tr>
+                            <?php };}else{ ?>
+
+                            <?php };?>
+
                             </tbody>
                         </table>
                     </div>

@@ -92,7 +92,13 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
                         }"
                     ]
             ]) ?>
-            <?= $form->field($model, 'suratijin')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'suratijin')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '14']), 'nama_referensi', 'nama_referensi'),
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Surat Ijin')
+            ?>
             <?= $form->field($model, 'tgl_berlaku_ijin')->widget(DatePicker::className(), [
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',
