@@ -31,6 +31,15 @@ class TransaksiPenggajian extends \yii\db\ActiveRecord
             'total_bersih_gaji' => 'Total Bersih Gaji',
         ];
     }
+    public function getTotalpinjaman(){
+        return \app\models\Pinjaman::find()->where(['id_data'=>$this->data_id])->sum('jumlah');
+    }
+    public function getTotaltunjangan(){
+        return \app\models\MTunjangan::find()->where(['id_data'=>$this->data_id])->sum('nominal');
+    }
+    public function getTotalpotongan(){
+        return array_sum(array_column(\yii\helpers\ArrayHelper::toArray($this->potongangajis),'potongan_nominal'));
+    }
     public function getPotongangajis()
     {
         return $this->hasMany(PotonganGaji::className(), ['transgaji_id' => 'transgaji_id']);

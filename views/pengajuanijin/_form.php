@@ -1,14 +1,8 @@
 <?php
-
-
 use app\models\Jatahcuti;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Pengajuanijin */
-/* @var $form yii\widgets\ActiveForm */
 $this->registerJsVar('baseurl',yii\helpers\Url::home());
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
@@ -17,22 +11,16 @@ if (in_array('karyawan', $role)) {
 } else {
     $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
 }
-
 ?>
 
 <div class="pengajuanijin-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
-
-<div><p id="sisaijin">Sisa Ijin: </p></div>
-
-
+<div><p id="sisaijin"></p></div>
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
         'data' => $parent,
         'pluginOptions' => [
             'allowClear' => false,
-
         ],
         'pluginEvents' => [
             "change" => "function() {
@@ -40,16 +28,12 @@ if (in_array('karyawan', $role)) {
                 baseurl+'site/sisaijin',
                 {id: $('#pengajuanijin-id_data').val()},
                 function (data) {
-                    console.log(data);
-                    $('#sisaijin').html(data);
+                    $('#sisaijin').html('Sisa Ijin: '+data);
                 }
             );
             return false;
-            
              }",
         ],
-
-
     ])->label('Nama Pegawai');
     ?>
 

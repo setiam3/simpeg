@@ -57,20 +57,7 @@ class SiteController extends Controller
     {
         phpinfo();
     }
-    public function actionPdftoimg($pathfile)
-    {
-        $preview = '';
-        $ext = pathinfo($pathfile);
-        $image = ['jpg', 'jpeg', 'png'];
-        if ($ext['extension'] == 'pdf') {
-            $this->genPdfThumbnail($pathfile, $ext['basename'] . '.jpeg');
-            $preview = \Yii::getAlias('@web/uploads/foto/510204244/') . $ext['basename'] . '.jpeg';
-        } elseif (in_array(strtolower($ext['extension']), $image)) {
-        } else {
-            $preview = '';
-        }
-        return $preview;
-    }
+
     public function actionIndex()
     {
         return $this->render('index');
@@ -134,28 +121,11 @@ class SiteController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = Jatahcuti::findOne(['id_data' => $id]);
-        return [$model->sisa];
-    }
-    public function actiontunjangan($model)
-    {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $out = [];
-        if (isset($_POST['depdrop_parents'])) {
-            $id = end($_POST['depdrop_parents']);
-            $list = $model == 'Kecamatan' ? $this->findModelAll(['regency_id' => $id], $model) : $this->findModelAll(['district_id' => $id], $model);
-            $selected  = null;
-            if ($id != null && count($list) > 0) {
-                $selected = '';
-                foreach ($list as $i => $account) {
-                    $out[] = ['id' => $account['id'], 'name' => $account['name']];
-                    if ($i == 0) {
-                        $selected = $account['id'];
-                    }
-                }
-                return ['output' => $out, 'selected' => $selected];
-            }
+        if(($model)!==null){
+            return [$model->sisa];
+        }else{
+            return ['0'];
         }
-        return ['output' => '', 'selected' => ''];
     }
     public function actionSwitch($id)
     {
@@ -204,14 +174,6 @@ class SiteController extends Controller
             ->count();
         return $sql;
     }
-
-
-
-
-
-
-
-
     public function actionLisnotifdok()
     {
         $role = \Yii::$app->tools->getcurrentroleuser();

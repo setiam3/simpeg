@@ -14,8 +14,8 @@ Dashboard
     Infografik Golongan [v]
     Pegawai yang berulang tahun > [v]
     pegawai yg akan pensiun [v]
-    STR akan habis
-    SIP akan Habis
+    STR akan habis  [done]
+    SIP akan Habis  [done]
 
 Data Pegawai
     Pencarian
@@ -32,8 +32,8 @@ Detail pegawai
     Daftar Riwayat Hukuman
     pengajuan cuti [v]
     pengajuan ijin [v]
-    mutasi pegawai
-    rekrutment pegawai
+    mutasi pegawai          pindah ruang kerja / pindah opd/ unit/skpd
+    rekrutment pegawai ...  add pegawai
 
 Notifikasi Reminder
     Kenaikan Jabatan 6

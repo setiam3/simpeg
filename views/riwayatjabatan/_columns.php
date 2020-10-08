@@ -28,7 +28,7 @@ return [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'eselon',
         'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
-        'filter' => ['1'=>'Eselon','0'=>'Non Eselon'], 
+        'filter' => ['1'=>'Eselon','0'=>'Non Eselon'],
         'filterWidgetOptions' => [
             'pluginOptions' => ['allowClear' => true],
         ],
@@ -50,10 +50,11 @@ return [
     // 'class'=>'\kartik\grid\DataColumn',
     // 'attribute'=>'dokumen',
     // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'unit_kerja',
-    // ],
+    [
+    'class'=>'\kartik\grid\DataColumn',
+    'attribute'=>'unit_kerja',
+    'value'=>'unitKerja.unit'
+    ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

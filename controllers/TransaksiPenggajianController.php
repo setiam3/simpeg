@@ -114,7 +114,7 @@ class TransaksiPenggajianController extends Controller
                     $transaksipenggajian->save(false);
                     $flag = true;
                     $err=Html::errorSummary($transaksipenggajian);
-                    $potongans=$_POST['PotonganGaji']['potong'];
+                    $potongans=$_POST['TransaksiPenggajian']['potong'];
                     if(!empty($potongans) && isset($potongans) && is_array($potongans)){
                         foreach($potongans as $row){
                             $potongangaji=new PotonganGaji();
@@ -134,6 +134,7 @@ class TransaksiPenggajianController extends Controller
                                 $modelref=new MReferensi;
                                 $modelref->nama_referensi=$row['potongan_desc'];
                                 $modelref->tipe_referensi=13;
+                                $modelref->status=1;
                                 $modelref->save(false);
                             }
                         }
@@ -173,7 +174,7 @@ class TransaksiPenggajianController extends Controller
                     $transaksipenggajian->save(false);
                     $flag = true;
                     $err=Html::errorSummary($transaksipenggajian);
-                    $potongans=$_POST['PotonganGaji']['potong'];
+                    $potongans=$_POST['TransaksiPenggajian']['potong'];
                     if(!empty($potongans) && isset($potongans) && is_array($potongans)){
                         foreach($potongans as $row){
                             $potongangaji=new PotonganGaji();
@@ -193,6 +194,7 @@ class TransaksiPenggajianController extends Controller
                                 $modelref=new MReferensi;
                                 $modelref->nama_referensi=$row['potongan_desc'];
                                 $modelref->tipe_referensi=13;
+                                $modelref->status=1;
                                 $modelref->save(false);
                             }
                         }
@@ -245,29 +247,72 @@ class TransaksiPenggajianController extends Controller
                     $transaksipenggajian->save(false);
                     $flag = true;
                     $err=Html::errorSummary($transaksipenggajian);
-                    $potongans=$_POST['PotonganGaji']['potong'];
+                    $potongans=$_POST['TransaksiPenggajian']['potong'];
                     if(!empty($potongans) && isset($potongans) && is_array($potongans)){
-                        foreach($potongans as $row){
-                            $potongangaji=new PotonganGaji();
-                            $potongangaji->attributes=$row;
-                            $transaksipenggajian->link('potongangajis', $potongangaji);
-                            $potongangaji->save(false);
-                            if(!($flag=$potongangaji->save())){
-                                $transaction->rollBack();
-                                $err=Html::errorSummary($potongangaji);
-                                break;
+                        if(($allpotongan=ArrayHelper::map(PotonganGaji::findAll(['transgaji_id'=>$transaksipenggajian->transgaji_id]),'potongan_id','potongan_id'))!==null){
+                            $key=ArrayHelper::map($potongans,'potongan_id','potongan_id');
+                            if(($diff=array_diff_key($allpotongan,$key))!==null){
+                                if(!(PotonganGaji::deleteAll(['and', 'transgaji_id = :member', ['in', 'potongan_id', $diff]], [':member' =>$transaksipenggajian->transgaji_id]))){
+                                    //PotonganGaji::updateAll(['aktif'=>'0'],['in','potongan_id',$diff]);//soft delete
+                                }
                             }
-                            $tipereff=new \yii\db\Expression('lower(t.nama_reff_tipe)');
-                            $namereff=new \yii\db\Expression('lower(nama_referensi)');
-                            $reff=MReferensi::find()->joinWith('tipeReferensi as t')->where(['like',$tipereff,'potongan'])->andWhere(['like',$namereff,strtolower($row['potongan_desc'])])->one();
-                            is_object($reff)?$ref=$reff->nama_referensi:$ref=$reff;
-                            if(empty($ref)){//insert to ref jenis potongan 13
-                                $modelref=new MReferensi;
-                                $modelref->nama_referensi=$row['potongan_desc'];
-                                $modelref->tipe_referensi=13;
-                                $modelref->save(false);
+                            foreach($potongans as $i=>$kid){
+                                if(array_key_exists($kid['potongan_id'],$allpotongan)){//update
+                                    if (($pots = PotonganGaji::findOne($kid['potongan_id'])) !== null) {//on exist update
+                                        $pots->attributes=$kid;
+                                        $pots->save();
+                                        }
+                                }else{//insert new
+                                    $pots=new PotonganGaji();
+                                    $pots->attributes=$kid;
+                                    $transaksipenggajian->link('potongangajiss', $pots);
+                                    $pots->save();
+
+                                    $tipereff=new \yii\db\Expression('lower(t.nama_reff_tipe)');
+                                    $namereff=new \yii\db\Expression('lower(nama_referensi)');
+                                    $reff=MReferensi::find()->joinWith('tipeReferensi as t')->where(['like',$tipereff,'potongan'])->andWhere(['like',$namereff,strtolower($kid['potongan_desc'])])->one();
+                                    is_object($reff)?$ref=$reff->nama_referensi:$ref=$reff;
+                                    if(empty($ref)){//insert to ref jenis potongan 13
+                                        $modelref=new MReferensi;
+                                        $modelref->nama_referensi=$kid['potongan_desc'];
+                                        $modelref->tipe_referensi=13;
+                                        $modelref->status=1;
+                                        $modelref->save(false);
+                                    }
+                                    if(!($flag=$pots->save())){
+                                        $transaction->rollBack();
+                                        $err=Html::errorSummary($pots);
+                                        break;
+                                    }
+                                }
+                            }
+                        }else{
+                            foreach(array_keys($potongans) as $kid){//insert new
+                                $pots=new PotonganGaji();
+                                $pots->attributes=$potongans[$kid];
+                                $transaksipenggajian->link('potongangajiss', $pots);
+                                $pots->save();
+
+                                $tipereff=new \yii\db\Expression('lower(t.nama_reff_tipe)');
+                                $namereff=new \yii\db\Expression('lower(nama_referensi)');
+                                $reff=MReferensi::find()->joinWith('tipeReferensi as t')->where(['like',$tipereff,'potongan'])->andWhere(['like',$namereff,strtolower($kid['potongan_desc'])])->one();
+                                is_object($reff)?$ref=$reff->nama_referensi:$ref=$reff;
+                                if(empty($ref)){//insert to ref jenis potongan 13
+                                    $modelref=new MReferensi;
+                                    $modelref->nama_referensi=$kid['potongan_desc'];
+                                    $modelref->tipe_referensi=13;
+                                    $modelref->status=1;
+                                    $modelref->save(false);
+                                }
+
+                                if(!($flag=$pots->save())){
+                                    $transaction->rollBack();
+                                    $err=Html::errorSummary($pots);
+                                    break;
+                                }
                             }
                         }
+
                     }
                     if(!$flag){
                         return ['title'=> "eror",'content'=>$err];

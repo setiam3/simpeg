@@ -9,7 +9,7 @@ class MBiodataSearch extends MBiodata
     {
         return [
             [['id_data', 'parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'integer'],
-            [['nip', 'nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'agama', 'telp', 'email', 'statusPerkawinan', 'gelarDepan', 'gelarBelakang', 'nik', 'foto', 'fotoNik', 'golonganDarah', 'is_pegawai'], 'safe'],
+            [['nip','nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'agama', 'telp', 'email', 'statusPerkawinan', 'gelarDepan', 'gelarBelakang', 'nik', 'foto', 'fotoNik', 'golonganDarah','jenis_pegawai', 'is_pegawai'], 'safe'],
         ];
     }
     public function scenarios()
@@ -26,6 +26,7 @@ class MBiodataSearch extends MBiodata
         if (!$this->validate()) {
             return $dataProvider;
         }
+        $query->joinWith('jenispegawai as j');
         $query->andFilterWhere([
             'id_data' => $this->id_data,
             'parent_id' => $this->parent_id,
@@ -51,6 +52,7 @@ class MBiodataSearch extends MBiodata
             ->andFilterWhere(['ilike', 'foto', $this->foto])
             ->andFilterWhere(['ilike', 'fotoNik', $this->fotoNik])
             ->andFilterWhere(['ilike', 'golonganDarah', $this->golonganDarah])
+            ->andFilterWhere(['ilike', 'j.nama_referensi', $this->jenis_pegawai])
             ->andFilterWhere(['ilike', 'is_pegawai', $this->is_pegawai]);
         return $dataProvider;
     }

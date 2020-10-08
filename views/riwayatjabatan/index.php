@@ -7,8 +7,8 @@ use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
-$this->title = 'Riwayatjabatan';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->title = 'Riwayatjabatan';
+//$this->params['breadcrumbs'][] = $this->title;
 CrudAsset::register($this);
 
 $idmodal = md5($dataProvider->query->modelClass);

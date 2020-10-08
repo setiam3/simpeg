@@ -9,7 +9,8 @@ class JatahcutiSearch extends Jatahcuti
     public function rules()
     {
         return [
-            [['id', 'id_data', 'jumlah', 'sisa'], 'integer'],
+            [['id', 'sisa'], 'integer'],
+            [['id_data'],'safe']
         ];
     }
     public function scenarios()
@@ -22,16 +23,16 @@ class JatahcutiSearch extends Jatahcuti
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $query->joinWith('data as d');
         $this->load($params);
         if (!$this->validate()) {
             return $dataProvider;
         }
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_data' => $this->id_data,
-            'jumlah' => $this->jumlah,
             'sisa' => $this->sisa,
         ]);
+        $query->andFilterWhere(['like', 'd.nama', $this->id_data]);
         return $dataProvider;
     }
 }

@@ -1,18 +1,11 @@
 <?php
-
 use yii\helpers\Html;
-
 $notifDOK = \Yii::$app->tools->getNotifdokumen();
-/* @var $this \yii\web\View */
-/* @var $content string */
-//$kgb=\Yii::$app->tools->notifKenaikanGaji();
-//var_dump($notifDOK);
-//die();
 $this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
  function loadDoc() {
      $.ajax({
-         url:"'.yii\helpers\Url::home().'site/notifdoc/",
+         url:baseurl+"site/notifdoc",
          method:"POST",
          dataType:"json",
          success:function(data){
@@ -20,27 +13,27 @@ $this->registerJs('$("document").ready(function(){
          }
      })
  }
- 
+
  $(document).on("click", ".dropdown-toggle", function(){
   $.ajax({
-   url:"'.yii\helpers\Url::home().'site/lisnotifdok",
-   method:"GET",    
+   url:baseurl+"site/lisnotifdok",
+   method:"GET",
    success:function(data){
         $(".dok").html(data);
    }
   })
  });
- 
+
 // setInterval(function(){
     loadDoc()
     notifgaji()
     countpangkat()
 // },5000)
- 
- 
+
+
  function notifgaji(){
      $.ajax({
-         url:"'.yii\helpers\Url::home().'site/notifgaji/",
+         url:baseurl+"site/notifgaji/",
          method:"GET",
          dataType:"json",
          success:function(data){
@@ -48,10 +41,10 @@ $this->registerJs('$("document").ready(function(){
          }
      })
  }
- 
+
   $(document).on("click", ".dropdown-toggle", function(){
       $.ajax({
-           url:"'.yii\helpers\Url::home().'site/listgaji",
+           url:baseurl+"site/listgaji",
            method:"GET",
            dataType:"json",
            success:function(data){
@@ -59,22 +52,21 @@ $this->registerJs('$("document").ready(function(){
            }
       })
  });
- 
+
  function countpangkat() {
      $.ajax({
-         url:"'.yii\helpers\Url::home().'site/kenaikanpangkat/",
+         url:baseurl+"site/kenaikanpangkat/",
          method:"POST",
          dataType:"json",
          success:function(data){
-         console.log(data);
          $("#count-notif-pang").html(data);
          }
      })
  }
- 
+
   $(document).on("click", ".dropdown-toggle", function(){
       $.ajax({
-           url:"'.yii\helpers\Url::home().'site/lisenaikanpangkat",
+           url:baseurl+"site/lisenaikanpangkat",
            method:"get",
            dataType:"json",
            success:function(data){
@@ -82,7 +74,7 @@ $this->registerJs('$("document").ready(function(){
            }
       })
  });
- 
+
  });');
 
 ?>
@@ -100,20 +92,6 @@ $this->registerJs('$("document").ready(function(){
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-
-                <!--                <li class="dropdown">-->
-                <!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                <!--                    <ul class="dropdown-menu">-->
-                <!--                        <li><a href="#">Action</a></li>-->
-                <!--                        <li><a href="#">Another action</a></li>-->
-                <!--                        <li><a href="#">Something else here</a></li>-->
-                <!--                        <li role="separator" class="divider"></li>-->
-                <!--                        <li><a href="#">Separated link</a></li>-->
-                <!--                        <li role="separator" class="divider"></li>-->
-                <!--                        <li><a href="#">One more separated link</a></li>-->
-                <!--                    </ul>-->
-                <!--                </li>-->
-
                 <!-- Messages: style can be found in dropdown.less-->
                 <!--notif dokumen-->
                 <li class="dropdown">
@@ -151,7 +129,6 @@ $this->registerJs('$("document").ready(function(){
                     </ul>
                 </li>
                 <!-- Tasks: style can be found in dropdown.less -->
-
 
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle">
@@ -279,89 +256,3 @@ $this->registerJs('$("document").ready(function(){
         </div>
     </nav>
 </header>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-    // function loadDoc() {
-    //     setInterval(function () {
-    //         var xhttp = new XMLHttpRequest();
-    //         xhttp.onreadystatechange = function() {
-    //             if (this.readyState == 4 && this.status == 200) {
-    //                 document.getElementById("count_notif").innerHTML = this.responseText;
-    //             }
-    //         };
-    //         xhttp.open("GET", "site/notifdoc", true);
-    //         xhttp.send();
-    //     },1000)
-    // }loadDoc();
-</script>
-
-
-
-
-
-
-
-
-<!--<script>-->
-<!--    // function loadDoc() {-->
-<!--    //     setInterval(function () {-->
-<!--    //         var xhttp = new XMLHttpRequest();-->
-<!--    //         xhttp.onreadystatechange = function() {-->
-<!--    //             if (this.readyState == 4 && this.status == 200) {-->
-<!--    //                 document.getElementById("count_notif").innerHTML = this.responseText;-->
-<!--    //             }-->
-<!--    //         };-->
-<!--    //         xhttp.open("GET", "site/notifdoc", true);-->
-<!--    //         xhttp.send();-->
-<!--    //     },5000)-->
-<!--    //-->
-<!--    // }-->
-<!--    //-->
-<!--    // loadDoc();-->
-<!--    //-->
-<!--    // $(document).ready(function () {-->
-<!--    //     // $('#count_notif').load(function () {-->
-<!--    //         $.get(-->
-<!--    //             "site/notifdoc",-->
-<!--    //             function (data) {-->
-<!--    //                 console.log(data);-->
-<!--    //                 // $('#count_notif').html(data);-->
-<!--    //             }-->
-<!--    //         )-->
-<!--    //     // })-->
-<!--    // })-->
-<!---->
-<!--    // $(document).ready(function () {-->
-<!--    //     $('#list_notif').click(function () {-->
-<!--    //         $.ajax({-->
-<!--    //             type:'get',-->
-<!--    //             url:'site/ListNotifDoc',-->
-<!--    //             success: function (data) {-->
-<!--    //                 console.log(data);-->
-<!--    //                 // $('#sisaijin').html(data);-->
-<!--    //             }-->
-<!--    //         })-->
-<!--    //     })-->
-<!--    // })-->
-<!---->
-<!--</script>-->

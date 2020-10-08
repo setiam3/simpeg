@@ -5,9 +5,9 @@ use yii\widgets\ActiveForm;
 use kartik\typeahead\TypeaheadBasic;
 use kartik\typeahead\Typeahead;
 use unclead\multipleinput\MultipleInput;
+use unclead\multipleinput\MultipleInputColumn;
 
-$this->registerJs(
-    "
+$this->registerJs("
     function calculate(){
         $('.multiple-input-list').each(function(){
         var potongan = 0;
@@ -18,12 +18,16 @@ $this->registerJs(
         });
         gajinetto();
     }
+    jQuery(document).ready(function(){
+    calculate();
+    });
     "
 );
 $form = ActiveForm::begin();
 echo $form->field($model, 'potong')->widget(MultipleInput::className(), [
     'data'=>$model->isNewRecord?'':$potongangaji,
     'columns' => [
+        ['name'=>'potongan_id','type'=>MultipleInputColumn::TYPE_HIDDEN_INPUT],
         [
             'name'  => 'potongan_desc',
             'type'  => kartik\typeahead\Typeahead::className(),
@@ -48,6 +52,14 @@ echo $form->field($model, 'potong')->widget(MultipleInput::className(), [
             'options' => [
                 'class' => 'input-priority',
                 'onkeyup'=>'calculate()',
+            ]
+        ],
+        [
+            'name'  => 'keterangan',
+            'title' => 'Keterangan',
+            'enableError' => true,
+            'options' => [
+                'class' => 'input-priority',
             ]
         ]
     ]

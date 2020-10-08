@@ -24,6 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
             return $data->gelarDepan.' '.$data->nama.' '.$data->gelarBelakang;
         }],
         'tempatLahir',
+        [
+            'class' => 'kartik\grid\DataColumn',
+            'attribute'=>'jenis_pegawai',
+            'value'=>'jenispegawai.nama_referensi',
+            'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
+            'filter' =>\yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi'=>'1','status'=>'1'])->all(), 'nama_referensi','nama_referensi'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => 'jenis pegawai'],
+        ],
         ['class' => 'yii\grid\ActionColumn',
             'header'=>'Action',
             'headerOptions'=>['class'=>'skip-export'],

@@ -71,6 +71,10 @@ class BiodataController extends Controller
                 $model->fotoNik = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
             }
             $model->save();
+            $jatahcuti=new Jatahcuti();
+            $jatahcuti->id_data=$model->id_data;
+            $jatahcuti->sisa=12;
+            $jatahcuti->save(false);
             return $this->redirect(['view', 'id' => $model->id_data]);
         }
         return $this->render('create', [

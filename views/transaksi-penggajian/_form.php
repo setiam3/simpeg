@@ -34,6 +34,7 @@ if($transaksipenggajian->isNewRecord){
         });"
     );
 }
+
 $this->registerJs("
     var gapok={'netto':[],'totaltunjangan':[],'potongan':[]};
         function gettunjangan(id){
@@ -46,7 +47,7 @@ $this->registerJs("
                 var totaltunjangan=$('.totaltunjangan').val();
                 gapok.totaltunjangan.push(totaltunjangan);
                 getgajipokok(id);
-                getpinjaman(id);
+                //getpinjaman(id);
             });
         }
         function getgajipokok(id){
@@ -83,8 +84,9 @@ $this->registerJs("
                 $('.tabpinjaman').html(data);
             });
         }
+
         gettunjangan($('#transaksipenggajian-data_id').val());
-        getpinjaman($('#transaksipenggajian-data_id').val());
+        //getpinjaman($('#transaksipenggajian-data_id').val());
         $(document).on('shown.bs.tab', 'a[data-toggle=\"tab\"]', function (e) {
             var tab = $(e.target);
             var contentId = tab.attr(\"href\");
@@ -145,8 +147,7 @@ $this->registerJs("
             'items' => [
                 [
                     'label' => 'Potongan',
-                    'content' => '<div class="tabpotongan">'.
-                    $frmpot.'</div>',
+                    'content' => '<div class="tabpotongan">'.$frmpot.'</div>',
                     'active'=>true,
                 ],
                 [

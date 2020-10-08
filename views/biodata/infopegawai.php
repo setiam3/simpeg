@@ -85,9 +85,7 @@ use yii\helpers\Html;
                     'label' => 'Gaji',
                     'content' => $this->render('//transaksi-penggajian/index', [
                         'searchModel' => $searchModelgaji,
-
                         'klikedid' => $model->id_data,
-
                         'dataProvider' => $searchModelgaji->search(Yii::$app->request->queryParams, ['data_id' => $model->id_data])
                     ]),
                 ],
@@ -112,14 +110,13 @@ use yii\helpers\Html;
                     'content' => $this->render('//riwayatpendidikan/index', [
                         'searchModel' => $searchModelpendidikan,
                         'klikedid' => $model->id_data,
-
-                        'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                        'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['riwayatpendidikan.id_data' => $model->id_data])
                     ]),
                 ],
             ],
         ]);
         $this->title = "Biodata Pegawai";
-        //$this->params['breadcrumbs'][] = '';
+        $this->params['breadcrumbs'][] = '';
         ?>
     </div>
 </div>

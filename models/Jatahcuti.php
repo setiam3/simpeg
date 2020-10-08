@@ -10,9 +10,9 @@ class Jatahcuti extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_data', 'jumlah', 'sisa'], 'required'],
-            [['id_data', 'jumlah', 'sisa'], 'default', 'value' => null],
-            [['id_data', 'jumlah', 'sisa'], 'integer'],
+            [['id_data', 'sisa'], 'required'],
+            [['id_data', 'sisa'], 'default', 'value' => null],
+            [['id_data', 'sisa'], 'integer'],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
         ];
     }
@@ -20,8 +20,7 @@ class Jatahcuti extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_data' => 'Id Data',
-            'jumlah' => 'Jumlah',
+            'id_data' => 'Nama Pegawai',
             'sisa' => 'Sisa',
         ];
     }

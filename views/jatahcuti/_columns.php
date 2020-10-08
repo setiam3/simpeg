@@ -10,17 +10,10 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'jumlah',
+        'value'=>'data.namalengkap'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -30,7 +23,7 @@ return [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { 
+        'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
@@ -59,4 +52,4 @@ return [
         ],
     ],
 
-];   
+];

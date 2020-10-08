@@ -3,7 +3,6 @@ namespace app\models;
 use Yii;
 class MBiodata extends \yii\db\ActiveRecord
 {
-    //public $namalengkap;
     public static function tableName()
     {
         return 'm_biodata';
