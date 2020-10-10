@@ -62,8 +62,39 @@ class Tools extends \yii\bootstrap\Widget
     $im->clear();
     $im->destroy();
   }
-  public function getSisaijin($iddata,$tglmulai,$tglakhir){
+  function getWorkingDays($startDate,$endDate,$holidays) {
+    $endDate = strtotime($endDate);
+    $startDate = strtotime($startDate);
+    $days = ($endDate - $startDate) / 86400 + 1;
+    $no_full_weeks = floor($days / 7);
+    $no_remaining_days = fmod($days, 7);
+    $the_first_day_of_week = date("N", $startDate);
+    $the_last_day_of_week = date("N", $endDate);
+    if ($the_first_day_of_week <= $the_last_day_of_week) {
+        //if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
+        if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
+    }else {
+        if ($the_first_day_of_week == 7) {
+            $no_remaining_days--;
+            // if ($the_last_day_of_week == 6) {
+            //     // if the end date is a Saturday, then we subtract another day
+            //     $no_remaining_days--;
+            // }
+        }else {
+            $no_remaining_days -= 1;
+        }
+    }
+   $workingDays = $no_full_weeks * 6;//6hari kerja
+    if ($no_remaining_days > 0 ){
+      $workingDays += $no_remaining_days;
+    }
+    foreach($holidays as $holiday){
+        $time_stamp=strtotime($holiday);
+        if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 7 && date("N",$time_stamp) != 7)
+            $workingDays--;
+    }
 
+    return $workingDays;
   }
 
   public function getUsia($date)
@@ -182,8 +213,6 @@ AND (\"is_pegawai\" = '1')
     foreach ($currentrole as $roles) {
       $role[] = ['name' => $roles->name];
     }
-
-
     return ArrayHelper::map($role, 'name', 'name');
   }
 

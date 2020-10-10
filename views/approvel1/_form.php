@@ -1,10 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Pengajuanijin */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="pengajuanijin-form">
@@ -31,6 +27,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'alasan')->textArea(['readonly' => true,]) ?>
 
     <?= $form->field($model, 'jenisIjin')->textInput(['maxlength' => true,'readonly' => true,]) ?>
+    <?= $form->field($model, 'keterangan')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'approval1')->widget(\kartik\widgets\SwitchInput::classname(),['pluginOptions'=>[
         'handleWidth'=>60,'onText'=>'Setujuhi','offText'=>'Tidak'

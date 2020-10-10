@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 class Approvel2Controller extends Controller
 {
     public function behaviors()
@@ -25,7 +26,12 @@ class Approvel2Controller extends Controller
     }
     public function actionIndex()
     {
-        $where = 'approval1 != 0 and approval2 IS NULL';
+        $role = \Yii::$app->tools->getcurrentroleuser();
+        if(ArrayHelper::keyExists('approval2', $role)){
+            $where='disetujui IS NULL';
+        }else{
+            $where = 'approval1 != 0 and approval2 IS NULL ';
+        }
         $searchModel = new Approvel2Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$where);
         return $this->render('index', [
@@ -115,14 +121,16 @@ class Approvel2Controller extends Controller
                 if ($model->approval2 == 1){
                     $model->approval2 = \Yii::$app->user->identity->id_data;
                     $model->disetujui = "1";
-                    $tglAkhir = date_create($model->tanggalAkhir);
-                    $tglMulai = date_create($model->tanggalMulai);
-                    $interval = date_diff($tglMulai,$tglAkhir);
-                    $sisa = $interval->format('%a');
-                    $datas = Jatahcuti::findOne(['id_data' => $model->id_data]);
-                    $datas->sisa = $datas->sisa - (int) $sisa;
-                    $model->save(false);
-                    $datas->save(false);
+                    $holidays=ArrayHelper::map(\app\models\Hariliburnasional::find()->all(),'tanggal','tanggal');
+                    $diajukan=Yii::$app->tools->getWorkingDays($model->tanggalMulai,$model->tanggalAkhir,$holidays);
+                    if(($sisa=Jatahcuti::find()->where(['id_data'=>$model->id_data])->one())!==null && $sisa->sisa>=$diajukan){
+                        $sisa->sisa-=$diajukan;
+                        $sisa->save(false);
+                    }else{
+                        return ['title'=>'error',
+                            'content'=>'sisa ijin tidak cukup / jumlah hari yg diajukan salah'
+                        ];
+                    }
                 }elseif ($model->approval2 == 0){
                     $model->approval2 = \Yii::$app->user->identity->id_data;
                     $model->disetujui = "0";
@@ -148,13 +156,13 @@ class Approvel2Controller extends Controller
                 ];
             }
         }else{
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-            }
+            // if ($model->load($request->post()) && $model->save()) {
+            //     return $this->redirect(['view', 'id' => $model->id]);
+            // } else {
+            //     return $this->render('update', [
+            //         'model' => $model,
+            //     ]);
+            // }
         }
     }
     public function actionDelete($id)

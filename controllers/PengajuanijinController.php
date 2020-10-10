@@ -2,6 +2,7 @@
 namespace app\controllers;
 use Yii;
 use DateTime;
+use app\models\Jatahcuti;
 use app\models\Pengajuanijin;
 use app\models\PengajuanijinSearch;
 use yii\web\Controller;
@@ -9,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 class PengajuanijinController extends Controller
 {
     public function behaviors()
@@ -75,20 +77,24 @@ class PengajuanijinController extends Controller
                 ];
             }else if($model->load($request->post())){
                 $model->tanggalPengajuan = date('Y-m-d');
-                $datetime1 = new DateTime($model->tanggalAkhir);
-                $datetime2 = new DateTime($model->tanggalMulai);
-                $diff = $datetime1->diff($datetime2)->d;
-                print_r($diff);
-                print_r($model);
-                //$model->save(false);
-
-                return [
-                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
-                    'title'=> "Create new Pengajuanijin",
-                    'content'=>'<span class="text-success">Create Pengajuanijin success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
-                ];
+                $holidays=ArrayHelper::map(\app\models\Hariliburnasional::find()->all(),'tanggal','tanggal');
+                $diajukan=Yii::$app->tools->getWorkingDays($model->tanggalMulai,$model->tanggalAkhir,$holidays);
+                if(($sisa=Jatahcuti::find()->where(['id_data'=>$model->id_data])->one())!==null && $sisa->sisa>=$diajukan){
+                    // $sisa->sisa-=$diajukan;
+                    // $sisa->save(false);
+                    $model->save(false);
+                    return [
+                        'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                        'title'=> "Create new Pengajuanijin",
+                        'content'=>'<span class="text-success">Create Pengajuanijin success</span>',
+                        'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                    ];
+                }else{
+                    return ['title'=>'error',
+                        'content'=>'sisa ijin tidak cukup / jumlah hari yg diajukan salah'
+                    ];
+                }
             }else{
                 return [
                     'title'=> "Create new Pengajuanijin",

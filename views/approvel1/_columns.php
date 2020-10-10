@@ -1,8 +1,6 @@
 <?php
-
 use yii\helpers\Url;
 use yii\helpers\Html;
-
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
@@ -14,9 +12,9 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'unit kerja',
-        'value' => 'data.riwayatjabatan.jabatan.nama_referensi'
-
+        'attribute' => 'id_data',
+        'value' => 'data.riwayatjabatan.jabatan.nama_referensi',
+        'label'=>'Jabatan'
     ],
     [
         'class' => '\kartik\grid\DataColumn',
@@ -39,23 +37,6 @@ return [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'alasan',
     ],
-
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'approval1',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'approval2',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'disetujui',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'jenisIjin',
-    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

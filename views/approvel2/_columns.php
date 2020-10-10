@@ -1,61 +1,47 @@
 <?php
-
 use yii\helpers\Url;
 use yii\helpers\Html;
-
 return [
     [
         'class' => 'kartik\grid\CheckboxColumn',
         'width' => '20px',
-    ],
-    [
+    ],[
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'unit',
-        'value'=>'data.riwayatjabatan.jabatan.nama_referensi'
     ],[
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'Nama Pegawai',
+        'attribute'=>'unit',
+        'value'=>'data.riwayatjabatan.unitKerja.unit',
+        'label'=>'Unit Kerja'
+    ],[
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'jabatan',
+        'value'=>'data.riwayatjabatan.jabatan.nama_referensi',
+        'label'=>'Jabatan'
+    ],[
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'id_data',
         'value' => 'data.namalengkap',
-    ],
-    [
+    ],[
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'tanggalPengajuan',
-    ],
-    [
+    ],[
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'tanggalMulai',
-    ],
-    [
+    ],[
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'tanggalAkhir',
-    ],
-    [
+    ],[
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'alasan',
-    ],
-
-    [
+    ],[
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'approval1',
-        'value' => 'approval10.nama',
-    ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'approval2',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'disetujui',
-    // ],
-    // [
-    // 'class'=>'\kartik\grid\DataColumn',
-    // 'attribute'=>'jenisIjin',
-    // ],
-    [
+        'value' => 'approval10.namalengkap',
+    ],[
+        'class' => '\kartik\grid\DataColumn',
+        'attribute' => 'disetujui',
+    ],[
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign' => 'middle',

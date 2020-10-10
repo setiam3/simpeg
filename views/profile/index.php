@@ -97,14 +97,14 @@ use yii\helpers\Html;
                     'label' => 'Pendidikan',
                     'content' => $this->render('//riwayatpendidikan/index', [
                         'searchModel' => $searchModelpendidikan,
-                        'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                        'dataProvider' => $searchModelpendidikan->search(Yii::$app->request->queryParams, ['riwayatpendidikan.id_data' => $model->id_data])
                     ]),
                 ],
                 [
                     'label' => 'Pengajuan Ijin',
                     'content' => $this->render('//pengajuanijin/index', [
                         'searchModel' => $searchModelpengajuanijin,
-                        'dataProvider' => $searchModelpengajuanijin->search(Yii::$app->request->queryParams, ['id_data' => $model->id_data])
+                        'dataProvider' => $searchModelpengajuanijin->search(Yii::$app->request->queryParams, ['pengajuanijin.id_data' => $model->id_data])
                     ]),
                 ],
             ],
