@@ -62,6 +62,9 @@ class Tools extends \yii\bootstrap\Widget
     $im->clear();
     $im->destroy();
   }
+  public function getSisaijin($iddata,$tglmulai,$tglakhir){
+
+  }
 
   public function getUsia($date)
   {
@@ -135,8 +138,8 @@ class Tools extends \yii\bootstrap\Widget
 
   public function ultahPegawai()
   { // month year
-    $sql = 'SELECT * FROM m_biodata 
-WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER 
+    $sql = 'SELECT * FROM m_biodata
+WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
 AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
 
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();

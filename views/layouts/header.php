@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
-$notifDOK = \Yii::$app->tools->getNotifdokumen();
-$this->registerJsVar('baseurl', yii\helpers\Url::home());
-$this->registerJs('$("document").ready(function(){
+//$notifDOK = \Yii::$app->tools->getNotifdokumen();
+//$this->registerJsVar('baseurl', yii\helpers\Url::home());
+/*$this->registerJs('$("document").ready(function(){
  function loadDoc() {
      $.ajax({
          url:baseurl+"site/notifdoc",
@@ -76,7 +76,7 @@ $this->registerJs('$("document").ready(function(){
  });
 
  });');
-
+*/
 ?>
 
 <header class="main-header">

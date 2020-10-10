@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Jatahcuti */
 ?>
 <div class="jatahcuti-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_data',
-            'jumlah',
+            ['attribute'=>'id_data','value'=>function($model){
+                return $model->data->namalengkap;
+            }],
             'sisa',
         ],
     ]) ?>

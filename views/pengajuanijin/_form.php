@@ -7,9 +7,9 @@ $this->registerJsVar('baseurl',yii\helpers\Url::home());
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
     $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
-    $parent = [$data->id_data => $data->nama];
+    $parent = [$data->id_data => $data->namalengkap];
 } else {
-    $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
+    $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'namalengkap');
 }
 ?>
 

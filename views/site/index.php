@@ -10,7 +10,6 @@ $populasi=\Yii::$app->tools->grafikPopulasi();
 $jenispegawai=\Yii::$app->tools->gjenisPegawai();
 $golpeg=\Yii::$app->tools->golonganPegawai();
 $kategori=\Yii::$app->tools->kategori();
-//print_r($kategori);die();
 $pegultah=\Yii::$app->tools->ultahPegawai();
 $pensiun=\Yii::$app->tools->nextPensiun();
 
@@ -40,10 +39,6 @@ if(empty($golpeg)){
         $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
     }
 }
-
-//$this->registerCssFile('@vendor/almasaeed2010/adminlte/bower_components/datatables.net-bs/css/dataTable.bootstrap.css');
-//$this->registerJsFile('@vendor/almasaeed2010/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js');
-//$this->registerJsFile('@vendor/almasaeed2010/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');
 ?>
 <section class="content">
     <div class="row">
