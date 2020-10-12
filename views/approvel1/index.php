@@ -25,6 +25,17 @@ $idmodal=md5($dataProvider->query->modelClass);
             'pjax'=>true,
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
+                'content'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp;',
+                    ["bulkacc"] ,
+                    [
+                        "class"=>"btn btn-danger btn-md",
+                        'role'=>'modal-remote-bulk',
+                        'data-target'=>'#'.$idmodal,
+                        'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
+                        'data-request-method'=>'post',
+                        'data-confirm-title'=>'Are you sure?',
+                        'data-confirm-message'=>'Are you sure want to delete this item'
+                    ]),
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
