@@ -118,7 +118,6 @@ class Tools extends \yii\bootstrap\Widget
         $icon[] = ['key' => $k, 'value' => $typeicons . ' ' . $value];
       }
     } else {
-      //$path=\Yii::getAlias('@webroot/css/fa-4.7.0.yml');
       $path = \Yii::getAlias('@webroot/css/icons.yml');
       $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($path));
 
@@ -126,7 +125,6 @@ class Tools extends \yii\bootstrap\Widget
         $icon[] = ['key' => $k, 'value' => $typeicons . $k];
       }
     }
-
 
     return $icon;
   }
@@ -157,11 +155,9 @@ class Tools extends \yii\bootstrap\Widget
       ->select('nama_referensi,count(nama_referensi) as jumlah')
       ->joinWith(['kepangkatans' => function ($query) {
         $query->joinWith(['penggolongangaji' => function ($query) {
-          $query->joinWith('jenisPegawai');
+          $query->joinWith('pangkat');
         }]);
       }])
-      //            ->joinWith('penggolongangaji')
-      //            ->joinWith('jenisPegawai')
       ->groupBy("nama_referensi")
       ->createCommand()
       ->queryAll();
@@ -177,13 +173,6 @@ AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTE
   }
   public function nextPensiun()
   { // akan pensiun 1 jenis pegawai pns --kode pegawai pns  --kode pegawai 2 blud, 3 freelend --1 jenis pegawai pns
-//      $sql = "SELECT * FROM m_biodata
-//        WHERE date_part('YEAR', NOW()) - date_part('YEAR', 'tanggalLahir') IN ('59','60')
-//          AND jenis_pegawai = '1'
-//          AND is_pegawai = '1'
-//          OR date_part('YEAR', NOW()) - date_part('YEAR', 'tanggalLahir') IN ('49','50')
-//          AND jenis_pegawai IN ('3','2')
-//          AND is_pegawai = '1'";
 
       $sql = "SELECT * FROM m_biodata
 WHERE (EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM \"tanggalLahir\") IN (59,60))
@@ -193,16 +182,7 @@ or (EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM \"tanggalLahir\") IN (49,50))
 AND (\"jenis_pegawai\" in ('3','2'))
 AND (\"is_pegawai\" = '1')
 ";
-//$where = new Expression('EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tanggalLahir")');
-//      $sql = MBiodata::find()
-//          ->where(['=','is_pegawai','1'])
-//          ->where(['in',$where,['59','60']])
-//          ->where(['=','jenis_pegawai',1])
-//          ->orWhere(['in',$where,['49','50']])
-//          ->where(['in','jenis_pegawai',['3','2']])
-//          ->all();
       return
-//          $sql;
           $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
 
   }
@@ -262,7 +242,6 @@ AND (\"is_pegawai\" = '1')
       $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
       $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
       $data = Riwayatpendidikan::find()
-//          ->join('join','m_biodata','riwayatpendidikan.id_data = m_biodata.id_data')
           ->joinWith('data')
           ->where(['is not','tgl_berlaku_ijin',null])
           ->andWhere($where)
@@ -283,8 +262,6 @@ AND (\"is_pegawai\" = '1')
         $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
         $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
         $data = Riwayatpendidikan::find()
-//            ->select('m_biodata.nama, tgl_berlaku_ijin')
-//            ->join('join','m_biodata','riwayatpendidikan.id_data = m_biodata.id_data')
             ->joinWith('data')
             ->where(['is not','tgl_berlaku_ijin',null])
             ->andWhere($where)
@@ -294,7 +271,6 @@ AND (\"is_pegawai\" = '1')
             ->all();
         return $data;
     }
-
     public function kategori(){
 
       $datas = MReferensi::find()->select('nama_referensi')->where(['tipe_referensi'=>'6'])->createCommand()

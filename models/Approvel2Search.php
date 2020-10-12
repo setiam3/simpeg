@@ -24,10 +24,27 @@ class Approvel2Search extends Pengajuanijin
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->setSort([
+            'attributes' => array_merge(
+                $dataProvider->getSort()->attributes,
+                [
+                    'unit' => [
+                        'asc'     => ['u.unit' => SORT_ASC],
+                        'desc'    => ['u.unit' => SORT_DESC],
+                    ],
+                    'jabatan'   => [
+                        'asc'  => ['j.nama_referensi' => SORT_ASC],
+                        'desc' => ['j.nama_referensi' => SORT_DESC],
+                    ],
+                ]
+            ),
+        ]);
+
         $this->load($params);
         if (!$this->validate()) {
             return $dataProvider;
         }
+
         $query->joinWith(['data as d'=>function($q){
             $q->joinWith(['riwayatjabatan as r'=>function($q){
                 $q->joinWith('jabatan as j');

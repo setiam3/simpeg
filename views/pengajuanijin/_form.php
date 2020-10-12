@@ -4,10 +4,27 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 $this->registerJsVar('baseurl',yii\helpers\Url::home());
+$this->registerJs("
+function getsisa(id){
+    $.get(
+        baseurl+'site/sisaijin',
+        {id: id},
+        function (data) {
+            $('#sisaijin').html('Sisa Ijin: '+data);
+        }
+    );
+    return false;
+}
+            ");
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
     $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
     $parent = [$data->id_data => $data->namalengkap];
+    $this->registerJs("
+        jQuery(document).ready(function(){
+            getsisa($('#pengajuanijin-id_data').val());
+        });
+    ");
 } else {
     $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'namalengkap');
 }
@@ -24,14 +41,7 @@ if (in_array('karyawan', $role)) {
         ],
         'pluginEvents' => [
             "change" => "function() {
-            $.get(
-                baseurl+'site/sisaijin',
-                {id: $('#pengajuanijin-id_data').val()},
-                function (data) {
-                    $('#sisaijin').html('Sisa Ijin: '+data);
-                }
-            );
-            return false;
+                getsisa($(this).val());
              }",
         ],
     ])->label('Nama Pegawai');

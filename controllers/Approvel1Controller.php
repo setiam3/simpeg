@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+use app\models\Pinjaman;
 use Yii;
 use app\models\Pengajuanijin;
 use app\models\Approvel1Search;
@@ -113,6 +114,7 @@ class Approvel1Controller extends Controller
             }else if($model->load($request->post())){
                 if ($model->approval1=='1'){
                     $model->approval1=\Yii::$app->user->identity->id_data;
+                    $model->disetujui='1';
                 }else{
                     $model->approval1=\Yii::$app->user->identity->id_data;
                     $model->disetujui='0';
@@ -180,6 +182,73 @@ class Approvel1Controller extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionBulkacc(){
+        $request = Yii::$app->request;
+        $pks = explode(',', $request->post( 'pks' ));
+        $selection = implode(',',$pks);
+        $request = Yii::$app->request;
+        $model = new Pengajuanijin();
+        if($request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            if($request->isGet){
+                return [
+                    'title'=> "Create new Pengajuanijin",
+                    'content'=>$this->renderAjax('create', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                        Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];
+            }else if($model->load($request->post())){
+                $selection = $request->post('selection');
+                $id = explode(',',$selection);
+
+                if ($model->approval1=='1'){
+                    foreach ($id as $row){
+                        $model = Pengajuanijin::findOne($row);
+                        $model->approval1=\Yii::$app->user->identity->id_data;
+                        $model->disetujui='1';
+                        $model->keterangan = $request->post('keterangan');
+                        $model->save();
+                    }
+                }elseif ($model->approval1=='0')
+                    foreach ($id as $row){
+                        $model = Pengajuanijin::findOne($row);
+                        $model->approval1=\Yii::$app->user->identity->id_data;
+                        $model->disetujui='0';
+                        $model->keterangan = $request->post('keterangan');
+                        $model->save();
+                    }
+                return [
+                    'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
+                    'title'=> "Create new Pengajuanijin",
+                    'content'=>'<span class="text-success">data berhasil diperbaruhi</span>',
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
+//                        .
+//                        Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
+                ];
+            }else{
+                return [
+                    'title'=> "Create new Pengajuanijin",
+                    'content'=>$this->renderAjax('formacc', [
+                        'model' => $model,'selection'=>$selection
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                        Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];
+            }
+        }else{
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         }
     }
 }
