@@ -20,6 +20,7 @@ $this->registerJs('$("document").ready(function(){
    method:"GET",
    success:function(data){
         $(".dok").html(data);
+       
    }
   })
  });
@@ -96,29 +97,38 @@ $this->registerJs('$("document").ready(function(){
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
+                        <span class="label label-success" id="count_notifdok">0</span>
                     </a>
-                    <ul class="dropdown-menu dok">
-                        <li class="header">You have 4 messages</li>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <ul class="menu dok">
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-money"></i>
-                        <span class="label label-warning" id="countgaji">10</span>
+                        <span class="label label-warning" id="countgaji">0</span>
                     </a>
-                    <ul class="dropdown-menu gaji">
-
+                    <ul class="dropdown-menu">
+                        <li>
+                            <ul class="menu gaji">
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning" id="count-notif-pang">10</span>
+                        <span class="label label-warning" id="count-notif-pang">0</span>
                     </a>
                     <ul class="dropdown-menu pangkat">
-
+                        <li>
+                            <ul class="menu pangkat">
+                            </ul>
+                        </li>
                     </ul>
                 </li>
 

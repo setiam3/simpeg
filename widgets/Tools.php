@@ -155,7 +155,7 @@ class Tools extends \yii\bootstrap\Widget
       ->select('nama_referensi,count(nama_referensi) as jumlah')
       ->joinWith(['kepangkatans' => function ($query) {
         $query->joinWith(['penggolongangaji' => function ($query) {
-          $query->joinWith('Pangkat');
+          $query->joinWith('pangkat');
         }]);
       }])
       ->groupBy("nama_referensi")

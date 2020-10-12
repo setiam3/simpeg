@@ -102,7 +102,8 @@ $this->registerJs('$("document").ready(function(){
                         <i class="fa fa-folder"></i>
                         <span class="label label-success" id="count_notifdok">4</span>
                     </a>
-                    <ul class="dropdown-menu dok">
+                    <ul class="dropdown-menu">
+
 
                     </ul>
                 </li>
