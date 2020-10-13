@@ -54,7 +54,7 @@ class MBiodata extends \yii\db\ActiveRecord
         ];
     }
     public function getNamalengkap(){
-        return $this->gelarDepan.' '.$this->nama.''.$this->gelarBelakang;
+        return $this->gelarDepan.' '.$this->nama.' '.$this->gelarBelakang;
     }
     public function getKepangkatans()
     {

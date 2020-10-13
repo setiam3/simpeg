@@ -23,20 +23,21 @@ if(empty($jenispegawai)){
         $arrayJenispegawai[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah']];
     }
 }
+function random_color_part() {
+    return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+}
 
-if (empty($kategori)){
-    $kategor[] = '';
-}else{
-    foreach ($kategori as $row){
-        $kategor[] =$row['nama_referensi'];
-    }
+function random_color() {
+    return random_color_part() . random_color_part() . random_color_part();
 }
 
 if(empty($golpeg)){
     $arrayGolPeg[]='';
 }else{
     foreach ($golpeg as $row){
-        $arrayGolPeg[]=['name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#1aadce',];
+        $arrayGolPeg[]=[
+            'name'=>$row['nama_referensi'],'y'=>$row['jumlah'],'color'=>'#'.random_color()
+        ];
     }
 }
 ?>
@@ -52,38 +53,21 @@ if(empty($golpeg)){
                             'options' => [
                                 'title' => ['text' => 'Golongan'],
                                     'xAxis' => [
-                                        'categories' => [
-                                             'Juru Muda	I/a',
-                                             'Juru Muda Tingkat I I/b',
-                                             'Juru	I/c',
-                                             'Juru Tingkat I I/d',
-                                             'Pengatur Muda	II/a',
-                                             'Pengatur Muda Tingkat I II/b',
-                                             'Pengatur II/c',
-                                             'Pengatur Tingkat I II/d',
-                                             'Penata III/c',
-                                             'Penata Tingkat I III/d',
-                                             'Pembina IV/a',
-                                             'Pembina Tingkat I IV/b',
-                                             'Pembina Utama Muda IV/c',
-                                             'Pembina Utama Madya IV/d',
-                                             'Pembina Utama IV/e',
-                                            ]
+                                        'categories'=>$kategori
                                     ],
                                     'yAxis' => [
                                         'title' => ['text' => 'Jumlah']
                                     ],
                                 'series' => [
                                     [
+                                        'name'=>'jumlah',
                                         'type' => 'column',
                                         'data' => $arrayGolPeg,
                                         'center' => [100, 80],
                                         'size' => 100,
                                         'showInLegend' => false,
-                                        'dataLabels' => [
-                                            'enabled' => true,]
+                                        'dataLabels' => ['enabled' => true,]
                                     ],
-
                                 ]
                             ]
                         ]); ?>
@@ -214,11 +198,11 @@ if(empty($golpeg)){
                     </p>
                     <div class="box-body">
                         <table id="example2" class="table table-bordered table-hover">
-                            <thead>
+                            <!-- <thead>
                             <tr>
                                 <th>nama</th>
                             </tr>
-                            </thead>
+                            </thead> -->
                             <tbody>
                             <?php foreach ($pensiun as $row){ ?>
                             <tr>
@@ -254,7 +238,7 @@ if(empty($golpeg)){
                             if (!empty($str)){
                             foreach ($str as $row){ ?>
                             <tr>
-                                <td><?= $row->data->nama ?></td>
+                                <td><?= $row->data->namalengkap ?></td>
                                 <td><?= $row['tgl_berlaku_ijin'] ?></td>
 
                             </tr>
@@ -291,7 +275,7 @@ if(empty($golpeg)){
                             if (!empty($sip)){
                             foreach ($sip as $row){ ?>
                             <tr>
-                                <td><?= $row['data']['nama'] ?></td>
+                                <td><?= $row->data->namalengkap ?></td>
                                 <td><?= $row->tgl_berlaku_ijin ?></td>
                             </tr>
                             <?php };}else{ ?>

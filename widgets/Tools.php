@@ -150,14 +150,13 @@ class Tools extends \yii\bootstrap\Widget
   }
   public function golonganPegawai()
   { // bar, gol 1 2 3
-
     return MBiodata::find()
       ->select('nama_referensi,count(nama_referensi) as jumlah')
       ->joinWith(['kepangkatans' => function ($query) {
         $query->joinWith(['penggolongangaji' => function ($query) {
           $query->joinWith('pangkat');
         }]);
-      }])
+      }])->where(['!=','nama_referensi',''])
       ->groupBy("nama_referensi")
       ->createCommand()
       ->queryAll();
@@ -165,26 +164,25 @@ class Tools extends \yii\bootstrap\Widget
 
   public function ultahPegawai()
   { // month year
-    $sql = 'SELECT * FROM m_biodata
-WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
-AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
+    $namalengkap=new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
+    $sql = 'SELECT '.$namalengkap.',"tanggalLahir" FROM m_biodata
+  WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
+  AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
 
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
   public function nextPensiun()
   { // akan pensiun 1 jenis pegawai pns --kode pegawai pns  --kode pegawai 2 blud, 3 freelend --1 jenis pegawai pns
-
-      $sql = "SELECT * FROM m_biodata
-WHERE (EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM \"tanggalLahir\") IN (59,60))
-AND (\"jenis_pegawai\" = 1)
-AND (\"is_pegawai\" = '1')
-or (EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM \"tanggalLahir\") IN (49,50))
-AND (\"jenis_pegawai\" in ('3','2'))
-AND (\"is_pegawai\" = '1')
-";
-      return
-          $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
-
+    $usia=new Expression('EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tanggalLahir")');
+    $namalengkap=new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
+    $sql = "SELECT $namalengkap,\"tanggalLahir\" FROM m_biodata
+    WHERE ( $usia IN (59,60))
+    AND (\"jenis_pegawai\" = '1')
+    AND (\"is_pegawai\" = '1')
+    or ($usia IN (49,50))
+    AND (\"jenis_pegawai\" in ('3','2'))
+    AND (\"is_pegawai\" = '1')";
+    return $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
   }
 
   public function getcurrentroleuser()
@@ -208,7 +206,7 @@ AND (\"is_pegawai\" = '1')
   }
   public function getNotifdokumen()
   {
-      $sql = MBiodata::find()
+      return MBiodata::find()
           ->select([
               'm_biodata.id_data',
               'r.id as id_rekening',
@@ -228,8 +226,6 @@ AND (\"is_pegawai\" = '1')
           ->where(['is_pegawai' => '1'])
           ->where(['m_biodata.id_data' => '2'])
           ->all();
-
-    return $sql;
   }
 
   public function str(){
@@ -272,10 +268,17 @@ AND (\"is_pegawai\" = '1')
         return $data;
     }
     public function kategori(){
-
-      $datas = MReferensi::find()->select('nama_referensi')->where(['tipe_referensi'=>'6'])->createCommand()
+      $kategori=[];
+      $cat= MReferensi::find()->select('nama_referensi')->where(['tipe_referensi'=>'6'])->createCommand()
           ->queryAll();
-      return $datas;
+      if (empty($cat)){
+          $kategori[]= '';
+      }else{
+          foreach ($cat as $row){
+              $kategori[] =$row['nama_referensi'];
+          }
+      }
+      return sort($kategori);
     }
 
 }
