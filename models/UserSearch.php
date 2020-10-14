@@ -3,8 +3,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use mdm\admin\models\User;
-class UserSearch extends User
+use app\models\Users;
+class UserSearch extends Users
 {
     public function rules()
     {
@@ -19,7 +19,7 @@ class UserSearch extends User
     }
     public function search($params)
     {
-        $query = User::find();
+        $query = Users::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -12,11 +14,13 @@ use yii\widgets\ActiveForm;
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
                 <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <?= $form->field($model, 'retypePassword')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('rbac-admin', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
+                <?= $form->field($model, 'id_data')->widget(Select2::className(),[
+                    'data'=>ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai'=>1])->andWhere(['in',
+                    'jenis_pegawai',[1,2,3]])->all(), 'id_data','namalengkap'),
+                    'options' => ['placeholder' => 'Select ...'],
+                ])->label('Pegawai') ?>
+                <?//= $form->field($model, 'password') ?>
+                <?//= $form->field($model, 'retypePassword') ?>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

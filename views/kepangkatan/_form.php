@@ -23,7 +23,6 @@ if(in_array('karyawan',$role)){
         <div class="col-md-6">
             <?= $form->field($model, 'id_data')->widget(Select2::classname(), [
                 'data' =>$parent,
-                'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
@@ -47,7 +46,7 @@ if(in_array('karyawan',$role)){
                 'data' =>
                     \yii\helpers\ArrayHelper::map(\app\models\Penggolongangaji::find()
                     ->leftJoin('m_referensi','m_referensi.reff_id = penggolongangaji.pangkat_id')
-    ->where(['m_referensi.tipe_referensi'=>6,'status'=>'1'])
+                    ->where(['m_referensi.tipe_referensi'=>6,'status'=>'1'])
                         ->all(),'id','pangkat.nama_referensi'),
                 'options' => ['placeholder' => 'Select a state ...'],
                 'pluginOptions' => [
@@ -63,8 +62,6 @@ if(in_array('karyawan',$role)){
                     'autoclose'=>true
                 ]
             ])?>
-
-
         </div>
         <div class="col-md-6">
 

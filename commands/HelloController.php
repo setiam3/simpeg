@@ -1,38 +1,30 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
 namespace app\commands;
 use app\models\MUnit;
 use yii\console\Controller;
 use yii\console\ExitCode;
-
-/**
- * This command echoes the first argument that you have entered.
- *
- * This command is provided as an example for you to learn how to create console commands.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
 class HelloController extends Controller
 {
-    /**
-     * This command echoes what you have entered as the message.
-     * @param string $message the message to be echoed.
-     * @return int Exit code
-     */
     public function actionIndex($message = 'hello world')
     {
         echo $message . "\n";
 
         return ExitCode::OK;
     }
+    public function actionGenjatahcuti($tahun){
+        $data=\app\models\MBiodata::find()->where(['is_pegawai'=>'1'])->andWhere(['in','jenis_pegawai',[1,2,3]])->all();
+        foreach($data as $d){
+            if(!(\app\models\Jatahcuti::updateAll(['sisa'=>12],['id_data'=>$d->id_data]))){
+            $jt=new \app\models\Jatahcuti();
+            $jt->sisa=12;
+            $jt->id_data=$d->id_data;
+            $jt->save();
+            }
+        }
+
+    }
     public function actionTransfermsunit(){
-        $start_time = microtime(true); 
+        $start_time = microtime(true);
         $col=((new MUnit)->getTableSchema()->getColumnNames());
         //$col=array_diff($col,array('id',''));
         $result=\Yii::$app->db_live->createCommand("select * from m_unit")->queryAll();
@@ -42,7 +34,7 @@ class HelloController extends Controller
         }else{
             return false;
             echo 'transfer gagal';
-        }   
+        }
         $end_time = microtime(true);
         $execution_time = ($end_time - $start_time)/60;
         echo $execution_time."\n";

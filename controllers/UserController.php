@@ -1,7 +1,8 @@
 <?php
 namespace app\controllers;
 use Yii;
-use mdm\admin\models\User;
+use app\models\Users;
+use mdm\admin\models\form\ChangePassword;
 use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -67,7 +68,7 @@ class UserController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post()) && $model->signup()){
                 return [
                     'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',
                     'title'=> "Create new User",
@@ -86,7 +87,7 @@ class UserController extends Controller
                 ];
             }
         }else{
-            if ($model->load($request->post()) && $model->save()) {
+            if ($model->load($request->post()) && $model->signup()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
@@ -168,10 +169,21 @@ class UserController extends Controller
     }
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Users::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    public function actionChangePassword()
+    {
+        $model = new ChangePassword();
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->change()) {
+            return $this->goHome();
+        }
+
+        return $this->render('change-password', [
+                'model' => $model,
+        ]);
     }
 }

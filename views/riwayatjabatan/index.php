@@ -17,7 +17,7 @@ $params = isset($klikedid) ? '?id=' . $klikedid : '';
 <div class="riwayatjabatan-index">
     <div id="ajaxCrudDatatableJabatan">
         <?= GridView::widget([
-            'id' => 'crud-datatable' . $idmodal,
+            'id' => 'crud-datatable' . $idmodal.'-pjax',
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'pjax' => true,

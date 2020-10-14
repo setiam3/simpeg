@@ -9,7 +9,7 @@ use johnitvn\ajaxcrud\BulkButtonWidget;
 //$this->title = 'Kepangkatan';
 //$this->params['breadcrumbs'][] = $this->title;
 $idmodal=md5($dataProvider->query->modelClass);
-
+$params = isset($klikedid) ? '?id=' . $klikedid : '';
 CrudAsset::register($this);
 
 ?>
@@ -23,7 +23,7 @@ CrudAsset::register($this);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['kepangkatan/create'],
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['kepangkatan/create'.$params],
                     ['role'=>'modal-remote','data-target'=>'#'.$idmodal,'title'=> 'Create new Kepangkatan','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).

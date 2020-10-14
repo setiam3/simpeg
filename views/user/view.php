@@ -1,12 +1,8 @@
 <?php
-
 use yii\widgets\DetailView;
-
-/* @var $this yii\web\View */
-/* @var $model mdm\admin\models\User */
 ?>
 <div class="user-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -18,7 +14,11 @@ use yii\widgets\DetailView;
             'status',
             'created_at',
             'updated_at',
-            'id_data',
+            ['attribute'=>'id_data',
+                'value'=>function($model){
+                    return $model->data->namalengkap;
+                }
+            ]
         ],
     ]) ?>
 
