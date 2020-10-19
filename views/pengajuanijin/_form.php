@@ -68,7 +68,7 @@ if (in_array('karyawan', $role)) {
 
     <?= $form->field($model, 'jenisIjin')->widget(\kartik\select2\Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '12','status'=>'1'])->all(), 'nama_referensi', 'nama_referensi'),
-        'options' => ['placeholder' => 'Select a state ...'],
+        'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],

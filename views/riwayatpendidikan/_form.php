@@ -7,7 +7,6 @@ use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
 use kartik\date\DatePicker;
 
-
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
     $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
@@ -86,14 +85,15 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
                            $('.field-riwayatpendidikan-tgl_berlaku_ijin').show()
                            $('.field-riwayatpendidikan-suratijin').show()
                            }else{
-                                $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide()                       
-                                $('.field-riwayatpendidikan-suratijin').hide()                       
+                                $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide()
+                                $('.field-riwayatpendidikan-suratijin').hide()
                            }
                         }"
                     ]
             ]) ?>
             <?= $form->field($model, 'suratijin')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '14']), 'nama_referensi', 'nama_referensi'),
+                'options' => ['placeholder' => 'Select ...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
