@@ -1,10 +1,18 @@
 TODO:
 
+Revisi 22-10-2020:
++ Notifikasi pengajuan cuti/ijin dan table seperti pegawai akan ultah
++ bug pengajuan ijin/cuti pengurangan jatah cuti
++ bug di approval2 tidak muncul
++ edit tampilan form pengajuan ijin ada pilihan nonshift/shift
++ cetak form pengajuan
++ edit form Riwayatpendidikan jika medis tambah field tgl mulai-tgl akhir
+
+
 - kenaikan gaji berkala (dari masa kerja (tmt) + 2th )
 - unit kerja  (ok)
 - score online (gaji,pangkat, masakerja, pendidikan,diklat,faktor resiko unit kerja,kedaruratan)
 - cuti (ok)
-
 
 list fiture :
 Login Admin dan Pegawai

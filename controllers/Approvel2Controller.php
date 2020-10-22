@@ -204,7 +204,7 @@ class Approvel2Controller extends Controller
         $model = new Pengajuanijin();
         $pks = explode(',', $request->post('pks'));
         $selection = implode(',',$pks);
-        
+
 
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -226,8 +226,8 @@ class Approvel2Controller extends Controller
                         $model->approval2 = \Yii::$app->user->identity->id_data;
                         $model->disetujui = "1";
                         $model->keterangan = $request->post('keterangan');
-                        
-                
+
+
                         $holidays = ArrayHelper::map(\app\models\Hariliburnasional::find()->all(), 'tanggal', 'tanggal');
                         $diajukan = Yii::$app->tools->getWorkingDays($model->tanggalMulai, $model->tanggalAkhir, $holidays);
                         if (($sisa = Jatahcuti::find()->where(['id_data' => $model->id_data])->one()) !== null && $sisa->sisa >= $diajukan) {
@@ -254,7 +254,7 @@ class Approvel2Controller extends Controller
                     'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',
                     'title' => "Create new Pengajuanijin",
                     'content' => '<span class="text-success">Create Pengajuanijin success</span>',
-                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) 
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"])
                     // .
                     //     Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
                 ];
@@ -319,7 +319,7 @@ class Approvel2Controller extends Controller
         //             'model' => $model, 'selection' => $selection
         //         ]);
         //     }
-        // } else {    
+        // } else {
         //     return $this->redirect(['index']);
         // }
     }
