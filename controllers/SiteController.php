@@ -1,5 +1,7 @@
 <?php
+
 namespace app\controllers;
+
 use app\models\Jatahcuti;
 use app\models\MBiodata;
 use app\models\MKepangkatan;
@@ -12,7 +14,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Pengajuanijin;
 use yii\web\NotFoundHttpException;
+
 class SiteController extends Controller
 {
     public function behaviors()
@@ -121,9 +125,9 @@ class SiteController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = Jatahcuti::findOne(['id_data' => $id]);
-        if(($model)!==null){
+        if (($model) !== null) {
             return [$model->sisa];
-        }else{
+        } else {
             return ['0'];
         }
     }
@@ -174,7 +178,8 @@ class SiteController extends Controller
         return $sql;
     }
 
-    public function actionLisnotifdok(){
+    public function actionLisnotifdok()
+    {
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role)) {
             $where = ['mb.id_data' => \Yii::$app->user->identity->id_data];
@@ -184,34 +189,34 @@ class SiteController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $query = new Query;
         $query->from('m_biodata as mb')
-            ->select(['mb.id_data','nama','fotoNik','foto',
-                'mr.id as idrekening','mr.fotoRekening',
-                'rd.id as iddiklat','rd.dokumen as dokumen_diklat',
-                'rj.id as idjabatan','rj.dokumen as dokumen_jabatan',
-                'rp.id as idpendidikan','rp.dokumen as dokumen_pendidikan',
-                'k.id as idkepangkatan','k.dokumen as dokumen_kepangkatan'])
-            ->join('join','m_rekening as mr','mb.id_data = mr.id_data ')
-            ->join('left join','riwayatdiklat as rd','mb.id_data = rd.id_data')
-            ->join('left join','riwayatjabatan as rj','mb.id_data = rj.id_data')
-            ->join('left join','riwayatpendidikan as rp','mb.id_data = rp.id_data')
-            ->join('left join','kepangkatan as k','mb.id_data = k.id_data')
-            ->where(['=','mb.is_pegawai','1'])
+            ->select([
+                'mb.id_data', 'nama', 'fotoNik', 'foto',
+                'mr.id as idrekening', 'mr.fotoRekening',
+                'rd.id as iddiklat', 'rd.dokumen as dokumen_diklat',
+                'rj.id as idjabatan', 'rj.dokumen as dokumen_jabatan',
+                'rp.id as idpendidikan', 'rp.dokumen as dokumen_pendidikan',
+                'k.id as idkepangkatan', 'k.dokumen as dokumen_kepangkatan'
+            ])
+            ->join('join', 'm_rekening as mr', 'mb.id_data = mr.id_data ')
+            ->join('left join', 'riwayatdiklat as rd', 'mb.id_data = rd.id_data')
+            ->join('left join', 'riwayatjabatan as rj', 'mb.id_data = rj.id_data')
+            ->join('left join', 'riwayatpendidikan as rp', 'mb.id_data = rp.id_data')
+            ->join('left join', 'kepangkatan as k', 'mb.id_data = k.id_data')
+            ->where(['=', 'mb.is_pegawai', '1'])
             ->andWhere($where)
-            ->distinct
-        ;
+            ->distinct;
         $command = $query->createCommand();
         $dok = $command->queryAll();
 
-        if (!empty($dok)){
-            foreach ($dok as $row){
-                $list []= (!empty($row['id_data']) && empty($row['fotoNik']))?'<li><a href="'.Yii::$app->homeUrl.'biodata/update?id='.$row['id_data'].'">'.$row['nama'].' foto NIK belum diupload</a></li>':'';
-                $list []= (empty($row['foto']))?'<li><a href="'.Yii::$app->homeUrl.'biodata/update?id='.$row['id_data'].'">'.$row['nama'].' foto belum diupload</a></li>':'';
-                $list []= (empty($row['fotoRekening']) && empty($row['id_rekening']))?'<li><a href="'.Yii::$app->homeUrl.'rekening/update?id='.$row['idrekening'].'">'.$row['nama'].' foto rekening belum diupload</a></li>':'';
-                $list []= (empty($row['dokumen_jabatan']) && !empty($row['rj.id']))?'<li><a href="'.Yii::$app->homeUrl.'riwayatjabatan/update?id='.$row['idjabatan'].'">'.$row['nama'].' foto jabatan belum diupload</a></li>':'';
-                $list []= (empty($row['dokumen_diklat']) && !empty($row['rd.id']))?'<li><a href="'.Yii::$app->homeUrl.'riwayatdiklat/update?id='.$row['iddiklat'].'">'.$row['nama'].' foto diklat belum diupload</a></li>':'';
-                $list []= (empty($row['dokumen_kepangkatan']) && !empty($row['k.id']))?'<li><a href="'.Yii::$app->homeUrl.'riwayatdiklat/update?id='.$row['idkepangkatan'].'">'.$row['nama'].' kepangkatan belum diupload</a></li>':'';
-                $list []= (empty($row['dokumen_pendidikan']) && !empty($row['rp.id']))?'<li><a href="'.Yii::$app->homeUrl.'riwayatpendidikan/update?id='.$row['idpendidikan'].'">'.$row['nama'].' kepangkatan belum diupload</a></li>':'';
-
+        if (!empty($dok)) {
+            foreach ($dok as $row) {
+                $list[] = (!empty($row['id_data']) && empty($row['fotoNik'])) ? '<li><a href="' . Yii::$app->homeUrl . 'biodata/update?id=' . $row['id_data'] . '">' . $row['nama'] . ' foto NIK belum diupload</a></li>' : '';
+                $list[] = (empty($row['foto'])) ? '<li><a href="' . Yii::$app->homeUrl . 'biodata/update?id=' . $row['id_data'] . '">' . $row['nama'] . ' foto belum diupload</a></li>' : '';
+                $list[] = (empty($row['fotoRekening']) && empty($row['id_rekening'])) ? '<li><a href="' . Yii::$app->homeUrl . 'rekening/update?id=' . $row['idrekening'] . '">' . $row['nama'] . ' foto rekening belum diupload</a></li>' : '';
+                $list[] = (empty($row['dokumen_jabatan']) && !empty($row['rj.id'])) ? '<li><a href="' . Yii::$app->homeUrl . 'riwayatjabatan/update?id=' . $row['idjabatan'] . '">' . $row['nama'] . ' foto jabatan belum diupload</a></li>' : '';
+                $list[] = (empty($row['dokumen_diklat']) && !empty($row['rd.id'])) ? '<li><a href="' . Yii::$app->homeUrl . 'riwayatdiklat/update?id=' . $row['iddiklat'] . '">' . $row['nama'] . ' foto diklat belum diupload</a></li>' : '';
+                $list[] = (empty($row['dokumen_kepangkatan']) && !empty($row['k.id'])) ? '<li><a href="' . Yii::$app->homeUrl . 'riwayatdiklat/update?id=' . $row['idkepangkatan'] . '">' . $row['nama'] . ' kepangkatan belum diupload</a></li>' : '';
+                $list[] = (empty($row['dokumen_pendidikan']) && !empty($row['rp.id'])) ? '<li><a href="' . Yii::$app->homeUrl . 'riwayatpendidikan/update?id=' . $row['idpendidikan'] . '">' . $row['nama'] . ' kepangkatan belum diupload</a></li>' : '';
             }
         } else {
             $list = '<li><a href="#">data tidak ada</a></li>';
@@ -309,5 +314,42 @@ class SiteController extends Controller
             $list = '<li><a href="#">data tidak ada</a></li>';
         }
         return $list;
+    }
+
+    public function actionIzin()
+    {
+
+        $role = \Yii::$app->tools->getcurrentroleuser();
+        if (in_array('karyawan', $role)) {
+            $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+        } else {
+            $whereid = '';
+        }
+        $where = new Expression('approval1 is NULL OR approval2 is NULL');
+        $izin = Pengajuanijin::find()
+            ->joinWith('data')
+            ->where([$where])
+            ->andwhere($whereid)
+            ->count();
+        return $izin;
+
+
+    }
+    public function actionLiszin()
+    {
+
+        $role = \Yii::$app->tools->getcurrentroleuser();
+        if (in_array('karyawan', $role)) {
+            $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+        } else {
+            $whereid = '';
+        }
+        $where = new Expression('approval1 is NULL OR approval2 is NULL');
+        $izin = Pengajuanijin::find()
+            ->joinWith('data')
+            ->where([$where])
+            ->andwhere($whereid);
+        return $izin;
+        
     }
 }
