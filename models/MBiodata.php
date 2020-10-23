@@ -122,4 +122,7 @@ class MBiodata extends \yii\db\ActiveRecord
     public function getUserid(){
         return $this->hasOne(\mdm\admin\models\User::className(),['id_data'=>'id_data']);
     }
+    public function getSisacuti(){
+        return $this->hasOne(Jatahcuti::className(),['id_data'=>'id_data']);
+    }
 }

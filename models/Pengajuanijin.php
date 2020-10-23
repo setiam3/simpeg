@@ -14,6 +14,7 @@ class Pengajuanijin extends \yii\db\ActiveRecord
             [['tanggalPengajuan', 'tanggalMulai', 'tanggalAkhir'], 'safe'],
             [['id_data', 'approval1', 'approval2', 'disetujui'], 'default', 'value' => null],
             [['id_data', 'approval1', 'approval2', 'disetujui'], 'integer'],
+            [['shift'], 'boolean'],
             [['alasan', 'jenisIjin','keterangan'], 'string', 'max' => 255],
             [['id_data'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['id_data' => 'id_data']],
             [['approval1'], 'exist', 'skipOnError' => true, 'targetClass' => MBiodata::className(), 'targetAttribute' => ['approval1' => 'id_data']],
@@ -33,7 +34,8 @@ class Pengajuanijin extends \yii\db\ActiveRecord
             'approval2' => 'Approval2',
             'disetujui' => 'Disetujui',
             'jenisIjin' => 'Jenis Ijin',
-            'keterangan'=>'Keterangan'
+            'keterangan'=>'Keterangan',
+            'shift'=>'Shift ?'
         ];
     }
     public function getData()

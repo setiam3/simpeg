@@ -13,33 +13,26 @@ use yii\widgets\DetailView;
                 'attribute' => 'Karyawan',
                 'value' => function ($data) {
                     return $data->data->namalengkap;
-
                 },
             ],
             [
                 'attribute' => 'approval1',
                 'value' => function ($data) {
-                    if (!empty($data->approval10->nama)){
-                        return $data->approval10->namalengkap;
-                    }else{
-                        return 'Pending';
-                    }
-
+                    return isset($data->approval10->nama)?$data->approval10->namalengkap:'Pending';
                 },
             ],
             [
                 'attribute' => 'approval2',
                 'value' => function ($data) {
-                if (!empty($data->approval20->nama)){
-                    return $data->approval20->namalengkap;
-                }else{
-                    return 'Pending';
-                }
-
+                    return isset($data->approval20->nama)?$data->approval20->namalengkap:'Pending';
                 },
             ],
             'disetujui',
             'jenisIjin',
+            'keterangan',
+            ['attribute'=>'shift','value'=>function($data){
+                return $data->shift?'Shift':'Non Shift';
+            }]
         ],
     ]) ?>
 

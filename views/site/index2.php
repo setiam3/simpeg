@@ -239,8 +239,7 @@ if(empty($golpeg)){
                             foreach ($str as $row){ ?>
                             <tr>
                                 <td><?= $row->data->namalengkap ?></td>
-                                <td><?= $row['tgl_berlaku_ijin'] ?></td>
-
+                                <td><?= $row->tgl_akhir_ijin ?></td>
                             </tr>
                             <?php };}else{ ?>
                             <tr>
@@ -276,7 +275,7 @@ if(empty($golpeg)){
                             foreach ($sip as $row){ ?>
                             <tr>
                                 <td><?= $row->data->namalengkap ?></td>
-                                <td><?= $row->tgl_berlaku_ijin ?></td>
+                                <td><?= $row->tgl_akhir_ijin ?></td>
                             </tr>
                             <?php };}else{ ?>
 

@@ -124,9 +124,10 @@ class Approvel2Controller extends Controller
                 if ($model->approval2 == 1) {
                     $model->approval2 = \Yii::$app->user->identity->id_data;
                     $model->disetujui = "1";
-                    $holidays = ArrayHelper::map(\app\models\Hariliburnasional::find()->all(), 'tanggal', 'tanggal');
+                    $holidays =(!$model->shift)?ArrayHelper::map(\app\models\Hariliburnasional::find()->all(), 'tanggal', 'tanggal'):[];
                     $diajukan = Yii::$app->tools->getWorkingDays($model->tanggalMulai, $model->tanggalAkhir, $holidays);
-                    if (($sisa = Jatahcuti::find()->where(['id_data' => $model->id_data])->one()) !== null && $sisa->sisa >= $diajukan) {
+                    $sisa = Jatahcuti::find()->where(['id_data' => $model->id_data])->one();
+                    if ($sisa !== null && $sisa->sisa >= $diajukan) {
                         $sisa->sisa -= $diajukan;
                         $sisa->save(false);
                     } else {
@@ -146,8 +147,8 @@ class Approvel2Controller extends Controller
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
+                    'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"])
+                    //.Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
                 ];
             } else {
                 return [
@@ -199,13 +200,10 @@ class Approvel2Controller extends Controller
 
     public function actionAccizin()
     {
-
         $request = Yii::$app->request;
         $model = new Pengajuanijin();
         $pks = explode(',', $request->post('pks'));
         $selection = implode(',',$pks);
-
-
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet) {
@@ -226,12 +224,11 @@ class Approvel2Controller extends Controller
                         $model->approval2 = \Yii::$app->user->identity->id_data;
                         $model->disetujui = "1";
                         $model->keterangan = $request->post('keterangan');
-
-
-                        $holidays = ArrayHelper::map(\app\models\Hariliburnasional::find()->all(), 'tanggal', 'tanggal');
+                        $holidays =(!$model->shift)?ArrayHelper::map(\app\models\Hariliburnasional::find()->all(), 'tanggal', 'tanggal'):[];
                         $diajukan = Yii::$app->tools->getWorkingDays($model->tanggalMulai, $model->tanggalAkhir, $holidays);
-                        if (($sisa = Jatahcuti::find()->where(['id_data' => $model->id_data])->one()) !== null && $sisa->sisa >= $diajukan) {
-                            $sisa->sisa = $diajukan;
+                        $sisa = Jatahcuti::find()->where(['id_data' => $model->id_data])->one();
+                        if ($sisa !== null && $sisa->sisa >= $diajukan) {
+                            $sisa->sisa-=$diajukan;
                             $sisa->save(false);
                         } else {
                             return [
@@ -255,8 +252,6 @@ class Approvel2Controller extends Controller
                     'title' => "Create new Pengajuanijin",
                     'content' => '<span class="text-success">Create Pengajuanijin success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"])
-                    // .
-                    //     Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote', 'data-target' => '#' . md5(get_class($model))])
                 ];
             } else {
                 return [
@@ -277,51 +272,6 @@ class Approvel2Controller extends Controller
                 ]);
             }
         }
-
-
-
-        // $request = Yii::$app->request;
-        // $selection = (array)Yii::$app->request->post('selection');
-        // $model = new Pengajuanijin();
-        // $selection = implode(',', $selection);
-
-        // if (!empty($selection)) {
-
-        //     if (!empty($request->post('id'))) {
-        //         $id = explode(',', $selection);
-        //         foreach ($id as $row) {
-        //             $model = Pengajuanijin::findOne($row);
-        //             if ($model->approval2 == 1) {
-        //                 $model->approval2 = \Yii::$app->user->identity->id_data;
-        //                 $model->disetujui = "1";
-        //                 $model->keterangan = $request->post('keterangan');
-        //                 $holidays = ArrayHelper::map(\app\models\Hariliburnasional::find()->all(), 'tanggal', 'tanggal');
-        //                 $diajukan = Yii::$app->tools->getWorkingDays($model->tanggalMulai, $model->tanggalAkhir, $holidays);
-        //                 if (($sisa = Jatahcuti::find()->where(['id_data' => $model->id_data])->one()) !== null && $sisa->sisa >= $diajukan) {
-        //                     $sisa->sisa = $diajukan;
-        //                     $sisa->save(false);
-        //                 } else {
-        //                     return [
-        //                         'title' => 'error',
-        //                         'content' => 'sisa ijin tidak cukup / jumlah hari yg diajukan salah'
-        //                     ];
-        //                 }
-        //             } elseif ($model->approval2 == 0) {
-        //                 $model->approval2 = \Yii::$app->user->identity->id_data;
-        //                 $model->disetujui = "0";
-        //                 $model->keterangan = $request->post('keterangan');
-        //             }
-        //             $model->save(false);
-        //         }
-        //         return $this->redirect(['index']);
-        //     } else {
-        //         return $this->render('accizin', [
-        //             'model' => $model, 'selection' => $selection
-        //         ]);
-        //     }
-        // } else {
-        //     return $this->redirect(['index']);
-        // }
     }
 
     protected function findModel($id)

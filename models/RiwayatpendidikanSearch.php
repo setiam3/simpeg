@@ -11,7 +11,7 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
     {
         return [
             [['id', 'medis'], 'integer'],
-            [['jurusan','tingkatPendidikan','nip','id_data', 'namaSekolah', 'thLulus', 'dokumen', 'no_ijazah', 'tgl_ijazah', 'thMasuk', 'suratijin', 'tgl_berlaku_ijin'], 'safe'],
+            [['jurusan','tingkatPendidikan','nip','id_data', 'namaSekolah', 'thLulus', 'dokumen', 'no_ijazah', 'tgl_ijazah', 'thMasuk', 'suratijin', 'tgl_berlaku_ijin','tgl_akhir_ijin'], 'safe'],
         ];
     }
     public function scenarios()
@@ -35,6 +35,7 @@ class RiwayatpendidikanSearch extends Riwayatpendidikan
             'tgl_ijazah' => $this->tgl_ijazah,
             'medis' => $this->medis,
             'tgl_berlaku_ijin' => $this->tgl_berlaku_ijin,
+            'tgl_akhir_ijin' => $this->tgl_akhir_ijin,
         ]);
         $query->andFilterWhere(['like', 'jurusan', $this->jurusan])
             ->andFilterWhere(['like', 'namaSekolah', $this->namaSekolah])

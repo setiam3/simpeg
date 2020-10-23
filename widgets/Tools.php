@@ -235,11 +235,11 @@ class Tools extends \yii\bootstrap\Widget
       } else {
           $where_iddata = '';
       }
-      $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
-      $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
+      $where = new Expression('EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
+      $tahun = new Expression('EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
       $data = Riwayatpendidikan::find()
           ->joinWith('data')
-          ->where(['is not','tgl_berlaku_ijin',null])
+          ->where(['is not','tgl_akhir_ijin',null])
           ->andWhere($where)
           ->andWhere($tahun)
           ->andWhere(['like','suratijin','STR'])
@@ -255,11 +255,11 @@ class Tools extends \yii\bootstrap\Widget
         } else {
             $where_iddata = '';
         }
-        $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
-        $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
+        $where = new Expression('EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
+        $tahun = new Expression('EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
         $data = Riwayatpendidikan::find()
             ->joinWith('data')
-            ->where(['is not','tgl_berlaku_ijin',null])
+            ->where(['is not','tgl_akhir_ijin',null])
             ->andWhere($where)
             ->andWhere(['like','suratijin','SIP'])
             ->andWhere($where_iddata)
