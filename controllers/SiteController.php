@@ -325,31 +325,43 @@ class SiteController extends Controller
         } else {
             $whereid = '';
         }
-        $where = new Expression('approval1 is NULL OR approval2 is NULL');
         $izin = Pengajuanijin::find()
             ->joinWith('data')
-            ->where([$where])
+            ->where(['is', 'approval1',null])
+            ->orWhere(['is','approval2', null])
             ->andwhere($whereid)
             ->count();
         return $izin;
 
 
     }
-    public function actionLiszin()
+
+    public function actionListzin()
     {
 
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role)) {
             $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
         } else {
             $whereid = '';
         }
-        $where = new Expression('approval1 is NULL OR approval2 is NULL');
         $izin = Pengajuanijin::find()
+
             ->joinWith('data')
-            ->where([$where])
-            ->andwhere($whereid);
-        return $izin;
-        
+            ->where(['is', 'approval1',null])
+            ->orWhere(['is','approval2', null])
+            ->andwhere($whereid)
+            ->all();
+
+        if (!empty($izin)) {
+            foreach ($izin as $row) {
+                $list = '<li><a href=""> ' .  $row->data->nama . ' </a></li>';
+            }
+        } else {
+            $list = '<li><a href="#">data tidak ada</a></li>';
+        }
+
+        return $list;
     }
 }

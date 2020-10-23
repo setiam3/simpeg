@@ -31,6 +31,7 @@ $this->registerJs('$("document").ready(function(){
     loadDoc()
     notifgaji()
     countpangkat()
+    countizin()
 // },3000)
 
 
@@ -90,7 +91,7 @@ $this->registerJs('$("document").ready(function(){
 
  $(document).on("click", ".dropdown-toggle", function(){
      $.ajax({
-          url:baseurl+"site/lisizin",
+          url:baseurl+"site/listzin",
           method:"get",
           dataType:"json",
           success:function(data){
@@ -117,7 +118,7 @@ $this->registerJs('$("document").ready(function(){
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-                
+
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-calendar"></i>
