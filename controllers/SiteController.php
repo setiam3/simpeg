@@ -318,38 +318,63 @@ class SiteController extends Controller
 
     public function actionIzin()
     {
-
         $role = \Yii::$app->tools->getcurrentroleuser();
-        if (in_array('karyawan', $role)) {
-            $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-        } else {
-            $whereid = '';
-        }
-        $where = new Expression('approval1 is NULL OR approval2 is NULL');
-        $izin = Pengajuanijin::find()
-            ->joinWith('data')
-            ->where([$where])
-            ->andwhere($whereid)
-            ->count();
-        return $izin;
-
-
+    if (in_array('karyawan', $role) && in_array('approval1', $role)) {
+      $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+      $where = 'approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data =' . \Yii::$app->user->identity->id_data . ')';
+      $izin = Pengajuanijin::find()
+        ->joinWith(['data' => function ($query) {
+          $query->joinWith('riwayatjabatans');
+        }])
+        ->where($where_iddata)
+        ->orWhere($where)
+        ->count();
+    } elseif (in_array('approval1', $role)) {
+      $where = 'approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data =' . \Yii::$app->user->identity->id_data . ')';
+      $izin = Pengajuanijin::find()
+        ->joinWith('data')
+        ->where($where)
+        ->count();
+    } elseif (in_array('approval2', $role)) {
+      $where = 'approval1 != 0 and approval2 IS NULL ';
+      $izin = Pengajuanijin::find()
+        ->joinWith('data')
+        ->where($where)
+        ->count();
+    } else {
+      $izin = Pengajuanijin::find()
+        ->joinWith('data')
+        ->count();;
     }
-    public function actionLiszin()
-    {
+    if ($izin !== null) {
+      return $izin;
+    }
+    }
 
+    public function actionListzin()
+    {
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role)) {
             $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
         } else {
             $whereid = '';
         }
-        $where = new Expression('approval1 is NULL OR approval2 is NULL');
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $izin = Pengajuanijin::find()
             ->joinWith('data')
-            ->where([$where])
-            ->andwhere($whereid);
-        return $izin;
-        
+            ->where(['is', 'approval1', null])
+            ->orWhere(['is', 'approval2', null])
+            ->andwhere($whereid)
+            ->all();
+
+        if (!empty($izin)) {
+            foreach ($izin as $row) {
+                $list = '<li><a href="' . Yii::$app->homeUrl . 'pengajuanijin/index"> ' . $row->data->nama . ' </a></li>';
+            }
+        } else {
+            $list = '<li><a href="#">data tidak ada</a></li>';
+        }
+
+        return $list;
     }
 }

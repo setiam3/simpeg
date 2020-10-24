@@ -27,11 +27,12 @@ $this->registerJs('$("document").ready(function(){
   })
  });
 
-// setInterval(function(){
+setInterval(function(){
     loadDoc()
     notifgaji()
     countpangkat()
-// },3000)
+    countizin()
+},3000)
 
 
  function notifgaji(){
@@ -90,7 +91,7 @@ $this->registerJs('$("document").ready(function(){
 
  $(document).on("click", ".dropdown-toggle", function(){
      $.ajax({
-          url:baseurl+"site/lisizin",
+          url:baseurl+"site/listzin",
           method:"get",
           dataType:"json",
           success:function(data){
@@ -101,7 +102,8 @@ $this->registerJs('$("document").ready(function(){
 
  
 
- });');
+ });'
+);
 ?>
 
 <header class="main-header">
