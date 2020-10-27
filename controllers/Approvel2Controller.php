@@ -31,9 +31,9 @@ class Approvel2Controller extends Controller
     {
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (ArrayHelper::keyExists('approval2', $role)) {
-            $where = 'disetujui IS NULL';
-        } else {
             $where = 'approval1 != 0 and approval2 IS NULL ';
+        } else {
+            $where = 'disetujui IS NULL';
         }
         $searchModel = new Approvel2Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $where);
