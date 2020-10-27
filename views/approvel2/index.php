@@ -6,11 +6,9 @@ use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
-
 $this->title = 'Pengajuanijin';
 $this->params['breadcrumbs'][] = $this->title;
 CrudAsset::register($this);
-
 $idmodal = md5($dataProvider->query->modelClass);
 ?>
 <div class="pengajuanijin-index">

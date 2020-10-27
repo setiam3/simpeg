@@ -9,7 +9,6 @@ use yii\widgets\DetailView;
                 'attribute' => 'Karyawan',
                 'value' => function ($data) {
                     return $data->data->namalengkap;
-
                 },
             ],
             'tanggalPengajuan',
@@ -17,7 +16,13 @@ use yii\widgets\DetailView;
             'tanggalAkhir',
             'alasan',
             'jenisIjin',
+            'keterangan',
+            ['attribute'=>'approval1','value'=>function($data){
+                return (isset($data->approval1))?$data->approval10->namalengkap:'';
+            }],
+            ['attribute'=>'shift','value'=>function($data){
+                return $data->shift?'Shift':'Non Shift';
+            }]
         ],
     ]) ?>
-
 </div>

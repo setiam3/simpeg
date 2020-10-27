@@ -40,6 +40,24 @@ class PengajuanijinController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionCetak($id){
+        $model=$this->findModel($id);
+        $pdf=Yii::$app->pdf;
+        $pdf->content=$this->renderPartial('_cetak',['model'=>$model]);
+        $pdf->orientation='P';
+        $pdf->marginTop=6;
+        $pdf->marginBottom=4;
+        $pdf->marginHeader=2;
+        $pdf->marginFooter=2;
+        $pdf->marginLeft=6;
+        $pdf->marginRight=6;
+        $pdf->cssInline='.thead{border: 1px solid #0003;text-align: center;font-weight: bold;background:#eee;}.tbody{padding:2px;}#tb1 tr:nth-child(even) {background: #eee}#tb1 tr:nth-child(odd) {background: #FFF}';
+        $pdf->methods=[
+            'SetHeader' => ['RSUD Ibnusina'],
+            'SetFooter'=>['{PAGENO}'],
+        ];
+        return $pdf->render();
+    }
     public function actionView($id)
     {
         $request = Yii::$app->request;
@@ -80,8 +98,6 @@ class PengajuanijinController extends Controller
                 $holidays=ArrayHelper::map(\app\models\Hariliburnasional::find()->all(),'tanggal','tanggal');
                 $diajukan=Yii::$app->tools->getWorkingDays($model->tanggalMulai,$model->tanggalAkhir,$holidays);
                 if(($sisa=Jatahcuti::find()->where(['id_data'=>$model->id_data])->one())!==null && $sisa->sisa>=$diajukan){
-                    // $sisa->sisa-=$diajukan;
-                    // $sisa->save(false);
                     $model->save(false);
                     return [
                         'forceReload'=>'#crud-datatable'.md5(get_class($model)).'-pjax',

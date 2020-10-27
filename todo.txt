@@ -1,12 +1,12 @@
 TODO:
 
 Revisi 22-10-2020:
-+ Notifikasi pengajuan cuti/ijin dan table seperti pegawai akan ultah
-+ bug pengajuan ijin/cuti pengurangan jatah cuti
-+ bug di approval2 tidak muncul
-+ edit tampilan form pengajuan ijin ada pilihan nonshift/shift
++ Notifikasi pengajuan cuti/ijin dan table seperti pegawai akan ultah   progres
++ bug pengajuan ijin/cuti pengurangan jatah cuti                        done
++ bug di approval2 tidak muncul                                         done
++ edit tampilan form pengajuan ijin ada pilihan nonshift/shift          done
 + cetak form pengajuan
-+ edit form Riwayatpendidikan jika medis tambah field tgl mulai-tgl akhir
++ edit form Riwayatpendidikan jika medis tambah field tgl mulai-tgl akhir done
 
 
 - kenaikan gaji berkala (dari masa kerja (tmt) + 2th )

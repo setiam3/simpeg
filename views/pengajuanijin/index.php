@@ -5,14 +5,8 @@ use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\PengajuanijinSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Pengajuanijin';
 $this->params['breadcrumbs'][] = $this->title;
-
 CrudAsset::register($this);
 $idmodal=md5($dataProvider->query->modelClass);
 ?>

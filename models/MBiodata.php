@@ -1,6 +1,9 @@
 <?php
+
 namespace app\models;
+
 use Yii;
+
 class MBiodata extends \yii\db\ActiveRecord
 {
     public static function tableName()
@@ -11,7 +14,7 @@ class MBiodata extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'default', 'value' => null],
-            [['parent_id', 'status_hubungan_keluarga', 'checklog_id','jenis_pegawai'], 'integer'],
+            [['parent_id', 'status_hubungan_keluarga', 'checklog_id', 'jenis_pegawai'], 'integer'],
             [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
             [['tanggalLahir'], 'safe'],
             [['nip', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik', 'is_pegawai'], 'string', 'max' => 255],
@@ -50,15 +53,20 @@ class MBiodata extends \yii\db\ActiveRecord
             'status_hubungan_keluarga' => 'Status Hubungan Keluarga',
             'is_pegawai' => 'Is Pegawai',
             'checklog_id' => 'Checklog ID',
-            'jenis_pegawai'=>'Jenis Pegawai'
+            'jenis_pegawai' => 'Jenis Pegawai'
         ];
     }
-    public function getNamalengkap(){
-        return $this->gelarDepan.' '.$this->nama.' '.$this->gelarBelakang;
+    public function getNamalengkap()
+    {
+        return $this->gelarDepan . ' ' . $this->nama . ' ' . $this->gelarBelakang;
     }
     public function getKepangkatans()
     {
         return $this->hasMany(MKepangkatan::className(), ['id_data' => 'id_data']);
+    }
+    public function getKepang()
+    {
+        return $this->hasOne(MKepangkatan::className(), ['id_data' => 'id_data']);
     }
     public function getParent()
     {
@@ -104,22 +112,32 @@ class MBiodata extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Riwayatpendidikan::className(), ['id_data' => 'id_data']);
     }
-    public function getDesanya(){
-        return $this->hasOne(Kelurahan::className(),['id'=>'kelurahan']);
+    public function getDesanya()
+    {
+        return $this->hasOne(Kelurahan::className(), ['id' => 'kelurahan']);
     }
-    public function getStatuskawin(){
-        return $this->hasOne(MReferensi::className(),['reff_id'=>'statusPerkawinan']);
+    public function getStatuskawin()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'statusPerkawinan']);
     }
-    public function getAgamanya(){
-        return $this->hasOne(MReferensi::className(),['reff_id'=>'agama']);
+    public function getAgamanya()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'agama']);
     }
-    public function getSex(){
-        return $this->hasOne(MReferensi::className(),['reff_id'=>'jenisKelamin']);
+    public function getSex()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenisKelamin']);
     }
-    public function getJenispegawai(){
-        return $this->hasOne(MReferensi::className(),['reff_id'=>'jenis_pegawai']);
+    public function getJenispegawai()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenis_pegawai']);
     }
-    public function getUserid(){
-        return $this->hasOne(\mdm\admin\models\User::className(),['id_data'=>'id_data']);
+    public function getUserid()
+    {
+        return $this->hasOne(\mdm\admin\models\User::className(), ['id_data' => 'id_data']);
+    }
+    public function getSisacuti()
+    {
+        return $this->hasOne(Jatahcuti::className(), ['id_data' => 'id_data']);
     }
 }

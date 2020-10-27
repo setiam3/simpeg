@@ -28,6 +28,7 @@ use yii\widgets\DetailView;
             'medis',
             'suratijin',
             'tgl_berlaku_ijin',
+            'tgl_akhir_ijin'
         ],
     ]) ?>
 

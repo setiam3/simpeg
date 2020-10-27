@@ -199,15 +199,10 @@ if (empty($golpeg)) {
                     <div class="box box-warning direct-chat direct-chat-warning">
                         <div class="box-header with-border">
                             <p class="text-center">
-                                <strong>Pegawai yang akan Pensiun</strong>
+                                <strong>pegawai yg akan pensiun</strong>
                             </p>
                             <div class="box-body">
                                 <table id="example2" class="table table-bordered table-hover">
-                                    <!-- <thead>
-                            <tr>
-                                <th>nama</th>
-                            </tr>
-                            </thead> -->
                                     <thead>
                                         <tr>
                                             <th>nama</th>
@@ -234,7 +229,7 @@ if (empty($golpeg)) {
                     <div class="box box-warning direct-chat direct-chat-warning">
                         <div class="box-header with-border">
                             <p class="text-center">
-                                <strong>STR akan Habis</strong>
+                                <strong>STR akan habis</strong>
                             </p>
                             <div class="box-body">
                                 <table id="example2" class="table table-bordered table-hover">
@@ -251,8 +246,7 @@ if (empty($golpeg)) {
                                             foreach ($str as $row) { ?>
                                                 <tr>
                                                     <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= $row['tgl_berlaku_ijin'] ?></td>
-
+                                                    <td><?= $row->tgl_akhir_ijin ?></td>
                                                 </tr>
                                             <?php };
                                         } else { ?>
@@ -273,7 +267,7 @@ if (empty($golpeg)) {
                     <div class="box box-warning direct-chat direct-chat-warning">
                         <div class="box-header with-border">
                             <p class="text-center">
-                                <strong>SIP akan Habis</strong>
+                                <strong>STR akan Habis</strong>
                             </p>
                             <div class="box-body">
                                 <table id="example2" class="table table-bordered table-hover">
@@ -289,7 +283,7 @@ if (empty($golpeg)) {
                                             foreach ($sip as $row) { ?>
                                                 <tr>
                                                     <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= $row->tgl_berlaku_ijin ?></td>
+                                                    <td><?= $row->tgl_akhir_ijin ?></td>
                                                 </tr>
                                             <?php };
                                         } else { ?>

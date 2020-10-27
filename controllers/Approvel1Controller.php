@@ -7,7 +7,7 @@ use app\models\Approvel1Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use \yii\web\Response;//tes 456
+use \yii\web\Response;
 use yii\helpers\Html;
 class Approvel1Controller extends Controller
 {
@@ -114,10 +114,11 @@ class Approvel1Controller extends Controller
             }else if($model->load($request->post())){
                 if ($model->approval1=='1'){
                     $model->approval1=\Yii::$app->user->identity->id_data;
-                    $model->disetujui='1';
+                    $model->keterangan = $request->post('keterangan');
                 }else{
                     $model->approval1=\Yii::$app->user->identity->id_data;
-                    $model->disetujui='0';
+                    $model->disetujui=NULL;
+                    $model->keterangan = $request->post('keterangan');
                 }
                 $model->save(false);
                 return [
@@ -193,7 +194,6 @@ class Approvel1Controller extends Controller
         $model = new Pengajuanijin();
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
-
             if($request->isGet){
                 return [
                     'title'=> "Create new Pengajuanijin",
@@ -211,7 +211,6 @@ class Approvel1Controller extends Controller
                     foreach ($id as $row){
                         $model = Pengajuanijin::findOne($row);
                         $model->approval1=\Yii::$app->user->identity->id_data;
-                        $model->disetujui='1';
                         $model->keterangan = $request->post('keterangan');
                         $model->save();
                     }
@@ -219,7 +218,7 @@ class Approvel1Controller extends Controller
                     foreach ($id as $row){
                         $model = Pengajuanijin::findOne($row);
                         $model->approval1=\Yii::$app->user->identity->id_data;
-                        $model->disetujui='0';
+                        $model->disetujui=NULL;
                         $model->keterangan = $request->post('keterangan');
                         $model->save();
                     }
@@ -228,8 +227,6 @@ class Approvel1Controller extends Controller
                     'title'=> "Create new Pengajuanijin",
                     'content'=>'<span class="text-success">data berhasil diperbaruhi</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
-//                        .
-//                        Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote','data-target'=>'#'.md5(get_class($model))])
                 ];
             }else{
                 return [
