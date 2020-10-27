@@ -188,41 +188,6 @@ class Tools extends \yii\bootstrap\Widget
     return $sql =  \Yii::$app->db->createCommand($sql)->queryAll();
   }
 
-  public function dataIzin()
-  {
-    $role = \Yii::$app->tools->getcurrentroleuser();
-    if (in_array('karyawan', $role) && in_array('approval1', $role)) {
-      $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-      $where = 'approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data =' . \Yii::$app->user->identity->id_data . ')';
-      $izin = Pengajuanijin::find()
-        ->joinWith(['data' => function ($query) {
-          $query->joinWith('riwayatjabatans');
-        }])
-        ->where($where_iddata)
-        ->orWhere($where)
-        ->all();
-    } elseif (in_array('approval1', $role)) {
-      $where = 'approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data =' . \Yii::$app->user->identity->id_data . ')';
-      $izin = Pengajuanijin::find()
-        ->joinWith('data')
-        ->where($where)
-        ->all();
-    } elseif (in_array('approval2', $role)) {
-      $where = 'approval1 != 0 and approval2 IS NULL ';
-      $izin = Pengajuanijin::find()
-        ->joinWith('data')
-        ->where($where)
-        ->all();
-    } else {
-      $izin = Pengajuanijin::find()
-        ->joinWith('data')
-        ->all();
-    }
-    if ($izin !== null) {
-      return $izin;
-    }
-  }
-
   public function getcurrentroleuser()
   {
     $currentrole = \Yii::$app->authManager->getRolesByUser(\Yii::$app->user->id);

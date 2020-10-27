@@ -32,11 +32,7 @@ setInterval(function(){
     notifgaji()
     countpangkat()
     countizin()
-<<<<<<< HEAD
-},3000)
-=======
-// },3000)
->>>>>>> temp-branch
+ },3000)
 
 
  function notifgaji(){
@@ -103,15 +99,7 @@ setInterval(function(){
           }
      })
 });
-<<<<<<< HEAD
-
- 
-
- });'
-);
-=======
  });');
->>>>>>> temp-branch
 ?>
 
 <header class="main-header">
@@ -127,18 +115,10 @@ setInterval(function(){
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-<<<<<<< HEAD
-                
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-calendar"></i>
-                        <span class="label label-success" id="count_izin">0</span>
-=======
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-calendar"></i>
                         <span class="label label-warning" id="count_izin">0</span>
->>>>>>> temp-branch
                     </a>
                     <ul class="dropdown-menu">
                         <li>
