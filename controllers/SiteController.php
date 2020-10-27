@@ -330,9 +330,8 @@ class SiteController extends Controller
                 ->orWhere($where)
                 ->groupBy('pengajuanijin.id')
                 ->count();
-        }
-        elseif (in_array('karyawan', $role)) {
-            $where ='approval1 IS NULL or approval2 IS NULL ';
+        } elseif (in_array('karyawan', $role)) {
+            $where = 'approval1 IS NULL or approval2 IS NULL ';
             $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
@@ -341,13 +340,13 @@ class SiteController extends Controller
                 ->andWhere($where_iddata)
                 ->count();
         } elseif (in_array('approval2', $role)) {
-            $where ='approval1 != 0 and approval2 IS NULL ';
+            $where = 'approval1 != 0 and approval2 IS NULL ';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
                 ->count();
         } else {
-            $where ='approval1 IS NULL or approval2 IS NULL ';
+            $where = 'approval1 IS NULL or approval2 IS NULL ';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
@@ -364,7 +363,7 @@ class SiteController extends Controller
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (in_array('karyawan', $role) && in_array('approval1', $role)) {
             $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-            $where ='approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data =' . \Yii::$app->user->identity->id_data . ')';
+            $where = 'approval1 is null AND unit_kerja = (SELECT unit_kerja from m_biodata as b JOIN riwayatjabatan as rj on b.id_data = rj.id_data WHERE b.id_data =' . \Yii::$app->user->identity->id_data . ')';
             $izin = Pengajuanijin::find()
                 ->joinWith(['data' => function ($query) {
                     $query->joinWith('riwayatjabatans');
@@ -381,10 +380,9 @@ class SiteController extends Controller
                 $list = '<li><a href="#">data tidak ada</a></li>';
             }
             return $list;
-
         } elseif (in_array('karyawan', $role)) {
             $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-            $where ='approval1 IS NULL or approval2 IS NULL ';
+            $where = 'approval1 IS NULL or approval2 IS NULL ';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
@@ -399,9 +397,8 @@ class SiteController extends Controller
                 $list = '<li><a href="#">data tidak ada</a></li>';
             }
             return $list;
-
         } elseif (in_array('approval2', $role)) {
-            $where ='approval1 != 0 and approval2 IS NULL ';
+            $where = 'approval1 != 0 and approval2 IS NULL ';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
@@ -414,9 +411,8 @@ class SiteController extends Controller
                 $list = '<li><a href="#">data tidak ada</a></li>';
             }
             return $list;
-
         } else {
-            $where ='approval1 IS NULL or approval2 IS NULL ';
+            $where = 'approval1 IS NULL or approval2 IS NULL ';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
