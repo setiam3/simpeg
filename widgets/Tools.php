@@ -301,11 +301,11 @@ class Tools extends \yii\bootstrap\Widget
         ->orWhere($where)
         ->all();
     } elseif (in_array('karyawan', $role)) {
-      $where ='approval1 IS NULL or approval2 IS NULL ';
+
       $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
       $izin = Pengajuanijin::find()
         ->joinWith('data')
-        ->where($where)
+
         ->andWhere($where_iddata)
         ->all();
     } elseif (in_array('approval2', $role)) {
