@@ -41,3 +41,4 @@ class MRekening extends \yii\db\ActiveRecord
         return $this->hasOne(MReferensi::className(), ['reff_id' => 'bank_id']);
     }
 }
+l

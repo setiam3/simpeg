@@ -42,7 +42,7 @@ if (in_array('karyawan', $role)) {
         ])->label('Nama Pegawai');
         ?>
         <?= $form->field($model, 'jenisIjin')->widget(\kartik\select2\Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '12','status'=>'1'])->all(), 'nama_referensi', 'nama_referensi'),
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::find()->where(['tipe_referensi' => '12','status'=>'1'])->all(), 'reff_id', 'nama_referensi'),
         'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => ['allowClear' => true],
     ])->label('Jenis ijin'); ?>

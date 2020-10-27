@@ -1,5 +1,7 @@
 <?php
+
 use yii\helpers\Html;
+
 $notifDOK = \Yii::$app->tools->getNotifdokumen();
 $this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
@@ -29,6 +31,7 @@ $this->registerJs('$("document").ready(function(){
     loadDoc()
     notifgaji()
     countpangkat()
+    countizin()
 // },3000)
 
 
@@ -75,7 +78,27 @@ $this->registerJs('$("document").ready(function(){
            }
       })
  });
+ function countizin() {
+    $.ajax({
+        url:baseurl+"site/izin/",
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+        $("#count_izin").html(data);
+        }
+    })
+}
 
+ $(document).on("click", ".dropdown-toggle", function(){
+     $.ajax({
+          url:baseurl+"site/listzin",
+          method:"get",
+          dataType:"json",
+          success:function(data){
+               $(".izin").html(data);
+          }
+     })
+});
  });');
 ?>
 
@@ -92,6 +115,19 @@ $this->registerJs('$("document").ready(function(){
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-calendar"></i>
+                        <span class="label label-warning" id="count_izin">0</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <ul class="menu izin">
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
 
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
@@ -134,14 +170,13 @@ $this->registerJs('$("document").ready(function(){
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image" />
                         <span class="hidden-xs"><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->username; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
-                                 alt="User Image"/>
+                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
 
                             <p><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->username; ?></p>
                         </li>

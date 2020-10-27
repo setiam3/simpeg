@@ -50,4 +50,8 @@ class Pengajuanijin extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'approval2']);
     }
+    public function getJen()
+    {
+        return $this->hasOne(MReferensi::className(), ['reff_id' => 'jenisIjin']);
+    }
 }
