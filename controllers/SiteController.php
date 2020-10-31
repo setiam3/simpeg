@@ -412,7 +412,7 @@ class SiteController extends Controller
             return $list;
         } elseif (in_array('karyawan', $role)) {
             $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
-            $where = 'approval1 IS NULL or approval2 IS NULL ';
+            $where = 'approval1 IS NULL or approval2 IS NULL and disetujui is null';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
@@ -428,7 +428,7 @@ class SiteController extends Controller
             }
             return $list;
         } else {
-            $where = 'approval1 IS NULL or approval2 IS NULL ';
+            $where = 'approval1 IS NULL or approval2 IS NULL and disetujui is null';
             $izin = Pengajuanijin::find()
                 ->joinWith('data')
                 ->where($where)
