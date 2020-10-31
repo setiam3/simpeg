@@ -307,7 +307,7 @@ class Tools extends \yii\bootstrap\Widget
         ->andWhere($where)
         ->all();
     } elseif (in_array('approval2', $role)) {
-      $where = 'approval1 != 0 and approval2 IS NULL ';
+      $where = 'approval1 != 0 and approval2 IS NULL and disetujui is null';
       $izin = Pengajuanijin::find()
         ->joinWith('data')
         ->where($where)

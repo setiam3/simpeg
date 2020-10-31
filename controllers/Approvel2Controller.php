@@ -31,7 +31,7 @@ class Approvel2Controller extends Controller
     {
         $role = \Yii::$app->tools->getcurrentroleuser();
         if (ArrayHelper::keyExists('approval2', $role)) {
-            $where = 'approval1 != 0 and approval2 IS NULL ';
+            $where = 'approval1 != 0 and approval2 IS NULL and disetujui is NULL ';
         } else {
             $where = 'disetujui IS NULL';
         }

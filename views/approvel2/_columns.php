@@ -38,10 +38,8 @@ return [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'approval1',
         'value' => 'approval10.namalengkap',
-    ],[
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'disetujui',
-    ],[
+    ],
+    [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign' => 'middle',
@@ -63,14 +61,6 @@ return [
             'delete' => function ($url, $model) {
                 $idmodal = md5($model::className());
                 $t = '@web/approvel2/delete?id=' . $model->id;
-                return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::to($t), [
-                    'role' => 'modal-remote', 'data-target'=>'#'.$idmodal, 'title' => 'Delete',
-                    'data-confirm' => false, 'data-method' => false,
-                    'data-request-method' => 'post',
-                    'data-toggle' => 'tooltip',
-                    'data-confirm-title' => 'Are you sure?',
-                    'data-confirm-message' => 'Are you sure want to delete this item'
-                ]);
 
             },
         ],

@@ -321,7 +321,7 @@ if (empty($golpeg)) {
                                             foreach ($izin as $row) { ?>
                                                 <tr>
                                                     <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= ($row['disetujui'] == 1) ? 'Sukses' : ''; ?></td>
+                                                    <td><?= ($row['disetujui'] == 1) ? 'Sukses' : ''; ?><?= ($row['disetujui'] == '0') ? 'gagal' : ''; ?></td>
                                                 </tr>
                                             <?php };
                                         } else { ?>

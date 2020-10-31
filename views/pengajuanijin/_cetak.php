@@ -25,7 +25,7 @@ use yii\helpers\Html;
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>Mengetahui...........di</td>
+                                <td>Mengetahui Kepala ...... di</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -200,8 +200,8 @@ use yii\helpers\Html;
         <td style="padding-left: 10px;">Tidak Disetujui</td>
     </tr>
     <tr>
-        <td style="padding-left: 10px;"><?= (!empty($model->approval1)) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
-        <td style="padding-left: 10px;"><?= (empty($model->approval1)) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
+        <td style="padding-left: 10px;"><?= ($model->disetujui == 1) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
+        <td style="padding-left: 10px;"><?= ($model->disetujui == 0) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
     </tr>
     <tr>
         <td width="50%"></td>
@@ -227,8 +227,8 @@ use yii\helpers\Html;
         <td style="padding-left: 10px;"> Tidak di Setujui</td>
     </tr>
     <tr>
-        <td style="padding-left: 10px;"><?= (!empty($model->approval2)) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
-        <td style="padding-left: 10px;"><?= (empty($model->approval2)) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
+        <td style="padding-left: 10px;"><?= ($model->disetujui == 1) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
+        <td style="padding-left: 10px;"><?= ($model->disetujui ==0) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
     </tr>
     <tr>
         <td width="50%"></td>
@@ -237,7 +237,7 @@ use yii\helpers\Html;
             <br>
             <br>
             <br>
-            <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval20->namalengkap ?></p>
+            <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval20['namalengkap'] ?></p>
             NIP. <?php echo $model->approval20->nip ?>
         </td>
     </tr>
@@ -247,7 +247,7 @@ use yii\helpers\Html;
 
 
 <!-- <?php
-echo 'Gresik, ' . Yii::$app->formatter->asDate($model->tanggalPengajuan, 'long');
+//echo 'Gresik, ' . Yii::$app->formatter->asDate($model->tanggalPengajuan, 'long');
 echo $model->data->namalengkap;
 echo $model->data->alamat;
 echo $model->data->telp;
