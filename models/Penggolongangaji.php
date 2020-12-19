@@ -11,10 +11,10 @@ class Penggolongangaji extends \yii\db\ActiveRecord
     {
         return [
             [['pangkat_id', 'gaji'], 'required'],
-            [['pangkat_id', 'masa_kerja', 'jenis_pegawai', 'status_penggolongan'], 'default', 'value' => null],
+            [['pangkat_id', 'masa_kerja', 'jenis_pegawai', 'status_penggolongan','tingkatpendidikan'], 'default', 'value' => null],
             [['pangkat_id', 'masa_kerja', 'jenis_pegawai', 'status_penggolongan'], 'integer'],
             [['gaji'], 'number'],
-            [['ruang'], 'string'],
+            [['ruang','keterangan'], 'string'],
             [['pangkat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['pangkat_id' => 'reff_id']],
             [['jenis_pegawai'], 'exist', 'skipOnError' => true, 'targetClass' => MReferensi::className(), 'targetAttribute' => ['jenis_pegawai' => 'reff_id']],
         ];
@@ -29,7 +29,12 @@ class Penggolongangaji extends \yii\db\ActiveRecord
             'ruang' => 'Ruang',
             'jenis_pegawai' => 'Jenis Pegawai',
             'status_penggolongan' => 'Status Penggolongan',
+            'tingkatpendidikan'=>'Tingkat Pendidikan',
+            'keterangan'=>'Keterangan'
         ];
+    }
+    public function getPendidikan(){
+        return $this->hasOne(MReferensi::className(),['reff_id'=>'tingkatpendidikan']);
     }
     public function getKepangkatans()
     {

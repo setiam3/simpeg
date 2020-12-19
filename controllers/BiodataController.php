@@ -2,6 +2,7 @@
 namespace app\controllers;
 use app\models\TransaksiPenggajianSearch;
 use Yii;
+use app\models\Jatahcuti;
 use app\models\MBiodata;
 use app\models\MBiodataSearch;
 use yii\web\Controller;
@@ -71,15 +72,18 @@ class BiodataController extends Controller
                 $model->fotoNik = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
             }
             $model->save();
-            $jatahcuti=new Jatahcuti();
-            $jatahcuti->id_data=$model->id_data;
-            $jatahcuti->sisa=12;
-            $jatahcuti->save(false);
+            $this->jatahcuti($model->id_data);
             return $this->redirect(['view', 'id' => $model->id_data]);
         }
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+    public function jatahcuti($data){
+        $jatahcuti=new Jatahcuti();
+        $jatahcuti->id_data=$data;
+        $jatahcuti->sisa=12;
+        $jatahcuti->save(false);
     }
     public function actionUpdate($id)
     {
@@ -157,9 +161,11 @@ class BiodataController extends Controller
                         $model2->agama = $worksheet->getCellByColumnAndRow(10, $row)->getValue();
                         $model2->gelarDepan = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
                         $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
+                        $model2->jenis_pegawai = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
                         $model2->is_pegawai = 1;
                         try {
                             if ($model2->save(false)) {
+                                $this->jatahcuti($model2->id_data);
                                 $inserted++;
                             }
                         } catch (\yii\db\Exception $e) {

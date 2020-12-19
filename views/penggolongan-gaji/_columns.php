@@ -32,7 +32,7 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'ruang',
+        'attribute'=>'keterangan',
     ],
     [
          'class'=>'\kartik\grid\DataColumn',
@@ -40,10 +40,15 @@ return [
          'value' => 'jenisPegawai.nama_referensi',
      ],
     [
+         'class'=>'\kartik\grid\DataColumn',
+         'attribute'=>'tingkatpendidikan',
+         'value' => 'pendidikan.nama_referensi',
+    ],
+    [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { 
+        'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
@@ -72,4 +77,4 @@ return [
         ],
     ],
 
-];   
+];

@@ -1,7 +1,5 @@
 <?php
-
 use yii\helpers\Html;
-
 $notifDOK = \Yii::$app->tools->getNotifdokumen();
 $this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
@@ -22,7 +20,7 @@ $this->registerJs('$("document").ready(function(){
    method:"GET",
    success:function(data){
         $(".dok").html(data);
-       
+
    }
   })
  });
@@ -100,6 +98,16 @@ setInterval(function(){
      })
 });
  });');
+
+ $images='';
+$model=\app\models\MBiodata::findOne(Yii::$app->user->identity->id_data);
+if(Yii::$app->user->isGuest || !is_object($model)){
+    $images=$directoryAsset."/img/user2-160x160.jpg";
+}elseif(is_object($model) && $model->foto!==NULL){
+    $images=\Yii::getAlias('@web/uploads/foto/'.$model->foto);
+}elseif(is_object($model)){
+    $images = ($model->jenisKelamin==10)?\Yii::getAlias('@web/uploads/foto/avatarfemale.jpg'):\Yii::getAlias('@web/uploads/foto/avatar-male.jpg');
+}
 ?>
 
 <header class="main-header">
@@ -170,13 +178,13 @@ setInterval(function(){
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image" />
+                        <img src="<?= $images?>" class="user-image" alt="User Image" />
                         <span class="hidden-xs"><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->username; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                            <img src="<?= $images?>" class="img-circle" alt="User Image" />
 
                             <p><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->username; ?></p>
                         </li>
@@ -201,7 +209,7 @@ setInterval(function(){
                                 <?= Html::a(
                                     'Sign out',
                                     ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                    ['data-method' => 'get', 'class' => 'btn btn-default btn-flat']
                                 ) ?>
                             </div>
                         </li>
