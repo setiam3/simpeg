@@ -72,7 +72,7 @@ class BiodataController extends Controller
                 $model->fotoNik = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
             }
             $model->save();
-            $this->jatahcuti($model->id_data);
+            ($model->is_pegawai=='1')?$this->jatahcuti($model->id_data):'';
             return $this->redirect(['view', 'id' => $model->id_data]);
         }
         return $this->render('create', [
@@ -164,9 +164,10 @@ class BiodataController extends Controller
                             $model2->gelarDepan = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
                             $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
                             $model2->jenis_pegawai = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
-                            $model2->is_pegawai = 1;
+                            $model2->telp = $worksheet->getCellByColumnAndRow(14, $row)->getValue();
+                            $model2->is_pegawai = $worksheet->getCellByColumnAndRow(15, $row)->getValue();
                             if ($model2->save(false)) {
-                                $this->jatahcuti($model2->id_data);
+                                ($model2->is_pegawai=='1')?$this->jatahcuti($model2->id_data):'';
                                 $inserted++;
                             }
                         }
