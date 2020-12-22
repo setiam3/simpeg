@@ -148,30 +148,39 @@ class BiodataController extends Controller
                     $inserted = 0;
                     $errorCount = 0;
                     $totaldisetujui = 0;
-                    for ($row = 2; $row <= $highestRow; ++$row) {
-                        $model2 = new MBiodata;
-                        $model2->nip = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                        $model2->nama = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
-                        $model2->tempatLahir = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
-                        $model2->tanggalLahir = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
-                        $model2->alamat = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
-                        $model2->jenisKelamin = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
-                        $model2->nik = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
-                        $model2->golonganDarah = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
-                        $model2->agama = $worksheet->getCellByColumnAndRow(10, $row)->getValue();
-                        $model2->gelarDepan = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
-                        $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
-                        $model2->jenis_pegawai = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
-                        $model2->is_pegawai = 1;
-                        try {
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try {
+                        for ($row = 2; $row <= $highestRow; ++$row) {
+                            $model2 = new MBiodata();
+                            $model2->nip = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+                            $model2->nama = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+                            $model2->tempatLahir = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+                            $model2->tanggalLahir = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+                            $model2->alamat = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+                            $model2->jenisKelamin = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
+                            $model2->nik = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
+                            $model2->golonganDarah = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
+                            $model2->agama = $worksheet->getCellByColumnAndRow(10, $row)->getValue();
+                            $model2->gelarDepan = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
+                            $model2->gelarBelakang = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
+                            $model2->jenis_pegawai = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
+                            $model2->is_pegawai = 1;
                             if ($model2->save(false)) {
                                 $this->jatahcuti($model2->id_data);
                                 $inserted++;
                             }
-                        } catch (\yii\db\Exception $e) {
-                            $errorCount++;
-                            Yii::$app->session->setFlash('error', "($errorCount)Error saving model");
                         }
+                        $transaction->commit();
+                    } catch (\Exception $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                        $errorCount++;
+                        Yii::$app->session->setFlash('error', "($errorCount)Error saving model");
+                        $transaction->rollBack();
+                    } catch (\Throwable $e) {
+                        $transaction->rollBack();
+                        $errorCount++;
+                        throw $e;
                     }
                     Yii::$app->session->setFlash('success', ($inserted) . ' row inserted');
                 } else {
