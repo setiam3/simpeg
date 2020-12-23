@@ -20,19 +20,15 @@ $this->registerJs('$("document").ready(function(){
    method:"GET",
    success:function(data){
         $(".dok").html(data);
-
    }
   })
  });
-
 setInterval(function(){
     loadDoc()
     notifgaji()
     countpangkat()
     countizin()
  },3000)
-
-
  function notifgaji(){
      $.ajax({
          url:baseurl+"site/notifgaji/",

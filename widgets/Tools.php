@@ -171,7 +171,6 @@ class Tools extends \yii\bootstrap\Widget
     $sql = 'SELECT ' . $namalengkap . ',"tanggalLahir" FROM m_biodata
   WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
   AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
-
     return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
   }
   public function nextPensiun()
@@ -240,11 +239,11 @@ class Tools extends \yii\bootstrap\Widget
     } else {
       $where_iddata = '';
     }
-    $where = new Expression('EXTRACT(MONTH FROM tgl_berlaku_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
-    $tahun = new Expression('EXTRACT(YEAR FROM tgl_berlaku_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
+    $where = new Expression('month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 and EXTRACT(MONTH	FROM NOW()) ::INTEGER');
+    $tahun = new Expression('EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
     $data = Riwayatpendidikan::find()
       ->joinWith('data')
-      ->where(['is not', 'tgl_berlaku_ijin', null])
+      ->where(['is not', 'tgl_akhir_ijin', null])
       ->andWhere($where)
       ->andWhere($tahun)
       ->andWhere(['like', 'suratijin', 'STR'])
@@ -261,7 +260,7 @@ class Tools extends \yii\bootstrap\Widget
     } else {
       $where_iddata = '';
     }
-    $where = new Expression('EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
+    $where = new Expression('month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 and EXTRACT(MONTH	FROM NOW()) ::INTEGER');
     $tahun = new Expression('EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
     $data = Riwayatpendidikan::find()
       ->joinWith('data')

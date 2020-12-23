@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
@@ -11,14 +10,15 @@ use kartik\date\DatePicker;
 
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
-    $data = $model::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->one();
-    $parent = [$data->id_data => $data->nama];
+    $data = $model::find()->where(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data])
+            ->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->one();
+    $parent = [$data->id_data => $data->namaLengkap];
 } elseif (in_array('operator', $role) || in_array('admin', $role)) {
     if (!empty($klikedid)) {
         $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => $klikedid]);
-        $parent = [$data->id_data => $data->nama];
+        $parent = [$data->id_data => $data->namaLengkap];
     } else {
-        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
+        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'namaLengkap');
     }
 }
 
@@ -65,7 +65,6 @@ if (in_array('karyawan', $role)) {
 
         <div class="col-xs-4">
             <?= $form->field($model, 'alamat')->textInput(['maxlength' => true]) ?>
-
             <?= $form->field($model, 'kabupatenKota')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\Kabupaten::findAll(['province_id' => '35']), 'id', 'name'),
                 'options' => ['placeholder' => 'Select  ...'],
@@ -73,7 +72,6 @@ if (in_array('karyawan', $role)) {
                     'allowClear' => true
                 ],
             ]) ?>
-
             <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(), [
                 'data' => !$model->isNewRecord && isset($model->kecamatan) ? [$model->kecamatan => \app\models\Kecamatan::findOne(['id' => $model->kecamatan])->name] : [],
                 'type' => DepDrop::TYPE_SELECT2,
@@ -101,7 +99,6 @@ if (in_array('karyawan', $role)) {
                     'loadingText' => 'Loading kelurahan ...',
                 ]
             ]) ?>
-
             <?= $form->field($model, 'statusPerkawinan')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => '9', 'status' => '1']), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
@@ -110,9 +107,7 @@ if (in_array('karyawan', $role)) {
                 ],
             ]) ?>
             <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
-
             <?= $form->field($model, 'golonganDarah')->textInput(['maxlength' => true]) ?>
-
             <?= $form->field($model, 'status_hubungan_keluarga')->widget(Select2::classname(), [
                 'data' => ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi' => 2, 'status' => '1']), 'reff_id', 'nama_referensi'),
                 'options' => ['placeholder' => 'Select  ...'],
@@ -121,10 +116,7 @@ if (in_array('karyawan', $role)) {
                 ],
             ]) ?>
         </div>
-
         <div class="col-xs-4">
-
-
             <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'autoReplace' => true],
                 'pluginOptions' => [
@@ -153,9 +145,6 @@ if (in_array('karyawan', $role)) {
                     'browseLabel' =>  'Select FotoNik'
                 ],
             ]) ?>
-
-
-
             <?php if (!Yii::$app->request->isAjax) { ?>
                 <div class="form-group">
                     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

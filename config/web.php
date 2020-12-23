@@ -37,6 +37,9 @@ $config = [
         ]
     ],
     'components' => [
+        'session'=>[
+            'name'=>'PHPSIMPEG'
+        ],
         'view' => [
              'theme' => [
                  'pathMap' => [
