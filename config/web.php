@@ -37,6 +37,16 @@ $config = [
         ]
     ],
     'components' => [
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0,
+        ],
+        'session'=>[
+            //'name'=>'simpeg',
+            'class' => 'yii\redis\Session',
+        ],
         'view' => [
              'theme' => [
                  'pathMap' => [
@@ -57,7 +67,8 @@ $config = [
             'cookieValidationKey' => 'rsE2ILrUA0kdVMUW3hQuUKJ_Sfn7h02L',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            //'class' => 'yii\caching\FileCache',
+            'class'=>'yii\redis\Cache'
         ],
         'user' => [
             'enableAutoLogin' => true,

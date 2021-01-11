@@ -12,7 +12,8 @@ use Yii;
  * @property string $tanggal
  * @property string $keterangan
  */
-class Hariliburnasional extends \yii\db\ActiveRecord
+class Hariliburnasional extends \yii\redis\ActiveRecord
+
 {
     /**
      * {@inheritdoc}

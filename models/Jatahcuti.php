@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 use Yii;
-class Jatahcuti extends \yii\db\ActiveRecord
+class Jatahcuti extends \yii\db\ActiveRecord 
 {
     public static function tableName()
     {
