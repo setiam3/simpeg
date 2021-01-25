@@ -287,7 +287,12 @@ class Tools extends \yii\bootstrap\Widget
       ->andWhere($where_iddata)
       ->andWhere($tahun)
       ->all();
-    return $data;
+    // return $data;
+    $sql = "SELECT * FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 and EXTRACT(MONTH FROM NOW()) ::INTEGER) AND (suratijin LIKE '%SIP%') AND (EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER)";
+    $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
+    $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
+    $dataprovider->pagination->pageSize=10;
+    return $dataprovider;
   }
   public function kategori()
   {

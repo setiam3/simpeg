@@ -15,7 +15,7 @@ $column =  [
 ];
 Pjax::begin();
 echo GridView::widget([
-    'dataProvider' => \Yii::$app->tools->str(),
+    'dataProvider' => \Yii::$app->tools->sip(),
     'columns' => $column,
     // 'striped' => true,
     // 'condensed' => true,

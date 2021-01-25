@@ -89,7 +89,7 @@ if (empty($golpeg)) {
                                 </p>
                                 <div class="box-body">
                                 <?php include('tableultah.php')?>
-                                    
+
                                 </div>
 
                             </div>
@@ -212,31 +212,11 @@ if (empty($golpeg)) {
                     <div class="box box-warning direct-chat direct-chat-warning">
                         <div class="box-header with-border">
                             <p class="text-center">
-                                <strong>STR akan Habis</strong>
+                                <strong>SIP akan Habis</strong>
                             </p>
                             <div class="box-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>nama</th>
-                                            <th>tgl berakhir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        if (!empty($sip)) {
-                                            foreach ($sip as $row) { ?>
-                                                <tr>
-                                                    <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= $row->tgl_akhir_ijin ?></td>
-                                                </tr>
-                                            <?php };
-                                        } else { ?>
-
-                                        <?php }; ?>
-
-                                    </tbody>
-                                </table>
+                            <?php include('tablesip.php')?>
+                                
                             </div>
 
                         </div>
