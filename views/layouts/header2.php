@@ -29,6 +29,7 @@ $this->registerJs('$("document").ready(function(){
     loadDoc()
     notifgaji()
     countpangkat()
+    countizin()
 // },3000)
 
 
@@ -76,6 +77,31 @@ $this->registerJs('$("document").ready(function(){
       })
  });
 
+ function countizin() {
+    $.ajax({
+        url:baseurl+"site/izin/",
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+        $("#count_izin").html(data);
+        }
+    })
+}
+
+ $(document).on("click", ".dropdown-toggle", function(){
+     $.ajax({
+          url:baseurl+"site/listzin",
+          method:"get",
+          dataType:"json",
+          success:function(data){
+               $(".izin").html(data);
+          }
+     })
+});
+
+ 
+
+
  });');
 ?>
 
@@ -92,6 +118,23 @@ $this->registerJs('$("document").ready(function(){
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
+<<<<<<< HEAD
+=======
+
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-calendar"></i>
+                        <span class="label label-success" id="count_izin">0</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <ul class="menu izin">
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+>>>>>>> NOTIF IZIN
 
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">

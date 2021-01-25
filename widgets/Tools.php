@@ -12,6 +12,7 @@ use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use tpmanc\imagick\Imagick;
 use yii\helpers\ArrayHelper;
+use yii\data\{SqlDataProvider};
 
 class Tools extends \yii\bootstrap\Widget
 {
@@ -168,8 +169,11 @@ class Tools extends \yii\bootstrap\Widget
     $sql = 'SELECT '.$namalengkap.',"tanggalLahir" FROM m_biodata
   WHERE EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
   AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
-
-    return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
+  $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
+    // return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
+    $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
+    $dataprovider->pagination->pageSize=10;
+    return $dataprovider;
   }
   public function nextPensiun()
   { // akan pensiun 1 jenis pegawai pns --kode pegawai pns  --kode pegawai 2 blud, 3 freelend --1 jenis pegawai pns
@@ -182,7 +186,11 @@ class Tools extends \yii\bootstrap\Widget
     or ($usia IN (49,50))
     AND (\"jenis_pegawai\" in ('3','2'))
     AND (\"is_pegawai\" = '1')";
-    return $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
+    $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
+    // return $pensiun =  \Yii::$app->db->createCommand($sql)->queryAll();
+    $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
+    $dataprovider->pagination->pageSize=10;
+    return $dataprovider;
   }
 
   public function getcurrentroleuser()
@@ -245,7 +253,13 @@ class Tools extends \yii\bootstrap\Widget
           ->andWhere(['like','suratijin','STR'])
           ->andWhere($where_iddata)
           ->all();
-      return $data;
+          // return $data;
+
+      $sql = "SELECT * FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER) AND (EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER) AND (suratijin LIKE '%STR%')";
+          $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
+    $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
+    $dataprovider->pagination->pageSize=10;
+    return $dataprovider;
   }
 
     public function sip(){
