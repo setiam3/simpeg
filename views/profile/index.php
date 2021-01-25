@@ -12,7 +12,7 @@ use yii\helpers\Html;
         if (file_exists(\Yii::getAlias('@uploads') . $model->nip . '/' . $model->foto) && !empty($model->foto)) {
             echo Html::a(Html::img($linkFoto, ['class' => 'col-xs-12']), $linkFoto, ['class' => '']);
         } else {
-            $link = \Yii::getAlias('@web/uploads/foto/avatarfemale.jpg');
+            $link = ($model->jenisKelamin==10)?\Yii::getAlias('@web/uploads/foto/avatarfemale.jpg'):\Yii::getAlias('@web/uploads/foto/avatar-male.jpg');
             echo Html::a(Html::img($link, ['class' => 'col-xs-12']), $link, ['class' => '']);
         } ?>
 

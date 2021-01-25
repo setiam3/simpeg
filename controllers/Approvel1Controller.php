@@ -114,11 +114,11 @@ class Approvel1Controller extends Controller
             }else if($model->load($request->post())){
                 if ($model->approval1=='1'){
                     $model->approval1=\Yii::$app->user->identity->id_data;
-                    $model->keterangan = $request->post('keterangan');
+                    //$model->keterangan = $request->post('keterangan');
                 }else{
                     $model->approval1=\Yii::$app->user->identity->id_data;
-                    $model->disetujui=NULL;
-                    $model->keterangan = $request->post('keterangan');
+                    $model->disetujui='0';
+                    //$model->keterangan = $request->post('keterangan');
                 }
                 $model->save(false);
                 return [
@@ -211,14 +211,14 @@ class Approvel1Controller extends Controller
                     foreach ($id as $row){
                         $model = Pengajuanijin::findOne($row);
                         $model->approval1=\Yii::$app->user->identity->id_data;
-                        $model->keterangan = $request->post('keterangan');
+                         $model->keterangan = $request->post('keterangan');
                         $model->save();
                     }
                 }elseif ($model->approval1=='0')
                     foreach ($id as $row){
                         $model = Pengajuanijin::findOne($row);
                         $model->approval1=\Yii::$app->user->identity->id_data;
-                        $model->disetujui=NULL;
+                        $model->disetujui='0';
                         $model->keterangan = $request->post('keterangan');
                         $model->save();
                     }

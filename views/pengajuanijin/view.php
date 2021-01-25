@@ -1,4 +1,5 @@
 <?php
+
 use yii\widgets\DetailView;
 ?>
 <div class="pengajuanijin-view">
@@ -18,20 +19,25 @@ use yii\widgets\DetailView;
             [
                 'attribute' => 'approval1',
                 'value' => function ($data) {
-                    return isset($data->approval10->nama)?$data->approval10->namalengkap:'Pending';
+                    return isset($data->approval10->nama) ? $data->approval10->namalengkap : 'Pending';
                 },
             ],
             [
                 'attribute' => 'approval2',
                 'value' => function ($data) {
-                    return isset($data->approval20->nama)?$data->approval20->namalengkap:'Pending';
+                    return isset($data->approval20->nama) ? $data->approval20->namalengkap : 'Pending';
                 },
             ],
             'disetujui',
-            'jenisIjin',
+            [
+                'attribute' =>  'jenisIjin',
+                'value' => function ($data) {
+                    return $data->jen['nama_referensi'];
+                },
+            ],
             'keterangan',
-            ['attribute'=>'shift','value'=>function($data){
-                return $data->shift?'Shift':'Non Shift';
+            ['attribute' => 'shift', 'value' => function ($data) {
+                return $data->shift ? 'Shift' : 'Non Shift';
             }]
         ],
     ]) ?>

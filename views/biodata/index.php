@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $link=Yii::getAlias('@web/uploads/foto/');
                 return isset($data->foto)?
                 Html::a(Html::img($link.$data->nip.'/'.$data->foto,['width' => '60px']),['info','id'=>$data->id_data]):
-                Html::a(Html::img($link.'avatarfemale.jpg',['width' => '60px']),['info','id'=>$data->id_data]);
+                Html::a(Html::img(($data->jenisKelamin==10)?$link.'avatarfemale.jpg':$link.'avatar-male.jpg',['width' => '60px']),['info','id'=>$data->id_data]);
             },
         ],
         'nip',

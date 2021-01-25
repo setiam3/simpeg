@@ -32,6 +32,16 @@ return [
         'value' => 'data.namalengkap',
     ],
     [
+        'class' => '\kartik\grid\DataColumn',
+        'attribute' => 'disetujui',
+        'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
+        'filter' => ['1'=>'Sudah Disetujui',''=>'Belum di Setujui'],
+        'filterWidgetOptions' => [
+            'pluginOptions' => ['allowClear' => true],
+        ],
+        'filterInputOptions' => ['placeholder' => 'status'],
+    ],
+    [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
