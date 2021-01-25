@@ -32,13 +32,29 @@ return [
         'value' => 'data.namalengkap',
     ],
     [
+        'class' => '\kartik\grid\DataColumn',
+        'attribute' => 'disetujui',
+        'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
+        'filter' => ['1'=>'Sudah Disetujui',''=>'Belum di Setujui'],
+        'filterWidgetOptions' => [
+            'pluginOptions' => ['allowClear' => true],
+        ],
+        'filterInputOptions' => ['placeholder' => 'status'],
+    ],
+    [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
+        'template' => "{view}&nbsp;{update}&nbsp;{cetak}&nbsp;{delete}",
         'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'id'=>$key]);
         },
         'buttons' => [
+            'cetak' => function ($url, $model) {
+                $idmodal=md5($model::className());
+                $t = '@web/pengajuanijin/cetak?id=' . $model->id;
+                return Html::a('<span class="glyphicon glyphicon-print"></span>', Url::to($t), ['data-pjax'=>0,'target'=>'_blank']);
+            },
             'view' => function ($url, $model) {
                 $idmodal=md5($model::className());
                 $t = '@web/pengajuanijin/view?id=' . $model->id;

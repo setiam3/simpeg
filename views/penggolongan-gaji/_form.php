@@ -55,12 +55,21 @@ use yii\bootstrap\Modal;
 
     <?= $form->field($model, 'jenis_pegawai')->widget(Select2::classname(), [
         'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'1','status'=>'1']),'reff_id','nama_referensi'),
-        'language' => 'de',
+        'language' => 'en',
         'options' => ['placeholder' => 'Select ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
     ])->label('Jenis Pegawai'); ?>
+    <?= $form->field($model, 'tingkatpendidikan')->widget(Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\MReferensi::findAll(['tipe_referensi'=>'10','status'=>'1']),'reff_id','nama_referensi'),
+        'language' => 'en',
+        'options' => ['placeholder' => 'Select ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])->label('Pendidikan'); ?>
+    <?= $form->field($model, 'keterangan')->textInput() ?>
 
 	<?php if (!Yii::$app->request->isAjax){ ?>
 	  	<div class="form-group">

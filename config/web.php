@@ -70,6 +70,9 @@ $config = [
         ]
     ],
     'components' => [
+        'session'=>[
+            'name'=>'PHPSIMPEG'
+        ],
         'view' => [
              'theme' => [
                  'pathMap' => [
@@ -127,7 +130,7 @@ $config = [
         ],
         'pdf' => [
             'class' => 'kartik\mpdf\Pdf',
-            'format' => 'A4',
+            'format' => [215,330],//'A4',
             'orientation' => 'P',
             'destination' => 'I',
         ],

@@ -13,7 +13,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
             [['id_data', 'tingkatPendidikan'], 'required'],
             [['id_data', 'tingkatPendidikan', 'medis'], 'default', 'value' => null],
             [['id_data', 'tingkatPendidikan', 'medis'], 'integer'],
-            [['tgl_ijazah', 'tgl_berlaku_ijin'], 'safe'],
+            [['tgl_ijazah', 'tgl_berlaku_ijin','tgl_akhir_ijin'], 'safe'],
             [['suratijin'], 'string'],
             [['jurusan', 'namaSekolah', 'dokumen'], 'string', 'max' => 255],
             [['thLulus', 'thMasuk'], 'string', 'max' => 4],
@@ -38,6 +38,7 @@ class Riwayatpendidikan extends \yii\db\ActiveRecord
             'medis' => 'Medis',
             'suratijin' => 'Surat Ijin',
             'tgl_berlaku_ijin' => 'Tgl Berlaku Ijin',
+            'tgl_akhir_ijin'=>'Tgl Akhir Ijin'
         ];
     }
     public function getData()

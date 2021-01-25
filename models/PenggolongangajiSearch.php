@@ -10,7 +10,7 @@ class PenggolongangajiSearch extends Penggolongangaji
     {
         return [
             [['id', 'masa_kerja',], 'integer'],
-            [['gaji', 'status_penggolongan', 'ruang','pangkat_id','jenis_pegawai'], 'safe'],
+            [['gaji', 'status_penggolongan', 'ruang','pangkat_id','jenis_pegawai','tingkatpendidikan','keterangan'], 'safe'],
         ];
     }
     public function scenarios()
@@ -37,7 +37,7 @@ class PenggolongangajiSearch extends Penggolongangaji
             ->andFilterWhere(['like', 'status_penggolongan', $this->status_penggolongan])
             ->andFilterWhere(['like', 'r.nama_referensi', $this->pangkat_id])
             ->andFilterWhere(['like', 'r.nama_referensi', $this->jenis_pegawai])
-            ->andFilterWhere(['like', 'ruang', $this->ruang]);
+            ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
         return $dataProvider;
     }
 }

@@ -1,30 +1,36 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
 use kartik\date\DatePicker;
-
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
     $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data]);
-    $parent = [$data->id_data => $data->nama];
+    $parent = [$data->id_data => $data->namaLengkap];
 } elseif (in_array('operator', $role) || in_array('admin', $role)) {
     if (!empty($klikedid)) {
         $data = \app\models\MBiodata::findOne(['is_pegawai' => '1', 'id_data' => $klikedid]);
-        $parent = [$data->id_data => $data->nama];
+        $parent = [$data->id_data => $data->namaLengkap];
     } else {
-        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'nama');
+        $parent = ArrayHelper::map(\app\models\MBiodata::findAll(['is_pegawai' => '1']), 'id_data', 'namaLengkap');
     }
 }
-
-$this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide()");
+if($model->isNewRecord){
+    $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide(), $('.field-riwayatpendidikan-tgl_akhir_ijin').hide()");
+}elseif(!$model->isNewRecord && $model->medis=='0'){
+    $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide(), $('.field-riwayatpendidikan-tgl_akhir_ijin').hide()");
+}elseif(!$model->isNewRecord && $model->medis=='1'){
+    $this->registerJs(
+    "$('.field-riwayatpendidikan-no_ijazah label').html('No '+$('#riwayatpendidikan-suratijin').val());
+    $('.field-riwayatpendidikan-tgl_ijazah').hide();
+    $('.field-riwayatpendidikan-tgl_berlaku_ijin').show();
+    $('.field-riwayatpendidikan-tgl_akhir_ijin').show();
+    $('.field-riwayatpendidikan-suratijin').show();");
+}
 ?>
-
 <div class="riwayatpendidikan-forms">
-
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-sm-4">
@@ -56,7 +62,6 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
             ])  ?>
         </div>
         <div class="col-sm-4">
-
             <?= $form->field($model, 'thLulus')->widget(DatePicker::className(), [
                 'pluginOptions' => [
                     'format' => 'yyyy',
@@ -82,11 +87,17 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
                     'pluginEvents' => [
                         "switchChange.bootstrapSwitch" => "function(e,s) {
                            if(s == true){
-                           $('.field-riwayatpendidikan-tgl_berlaku_ijin').show()
-                           $('.field-riwayatpendidikan-suratijin').show()
+                                $('.field-riwayatpendidikan-no_ijazah label').html('No STR/SIP');
+                                $('.field-riwayatpendidikan-tgl_ijazah').hide();
+                                $('.field-riwayatpendidikan-tgl_berlaku_ijin').show();
+                                $('.field-riwayatpendidikan-tgl_akhir_ijin').show();
+                                $('.field-riwayatpendidikan-suratijin').show();
                            }else{
-                                $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide()
-                                $('.field-riwayatpendidikan-suratijin').hide()
+                                $('.field-riwayatpendidikan-no_ijazah label').html('No Ijazah');
+                                $('.field-riwayatpendidikan-tgl_ijazah').show();
+                                $('.field-riwayatpendidikan-tgl_berlaku_ijin').hide();
+                                $('.field-riwayatpendidikan-tgl_akhir_ijin').hide();
+                                $('.field-riwayatpendidikan-suratijin').hide();
                            }
                         }"
                     ]
@@ -97,6 +108,11 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
+                'pluginEvents' => [
+                    "change" => "function() {
+                        $('.field-riwayatpendidikan-no_ijazah label').html('No '+$(this).val());
+                    }",
+                ],
             ])->label('Surat Ijin')
             ?>
             <?= $form->field($model, 'tgl_berlaku_ijin')->widget(DatePicker::className(), [
@@ -106,10 +122,15 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
                     'autoclose' => true
                 ]
             ]) ?>
+             <?= $form->field($model, 'tgl_akhir_ijin')->widget(DatePicker::className(), [
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
+                    'autoclose' => true
+                ]
+            ]) ?>
         </div>
-
         <div class="col-sm-4">
-
             <?= $form->field($model, 'dokumen')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'image/*', 'application/pdf', 'autoReplace' => true],
                 'pluginOptions' => [
@@ -125,14 +146,11 @@ $this->registerJs("$('.field-riwayatpendidikan-suratijin').hide(), $('.field-riw
                 ],
             ]) ?>
         </div>
-
         <?php if (!Yii::$app->request->isAjax) { ?>
             <div class="form-group">
                 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
             </div>
         <?php } ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>

@@ -9,15 +9,15 @@ use yii\bootstrap\Tabs;
 
 $role = \Yii::$app->tools->getcurrentroleuser();
 if (in_array('karyawan', $role)) {
-    $data = \app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->one();
-    $parent = [$data->id_data => $data->nama];
+    $data = \app\models\MBiodata::find()->where(['is_pegawai' => '1', 'id_data' => \Yii::$app->user->identity->id_data])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->one();
+    $parent = [$data->id_data => $data->namaLengkap];
 
 } elseif (in_array('operator', $role) || in_array('admin', $role)) {
     if (!empty($klikedid)) {
-        $parent = ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1', 'id_data' => $klikedid])->all(), 'id_data', 'nama');
+        $parent = ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => '1', 'id_data' => $klikedid])->all(), 'id_data', 'namaLengkap');
     } else {
-        $parent = $transaksipenggajian->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'nama') :
-        ArrayHelper::map(\app\models\MBiodata::find()->select('id_data,concat("gelarDepan","nama","gelarBelakang") as nama')->where(['id_data' => $transaksipenggajian->data_id])->all(), 'id_data', 'nama');
+        $parent = $transaksipenggajian->isNewRecord ? ArrayHelper::map(\app\models\MBiodata::find()->where(['is_pegawai' => '1'])->andWhere(['not', ['jenis_pegawai' => '4']])->andWhere(['not', ['jenis_pegawai' => NULL]])->all(), 'id_data', 'namaLengkap') :
+        ArrayHelper::map(\app\models\MBiodata::find()->where(['id_data' => $transaksipenggajian->data_id])->all(), 'id_data', 'namaLengkap');
     }
 }
 $this->registerJsVar('baseurl',Url::home());

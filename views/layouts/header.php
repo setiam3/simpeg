@@ -1,9 +1,5 @@
 <?php
 use yii\helpers\Html;
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 $notifDOK = \Yii::$app->tools->getNotifdokumen();
 $this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
@@ -28,11 +24,11 @@ $this->registerJs('$("document").ready(function(){
   })
  });
 
- setInterval(function(){
-    loadDoc()
-    notifgaji()
-    countpangkat()
- },3000)
+//  setInterval(function(){
+//     loadDoc()
+//     notifgaji()
+//     countpangkat()
+//  },3000)
 
 
  function notifgaji(){
@@ -80,6 +76,16 @@ $this->registerJs('$("document").ready(function(){
  });
 
  });');
+
+$images='';
+$model=\app\models\MBiodata::findOne(Yii::$app->user->identity->id_data);
+if(Yii::$app->user->isGuest || !is_object($model)){
+    $images=$directoryAsset."/img/user2-160x160.jpg";
+}elseif(is_object($model) && $model->foto!==NULL){
+    $images=\Yii::getAlias('@web/uploads/foto/'.$model->foto);
+}elseif(is_object($model)){
+    $images = ($model->jenisKelamin==10)?\Yii::getAlias('@web/uploads/foto/avatarfemale.jpg'):\Yii::getAlias('@web/uploads/foto/avatar-male.jpg');
+}
 ?>
 
 <header class="main-header">
@@ -131,13 +137,13 @@ $this->registerJs('$("document").ready(function(){
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?= $images?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs"><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->username; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                            <img src="<?= $images?>" class="img-circle"
                                  alt="User Image"/>
 
                             <p><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->username; ?></p>
