@@ -9,7 +9,7 @@ class Approvel1Search extends Pengajuanijin
     public function rules()
     {
         return [
-            [['id',  'approval1', 'approval2', 'disetujui'], 'integer'],
+            [['id','approval1', 'approval2', 'disetujui'], 'integer'],
             [['tanggalPengajuan', 'id_data', 'tanggalMulai', 'tanggalAkhir', 'alasan', 'jenisIjin'], 'safe'],
         ];
     }

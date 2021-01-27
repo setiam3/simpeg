@@ -20,19 +20,15 @@ $this->registerJs('$("document").ready(function(){
    method:"GET",
    success:function(data){
         $(".dok").html(data);
-
    }
   })
  });
-
 setInterval(function(){
     loadDoc()
     notifgaji()
     countpangkat()
     countizin()
  },3000)
-
-
  function notifgaji(){
      $.ajax({
          url:baseurl+"site/notifgaji/",
@@ -123,7 +119,11 @@ if(Yii::$app->user->isGuest || !is_object($model)){
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
+
+                <li class="dropdown messages-menu">
+
                 <li class="dropdown notifications-menu">
+
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-calendar"></i>
                         <span class="label label-warning" id="count_izin">0</span>
