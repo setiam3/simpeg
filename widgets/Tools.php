@@ -172,12 +172,18 @@ class Tools extends \yii\bootstrap\Widget
   public function ultahPegawai()
   { // month year
     $namalengkap = new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
-    $sql = 'SELECT ' . $namalengkap . ',"tanggalLahir" FROM m_biodata
-  WHERE is_pegawai='."1".' and EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
-  AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
-  $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
+    // $m=new Expression('EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER');
+    // $d=new Expression('EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER');
+  //   $sql = 'SELECT ' . $namalengkap . ',"tanggalLahir" FROM m_biodata
+  // WHERE is_pegawai='."1".' and EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
+  // AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
+  // $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     // return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
-    $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
+    $query=MBiodata::find()->select([$namalengkap,'tanggalLahir'])->where(['is_pegawai'=>'1'])
+    ->andWhere(['EXTRACT(month FROM "tanggalLahir") :: INTEGER'=>'EXTRACT(month FROM NOW())::INTEGER'])
+    ->andWhere(['>=','EXTRACT(DAY FROM "tanggalLahir") :: INTEGER','EXTRACT(DAY FROM NOW())::INTEGER']);
+    $count=$query->count();
+    $dataprovider =  new SqlDataProvider(['sql'=>$query->createCommand()->rawSql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
     return $dataprovider;
   }
