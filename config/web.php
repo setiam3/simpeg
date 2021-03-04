@@ -93,8 +93,8 @@ $config = [
             'cookieValidationKey' => 'rsE2ILrUA0kdVMUW3hQuUKJ_Sfn7h02L',
         ],
         'cache' => [
-            //'class' => 'yii\caching\FileCache',
-            'class'=>'yii\redis\Cache'
+            'class' => 'yii\caching\FileCache',
+            // 'class'=>'yii\redis\Cache'
         ],
         'user' => [
             'enableAutoLogin' => true,
