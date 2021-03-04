@@ -210,8 +210,8 @@ use yii\helpers\Html;
             <br>
             <br>
             <br>
-            <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval10['namalengkap'] ?></p>
-            NIP. <?php echo $model->approval10->nip ?>
+            <!-- <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval10['namalengkap'] ?></p>
+            NIP. <?php echo $model->approval10->nip ?> -->
         </td>
     </tr>
 </table>
@@ -228,7 +228,7 @@ use yii\helpers\Html;
     </tr>
     <tr>
         <td style="padding-left: 10px;"><?= ($model->disetujui == 1) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
-        <td style="padding-left: 10px;"><?= ($model->disetujui ==0) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
+        <td style="padding-left: 10px;"><?= ($model->disetujui == 0) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
     </tr>
     <tr>
         <td width="50%"></td>
@@ -237,8 +237,8 @@ use yii\helpers\Html;
             <br>
             <br>
             <br>
-            <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval20['namalengkap'] ?></p>
-            NIP. <?php echo $model->approval20->nip ?>
+            <!-- <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval20['namalengkap'] ?></p>
+            NIP. <?php echo $model->approval20->nip ?> -->
         </td>
     </tr>
 </table>
@@ -247,27 +247,27 @@ use yii\helpers\Html;
 
 
 <!-- <?php
-//echo 'Gresik, ' . Yii::$app->formatter->asDate($model->tanggalPengajuan, 'long');
-echo $model->data->namalengkap;
-echo $model->data->alamat;
-echo $model->data->telp;
-echo $model->data->riwayatjabatan->jabatan->nama_referensi;
-echo $model->data->riwayatjabatan->unitKerja->unit;
-echo $model->data->nip;
-echo $model->jenisIjin;
-echo $model->alasan;
-echo $model->tanggalMulai;
-echo $model->tanggalAkhir;
-$endDate = strtotime($model->tanggalAkhir);
-$startDate = strtotime($model->tanggalMulai);
-$days = ($endDate - $startDate) / 86400 + 1;
-echo 'lama cuti : ' . $days;
-echo $model->approval10->namalengkap;
-echo $model->approval10->nip;
-echo $model->approval20->namalengkap;
-echo $model->approval20->nip;
-echo $model->disetujui;
-echo $model->keterangan;
-echo $model->data->sisacuti->sisa;
+        //echo 'Gresik, ' . Yii::$app->formatter->asDate($model->tanggalPengajuan, 'long');
+        echo $model->data->namalengkap;
+        echo $model->data->alamat;
+        echo $model->data->telp;
+        echo $model->data->riwayatjabatan->jabatan->nama_referensi;
+        echo $model->data->riwayatjabatan->unitKerja->unit;
+        echo $model->data->nip;
+        echo $model->jenisIjin;
+        echo $model->alasan;
+        echo $model->tanggalMulai;
+        echo $model->tanggalAkhir;
+        $endDate = strtotime($model->tanggalAkhir);
+        $startDate = strtotime($model->tanggalMulai);
+        $days = ($endDate - $startDate) / 86400 + 1;
+        echo 'lama cuti : ' . $days;
+        echo $model->approval10->namalengkap;
+        echo $model->approval10->nip;
+        echo $model->approval20->namalengkap;
+        echo $model->approval20->nip;
+        echo $model->disetujui;
+        echo $model->keterangan;
+        echo $model->data->sisacuti->sisa;
 
-?> -->
+        ?> -->

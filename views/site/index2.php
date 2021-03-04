@@ -126,38 +126,38 @@ if (empty($golpeg)) {
                                     <div class="row">
                                         <div class="col-md-12">
                                             <?=
-                                                ChartJs::widget([
-                                                    'type' => 'doughnut',
-                                                    'id' => 'structurePie',
-                                                    'options' => [
-                                                        'height' => 200,
-                                                        'width' => 400,
-                                                    ],
-                                                    'data' => [
-                                                        'radius' =>  "90%",
-                                                        'labels' => ArrayHelper::getColumn($populasi, 'nama_referensi'), // Your labels
-                                                        'datasets' => [
-                                                            [
-                                                                'data' => [ArrayHelper::getValue($populasi, '0.jumlah'), ArrayHelper::getValue($populasi, '1.jumlah')],
-                                                                'label' => '',
-                                                                'backgroundColor' => [
-                                                                    '#ADC3FF',
-                                                                    '#FF9A9A',
-                                                                    'rgba(190, 124, 145, 0.8)'
-                                                                ],
-                                                                'borderColor' =>  [
-                                                                    '#fff',
-                                                                    '#fff',
-                                                                    '#fff'
-                                                                ],
-                                                                'borderWidth' => 1,
-                                                                'hoverBorderColor' => ["#999", "#999", "#999"],
-                                                            ]
+                                            ChartJs::widget([
+                                                'type' => 'doughnut',
+                                                'id' => 'structurePie',
+                                                'options' => [
+                                                    'height' => 200,
+                                                    'width' => 400,
+                                                ],
+                                                'data' => [
+                                                    'radius' =>  "90%",
+                                                    'labels' => ArrayHelper::getColumn($populasi, 'nama_referensi'), // Your labels
+                                                    'datasets' => [
+                                                        [
+                                                            'data' => [ArrayHelper::getValue($populasi, '0.jumlah'), ArrayHelper::getValue($populasi, '1.jumlah')],
+                                                            'label' => '',
+                                                            'backgroundColor' => [
+                                                                '#ADC3FF',
+                                                                '#FF9A9A',
+                                                                'rgba(190, 124, 145, 0.8)'
+                                                            ],
+                                                            'borderColor' =>  [
+                                                                '#fff',
+                                                                '#fff',
+                                                                '#fff'
+                                                            ],
+                                                            'borderWidth' => 1,
+                                                            'hoverBorderColor' => ["#999", "#999", "#999"],
                                                         ]
-                                                    ],
+                                                    ]
+                                                ],
 
 
-                                                ])
+                                            ])
                                             ?>
                                         </div>
                                     </div>
@@ -300,8 +300,8 @@ if (empty($golpeg)) {
                 </div>
             </section>
             <section class="col-lg-12 connectedSortable">
-                <div class="col-md-4">
-                    <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="col-md-6">
+                    <div class="box box-success direct-chat direct-chat-success">
                         <div class="box-header with-border">
                             <p class="text-center">
                                 <strong>Karyawan Izin Cuti / Izin</strong>
@@ -310,8 +310,10 @@ if (empty($golpeg)) {
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>nama</th>
-                                            <th>status</th>
+                                            <th style="text-align: center;">nama</th>
+                                            <th style="text-align: center;">tanggal mulai</th>
+                                            <th style="text-align: center;">tanggal berakhir</th>
+                                            <th style="text-align: center;">status</th>
 
                                         </tr>
                                     </thead>
@@ -320,8 +322,10 @@ if (empty($golpeg)) {
                                         if (!empty($izin)) {
                                             foreach ($izin as $row) { ?>
                                                 <tr>
-                                                    <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= ($row['disetujui'] == 1) ? 'Sukses' : ''; ?><?= ($row['disetujui'] == '0') ? 'gagal' : ''; ?></td>
+                                                    <td style="text-align: center;"><?= $row->data->namalengkap ?></td>
+                                                    <td style="text-align: center;"><?= $row->tanggalMulai ?></td>
+                                                    <td style="text-align: center;"><?= $row->tanggalAkhir ?></td>
+                                                    <td style="text-align: center;"><?= ($row['disetujui'] == 1) ? 'Disetujui' : ''; ?><?= ($row['disetujui'] == '0') ? 'Tidak Disetujui' : ''; ?></td>
                                                 </tr>
                                             <?php };
                                         } else { ?>
