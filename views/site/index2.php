@@ -88,23 +88,8 @@ if (empty($golpeg)) {
                                     <strong>Pegawai Ulang Tahun</strong>
                                 </p>
                                 <div class="box-body">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>nama</th>
-                                                <th>tanggal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($pegultah as $row) { ?>
-                                                <tr>
-                                                    <td><?= $row['nama'] ?></td>
-                                                    <td><?= $row['tanggalLahir'] ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
+                                <?php include('tableultah.php')?>
 
-                                    </table>
                                 </div>
 
                             </div>
@@ -202,23 +187,7 @@ if (empty($golpeg)) {
                                 <strong>pegawai yg akan pensiun</strong>
                             </p>
                             <div class="box-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>nama</th>
-                                            <th>umur</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($pensiun as $row) { ?>
-                                            <tr>
-                                                <td><?= $row['nama'] ?></td>
-                                                <td><?= \Yii::$app->tools->getUsia($row['tanggalLahir']) ?></td>
-                                            </tr>
-                                        <?php } ?>
-
-                                    </tbody>
-                                </table>
+                            <?php include('tablepensiun.php')?>
                             </div>
 
                         </div>
@@ -232,31 +201,7 @@ if (empty($golpeg)) {
                                 <strong>STR akan habis</strong>
                             </p>
                             <div class="box-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>nama</th>
-                                            <th>tanggal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        if (!empty($str)) {
-                                            foreach ($str as $row) { ?>
-                                                <tr>
-                                                    <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= $row->tgl_akhir_ijin ?></td>
-                                                </tr>
-                                            <?php };
-                                        } else { ?>
-                                            <tr>
-
-                                            </tr>
-                                        <?php } ?>
-
-                                    </tbody>
-                                </table>
+                            <?php include('tablestr.php')?>
                             </div>
 
                         </div>
@@ -267,31 +212,11 @@ if (empty($golpeg)) {
                     <div class="box box-warning direct-chat direct-chat-warning">
                         <div class="box-header with-border">
                             <p class="text-center">
-                                <strong>STR akan Habis</strong>
+                                <strong>SIP akan Habis</strong>
                             </p>
                             <div class="box-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>nama</th>
-                                            <th>tgl berakhir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        if (!empty($sip)) {
-                                            foreach ($sip as $row) { ?>
-                                                <tr>
-                                                    <td><?= $row->data->namalengkap ?></td>
-                                                    <td><?= $row->tgl_akhir_ijin ?></td>
-                                                </tr>
-                                            <?php };
-                                        } else { ?>
-
-                                        <?php }; ?>
-
-                                    </tbody>
-                                </table>
+                            <?php include('tablesip.php')?>
+                                
                             </div>
 
                         </div>

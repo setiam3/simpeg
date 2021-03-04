@@ -94,6 +94,7 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+            // 'class'=>'yii\redis\Cache'
         ],
         'user' => [
             'enableAutoLogin' => true,

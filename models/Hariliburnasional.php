@@ -4,15 +4,8 @@ namespace app\models;
 
 use Yii;
 
-/**
- * This is the model class for table "hariliburnasional".
- *
- * @property int $id
- * @property string $tahun
- * @property string $tanggal
- * @property string $keterangan
- */
 class Hariliburnasional extends \yii\db\ActiveRecord
+
 {
     /**
      * {@inheritdoc}
