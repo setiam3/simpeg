@@ -4,8 +4,8 @@ use app\models\{MBiodata,MReferensi,Riwayatpendidikan,Pengajuanijin};
 use app\models\Pengajuanijin as ModelsPengajuanijin;
 use DateTime;
 use yii\db\{Expression,Query};
-use yii\web\{ArrayHelper,UploadedFile};
-use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
+use yii\helpers\{FileHelper,ArrayHelper};
 use tpmanc\imagick\Imagick;
 use yii\data\{SqlDataProvider};
 class Tools extends \yii\bootstrap\Widget
