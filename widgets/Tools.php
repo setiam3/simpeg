@@ -180,8 +180,8 @@ class Tools extends \yii\bootstrap\Widget
   // $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     // return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
     $query=MBiodata::find()->select([$namalengkap,'tanggalLahir'])->where(['is_pegawai'=>'1'])
-    ->andWhere(['EXTRACT(month FROM "tanggalLahir") :: INTEGER'=>'EXTRACT(month FROM NOW())::INTEGER'])
-    ->andWhere(['>=','EXTRACT(DAY FROM "tanggalLahir") :: INTEGER','EXTRACT(DAY FROM NOW())::INTEGER']);
+    ->andWhere(['EXTRACT(month FROM "tanggalLahir") :: INTEGER'=>"EXTRACT(month FROM NOW())::INTEGER"])
+    ->andWhere(['>=','EXTRACT(DAY FROM "tanggalLahir") :: INTEGER',"EXTRACT(DAY FROM NOW())::INTEGER"]);
     $count=$query->count();
     $dataprovider =  new SqlDataProvider(['sql'=>$query->createCommand()->rawSql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
