@@ -173,7 +173,7 @@ class Tools extends \yii\bootstrap\Widget
   { // month year
     $namalengkap = new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
     $sql = 'SELECT ' . $namalengkap . ',"tanggalLahir" FROM m_biodata
-  WHERE is_pegawai=1 and EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
+  WHERE is_pegawai='.'1'.' and EXTRACT(month FROM "tanggalLahir") :: INTEGER = EXTRACT(month FROM NOW()) ::INTEGER
   AND EXTRACT(DAY FROM "tanggalLahir") :: INTEGER >= EXTRACT(DAY FROM NOW())::INTEGER';
   $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     // return $hasil = \Yii::$app->db->createCommand($sql)->queryAll();
