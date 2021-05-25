@@ -56,4 +56,10 @@ class Paktaintegritas extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
     }
+
+    public function ttdDirektur(){
+        $sql = "SELECT mb.nama,k.ttd,mb.nip FROM ntl_kehadiran k JOIN m_biodata mb on k.peserta = mb.nama 
+WHERE k.id_kehadiran = 9";
+        return $ttdDIrektur = \Yii::$app->db->createCommand($sql)->queryAll();
+    }
 }

@@ -128,10 +128,18 @@ class PaktainteritasController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionCetak()
+    public function actionCetak($id)
     {
+        $sql = "SELECT pi.jabatan, pi.tanggal, pi.ttd,mb.nip, mb.nama FROM pakta_integritas pi
+JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
+        $datas = \Yii::$app->db->createCommand($sql)->queryAll();
+
+        $direktur = (new Paktaintegritas())->ttdDirektur();
+
+
+//        var_dump($datas[0]['tanggal']);die();
         $pdf = Yii::$app->pdf;
-        $pdf->content = $this->renderPartial('cetak', );
+        $pdf->content = $this->renderPartial('cetak', ['datas'=>$datas, 'direktur'=>$direktur]);
         $pdf->orientation = 'P';
         $pdf->marginTop = 15;
         $pdf->marginBottom = 4;

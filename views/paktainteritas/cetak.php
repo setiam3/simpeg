@@ -48,7 +48,7 @@ use yii\helpers\{Html, ArrayHelper, Url};
             Nama
         </td>
         <td>
-            : Arief Setyan
+            : <?= $datas[0]['nama'] ?>
         </td>
     </tr>
     <tr>
@@ -59,7 +59,7 @@ use yii\helpers\{Html, ArrayHelper, Url};
             Jabatan
         </td>
         <td>
-            : Staf IT
+            : <?= $datas[0]['jabatan'] ?>
         </td>
     </tr>
 </table>
@@ -115,7 +115,7 @@ use yii\helpers\{Html, ArrayHelper, Url};
     <tr>
         <td></td>
         <td>
-            Gresik, xxxxxxxxxxxx
+            Gresik, <?php echo date_format(date_create($datas[0]['tanggal']),'d-m-Y')?>
         </td>
     </tr>
     <tr>
@@ -139,14 +139,23 @@ use yii\helpers\{Html, ArrayHelper, Url};
             <br>
             <br>
         </td>
+        <td>
+            <?php
+            if(!empty($datas[0]['ttd'])){
+                echo "<img src='".Url::toRoute($datas[0]['ttd'])."' width='70px'/>";
+            }else{
+                echo "";
+            }
+            ?>
+        </td>
     </tr>
     <tr>
-        <td><p style="text-decoration: underline">dr. Rudyanto Dwi Agustomo, Sp.PD</p></td>
-        <td><p>xxxxxxxxxxxxxxxxx</p></td>
+        <td><p style="text-decoration: underline"><?=$direktur[0]['nama']?></p></td>
+        <td><p style="text-decoration: underline"><?=$datas[0]['nama']?></p></td>
     </tr>
     <tr>
-        <td><p>NIP. 19730803 200212 1 007</p></td>
-        <td><p>NIP. xxxxxxxxxxxxxxxxx</p></td>
+        <td><p>NIP. <?= $direktur[0]['nip']?></p></td>
+        <td><p>NIP. <?= $datas[0]['nip']?></p></td>
     </tr>
 </table>
 
