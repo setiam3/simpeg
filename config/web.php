@@ -41,12 +41,12 @@ $config = [
             'name'=>'PHPSIMPEG'
         ],
         'view' => [
-            'theme' => [
-                'pathMap' => [
+             'theme' => [
+                 'pathMap' => [
                     '@app/views' => '@app/views'
                     //'@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
-                ],
-            ],
+                 ],
+             ],
         ],
         'assetManager' => [
             'bundles' => [

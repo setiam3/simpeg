@@ -9,14 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * PaktainteritasController implements the CRUD actions for Paktaintegritas model.
- */
+
 class PaktaintegritasController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -29,10 +25,6 @@ class PaktaintegritasController extends Controller
         ];
     }
 
-    /**
-     * Lists all Paktaintegritas models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new PaktaintegritasSearch();
@@ -44,12 +36,6 @@ class PaktaintegritasController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Paktaintegritas model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -57,11 +43,6 @@ class PaktaintegritasController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Paktaintegritas model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Paktaintegritas();
@@ -70,7 +51,16 @@ class PaktaintegritasController extends Controller
             $model->jabatan = Yii::$app->request->post('jabatan');
             $model->tanggal = Yii::$app->request->post('tanggal');
             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->save() == false){
+                Yii::$app->getSession()->setFlash(
+                    'success','Data gagal di simpan!'
+                );
+            }else{
+                Yii::$app->getSession()->setFlash(
+                    'success','Data behasil!'
+                );
+            }
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -78,19 +68,24 @@ class PaktaintegritasController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Paktaintegritas model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->jabatan = Yii::$app->request->post('jabatan');
+            $model->tanggal = Yii::$app->request->post('tanggal');
+            $model->save();
+            if ($model->save() == false){
+                Yii::$app->getSession()->setFlash(
+                    'success','Data gagal di simpan!'
+                );
+            }else{
+                Yii::$app->getSession()->setFlash(
+                    'success','Data behasil!'
+                );
+            }
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -98,13 +93,6 @@ class PaktaintegritasController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Paktaintegritas model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -112,13 +100,6 @@ class PaktaintegritasController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Paktaintegritas model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Paktaintegritas the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Paktaintegritas::findOne($id)) !== null) {
@@ -136,8 +117,6 @@ JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
 
         $direktur = (new Paktaintegritas())->ttdDirektur();
 
-
-//        var_dump($datas[0]['tanggal']);die();
         $pdf = Yii::$app->pdf;
         $pdf->content = $this->renderPartial('cetak', ['datas'=>$datas, 'direktur'=>$direktur]);
         $pdf->orientation = 'P';
@@ -148,13 +127,6 @@ JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
         $pdf->marginLeft = 30;
         $pdf->marginRight = 20;
         $pdf->cssInline = '.thead{border: 1px solid #0003;text-align: center;font-weight: bold;background:#eee;}.tbody{padding:2px;}#tb1 tr:nth-child(even) {background: #eee}#tb1 tr:nth-child(odd) {background: #FFF}';
-//        $pdf->methods = [
-//
-//            'SetTitle' => 'Notulen '.$model[0]['acara'],
-//
-//        ];
-
         return $pdf->render();
-//        return $pdf->content;
     }
 }

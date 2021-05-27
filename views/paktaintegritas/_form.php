@@ -6,7 +6,9 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Paktaintegritas */
 /* @var $form yii\widgets\ActiveForm */
+
 $this->registerJSFile('@web/css/signature/signature_pad.min.js');
+$this->registerJsVar('val_ttd', $model->ttd);
 $this->registerCSS('
 .wrapper{
     background:#fff !important;
@@ -22,7 +24,7 @@ $this->registerCSS('
   }
 ');
 
-$script=<<< JS
+$script = <<< JS
 
     var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
           backgroundColor: 'rgba(255, 255, 255, 0)',
@@ -35,7 +37,11 @@ $script=<<< JS
             e.preventDefault();
             var data = signaturePad.toDataURL('image/png');
             ttd.value=data;
+            var preview = $("#preview_img");
+            preview.attr("src", data);
+            
             $('#myModal').modal('hide');
+           
         });
         cancelButton.addEventListener('click', function (e) {
             e.preventDefault();
@@ -43,6 +49,11 @@ $script=<<< JS
             ttd.value='';
             return false;
         });
+        if (val_ttd != null){
+            var preview = $("#preview_img");
+            preview.attr("src", val_ttd);
+            
+        }
 JS;
 $this->registerJs($script);
 ?>
@@ -54,22 +65,26 @@ $this->registerJs($script);
     <?= $form->field($model, 'nomer')->hiddenInput(['maxlength' => true])->label(false) ?>
 
     <?= $form->field($model, 'id_data')->widget(\kartik\select2\Select2::classname(), [
-        'data' =>\yii\helpers\ArrayHelper::map(
-            \app\models\MBiodata::find()->where(['is_pegawai' => '1'])->all(), 'id_data','namalengkap'),
+        'data' => \yii\helpers\ArrayHelper::map(
+            \app\models\MBiodata::find()->where(['is_pegawai' => '1'])->all(),
+            'id_data',
+            'namalengkap'
+        ),
         'language' => 'en',
         'options' => ['placeholder' => 'Select a peserta ...'],
-        'pluginOptions' => ['allowClear' => true,'tags' => true,],
-    ])->label('Peserta');?>
+        'pluginOptions' => ['allowClear' => true, 'tags' => true,],
+    ])->label('Peserta'); ?>
 
     <?php echo '<label class="control-label">Jabatan</label>';
     echo \kartik\select2\Select2::widget([
         'name' => 'jabatan',
-        'data' => ['Perwakilan Manajemen'=>'Perwakilan Manajemen',
-            'Perwakilan Komite Medik'=>'Perwakilan Komite Medik',
-            'Perwakilan Komite Keperawatan'=>'Perwakilan Komite Keperawatan',
-            'Perwakilan Komite Profesi Lain'=>'Perwakilan Komite Profesi Lain',
-            'Perwakilan Non Tenaga Kesehatan PNS'=>'Perwakilan Non Tenaga Kesehatan PNS',
-            'Perwakilan Non Tenaga Kesehatan Non PNS BLUD'=>'Perwakilan Non Tenaga Kesehatan Non PNS BLUD',
+        'data' => [
+            'Perwakilan Manajemen' => 'Perwakilan Manajemen',
+            'Perwakilan Komite Medik' => 'Perwakilan Komite Medik',
+            'Perwakilan Komite Keperawatan' => 'Perwakilan Komite Keperawatan',
+            'Perwakilan Komite Profesi Lain' => 'Perwakilan Komite Profesi Lain',
+            'Perwakilan Non Tenaga Kesehatan PNS' => 'Perwakilan Non Tenaga Kesehatan PNS',
+            'Perwakilan Non Tenaga Kesehatan Non PNS BLUD' => 'Perwakilan Non Tenaga Kesehatan Non PNS BLUD',
         ],
         'options' => [
             'placeholder' => 'Select Jabatan',
@@ -81,22 +96,31 @@ $this->registerJs($script);
     echo '<label>Tanggal</label>';
     echo \kartik\date\DatePicker::widget([
         'name' => 'tanggal',
-        'value' => date('d-m-Y'),
+        'value' => date('Y-m-d'),
         'options' => ['placeholder' => 'Select issue date ...'],
         'pluginOptions' => [
-            'format' => 'dd-mm-yyyy',
+            'format' => 'yyyy-mm-dd',
             'todayHighlight' => true,
 
         ]
     ]);
-    echo '</div>';?>
+    echo '</div>'; ?>
 
-    <?= $form->field($model, 'ttd')->textInput(['maxlength' => true]) ?>
-<div class="form-group">
-    <button type="button" class="btn btn-success bmodel" data-id="">
-        <i class="fa fa-plus"></i> TTD
-    </button>
-</div>
+    <?= $form->field($model, 'ttd')->hiddenInput(['maxlength' => true])->label(false) ?>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-1">
+                <button type="button" class="btn btn-success bmodel" data-id="">
+                    <i class="fa fa-plus"></i> TTD
+                </button>
+            </div>
+            <div class="col-sm-11">
+                <img id="preview_img" src="" style="height: 70px; "/>
+            </div>
+        </div>
+
+
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -116,7 +140,7 @@ $this->registerJs($script);
             <form enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row-fluid">
-                        <?php $form = ActiveForm::begin(['id'=>'form']); ?>
+                        <?php $form = ActiveForm::begin(['id' => 'form']); ?>
                         <div class="form-group">
                             <div class="wrapper" style="width:400px">
                                 <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
@@ -134,9 +158,10 @@ $this->registerJs($script);
 </div>
 
 <?php
-$script=<<< JS
+$script = <<< JS
 $(".bmodel").click(function () {
     $('#myModal').modal('show');
 });
+
 JS;
 $this->registerJs($script);
