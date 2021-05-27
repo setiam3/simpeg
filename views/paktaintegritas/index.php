@@ -9,7 +9,7 @@ use yii\grid\GridView;
 
 $this->title = 'Paktaintegritas';
 $this->params['breadcrumbs'][] = $this->title;
-$urls = \yii\helpers\Url::base().'paktainteritas/cetak/1';
+
 ?>
 <div class="paktaintegritas-index">
 
@@ -40,8 +40,8 @@ $urls = \yii\helpers\Url::base().'paktainteritas/cetak/1';
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {cetak}',
                 'buttons'=> [
-                    'cetak' => function ($urls, $model) {
-                            return Html::a('<i class="fa fa-eye" aria-hidden="true"></i>', $urls, [
+                    'cetak' => function ($url, $model) {
+                            return Html::a('<i class="fa fa-eye" aria-hidden="true"></i>', $url, [
                                 'title' => "Activate",
                                 'data' => [
                                     'method' => 'post',

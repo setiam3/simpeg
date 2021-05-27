@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * PaktainteritasController implements the CRUD actions for Paktaintegritas model.
  */
-class PaktainteritasController extends Controller
+class PaktaintegritasController extends Controller
 {
     /**
      * {@inheritdoc}
