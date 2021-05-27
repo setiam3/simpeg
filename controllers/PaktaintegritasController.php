@@ -128,5 +128,6 @@ JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
         $pdf->marginRight = 20;
         $pdf->cssInline = '.thead{border: 1px solid #0003;text-align: center;font-weight: bold;background:#eee;}.tbody{padding:2px;}#tb1 tr:nth-child(even) {background: #eee}#tb1 tr:nth-child(odd) {background: #FFF}';
         return $pdf->render();
+        // return $pdf->content;
     }
 }
