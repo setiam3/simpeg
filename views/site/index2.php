@@ -12,6 +12,7 @@ $populasi = \Yii::$app->tools->grafikPopulasi();
 $jenispegawai = \Yii::$app->tools->gjenisPegawai();
 $golpeg = \Yii::$app->tools->golonganPegawai();
 $kategori = \Yii::$app->tools->kategori();
+//var_dump($kategori);die();
 $pegultah = \Yii::$app->tools->ultahPegawai();
 $pensiun = \Yii::$app->tools->nextPensiun();
 $izin = \Yii::$app->tools->dataIzin();
@@ -58,6 +59,7 @@ if (empty($golpeg)) {
                                     'options' => [
                                         'title' => ['text' => 'Golongan'],
                                         'xAxis' => [
+
                                             'categories' => $kategori
                                         ],
                                         'yAxis' => [
@@ -216,7 +218,7 @@ if (empty($golpeg)) {
                             </p>
                             <div class="box-body">
                             <?php include('tablesip.php')?>
-                                
+
                             </div>
 
                         </div>

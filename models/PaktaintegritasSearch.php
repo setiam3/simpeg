@@ -18,7 +18,7 @@ class PaktaintegritasSearch extends Paktaintegritas
     {
         return [
             [['id', 'id_data'], 'integer'],
-            [['nomer', 'jabatan', 'tanggal', 'ttd'], 'safe'],
+            [['nomer', 'jabatan', 'tanggal', 'ttd', 'nama'], 'safe'],
         ];
     }
 

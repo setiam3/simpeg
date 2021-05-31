@@ -34,26 +34,26 @@ class MBiodataSearch extends MBiodata
             'status_hubungan_keluarga' => $this->status_hubungan_keluarga,
             'checklog_id' => $this->checklog_id,
         ]);
-        $query->andFilterWhere(['ilike', 'nip', $this->nip])
-            ->andFilterWhere(['ilike', 'nama', $this->nama])
-            ->andFilterWhere(['ilike', 'tempatLahir', $this->tempatLahir])
-            ->andFilterWhere(['ilike', 'alamat', $this->alamat])
-            ->andFilterWhere(['ilike', 'kabupatenKota', $this->kabupatenKota])
-            ->andFilterWhere(['ilike', 'kecamatan', $this->kecamatan])
-            ->andFilterWhere(['ilike', 'kelurahan', $this->kelurahan])
-            ->andFilterWhere(['ilike', 'jenisKelamin', $this->jenisKelamin])
-            ->andFilterWhere(['ilike', 'agama', $this->agama])
-            ->andFilterWhere(['ilike', 'telp', $this->telp])
-            ->andFilterWhere(['ilike', 'email', $this->email])
-            ->andFilterWhere(['ilike', 'statusPerkawinan', $this->statusPerkawinan])
-            ->andFilterWhere(['ilike', 'gelarDepan', $this->gelarDepan])
-            ->andFilterWhere(['ilike', 'gelarBelakang', $this->gelarBelakang])
-            ->andFilterWhere(['ilike', 'nik', $this->nik])
-            ->andFilterWhere(['ilike', 'foto', $this->foto])
-            ->andFilterWhere(['ilike', 'fotoNik', $this->fotoNik])
-            ->andFilterWhere(['ilike', 'golonganDarah', $this->golonganDarah])
-            ->andFilterWhere(['ilike', 'j.nama_referensi', $this->jenis_pegawai])
-            ->andFilterWhere(['ilike', 'is_pegawai', $this->is_pegawai]);
+        $query->andFilterWhere(['like', 'nip', $this->nip])
+            ->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'tempatLahir', $this->tempatLahir])
+            ->andFilterWhere(['like', 'alamat', $this->alamat])
+            ->andFilterWhere(['like', 'kabupatenKota', $this->kabupatenKota])
+            ->andFilterWhere(['like', 'kecamatan', $this->kecamatan])
+            ->andFilterWhere(['like', 'kelurahan', $this->kelurahan])
+            ->andFilterWhere(['like', 'jenisKelamin', $this->jenisKelamin])
+            ->andFilterWhere(['like', 'agama', $this->agama])
+            ->andFilterWhere(['like', 'telp', $this->telp])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'statusPerkawinan', $this->statusPerkawinan])
+            ->andFilterWhere(['like', 'gelarDepan', $this->gelarDepan])
+            ->andFilterWhere(['like', 'gelarBelakang', $this->gelarBelakang])
+            ->andFilterWhere(['like', 'nik', $this->nik])
+            ->andFilterWhere(['like', 'foto', $this->foto])
+            ->andFilterWhere(['like', 'fotoNik', $this->fotoNik])
+            ->andFilterWhere(['like', 'golonganDarah', $this->golonganDarah])
+            ->andFilterWhere(['like', 'j.nama_referensi', $this->jenis_pegawai])
+            ->andFilterWhere(['like', 'is_pegawai', $this->is_pegawai]);
         return $dataProvider;
     }
 }
