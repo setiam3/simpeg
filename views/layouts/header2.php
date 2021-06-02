@@ -73,6 +73,7 @@ setInterval(function(){
       })
  });
  function countizin() {
+ 
     $.ajax({
         url:baseurl+"site/izin/",
         method:"POST",

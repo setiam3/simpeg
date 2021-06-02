@@ -3,6 +3,7 @@ use yii\helpers\Html;
 $notifDOK = \Yii::$app->tools->getNotifdokumen();
 $this->registerJsVar('baseurl', yii\helpers\Url::home());
 $this->registerJs('$("document").ready(function(){
+console.log("aaaaaaaa");
  function loadDoc() {
      $.ajax({
          url:baseurl+"site/notifdoc",

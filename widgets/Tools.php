@@ -293,8 +293,8 @@ class Tools extends \yii\bootstrap\Widget
         $kategori[] = $row['nama_referensi'];
       }
     }
-return json_encode($kategori);
-//    return sort($kategori);
+//return json_encode($kategori);
+    return sort($kategori);
   }
   public function dataIzin()
   {

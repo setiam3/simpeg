@@ -24,7 +24,7 @@ if (empty($jenispegawai)) {
     $arrayJenispegawai[] = '';
 } else {
     foreach ($jenispegawai as $row) {
-        $arrayJenispegawai[] = ['name' => $row['nama_referensi'], 'y' => $row['jumlah']];
+        $arrayJenispegawai[] = ['name' => $row['nama_referensi'],'y' => (int)$row['jumlah']];
     }
 }
 function random_color_part()
@@ -41,8 +41,11 @@ if (empty($golpeg)) {
     $arrayGolPeg[] = '';
 } else {
     foreach ($golpeg as $row) {
+        $name = $row['nama_referensi'];
+        $y = $row['jumlah'];
+        $color = '#' . random_color();
         $arrayGolPeg[] = [
-            'name' => $row['nama_referensi'], 'y' => $row['jumlah'], 'color' => '#' . random_color()
+            'name' => $row['nama_referensi'], 'y' => (int)$row['jumlah'], 'color' => '#' . random_color()
         ];
     }
 }
@@ -55,29 +58,25 @@ if (empty($golpeg)) {
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header with-border">
+
+
                                 <?= Highcharts::widget([
                                     'options' => [
                                         'title' => ['text' => 'Golongan'],
                                         'xAxis' => [
-
                                             'categories' => $kategori
                                         ],
                                         'yAxis' => [
                                             'title' => ['text' => 'Jumlah']
                                         ],
                                         'series' => [
-                                            [
-                                                'name' => 'jumlah',
+                                            ['name' => 'Jumlah',
                                                 'type' => 'column',
                                                 'data' => $arrayGolPeg,
-                                                'center' => [100, 80],
-                                                'size' => 100,
-                                                'showInLegend' => false,
-                                                'dataLabels' => ['enabled' => true,]
                                             ],
                                         ]
                                     ]
-                                ]); ?>
+                                ]);?>
 
                             </div>
                         </div>
