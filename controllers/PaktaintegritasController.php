@@ -48,7 +48,6 @@ class PaktaintegritasController extends Controller
         $model = new Paktaintegritas();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->jabatan = Yii::$app->request->post('jabatan');
             $model->tanggal = Yii::$app->request->post('tanggal');
             $model->save(false);
             if ($model->save() == false){
@@ -73,7 +72,6 @@ class PaktaintegritasController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->jabatan = Yii::$app->request->post('jabatan');
             $model->tanggal = Yii::$app->request->post('tanggal');
             $model->save();
             if ($model->save() == false){

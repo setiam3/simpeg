@@ -71,14 +71,22 @@ $this->registerJs($script);
             'namalengkap'
         ),
         'language' => 'en',
-        'options' => ['placeholder' => 'Select a peserta ...'],
+        'options' => ['placeholder' => 'Select a nama ...'],
         'pluginOptions' => ['allowClear' => true, 'tags' => true,],
-    ])->label('Peserta'); ?>
+    ])->label('Nama'); ?>
 
-    <?php echo '<label class="control-label">Jabatan</label>';
+    <?php echo '<label class="control-label">Jabatan Dalam Tim</label>';
     echo \kartik\select2\Select2::widget([
+        'model'=>$model,
+        'attribute' => 'jabatan',
         'name' => 'jabatan',
         'data' => [
+            'Pelindung' => 'Pelindung',
+            'Penanggung Jawab' => 'Penanggung Jawab',
+            'Ketua' => 'Ketua',
+            'Wakil Ketua' => 'Wakil Ketua',
+            'Sekretaris' => 'Sekretaris',
+            'Wakil Sekretaris' => 'Wakil Sekretaris',
             'Perwakilan Manajemen' => 'Perwakilan Manajemen',
             'Perwakilan Komite Medik' => 'Perwakilan Komite Medik',
             'Perwakilan Komite Keperawatan' => 'Perwakilan Komite Keperawatan',
@@ -101,6 +109,7 @@ $this->registerJs($script);
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',
             'todayHighlight' => true,
+            'autoclose'=>true,
 
         ]
     ]);
