@@ -102,7 +102,8 @@ $config = [
             'orientation' => 'P',
             'destination' => 'I',
         ],
-        'db' => $db,
+        'db' => $db['db'],
+        'db_remun' => $db['db_remun'],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

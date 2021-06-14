@@ -56,7 +56,7 @@ use kartik\file\FileInput;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ]) ?>
+            ])->label('Kabupaten Kota*') ?>
 
         <?= $form->field($model, 'kecamatan')->widget(DepDrop::classname(),[
                 'data'=>!$model->isNewRecord && isset($model->kecamatan)?[$model->kecamatan=>\app\models\Kecamatan::findOne(['id'=>$model->kecamatan])->name]:[],
@@ -84,10 +84,10 @@ use kartik\file\FileInput;
                     'url' => Url::to(['/site/child?model=Kelurahan']),
                     'loadingText' => 'Loading kelurahan ...',
                 ]
-            ]) ?>  
+            ]) ?>
             <?= $form->field($model, 'telp')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>  
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-xs-3">
             <?= $form->field($model, 'agama')->widget(Select2::classname(), [
@@ -104,7 +104,7 @@ use kartik\file\FileInput;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ]) ?>
+            ])->label('Status Perkawinan*') ?>
 
         <?= $form->field($model, 'gelarDepan')->textInput(['maxlength' => true]) ?>
 
@@ -141,7 +141,7 @@ use kartik\file\FileInput;
             'browseLabel' =>  'Select FotoNik'
             ],
         ]) ?>
-        
+
         <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

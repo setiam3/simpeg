@@ -40,6 +40,7 @@ if (in_array('karyawan', $role)) {
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
+
             ])->label('Jabatan');
             ?>
 
