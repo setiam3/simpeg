@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MsFormula;
+use app\models\MsTemplate;
 
 /**
- * MsFormulaSearch represents the model behind the search form about `app\models\MsFormula`.
+ * MsTemplateSearch represents the model behind the search form about `app\models\MsTemplate`.
  */
-class MsFormulaSearch extends MsFormula
+class MsTemplateSearch extends MsTemplate
 {
     /**
      * @inheritdoc
@@ -18,9 +18,9 @@ class MsFormulaSearch extends MsFormula
     public function rules()
     {
         return [
-            [['id', 'total_score', 'id_bobot'], 'integer'],
-            [['idpekerjaan','nama_pekerjaan'], 'safe'],
-            [['estimasi'], 'number'],
+            [['id', 'target', 'parent', 'idunit'], 'integer'],
+            [['indikator', 'keterangan'], 'safe'],
+            [['bobot'], 'number'],
         ];
     }
 
@@ -42,7 +42,7 @@ class MsFormulaSearch extends MsFormula
      */
     public function search($params)
     {
-        $query = MsFormula::find();
+        $query = MsTemplate::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,12 +58,14 @@ class MsFormulaSearch extends MsFormula
 
         $query->andFilterWhere([
             'id' => $this->id,
-//            'idpekerjaan' => $this->idpekerjaan,
-            'estimasi' => $this->estimasi,
-            'total_score' => $this->total_score,
-            'id_bobot' => $this->id_bobot,
+            'bobot' => $this->bobot,
+            'target' => $this->target,
+            'parent' => $this->parent,
+            'idunit' => $this->idunit,
         ]);
-        $query->andFilterWhere(['like', 'nama_pekerjaan', $this->idpekerjaan]);
+
+        $query->andFilterWhere(['like', 'indikator', $this->indikator])
+            ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;
     }

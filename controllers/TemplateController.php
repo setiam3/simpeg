@@ -2,12 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\Formula;
-use app\models\MsBobot;
 use Yii;
-use app\models\MsFormula;
-use app\models\MsFormulaSearch;
-use yii\helpers\ArrayHelper;
+use app\models\MsTemplate;
+use app\models\MsTemplateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,10 +12,13 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * FormulaController implements the CRUD actions for MsFormula model.
+ * TemplateController implements the CRUD actions for MsTemplate model.
  */
-class FormulaController extends Controller
+class TemplateController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -32,9 +32,13 @@ class FormulaController extends Controller
         ];
     }
 
+    /**
+     * Lists all MsTemplate models.
+     * @return mixed
+     */
     public function actionIndex()
-    {
-        $searchModel = new MsFormulaSearch();
+    {    
+        $searchModel = new MsTemplateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,19 +47,25 @@ class FormulaController extends Controller
         ]);
     }
 
+
+    /**
+     * Displays a single MsTemplate model.
+     * @param integer $id
+     * @return mixed
+     */
     public function actionView($id)
-    {
+    {   
         $request = Yii::$app->request;
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "MsFormula #".$id,
+                    'title'=> "MsTemplate #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];
+                ];    
         }else{
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -63,60 +73,51 @@ class FormulaController extends Controller
         }
     }
 
+    /**
+     * Creates a new MsTemplate model.
+     * For ajax request will return json object
+     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new MsFormula();
+        $model = new MsTemplate();  
 
         if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new MsFormula",
+                    'title'=> "Create new MsTemplate",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
-                ];
-            }else if($model->load($request->post())){
-                $skor =0; $pir=Yii::$app->db_remun->createCommand('Select pir from pir')->queryScalar();
-                foreach ($_POST['bobot'] as $a){//cari skor
-                    $getSkor = json_decode($this->actionFormula())->data;
-                    $sk = array_column(ArrayHelper::toArray($getSkor),'skor','id');
-                    $score[]=ArrayHelper::getValue($sk,$a);
-                }
-                $data = [];
-                foreach ($_POST['bobot'] as $a){
-                    $Mkategory = MsBobot::findOne($a)->kategory;
-                    $data[] = ['id_bobot'=>$a,'kategory'=>$Mkategory];
-                }
-
-                $model->load($request->post());
-                $model->id_bobot = json_encode($data);
-                $model->total_score=array_sum($score);
-                $model->estimasi=$model->total_score*(float)$pir;
-                $model->save();
-
+        
+                ];         
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new MsFormula",
-                    'content'=>'<span class="text-success">Create MsFormula success</span>',
+                    'title'=> "Create new MsTemplate",
+                    'content'=>'<span class="text-success">Create MsTemplate success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
-
-                ];
-            }else{
+        
+                ];         
+            }else{           
                 return [
-                    'title'=> "Create new MsFormula",
+                    'title'=> "Create new MsTemplate",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-
-                ];
+        
+                ];         
             }
         }else{
             /*
@@ -130,63 +131,54 @@ class FormulaController extends Controller
                 ]);
             }
         }
-
+       
     }
 
+    /**
+     * Updates an existing MsTemplate model.
+     * For ajax request will return json object
+     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);
-
-        $data=json_decode($model->id_bobot);
+        $model = $this->findModel($id);       
 
         if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update MsFormula #".$id,
+                    'title'=> "Update MsTemplate #".$id,
                     'content'=>$this->renderAjax('update', [
-                        'model' => $model,'kategory'=>$data,
+                        'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];
-            }else if($model->load($request->post())){
-
-                $skor =0; $pir=Yii::$app->db_remun->createCommand('Select pir from pir')->queryScalar();
-                foreach ($_POST['bobot'] as $a){//cari skor
-                    $getSkor = json_decode($this->actionFormula())->data;
-                    $sk = array_column(ArrayHelper::toArray($getSkor),'skor','id');
-                    $score[]=ArrayHelper::getValue($sk,$a);
-                }
-                $data = [];
-                foreach ($_POST['bobot'] as $a){
-                    $Mkategory = MsBobot::findOne($a)->kategory;
-                    $data[] = ['id_bobot'=>$a,'kategory'=>$Mkategory];
-                }
-                $model->load($request->post());
-                $model->id_bobot = json_encode($data);
-                $model->total_score=array_sum($score);
-                $model->estimasi=$model->total_score*(float)$pir;
-                $model->save();
+                ];         
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "MsFormula #".$id,
+                    'title'=> "MsTemplate #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
-                ];
+                ];    
             }else{
                  return [
-                    'title'=> "Update MsFormula #".$id,
+                    'title'=> "Update MsTemplate #".$id,
                     'content'=>$this->renderAjax('update', [
-                        'model' => $model,'kategory'=>$data,
+                        'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];
+                ];        
             }
         }else{
             /*
@@ -196,12 +188,19 @@ class FormulaController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
-                    'model' => $model,'kategory'=>$data,
+                    'model' => $model,
                 ]);
             }
         }
     }
 
+    /**
+     * Delete an existing MsTemplate model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
     public function actionDelete($id)
     {
         $request = Yii::$app->request;
@@ -223,8 +222,15 @@ class FormulaController extends Controller
 
     }
 
+     /**
+     * Delete multiple existing MsTemplate model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
     public function actionBulkDelete()
-    {
+    {        
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
         foreach ( $pks as $pk ) {
@@ -244,44 +250,22 @@ class FormulaController extends Controller
             */
             return $this->redirect(['index']);
         }
-
+       
     }
 
+    /**
+     * Finds the MsTemplate model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return MsTemplate the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     protected function findModel($id)
     {
-        if (($model = MsFormula::findOne($id)) !== null) {
+        if (($model = MsTemplate::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-    public function actionFormula(){
-        $sql = "select x.id,x.level,x.uraian,x.nilai_rasio,x.bobot,x.kategory,
-if(x.level=1,@coi:=x.cum,round(@coi:=@coi*x.cum,0))as skor
-from (
-SELECT mb.id,mb.bobot,mb.level,mb.nilai_rasio,mb.uraian,mb.kategory,
-COALESCE(p2.p1,skor1.skor)as cum
-from ms_bobot mb
-left join (
-	select mb3.kategory,mb3.level,((SELECT value from setting where param='nilaiterendah')*(mb3.bobot/100))as skor from ms_bobot mb3
-)skor1 on skor1.level=mb.level and skor1.kategory=mb.kategory
-left join (
-	select mb4.kategory,mb4.level,((SELECT mb2.nilai_rasio FROM ms_bobot mb2
-        WHERE mb2.level <= mb4.level
-        ORDER BY mb2.level DESC LIMIT 1)/
-        (SELECT mb1.nilai_rasio FROM ms_bobot mb1
-        WHERE mb1.level < mb4.level
-        ORDER BY mb1.level DESC LIMIT 1))as p1 from ms_bobot mb4
-)p2 on p2.level=mb.level and p2.kategory=mb.kategory
-group by mb.kategory,mb.id
-)x,(select @coi:=1)i
-order by x.id";
-        $data['data']=Yii::$app->db_remun->createCommand($sql)->queryAll();
-        return json_encode($data);
-
-
-    }
-
-
 }

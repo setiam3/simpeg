@@ -6,15 +6,15 @@ use yii\widgets\DetailView;
 /* @var $model app\models\MsFormula */
 ?>
 <div class="ms-formula-view">
- 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'idpekerjaan',
+//            'id',
+            'idpekerjaan0.nama_pekerjaan',
             'estimasi',
             'total_score',
-            'id_bobot',
+//            'id_bobot',
         ],
     ]) ?>
 

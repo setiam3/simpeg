@@ -43,7 +43,7 @@ class MsFormula extends \yii\db\ActiveRecord
         return [
             [['idpekerjaan'], 'required'],
             [['idpekerjaan', 'total_score'], 'integer'],
-            [['id_bobot'], 'string'],
+            [['id_bobot',], 'string'],
             [['estimasi'], 'number'],
             [['idpekerjaan'], 'exist', 'skipOnError' => true, 'targetClass' => MsPekerjaan::className(), 'targetAttribute' => ['idpekerjaan' => 'id']],
 //            [['id_bobot'], 'exist', 'skipOnError' => true, 'targetClass' => MsBobot::className(), 'targetAttribute' => ['id_bobot' => 'id']],
@@ -83,6 +83,7 @@ class MsFormula extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MsBobot::className(), ['id' => 'id_bobot']);
     }
+
 
     /**
      * Gets query for [[MsTemplates]].
