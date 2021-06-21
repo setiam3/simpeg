@@ -45,7 +45,6 @@ use yii\helpers\Html;
             ">FORMULIR PERMINTAAN DAN PEMBERIAN CUTI</p>
     </h4>
 </div>
-
 <table border="1" style="border: 1px solid black;
         border-collapse: collapse;" width="100%">
     <tr>
@@ -114,15 +113,15 @@ use yii\helpers\Html;
         <td colspan="6" style="padding-left: 10px;">IV. LAMANYA CUTI</td>
     </tr>
     <tr>
-        <td style="padding-left: 10px;">Selama</td>
-        <td style="padding-left: 10px;"><?php $endDate = strtotime($model->tanggalAkhir);
+        <td style="text-align:center;">Selama</td>
+        <td style="text-align:center;"><?php $endDate = strtotime($model->tanggalAkhir);
                                         $startDate = strtotime($model->tanggalMulai);
                                         $days = ($endDate - $startDate) / 86400 + 1;
                                         echo  $days; ?> hari</td>
-        <td style="padding-left: 10px;">Mulai Tanggal</td>
-        <td style="padding-left: 10px;"><?php echo $model->tanggalMulai ?></td>
-        <td style="padding-left: 10px;">Sd</td>
-        <td style="padding-left: 10px;"><?php echo $model->tanggalAkhir ?></td>
+        <td style="text-align:center;">Mulai Tanggal</td>
+        <td style="text-align:center;"><?php echo $model->tanggalMulai ?></td>
+        <td style="text-align:center;">Sd</td>
+        <td style="text-align:center;"><?php echo $model->tanggalAkhir ?></td>
     </tr>
 </table>
 <br>
@@ -182,6 +181,7 @@ use yii\helpers\Html;
             <br>
             <br>
             <br>
+            <br>
             <p style="text-decoration: underline;"><?php echo $model->data->namalengkap ?></p>
             NIP. <?php echo $model->data->nip ?>
         </td>
@@ -210,8 +210,8 @@ use yii\helpers\Html;
             <br>
             <br>
             <br>
-            <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval10['namalengkap'] ?></p>
-            NIP. <?php echo $model->approval10->nip ?>
+            <br>
+            <br>
         </td>
     </tr>
 </table>
@@ -228,7 +228,7 @@ use yii\helpers\Html;
     </tr>
     <tr>
         <td style="padding-left: 10px;"><?= ($model->disetujui == 1) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
-        <td style="padding-left: 10px;"><?= ($model->disetujui ==0) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
+        <td style="padding-left: 10px;"><?= ($model->disetujui == 0) ? Html::img('uploads/foto/ceklist.png', ['style' => 'width:11px;height:11px;']) : ''; ?></td>
     </tr>
     <tr>
         <td width="50%"></td>
@@ -237,37 +237,8 @@ use yii\helpers\Html;
             <br>
             <br>
             <br>
-            <p style="text-decoration: underline; font-weight: bold"><?php echo $model->approval20['namalengkap'] ?></p>
-            NIP. <?php echo $model->approval20->nip ?>
+            <br>
+            <br>
         </td>
     </tr>
 </table>
-
-
-
-
-<!-- <?php
-//echo 'Gresik, ' . Yii::$app->formatter->asDate($model->tanggalPengajuan, 'long');
-echo $model->data->namalengkap;
-echo $model->data->alamat;
-echo $model->data->telp;
-echo $model->data->riwayatjabatan->jabatan->nama_referensi;
-echo $model->data->riwayatjabatan->unitKerja->unit;
-echo $model->data->nip;
-echo $model->jenisIjin;
-echo $model->alasan;
-echo $model->tanggalMulai;
-echo $model->tanggalAkhir;
-$endDate = strtotime($model->tanggalAkhir);
-$startDate = strtotime($model->tanggalMulai);
-$days = ($endDate - $startDate) / 86400 + 1;
-echo 'lama cuti : ' . $days;
-echo $model->approval10->namalengkap;
-echo $model->approval10->nip;
-echo $model->approval20->namalengkap;
-echo $model->approval20->nip;
-echo $model->disetujui;
-echo $model->keterangan;
-echo $model->data->sisacuti->sisa;
-
-?> -->

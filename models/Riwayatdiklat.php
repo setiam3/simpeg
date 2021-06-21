@@ -33,6 +33,6 @@ class Riwayatdiklat extends \yii\db\ActiveRecord
     }
     public function getData()
     {
-        return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);
+        return $this->hasOne(MBiodata::className(), ['id_data' => 'id_data']);  
     }
 }
