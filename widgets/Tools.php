@@ -159,12 +159,12 @@ class Tools extends \yii\bootstrap\Widget
 
   public function ultahPegawai()
   { // month year
-    $namalengkap = new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
-    $m=new Expression('EXTRACT(month FROM NOW())');
-    $d=new Expression('EXTRACT(DAY FROM NOW())');
-    $query=MBiodata::find()->select([$namalengkap,'tanggalLahir'])->where(['is_pegawai'=>'1'])
-    ->andWhere(['EXTRACT(month FROM "tanggalLahir")'=>$m])
-    ->andWhere(['>=','EXTRACT(DAY FROM "tanggalLahir")',$d]);
+    $namalengkap = new Expression('concat(IFNULL(gelarDepan,""),nama,IFNULL(gelarBelakang,""))as nama');
+    $m=new Expression('month(now())');
+    $d=new Expression('day(now())');
+    $query=MBiodata::find()->select([$namalengkap,'tanggalLahir'])->where(['is_pegawai'=>'1'])->andWhere(['!=','jenis_pegawai',4])
+    ->andWhere(['MONTH(tanggalLahir)'=>$m])
+    ->andWhere(['>=','day(tanggalLahir)',$d]);
     $dataprovider =  new SqlDataProvider(['sql'=>$query->createCommand()->rawSql,'totalCount'=>$query->count()]);
     $dataprovider->pagination->pageSize=10;
     return $dataprovider;
