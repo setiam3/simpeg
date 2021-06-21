@@ -1,32 +1,12 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
-/**
- * This is the model class for table "pakta_integritas".
- *
- * @property int $id
- * @property string|null $nomer
- * @property int|null $id_data
- * @property string|null $jabatan
- * @property string|null $tanggal
- * @property string|null $ttd
- */
 class Paktaintegritas extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'pakta_integritas';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -37,10 +17,6 @@ class Paktaintegritas extends \yii\db\ActiveRecord
             [['nomer', 'jabatan'], 'string', 'max' => 255],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -59,7 +35,7 @@ class Paktaintegritas extends \yii\db\ActiveRecord
 
     public function ttdDirektur(){
         $sql = "SELECT mb.nama,k.ttd,mb.nip FROM ntl_kehadiran k JOIN m_biodata mb on k.peserta = mb.nama 
-WHERE k.id_kehadiran = 9";
+        WHERE lower(k.jabatan)='direktur' and k.ttd is not null limit 1";
         return $ttdDIrektur = \Yii::$app->db->createCommand($sql)->queryAll();
     }
 }
