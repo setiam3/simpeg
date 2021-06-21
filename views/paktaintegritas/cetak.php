@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\{Html, ArrayHelper, Url};
 ?>
 
@@ -17,7 +16,6 @@ use yii\helpers\{Html, ArrayHelper, Url};
         </td>
     </tr>
     <!--    end header-->
-
     <tr>
         <td colspan="3">
             <hr style=" border: 10px;
@@ -149,7 +147,7 @@ use yii\helpers\{Html, ArrayHelper, Url};
         <td>
           <?php
            if(!empty($datas[0]['ttd'])){
-               echo "<img src='".Url::toRoute($datas[0]['ttd'])."' width='70px' style=''/>";
+               echo "<img src='".$datas[0]['ttd']."' width='70px' style=''/>";
            }else{
                echo "";
            }
