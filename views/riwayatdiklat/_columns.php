@@ -14,9 +14,9 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id_data',
         'value' =>function($model){
-            return (!empty($model->data->gelarDepan))?$model->data->gelarDepan:''.
-            (!empty($model->data->nama))?$model->data->nama:''.
-            (!empty($model->data->gelarBelakang))?$model->data->gelarBelakang:'';
+            return $model->data->gelarDepan.
+            $model->data->nama.
+            $model->data->gelarBelakang;
         },
     ],
     [
