@@ -171,15 +171,15 @@ class Tools extends \yii\bootstrap\Widget
   }
   public function nextPensiun()
   { // akan pensiun 1 jenis pegawai pns --kode pegawai pns  --kode pegawai 2 blud, 3 freelend --1 jenis pegawai pns
-    $usia = new Expression('EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tanggalLahir")');
-    $namalengkap = new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
-    $sql = "SELECT $namalengkap,\"tanggalLahir\" FROM m_biodata
+    $usia = new Expression('YEAR (NOW()) - YEAR (tanggalLahir)');
+    $namalengkap = new Expression('concat(IFNULL(gelarDepan,""),nama,IFNULL(gelarBelakang,"")) as nama');
+    $sql = "SELECT $namalengkap,tanggalLahir FROM m_biodata
     WHERE ( $usia IN (59,60))
-    AND (\"jenis_pegawai\" = '1')
-    AND (\"is_pegawai\" = '1')
+    AND (jenis_pegawai = '1')
+    AND (is_pegawai = '1')
     or ($usia IN (49,50))
-    AND (\"jenis_pegawai\" in ('3','2'))
-    AND (\"is_pegawai\" = '1')";
+    AND (jenis_pegawai in ('3','2'))
+    AND (is_pegawai = '1')";
     $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -237,7 +237,9 @@ class Tools extends \yii\bootstrap\Widget
       } else {
           $where_iddata = '';
       }
-      $sql = "SELECT m_biodata.id_data FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (EXTRACT(MONTH FROM tgl_akhir_ijin) - 1 = EXTRACT(MONTH	FROM NOW())) AND (EXTRACT(YEAR FROM tgl_akhir_ijin) = EXTRACT(YEAR FROM NOW())) AND (suratijin LIKE '%STR%')";
+      $sql = "SELECT concat(IFNULL(gelarDepan,''),nama,IFNULL(gelarBelakang,'')) as nama,tgl_akhir_ijin FROM riwayatpendidikan 
+LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
+WHERE (tgl_akhir_ijin IS NOT NULL) AND (MONTH (tgl_akhir_ijin) - 1 = MONTH	(NOW())) AND YEAR (tgl_akhir_ijin) = YEAR (NOW()) AND (suratijin LIKE '%STR%')";
       $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -252,7 +254,12 @@ class Tools extends \yii\bootstrap\Widget
     } else {
       $where_iddata = '';
     }
-    $sql = "SELECT m_biodata.id_data FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) - 1 and EXTRACT(MONTH FROM NOW())) AND (suratijin LIKE '%SIP%') AND (EXTRACT(YEAR FROM tgl_akhir_ijin) = EXTRACT(YEAR FROM NOW()))";
+    $sql = "SELECT concat(IFNULL(gelarDepan,''),nama,IFNULL(gelarBelakang,'')) as nama,tgl_akhir_ijin FROM riwayatpendidikan 
+LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
+WHERE (tgl_akhir_ijin IS NOT NULL) 
+AND (month(tgl_akhir_ijin) between MONTH (tgl_akhir_ijin) - 1 and MONTH (NOW())) 
+AND (suratijin LIKE '%SIP%') 
+AND (YEAR (tgl_akhir_ijin) = YEAR (NOW()))";
     $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
