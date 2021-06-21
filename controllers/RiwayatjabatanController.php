@@ -73,6 +73,7 @@ class RiwayatjabatanController extends Controller
                     $ext = Yii::$app->tools->upload('Riwayatjabatan[dokumen]', Yii::getAlias('@uploads') . $model->data->nip . '/RJabatan_' . $model->data->nip);
                     $model->dokumen =  $ext;
                 }
+
                 $model->save(false);
                 return [
                     'forceReload' => '#crud-datatable' . md5(get_class($model)) . '-pjax',

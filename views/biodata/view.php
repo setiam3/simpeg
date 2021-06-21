@@ -31,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'KabupatenKota',
                 'value'=>function($data){
-                    return isset($data->kabupatenKota)?$data->desanya->district->regency->name:'';
+                    if (empty($data->kabupatenKota)){
+                        return '';
+                    }else{
+                        return $data->desanya->district->regency->name;
+                    }
                 }
             ],
             [
@@ -63,7 +67,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'statusPerkawinan',
                 'value'=>function($data){
-                    return isset($data->statusPerkawinan)?$data->statuskawin->nama_referensi:'';
+                    if (empty($data->statusPerkawinan)){
+                        return '';
+                    }else{
+                        return $data->statuskawin->nama_referensi;
+                    }
                 }
             ],
             'gelarDepan',

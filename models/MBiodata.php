@@ -15,7 +15,7 @@ class MBiodata extends \yii\db\ActiveRecord
         return [
             [['parent_id', 'status_hubungan_keluarga', 'checklog_id'], 'default', 'value' => null],
             [['parent_id', 'status_hubungan_keluarga', 'checklog_id', 'jenis_pegawai'], 'integer'],
-            [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik'], 'required'],
+            [['nama', 'tempatLahir', 'tanggalLahir', 'alamat', 'jenisKelamin', 'agama', 'nik','kabupatenKota','kecamatan', 'kelurahan','statusPerkawinan'], 'required'],
             [['tanggalLahir'], 'safe'],
             [['nip', 'nama', 'alamat', 'kabupatenKota', 'kecamatan', 'kelurahan', 'jenisKelamin', 'email', 'foto', 'fotoNik', 'is_pegawai'], 'string', 'max' => 255],
             [['tempatLahir', 'agama'], 'string', 'max' => 200],
