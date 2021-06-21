@@ -280,7 +280,7 @@
             "version": "v8.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/highcharts/highcharts-dist.git",
+                "url": "git@github.com:highcharts/highcharts-dist.git",
                 "reference": "e4c4afe4117eed5b64ed7696de64d45a44e1257b"
             },
             "dist": {
@@ -358,7 +358,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bestiejs/punycode.js.git",
+                "url": "git@github.com:bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -647,16 +647,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.25",
+            "version": "2.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "0dbf5d78455d4d6a41d186da50adc1122ec066f4"
+                "reference": "ca90a3291eee1538cd48ff25163240695bd95448"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/0dbf5d78455d4d6a41d186da50adc1122ec066f4",
-                "reference": "0dbf5d78455d4d6a41d186da50adc1122ec066f4",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/ca90a3291eee1538cd48ff25163240695bd95448",
+                "reference": "ca90a3291eee1538cd48ff25163240695bd95448",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/2.1.25"
+                "source": "https://github.com/egulias/EmailValidator/tree/2.1.24"
             },
             "funding": [
                 {
@@ -711,7 +711,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-29T14:50:06+00:00"
+            "time": "2020-11-14T15:56:27+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -879,16 +879,16 @@
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
-            "version": "v5.1.5",
+            "version": "v5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "a9cdc1fae34919a85e295ca38607441b2e6c7869"
+                "reference": "dbb4ebb75dbfd42603005aeb323e4e8e970e0dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/a9cdc1fae34919a85e295ca38607441b2e6c7869",
-                "reference": "a9cdc1fae34919a85e295ca38607441b2e6c7869",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/dbb4ebb75dbfd42603005aeb323e4e8e970e0dfa",
+                "reference": "dbb4ebb75dbfd42603005aeb323e4e8e970e0dfa",
                 "shasum": ""
             },
             "type": "library",
@@ -930,7 +930,7 @@
             ],
             "support": {
                 "issues": "https://github.com/kartik-v/bootstrap-fileinput/issues",
-                "source": "https://github.com/kartik-v/bootstrap-fileinput/tree/v5.1.5"
+                "source": "https://github.com/kartik-v/bootstrap-fileinput/tree/v5.1.3"
             },
             "funding": [
                 {
@@ -938,7 +938,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-03-02T18:44:42+00:00"
+            "time": "2020-10-23T19:33:56+00:00"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -3152,20 +3152,20 @@
         },
         {
             "name": "markbaker/matrix",
-            "version": "2.1.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarkBaker/PHPMatrix.git",
-                "reference": "361c0f545c3172ee26c3d596a0aa03f0cef65e6a"
+                "reference": "9567d9c4c519fbe40de01dbd1e4469dbbb66f46a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/361c0f545c3172ee26c3d596a0aa03f0cef65e6a",
-                "reference": "361c0f545c3172ee26c3d596a0aa03f0cef65e6a",
+                "url": "https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/9567d9c4c519fbe40de01dbd1e4469dbbb66f46a",
+                "reference": "9567d9c4c519fbe40de01dbd1e4469dbbb66f46a",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
@@ -3183,22 +3183,22 @@
                     "Matrix\\": "classes/src/"
                 },
                 "files": [
-                    "classes/src/Functions/adjoint.php",
-                    "classes/src/Functions/antidiagonal.php",
-                    "classes/src/Functions/cofactors.php",
-                    "classes/src/Functions/determinant.php",
-                    "classes/src/Functions/diagonal.php",
-                    "classes/src/Functions/identity.php",
-                    "classes/src/Functions/inverse.php",
-                    "classes/src/Functions/minors.php",
-                    "classes/src/Functions/trace.php",
-                    "classes/src/Functions/transpose.php",
-                    "classes/src/Operations/add.php",
-                    "classes/src/Operations/directsum.php",
-                    "classes/src/Operations/subtract.php",
-                    "classes/src/Operations/multiply.php",
-                    "classes/src/Operations/divideby.php",
-                    "classes/src/Operations/divideinto.php"
+                    "classes/src/functions/adjoint.php",
+                    "classes/src/functions/antidiagonal.php",
+                    "classes/src/functions/cofactors.php",
+                    "classes/src/functions/determinant.php",
+                    "classes/src/functions/diagonal.php",
+                    "classes/src/functions/identity.php",
+                    "classes/src/functions/inverse.php",
+                    "classes/src/functions/minors.php",
+                    "classes/src/functions/trace.php",
+                    "classes/src/functions/transpose.php",
+                    "classes/src/operations/add.php",
+                    "classes/src/operations/directsum.php",
+                    "classes/src/operations/subtract.php",
+                    "classes/src/operations/multiply.php",
+                    "classes/src/operations/divideby.php",
+                    "classes/src/operations/divideinto.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3220,22 +3220,22 @@
             ],
             "support": {
                 "issues": "https://github.com/MarkBaker/PHPMatrix/issues",
-                "source": "https://github.com/MarkBaker/PHPMatrix/tree/2.1.2"
+                "source": "https://github.com/MarkBaker/PHPMatrix/tree/PHP8"
             },
-            "time": "2021-01-23T16:37:31+00:00"
+            "time": "2020-08-28T17:11:00+00:00"
         },
         {
             "name": "mdmsoft/yii2-admin",
-            "version": "2.12",
+            "version": "2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mdmsoft/yii2-admin.git",
-                "reference": "10e526fbcf6350ed4cc9ba6298f887d611685367"
+                "reference": "5b0966e6d6d4fedfcd12031fc7d5d20f73f60fb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/10e526fbcf6350ed4cc9ba6298f887d611685367",
-                "reference": "10e526fbcf6350ed4cc9ba6298f887d611685367",
+                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/5b0966e6d6d4fedfcd12031fc7d5d20f73f60fb8",
+                "reference": "5b0966e6d6d4fedfcd12031fc7d5d20f73f60fb8",
                 "shasum": ""
             },
             "require": {
@@ -3284,7 +3284,7 @@
                 "issues": "https://github.com/mdmsoft/yii2-admin/issues",
                 "source": "https://github.com/mdmsoft/yii2-admin"
             },
-            "time": "2020-12-31T06:48:57+00:00"
+            "time": "2020-09-07T10:26:07+00:00"
         },
         {
             "name": "miloschuman/yii2-highcharts-widget",
@@ -3390,16 +3390,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v8.0.10",
+            "version": "v8.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "1333a962cd2f7ae1a127b7534b7734b58179186f"
+                "reference": "4ce221329d0918146514605db1644b2771c5e308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/1333a962cd2f7ae1a127b7534b7734b58179186f",
-                "reference": "1333a962cd2f7ae1a127b7534b7734b58179186f",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/4ce221329d0918146514605db1644b2771c5e308",
+                "reference": "4ce221329d0918146514605db1644b2771c5e308",
                 "shasum": ""
             },
             "require": {
@@ -3407,14 +3407,14 @@
                 "ext-mbstring": "*",
                 "myclabs/deep-copy": "^1.7",
                 "paragonie/random_compat": "^1.4|^2.0|^9.99.99",
-                "php": "^5.6 || ^7.0 || ~8.0.0",
+                "php": "^5.6 || ^7.0",
                 "psr/log": "^1.0",
                 "setasign/fpdi": "^2.1"
             },
             "require-dev": {
                 "mockery/mockery": "^1.3.0",
                 "mpdf/qrcode": "^1.1.0",
-                "phpunit/phpunit": "^5.7",
+                "phpunit/phpunit": "^5.0",
                 "squizlabs/php_codesniffer": "^3.5.0",
                 "tracy/tracy": "^2.4"
             },
@@ -3424,6 +3424,11 @@
                 "ext-zlib": "Needed for compression of embedded resources, such as fonts"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-development": "7.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Mpdf\\": "src/"
@@ -3461,7 +3466,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-01-08T14:59:28+00:00"
+            "time": "2020-12-05T00:44:31+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3523,26 +3528,26 @@
         },
         {
             "name": "myclabs/php-enum",
-            "version": "1.8.0",
+            "version": "1.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/php-enum.git",
-                "reference": "46cf3d8498b095bd33727b13fd5707263af99421"
+                "reference": "d178027d1e679832db9f38248fcc7200647dc2b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/46cf3d8498b095bd33727b13fd5707263af99421",
-                "reference": "46cf3d8498b095bd33727b13fd5707263af99421",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/d178027d1e679832db9f38248fcc7200647dc2b7",
+                "reference": "d178027d1e679832db9f38248fcc7200647dc2b7",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.3 || ^8.0"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5",
+                "phpunit/phpunit": "^7",
                 "squizlabs/php_codesniffer": "1.*",
-                "vimeo/psalm": "^4.5.1"
+                "vimeo/psalm": "^3.8"
             },
             "type": "library",
             "autoload": {
@@ -3567,7 +3572,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/php-enum/issues",
-                "source": "https://github.com/myclabs/php-enum/tree/1.8.0"
+                "source": "https://github.com/myclabs/php-enum/tree/1.7.7"
             },
             "funding": [
                 {
@@ -3579,7 +3584,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-15T16:11:48+00:00"
+            "time": "2020-11-14T18:14:52+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3633,16 +3638,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.17.1",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "c55269cb06911575a126dc225a05c0e4626e5fb4"
+                "reference": "a8e8068b31b8119e1daa5b1eb5715a3a8ea8305f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/c55269cb06911575a126dc225a05c0e4626e5fb4",
-                "reference": "c55269cb06911575a126dc225a05c0e4626e5fb4",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/a8e8068b31b8119e1daa5b1eb5715a3a8ea8305f",
+                "reference": "a8e8068b31b8119e1daa5b1eb5715a3a8ea8305f",
                 "shasum": ""
             },
             "require": {
@@ -3659,22 +3664,21 @@
                 "ext-xmlwriter": "*",
                 "ext-zip": "*",
                 "ext-zlib": "*",
-                "ezyang/htmlpurifier": "^4.13",
                 "maennchen/zipstream-php": "^2.1",
-                "markbaker/complex": "^1.5||^2.0",
-                "markbaker/matrix": "^1.2||^2.0",
-                "php": "^7.2||^8.0",
+                "markbaker/complex": "^1.5|^2.0",
+                "markbaker/matrix": "^1.2|^2.0",
+                "php": "^7.2|^8.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
                 "psr/simple-cache": "^1.0"
             },
             "require-dev": {
                 "dompdf/dompdf": "^0.8.5",
-                "friendsofphp/php-cs-fixer": "^2.18",
+                "friendsofphp/php-cs-fixer": "^2.16",
                 "jpgraph/jpgraph": "^4.0",
                 "mpdf/mpdf": "^8.0",
                 "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "^8.5||^9.3",
+                "phpunit/phpunit": "^8.5|^9.3",
                 "squizlabs/php_codesniffer": "^3.5",
                 "tecnickcom/tcpdf": "^6.3"
             },
@@ -3728,9 +3732,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.17.1"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.15.0"
             },
-            "time": "2021-03-02T17:54:11+00:00"
+            "time": "2020-10-11T13:20:59+00:00"
         },
         {
             "name": "phpspec/php-diff",
@@ -4134,16 +4138,16 @@
         },
         {
             "name": "setasign/fpdi",
-            "version": "v2.3.6",
+            "version": "v2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31"
+                "reference": "f2246c8669bd25834f5c264425eb0e250d7a9312"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
-                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/f2246c8669bd25834f5c264425eb0e250d7a9312",
+                "reference": "f2246c8669bd25834f5c264425eb0e250d7a9312",
                 "shasum": ""
             },
             "require": {
@@ -4194,7 +4198,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Setasign/FPDI/issues",
-                "source": "https://github.com/Setasign/FPDI/tree/v2.3.6"
+                "source": "https://github.com/Setasign/FPDI/tree/v2.3.5"
             },
             "funding": [
                 {
@@ -4202,20 +4206,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-11T11:37:01+00:00"
+            "time": "2020-12-03T13:40:03+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.2.5",
+            "version": "v6.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7"
+                "reference": "56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/698a6a9f54d7eb321274de3ad19863802c879fb7",
-                "reference": "698a6a9f54d7eb321274de3ad19863802c879fb7",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e",
+                "reference": "56f0ab23f54c4ccbb0d5dcc67ff8552e0c98d59e",
                 "shasum": ""
             },
             "require": {
@@ -4265,7 +4269,7 @@
             ],
             "support": {
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
-                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.5"
+                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.4"
             },
             "funding": [
                 {
@@ -4277,20 +4281,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-12T09:35:59+00:00"
+            "time": "2020-12-08T18:02:06+00:00"
         },
         {
             "name": "symfony/polyfill-iconv",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-iconv.git",
-                "reference": "06fb361659649bcfd6a208a0f1fcaf4e827ad342"
+                "reference": "c536646fdb4f29104dd26effc2fdcb9a5b085024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/06fb361659649bcfd6a208a0f1fcaf4e827ad342",
-                "reference": "06fb361659649bcfd6a208a0f1fcaf4e827ad342",
+                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/c536646fdb4f29104dd26effc2fdcb9a5b085024",
+                "reference": "c536646fdb4f29104dd26effc2fdcb9a5b085024",
                 "shasum": ""
             },
             "require": {
@@ -4302,7 +4306,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -4341,7 +4345,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-iconv/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-iconv/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -4357,20 +4361,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T09:19:47+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "2d63434d922daf7da8dd863e7907e67ee3031483"
+                "reference": "3b75acd829741c768bc8b1f84eb33265e7cc5117"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/2d63434d922daf7da8dd863e7907e67ee3031483",
-                "reference": "2d63434d922daf7da8dd863e7907e67ee3031483",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/3b75acd829741c768bc8b1f84eb33265e7cc5117",
+                "reference": "3b75acd829741c768bc8b1f84eb33265e7cc5117",
                 "shasum": ""
             },
             "require": {
@@ -4384,7 +4388,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -4428,7 +4432,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -4444,20 +4448,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T09:19:47+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-                "reference": "43a0283138253ed1d48d352ab6d0bdb3f809f248"
+                "reference": "727d1096295d807c309fb01a851577302394c897"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/43a0283138253ed1d48d352ab6d0bdb3f809f248",
-                "reference": "43a0283138253ed1d48d352ab6d0bdb3f809f248",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/727d1096295d807c309fb01a851577302394c897",
+                "reference": "727d1096295d807c309fb01a851577302394c897",
                 "shasum": ""
             },
             "require": {
@@ -4469,7 +4473,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -4512,7 +4516,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -4528,20 +4532,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T09:19:47+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1"
+                "reference": "39d483bdf39be819deabf04ec872eb0b2410b531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/5232de97ee3b75b0360528dae24e73db49566ab1",
-                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/39d483bdf39be819deabf04ec872eb0b2410b531",
+                "reference": "39d483bdf39be819deabf04ec872eb0b2410b531",
                 "shasum": ""
             },
             "require": {
@@ -4553,7 +4557,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -4592,7 +4596,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -4608,20 +4612,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T09:19:47+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9"
+                "reference": "cede45fcdfabdd6043b3592e83678e42ec69e930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9",
-                "reference": "cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/cede45fcdfabdd6043b3592e83678e42ec69e930",
+                "reference": "cede45fcdfabdd6043b3592e83678e42ec69e930",
                 "shasum": ""
             },
             "require": {
@@ -4630,7 +4634,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -4668,7 +4672,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php72/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-php72/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -4684,7 +4688,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "tpmanc/yii2-imagick",
@@ -4739,21 +4743,21 @@
         },
         {
             "name": "unclead/yii2-multiple-input",
-            "version": "2.24.0",
+            "version": "2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/unclead/yii2-multiple-input.git",
-                "reference": "fa4a69a96643b532ea2b49f86bdd6aeb6cd201a7"
+                "reference": "cc89d57b083ae82fec3f4dc547e6c936fa1719bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/fa4a69a96643b532ea2b49f86bdd6aeb6cd201a7",
-                "reference": "fa4a69a96643b532ea2b49f86bdd6aeb6cd201a7",
+                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/cc89d57b083ae82fec3f4dc547e6c936fa1719bd",
+                "reference": "cc89d57b083ae82fec3f4dc547e6c936fa1719bd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "yiisoft/yii2": ">=2.0.38"
+                "yiisoft/yii2": ">=2.0.13"
             },
             "require-dev": {
                 "phpunit/phpunit": "5.7.*"
@@ -4788,7 +4792,7 @@
                 "issues": "https://github.com/unclead/yii2-multiple-input/issues?state=open",
                 "source": "https://github.com/unclead/yii2-multiple-input"
             },
-            "time": "2021-01-09T10:53:24+00:00"
+            "time": "2019-12-14T10:41:23+00:00"
         },
         {
             "name": "vova07/yii2-console-runner-extension",
@@ -4847,16 +4851,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.41",
+            "version": "2.0.39.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "0bb56fc24f7b07841095d2ba90fa8ad0c2828601"
+                "reference": "7c3b93b57e568509a7cb5cef826d8c424a779f3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/0bb56fc24f7b07841095d2ba90fa8ad0c2828601",
-                "reference": "0bb56fc24f7b07841095d2ba90fa8ad0c2828601",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7c3b93b57e568509a7cb5cef826d8c424a779f3f",
+                "reference": "7c3b93b57e568509a7cb5cef826d8c424a779f3f",
                 "shasum": ""
             },
             "require": {
@@ -4964,7 +4968,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-03T21:51:35+00:00"
+            "time": "2020-11-23T19:17:58+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -7447,16 +7451,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.19",
+            "version": "v4.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "24026c44fc37099fa145707fecd43672831b837a"
+                "reference": "12e071278e396cc3e1c149857337e9e192deca0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/24026c44fc37099fa145707fecd43672831b837a",
-                "reference": "24026c44fc37099fa145707fecd43672831b837a",
+                "url": "https://api.github.com/repos/symfony/console/zipball/12e071278e396cc3e1c149857337e9e192deca0b",
+                "reference": "12e071278e396cc3e1c149857337e9e192deca0b",
                 "shasum": ""
             },
             "require": {
@@ -7513,10 +7517,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Eases the creation of beautiful and testable command line interfaces",
+            "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/console/tree/v4.4.19"
+                "source": "https://github.com/symfony/console/tree/v4.4.18"
             },
             "funding": [
                 {
@@ -7532,20 +7536,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2020-12-18T07:41:31+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.4.19",
+            "version": "v4.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "f907d3e53ecb2a5fad8609eb2f30525287a734c8"
+                "reference": "74bd82e75da256ad20851af6ded07823332216c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f907d3e53ecb2a5fad8609eb2f30525287a734c8",
-                "reference": "f907d3e53ecb2a5fad8609eb2f30525287a734c8",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/74bd82e75da256ad20851af6ded07823332216c7",
+                "reference": "74bd82e75da256ad20851af6ded07823332216c7",
                 "shasum": ""
             },
             "require": {
@@ -7578,10 +7582,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Converts CSS selectors to XPath expressions",
+            "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v4.4.19"
+                "source": "https://github.com/symfony/css-selector/tree/v4.4.18"
             },
             "funding": [
                 {
@@ -7597,20 +7601,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2020-12-08T16:59:59+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.4.19",
+            "version": "v4.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "21032c566558255e551d23f4a516434c9e3a9a78"
+                "reference": "d44fbb02b458fe18d00fea18f24c97cefb87577e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/21032c566558255e551d23f4a516434c9e3a9a78",
-                "reference": "21032c566558255e551d23f4a516434c9e3a9a78",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/d44fbb02b458fe18d00fea18f24c97cefb87577e",
+                "reference": "d44fbb02b458fe18d00fea18f24c97cefb87577e",
                 "shasum": ""
             },
             "require": {
@@ -7651,10 +7655,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Eases DOM navigation for HTML and XML documents",
+            "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v4.4.19"
+                "source": "https://github.com/symfony/dom-crawler/tree/v4.4.18"
             },
             "funding": [
                 {
@@ -7670,20 +7674,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2020-12-18T07:41:31+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.4.19",
+            "version": "v4.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "c352647244bd376bf7d31efbd5401f13f50dad0c"
+                "reference": "5d4c874b0eb1c32d40328a09dbc37307a5a910b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c352647244bd376bf7d31efbd5401f13f50dad0c",
-                "reference": "c352647244bd376bf7d31efbd5401f13f50dad0c",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/5d4c874b0eb1c32d40328a09dbc37307a5a910b0",
+                "reference": "5d4c874b0eb1c32d40328a09dbc37307a5a910b0",
                 "shasum": ""
             },
             "require": {
@@ -7734,10 +7738,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
+            "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher/tree/v4.4.19"
+                "source": "https://github.com/symfony/event-dispatcher/tree/v4.4.18"
             },
             "funding": [
                 {
@@ -7753,7 +7757,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2020-12-18T07:41:31+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -7836,16 +7840,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.19",
+            "version": "v4.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "25d79cfccfc12e84e7a63a248c3f0720fdd92db6"
+                "reference": "ebd0965f2dc2d4e0f11487c16fbb041e50b5c09b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/25d79cfccfc12e84e7a63a248c3f0720fdd92db6",
-                "reference": "25d79cfccfc12e84e7a63a248c3f0720fdd92db6",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/ebd0965f2dc2d4e0f11487c16fbb041e50b5c09b",
+                "reference": "ebd0965f2dc2d4e0f11487c16fbb041e50b5c09b",
                 "shasum": ""
             },
             "require": {
@@ -7874,10 +7878,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Finds files and directories via an intuitive fluent interface",
+            "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v4.4.19"
+                "source": "https://github.com/symfony/finder/tree/v4.4.18"
             },
             "funding": [
                 {
@@ -7893,20 +7897,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2020-12-08T16:59:59+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e"
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/c6c942b1ac76c82448322025e084cadc56048b4e",
-                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
                 "shasum": ""
             },
             "require": {
@@ -7918,7 +7922,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -7956,7 +7960,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -7972,20 +7976,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
-                "reference": "a678b42e92f86eca04b7fa4c0f6f19d097fb69e2"
+                "reference": "8ff431c517be11c78c48a39a66d37431e26a6bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/a678b42e92f86eca04b7fa4c0f6f19d097fb69e2",
-                "reference": "a678b42e92f86eca04b7fa4c0f6f19d097fb69e2",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/8ff431c517be11c78c48a39a66d37431e26a6bed",
+                "reference": "8ff431c517be11c78c48a39a66d37431e26a6bed",
                 "shasum": ""
             },
             "require": {
@@ -7994,7 +7998,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -8035,7 +8039,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -8051,20 +8055,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.22.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91"
+                "reference": "e70aa8b064c5b72d3df2abd5ab1e90464ad009de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/dc3063ba22c2a1fd2f45ed856374d79114998f91",
-                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/e70aa8b064c5b72d3df2abd5ab1e90464ad009de",
+                "reference": "e70aa8b064c5b72d3df2abd5ab1e90464ad009de",
                 "shasum": ""
             },
             "require": {
@@ -8073,7 +8077,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -8118,7 +8122,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -8134,7 +8138,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -8217,16 +8221,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v4.4.19",
+            "version": "v4.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "17ed9f14c1aa05b1a5cf2e2c5ef2d0be28058ef9"
+                "reference": "bbce94f14d73732340740366fcbe63363663a403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/17ed9f14c1aa05b1a5cf2e2c5ef2d0be28058ef9",
-                "reference": "17ed9f14c1aa05b1a5cf2e2c5ef2d0be28058ef9",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/bbce94f14d73732340740366fcbe63363663a403",
+                "reference": "bbce94f14d73732340740366fcbe63363663a403",
                 "shasum": ""
             },
             "require": {
@@ -8265,10 +8269,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Loads and dumps YAML files",
+            "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v4.4.19"
+                "source": "https://github.com/symfony/yaml/tree/v4.4.18"
             },
             "funding": [
                 {
@@ -8284,7 +8288,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2020-12-08T16:59:59+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -8341,12 +8345,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozarts/assert.git",
+                "url": "https://github.com/webmozart/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -8384,23 +8388,23 @@
                 "validate"
             ],
             "support": {
-                "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
+                "issues": "https://github.com/webmozart/assert/issues",
+                "source": "https://github.com/webmozart/assert/tree/master"
             },
             "time": "2020-07-08T17:02:28+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.1.16",
+            "version": "2.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "0d8ce76b2dd036a5fc38b26434e1c672ad8975a9"
+                "reference": "317f85c1ac7a8c0b73eea345a49066b5570aa2c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/0d8ce76b2dd036a5fc38b26434e1c672ad8975a9",
-                "reference": "0d8ce76b2dd036a5fc38b26434e1c672ad8975a9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/317f85c1ac7a8c0b73eea345a49066b5570aa2c6",
+                "reference": "317f85c1ac7a8c0b73eea345a49066b5570aa2c6",
                 "shasum": ""
             },
             "require": {
@@ -8477,7 +8481,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-23T16:36:12+00:00"
+            "time": "2020-11-13T10:09:11+00:00"
         },
         {
             "name": "yiisoft/yii2-faker",
