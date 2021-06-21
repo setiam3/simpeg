@@ -17,8 +17,8 @@ class PaktaintegritasSearch extends Paktaintegritas
     public function rules()
     {
         return [
-            [['id', 'id_data'], 'integer'],
-            [['nomer', 'jabatan', 'tanggal', 'ttd'], 'safe'],
+            [['id'], 'integer'],
+            [['nomer', 'jabatan', 'tanggal', 'ttd', 'nama','id_data'], 'safe'],
         ];
     }
 
@@ -41,11 +41,17 @@ class PaktaintegritasSearch extends Paktaintegritas
     public function search($params)
     {
         $query = Paktaintegritas::find();
+        $query->join('join','m_biodata','pakta_integritas.id_data = m_biodata.id_data');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ]
         ]);
 
         $this->load($params);
@@ -59,12 +65,13 @@ class PaktaintegritasSearch extends Paktaintegritas
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_data' => $this->id_data,
+//            'id_data' => $this->id_data,
             'tanggal' => $this->tanggal,
         ]);
 
         $query->andFilterWhere(['ilike', 'nomer', $this->nomer])
             ->andFilterWhere(['ilike', 'jabatan', $this->jabatan])
+            ->andFilterWhere(['like', 'nama', $this->id_data])
             ->andFilterWhere(['ilike', 'ttd', $this->ttd]);
 
         return $dataProvider;

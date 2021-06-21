@@ -231,7 +231,7 @@ class SiteController extends Controller
         } else {
             $whereid = '';
         }
-        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmt"))::INTEGER, 2)');
+        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmt")), 2)');
         $gaji = MKepangkatan::find()
             ->joinWith('data')
             ->where(['=', $where, '0'])
@@ -248,7 +248,7 @@ class SiteController extends Controller
             $whereid = '';
         }
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmt"))::INTEGER, 2)');
+        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmt")), 2)');
         $gaji = MKepangkatan::find()
             ->joinWith('data')
             ->where(['=', $where, '0'])
@@ -271,8 +271,8 @@ class SiteController extends Controller
         } else {
             $whereid = '';
         }
-        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "kepangkatan"."tmtPangkat"))::INTEGER, 4) = 0');
-        $wherecon = new Expression('EXTRACT(YEAR FROM "kepangkatan"."tmtPangkat") < EXTRACT(YEAR FROM NOW())');
+        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmtPangkat")), 4) = 0');
+        $wherecon = new Expression('EXTRACT(YEAR FROM tmtPangkat) < EXTRACT(YEAR FROM NOW())');
         $gaji = MBiodata::find()
             ->join('join', 'kepangkatan', 'm_biodata.id_data = kepangkatan.id_data')
             ->join('join', 'penggolongangaji', 'kepangkatan.penggolongangaji_id = penggolongangaji.id')
@@ -294,8 +294,8 @@ class SiteController extends Controller
         } else {
             $whereid = '';
         }
-        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "kepangkatan"."tmtPangkat"))::INTEGER, 4) = 0');
-        $wherecon = new Expression('EXTRACT(YEAR FROM "kepangkatan"."tmtPangkat") < EXTRACT(YEAR FROM NOW())');
+        $where = new Expression('MOD((EXTRACT(YEAR FROM NOW()) - EXTRACT(YEAR FROM "tmtPangkat")), 4) = 0');
+        $wherecon = new Expression('EXTRACT(YEAR FROM "tmtPangkat") < EXTRACT(YEAR FROM NOW())');
         $gaji = MBiodata::find()
             ->join('join', 'kepangkatan', 'm_biodata.id_data = kepangkatan.id_data')
             ->join('join', 'penggolongangaji', 'kepangkatan.penggolongangaji_id = penggolongangaji.id')
@@ -379,6 +379,11 @@ class SiteController extends Controller
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $role = \Yii::$app->tools->getcurrentroleuser();
+        if (in_array('karyawan', $role)) {
+            $whereid = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
+        } else {
+            $whereid = '';
+        }
         if (in_array('karyawan', $role) && in_array('approval1', $role)) {
             $where_iddata = ['m_biodata.id_data' => \Yii::$app->user->identity->id_data];
             $whre = 'disetujui is null';

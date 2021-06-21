@@ -160,11 +160,11 @@ class Tools extends \yii\bootstrap\Widget
   public function ultahPegawai()
   { // month year
     $namalengkap = new Expression('concat("gelarDepan",nama,"gelarBelakang") as nama');
-    $m=new Expression('EXTRACT(month FROM NOW()) ::INTEGER');
-    $d=new Expression('EXTRACT(DAY FROM NOW())::INTEGER');
+    $m=new Expression('EXTRACT(month FROM NOW())');
+    $d=new Expression('EXTRACT(DAY FROM NOW())');
     $query=MBiodata::find()->select([$namalengkap,'tanggalLahir'])->where(['is_pegawai'=>'1'])
-    ->andWhere(['EXTRACT(month FROM "tanggalLahir")::INTEGER'=>$m])
-    ->andWhere(['>=','EXTRACT(DAY FROM "tanggalLahir")::INTEGER',$d]);
+    ->andWhere(['EXTRACT(month FROM "tanggalLahir")'=>$m])
+    ->andWhere(['>=','EXTRACT(DAY FROM "tanggalLahir")',$d]);
     $dataprovider =  new SqlDataProvider(['sql'=>$query->createCommand()->rawSql,'totalCount'=>$query->count()]);
     $dataprovider->pagination->pageSize=10;
     return $dataprovider;
@@ -237,18 +237,7 @@ class Tools extends \yii\bootstrap\Widget
       } else {
           $where_iddata = '';
       }
-      // $where = new Expression('EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER');
-      // $tahun = new Expression('EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
-      // $data = Riwayatpendidikan::find()
-      //     ->joinWith('data')
-      //     ->where(['is not','tgl_akhir_ijin',null])
-      //     ->andWhere($where)
-      //     ->andWhere($tahun)
-      //     ->andWhere(['like','suratijin','STR'])
-      //     ->andWhere($where_iddata)
-      //     ->all();
-
-      $sql = "SELECT * FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 = EXTRACT(MONTH	FROM NOW()) ::INTEGER) AND (EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER) AND (suratijin LIKE '%STR%')";
+      $sql = "SELECT m_biodata.id_data FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (EXTRACT(MONTH FROM tgl_akhir_ijin) - 1 = EXTRACT(MONTH	FROM NOW())) AND (EXTRACT(YEAR FROM tgl_akhir_ijin) = EXTRACT(YEAR FROM NOW())) AND (suratijin LIKE '%STR%')";
       $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -263,18 +252,7 @@ class Tools extends \yii\bootstrap\Widget
     } else {
       $where_iddata = '';
     }
-    // $where = new Expression('month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 and EXTRACT(MONTH	FROM NOW()) ::INTEGER');
-    // $tahun = new Expression('EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER');
-    // $data = Riwayatpendidikan::find()
-    //   ->joinWith('data')
-    //   ->where(['is not', 'tgl_akhir_ijin', null])
-    //   ->andWhere($where)
-    //   ->andWhere(['like', 'suratijin', 'SIP'])
-    //   ->andWhere($where_iddata)
-    //   ->andWhere($tahun)
-    //   ->all();
-    // return $data;
-    $sql = "SELECT * FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) ::INTEGER - 1 and EXTRACT(MONTH FROM NOW()) ::INTEGER) AND (suratijin LIKE '%SIP%') AND (EXTRACT(YEAR FROM tgl_akhir_ijin) ::INTEGER = EXTRACT(YEAR FROM NOW()) ::INTEGER)";
+    $sql = "SELECT m_biodata.id_data FROM riwayatpendidikan LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data WHERE (tgl_akhir_ijin IS NOT NULL) AND (month(tgl_akhir_ijin) between EXTRACT(MONTH FROM tgl_akhir_ijin) - 1 and EXTRACT(MONTH FROM NOW())) AND (suratijin LIKE '%SIP%') AND (EXTRACT(YEAR FROM tgl_akhir_ijin) = EXTRACT(YEAR FROM NOW()))";
     $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -285,6 +263,7 @@ class Tools extends \yii\bootstrap\Widget
     $kategori = [];
     $cat = MReferensi::find()->select('nama_referensi')->where(['tipe_referensi' => '6'])->createCommand()
       ->queryAll();
+
     if (empty($cat)) {
       $kategori[] = '';
     } else {

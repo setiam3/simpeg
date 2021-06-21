@@ -1,12 +1,8 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
-use app\models\Paktaintegritas;
-use app\models\PaktaintegritasSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\{Paktaintegritas,PaktaintegritasSearch};
+use yii\web\{Controller,NotFoundHttpException};
 use yii\filters\VerbFilter;
 
 
@@ -48,7 +44,6 @@ class PaktaintegritasController extends Controller
         $model = new Paktaintegritas();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->jabatan = Yii::$app->request->post('jabatan');
             $model->tanggal = Yii::$app->request->post('tanggal');
             $model->save(false);
             if ($model->save() == false){
@@ -73,7 +68,6 @@ class PaktaintegritasController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->jabatan = Yii::$app->request->post('jabatan');
             $model->tanggal = Yii::$app->request->post('tanggal');
             $model->save();
             if ($model->save() == false){
@@ -112,7 +106,7 @@ class PaktaintegritasController extends Controller
     public function actionCetak($id)
     {
         $sql = "SELECT pi.jabatan, pi.tanggal, pi.ttd,mb.nip, mb.nama FROM pakta_integritas pi
-JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
+        JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
         $datas = \Yii::$app->db->createCommand($sql)->queryAll();
 
         $direktur = (new Paktaintegritas())->ttdDirektur();
@@ -128,6 +122,5 @@ JOIN m_biodata mb ON pi.id_data = mb.id_data WHERE pi.id = $id";
         $pdf->marginRight = 20;
         $pdf->cssInline = '.thead{border: 1px solid #0003;text-align: center;font-weight: bold;background:#eee;}.tbody{padding:2px;}#tb1 tr:nth-child(even) {background: #eee}#tb1 tr:nth-child(odd) {background: #FFF}';
         return $pdf->render();
-        // return $pdf->content;
     }
 }
