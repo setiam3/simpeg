@@ -15,7 +15,7 @@ return [
         'attribute'=>'id_data',
         'value' =>function($model){
             return (!empty($model->data->gelarDepan))?$model->data->gelarDepan:''.
-            $model->data->nama.
+            (!empty($model->data->nama))?$model->data->nama:''.
             (!empty($model->data->gelarBelakang))?$model->data->gelarBelakang:'';
         },
     ],
