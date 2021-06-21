@@ -35,7 +35,7 @@ class Paktaintegritas extends \yii\db\ActiveRecord
 
     public function ttdDirektur(){
         $sql = "SELECT mb.nama,k.ttd,mb.nip FROM ntl_kehadiran k JOIN m_biodata mb on k.peserta = mb.nama 
-        WHERE lower(k.jabatan)='direktur' and k.ttd is not null limit 1";
+        WHERE lower(k.jabatan)='direktur' and k.ttd is not null limit 1 ";
         return $ttdDIrektur = \Yii::$app->db->createCommand($sql)->queryAll();
     }
 }
