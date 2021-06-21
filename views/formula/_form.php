@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
             'pluginOptions' => [
             'allowClear' => true
         ],
-    ]);?>
+    ])->label('Jabatan/Pekerjaan');?>
     <div>
         <table id="table_id" class="display" style="width: 100%">
             <thead>
@@ -74,10 +74,10 @@ $format = <<< js
             dataSrc: 'data',
         },
         columns: [
-            { data: 'id' },
-            { data: 'kategory' },
-            { data: 'level' },
-            { data: 'uraian' },
+            { data: 'id','orderable':false, },
+            { data: 'kategory','orderable':false, },
+            { data: 'level','orderable':false, },
+            { data: 'uraian','orderable':false, },
             {
                 'searchable':false,
                 'orderable':false,
@@ -96,10 +96,6 @@ $format = <<< js
 
         }
         },3000);
-
-
-
-
 });
 js;
 }else{
@@ -110,7 +106,6 @@ $format = <<< js
     "columnDefs": [
         { "visible": false, "targets": groupColumn }
     ],
-    // "order": [[ groupColumn, 'asc' ]],
     "drawCallback": function ( settings ) {
         var api = this.api();
         var rows = api.rows( {page:'current'} ).nodes();
@@ -133,10 +128,10 @@ $format = <<< js
             dataSrc: 'data'
         },
         columns: [
-            { data: 'id' },
-            { data: 'kategory' },
-            { data: 'level' },
-            { data: 'uraian' },
+            { data: 'id','orderable':false, },
+            { data: 'kategory','orderable':false, },
+            { data: 'level','orderable':false, },
+            { data: 'uraian','orderable':false, },
             {
                 'searchable':false,
                 'orderable':false,
@@ -161,6 +156,12 @@ $style = <<< CSS
         text-transform: uppercase;
         font-weight: bold;
         font-size: 15px;
+    }
+    .odd{
+        background:white;
+    }
+    .even{
+        background:whitesmoke;
     }
 CSS;
 $this->registerCss($style);
