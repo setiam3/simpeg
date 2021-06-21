@@ -61,7 +61,7 @@ use yii\helpers\Html;
         <td style="padding-left: 10px;">Jabatan</td>
         <td style="padding-left: 10px;"><?php echo $model->data->riwayatjabatan->jabatan->nama_referensi ?></td>
         <td style="padding-left: 10px;">Masa Kerja</td>
-        <td style="padding-left: 10px;"><?php echo $model->data->kepang->penggolongangaji->masa_kerja ?></td>
+        <td style="padding-left: 10px;"><?php echo !empty($model->data->kepang->penggolongangaji->masa_kerja)?$model->data->kepang->penggolongangaji->masa_kerja:'' ?></td>
     </tr>
     <tr>
         <td style="padding-left: 10px;">Unit Kerja</td>
