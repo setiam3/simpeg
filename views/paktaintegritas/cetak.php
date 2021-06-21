@@ -147,7 +147,7 @@ use yii\helpers\{Html, ArrayHelper, Url};
         <td>
           <?php
            if(!empty($datas[0]['ttd'])){
-               echo "<img src='".$datas[0]['ttd']."' width='70px' style=''/>";
+               echo "<img src='".$datas[0]['ttd']."' width='200px' style=''/>";
            }else{
                echo "";
            }
