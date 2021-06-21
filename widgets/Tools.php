@@ -139,7 +139,7 @@ class Tools extends \yii\bootstrap\Widget
     return \app\models\MBiodata::find()
       ->select('nama_referensi,count("jenis_pegawai") as jumlah')
       ->joinWith('jenispegawai')
-      ->where(['tipe_referensi' => 1])
+      ->where(['tipe_referensi' => 1])->andWhere(['!=','jenis_pegawai',4])
       ->groupBy("nama_referensi,jenis_pegawai")
       ->createCommand()->queryAll();
   }

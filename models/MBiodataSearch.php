@@ -18,7 +18,7 @@ class MBiodataSearch extends MBiodata
     }
     public function search($params)
     {
-        $query = MBiodata::find()->where(['is_pegawai'=>'1']);
+        $query = MBiodata::find()->where(['is_pegawai'=>'1'])->andWhere(['!=','jenis_pegawai',4]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
