@@ -1,12 +1,14 @@
 <?php
-use yii\helpers\Html;
+use yii\helpers\{Html,ArrayHelper};
 use yii\widgets\ActiveForm;
+$exist=\app\models\Formula::find()->select('idpekerjaan')->all();
+$ar=ArrayHelper::toArray($exist);
 ?>
 
 <div class="ms-formula-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'idpekerjaan')->widget(\kartik\select2\Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\MsPekerjaan::find()->where(['status' => '1'])->all(),'id','nama_pekerjaan'),
+        'data' =>ArrayHelper::map(\app\models\MsPekerjaan::find()->where(['status' => '1'])->andWhere(['not in','id',$ar])->all(),'id','nama_pekerjaan'),
             'pluginOptions' => [
                 'allowClear' => false
             ],

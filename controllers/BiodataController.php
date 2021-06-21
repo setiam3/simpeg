@@ -5,6 +5,7 @@ use Yii;
 use app\models\Jatahcuti;
 use app\models\MBiodata;
 use app\models\MBiodataSearch;
+use app\models\Register;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -64,6 +65,7 @@ class BiodataController extends Controller
     public function actionCreate()
     {
         $model = new MBiodata();
+        $register=new Register();
         if ($model->load(Yii::$app->request->post())) {
             if (!empty(UploadedFile::getInstanceByName('MBiodata[foto]'))) {
                 $model->foto = Yii::$app->tools->upload('MBiodata[foto]', Yii::getAlias('@uploads') . $model->nip . '/nip_' . $model->nip);
@@ -72,6 +74,7 @@ class BiodataController extends Controller
                 $model->fotoNik = Yii::$app->tools->upload('MBiodata[fotoNik]', Yii::getAlias('@uploads') . $model->nip . '/nik_' . $model->nik);
             }
             $model->save();
+            $register->signup($model->id_data,$model->nip,$model->email);
             ($model->is_pegawai=='1')?$this->jatahcuti($model->id_data):'';
             return $this->redirect(['view', 'id' => $model->id_data]);
         }

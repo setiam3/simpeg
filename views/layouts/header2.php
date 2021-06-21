@@ -23,12 +23,12 @@ $this->registerJs('$("document").ready(function(){
    }
   })
  });
-setInterval(function(){
-    loadDoc()
-    notifgaji()
-    countpangkat()
-    countizin()
- },3000)
+// setInterval(function(){
+//     loadDoc()
+//     notifgaji()
+//     countpangkat()
+//     countizin()
+//  },3000)
  function notifgaji(){
      $.ajax({
          url:baseurl+"site/notifgaji/",
