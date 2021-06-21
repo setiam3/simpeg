@@ -149,7 +149,7 @@ use yii\helpers\{Html, ArrayHelper, Url};
         <td>
 <?php
             if(!empty($datas[0]['ttd'])){
-                echo "<img src='".Url::toRoute($datas[0]['ttd'])."' width='80px' style=''/>";
+                echo "<img src='".Url::toRoute($datas[0]['ttd'])."' width='8m0px' style=''/>";
             }else{
                 echo "";
             }
