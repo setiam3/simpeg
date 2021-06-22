@@ -237,9 +237,16 @@ class Tools extends \yii\bootstrap\Widget
       } else {
           $where_iddata = '';
       }
-      $sql = "SELECT concat(IFNULL(gelarDepan,''),nama,IFNULL(gelarBelakang,'')) as nama,tgl_akhir_ijin FROM riwayatpendidikan 
-LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
-WHERE (tgl_akhir_ijin IS NOT NULL) AND (MONTH (tgl_akhir_ijin) - 1 = MONTH	(NOW())) AND YEAR (tgl_akhir_ijin) = YEAR (NOW()) AND (suratijin LIKE '%STR%')";
+      $sql = "SELECT
+	concat(IFNULL(gelarDepan,\"\"),nama,IFNULL(gelarBelakang,\"\")) as nama,tgl_akhir_ijin
+FROM
+	riwayatpendidikan
+	LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
+WHERE
+	( tgl_akhir_ijin IS NOT NULL ) 
+	AND ( MONTH ( tgl_akhir_ijin ) BETWEEN MONTH (tgl_akhir_ijin ) - 1 AND MONTH (NOW() ) ) 
+	AND ( suratijin LIKE '%STR%' ) 
+	AND ( YEAR (tgl_akhir_ijin) ) =  YEAR (NOW())";
       $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -254,12 +261,16 @@ WHERE (tgl_akhir_ijin IS NOT NULL) AND (MONTH (tgl_akhir_ijin) - 1 = MONTH	(NOW(
     } else {
       $where_iddata = '';
     }
-    $sql = "SELECT concat(IFNULL(gelarDepan,''),nama,IFNULL(gelarBelakang,'')) as nama,tgl_akhir_ijin FROM riwayatpendidikan 
-LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
-WHERE (tgl_akhir_ijin IS NOT NULL) 
-AND (month(tgl_akhir_ijin) between MONTH (tgl_akhir_ijin) - 1 and MONTH (NOW())) 
-AND (suratijin LIKE '%SIP%') 
-AND (YEAR (tgl_akhir_ijin) = YEAR (NOW()))";
+    $sql = "SELECT
+	concat(IFNULL(gelarDepan,\"\"),nama,IFNULL(gelarBelakang,\"\")) as nama,tgl_akhir_ijin
+FROM
+	riwayatpendidikan
+	LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
+WHERE
+	( tgl_akhir_ijin IS NOT NULL ) 
+	AND ( MONTH ( tgl_akhir_ijin ) BETWEEN MONTH (tgl_akhir_ijin ) - 1 AND MONTH (NOW() ) ) 
+	AND ( suratijin LIKE '%SIP%' ) 
+	AND ( YEAR (tgl_akhir_ijin) ) =  YEAR (NOW())";
     $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
