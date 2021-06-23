@@ -94,13 +94,9 @@ class Tools extends \yii\bootstrap\Widget
 
   public function getUsia($date)
   {
-
     $datetime1 = new DateTime($date);
-
     $datetime2 = new DateTime();
-
     $diff = $datetime1->diff($datetime2);
-
     return $diff->y . " tahun " . $diff->m . " bulan " . $diff->d . " hari";
   }
   public function listIcon($typeicons)
@@ -115,19 +111,17 @@ class Tools extends \yii\bootstrap\Widget
     } else {
       $path = \Yii::getAlias('@webroot/css/icons.yml');
       $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($path));
-
       foreach ($array as $k => $value) {
         $icon[] = ['key' => $k, 'value' => $typeicons . $k];
       }
     }
-
     return $icon;
   }
 
 
   public function grafikPopulasi()
   { // L/P
-    return \app\models\MBiodata::find()
+    return MBiodata::find()
       ->select('nama_referensi,count("jenisKelamin") as jumlah')
       ->joinWith('sex')
       ->where(['tipe_referensi' => 8, 'status' => '1'])
@@ -136,7 +130,7 @@ class Tools extends \yii\bootstrap\Widget
   }
   public function gjenisPegawai()
   { //pns / non /
-    return \app\models\MBiodata::find()
+    return MBiodata::find()
       ->select('nama_referensi,count("jenis_pegawai") as jumlah')
       ->joinWith('jenispegawai')
       ->where(['tipe_referensi' => 1])->andWhere(['!=','jenis_pegawai',4])
@@ -237,16 +231,14 @@ class Tools extends \yii\bootstrap\Widget
       } else {
           $where_iddata = '';
       }
-      $sql = "SELECT
-	concat(IFNULL(gelarDepan,\"\"),nama,IFNULL(gelarBelakang,\"\")) as nama,tgl_akhir_ijin
-FROM
-	riwayatpendidikan
-	LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
-WHERE
-	( tgl_akhir_ijin IS NOT NULL ) 
-	AND ( MONTH ( tgl_akhir_ijin ) BETWEEN MONTH (tgl_akhir_ijin ) - 1 AND MONTH (NOW() ) ) 
-	AND ( suratijin LIKE '%STR%' ) 
-	AND ( YEAR (tgl_akhir_ijin) ) =  YEAR (NOW())";
+      $sql = "SELECT concat(IFNULL(gelarDepan,\"\"),nama,IFNULL(gelarBelakang,\"\")) as nama,tgl_akhir_ijin
+          FROM riwayatpendidikan
+	        LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
+          WHERE
+            ( tgl_akhir_ijin IS NOT NULL ) 
+            AND ( MONTH ( tgl_akhir_ijin ) BETWEEN MONTH (tgl_akhir_ijin ) - 1 AND MONTH (NOW() ) ) 
+            AND ( suratijin LIKE '%STR%' ) 
+            AND ( YEAR (tgl_akhir_ijin) ) =  YEAR (NOW())";
       $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -261,16 +253,14 @@ WHERE
     } else {
       $where_iddata = '';
     }
-    $sql = "SELECT
-	concat(IFNULL(gelarDepan,\"\"),nama,IFNULL(gelarBelakang,\"\")) as nama,tgl_akhir_ijin
-FROM
-	riwayatpendidikan
-	LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
-WHERE
-	( tgl_akhir_ijin IS NOT NULL ) 
-	AND ( MONTH ( tgl_akhir_ijin ) BETWEEN MONTH (tgl_akhir_ijin ) - 1 AND MONTH (NOW() ) ) 
-	AND ( suratijin LIKE '%SIP%' ) 
-	AND ( YEAR (tgl_akhir_ijin) ) =  YEAR (NOW())";
+    $sql = "SELECT concat(IFNULL(gelarDepan,\"\"),nama,IFNULL(gelarBelakang,\"\")) as nama,tgl_akhir_ijin
+          FROM riwayatpendidikan
+	        LEFT JOIN m_biodata ON riwayatpendidikan.id_data = m_biodata.id_data 
+          WHERE
+            ( tgl_akhir_ijin IS NOT NULL ) 
+            AND ( MONTH ( tgl_akhir_ijin ) BETWEEN MONTH (tgl_akhir_ijin ) - 1 AND MONTH (NOW() ) ) 
+            AND ( suratijin LIKE '%SIP%' ) 
+            AND ( YEAR (tgl_akhir_ijin) ) =  YEAR (NOW())";
     $count=\Yii::$app->db->createCommand('select count(*) from ('.$sql.')x')->queryScalar();
     $dataprovider =  new SqlDataProvider(['sql'=>$sql,'totalCount'=>$count]);
     $dataprovider->pagination->pageSize=10;
@@ -281,7 +271,6 @@ WHERE
     $kategori = [];
     $cat = MReferensi::find()->select('nama_referensi')->where(['tipe_referensi' => '6'])->createCommand()
       ->queryAll();
-
     if (empty($cat)) {
       $kategori[] = '';
     } else {
